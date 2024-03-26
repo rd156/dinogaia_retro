@@ -1,0 +1,19 @@
+.header {
+    background-size: cover;
+    background-position: center;
+    background-color: #413633bd;
+    color: #7B7B7B;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Minimum */
+    margin: 5vh 0;
+    min-height: 5vh;
+}
+
+.menu_center {
+    justify-content: center;
+    align-items: center;
+}
