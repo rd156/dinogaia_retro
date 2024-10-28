@@ -22,8 +22,10 @@ export default function Header() {
     "Shop":"#",
     "Quete":"#",
     "Casino":"#",
+    "Craft":"#",
     "Metier":"#",
     "Banque":"#",
+    "Autre":"#",
   }
 
   const menuVisitorItems = {
@@ -39,16 +41,12 @@ export default function Header() {
       try {
         const payload = token.split('.')[1];
         const decoded = JSON.parse(window.atob(payload));
-        console.log("token", token);
-        console.log("decoded payload", decoded);
         const now = Date.now() / 1000;
         if (decoded.exp < now) {
           return false;
         }
-    
         return true;
       } catch (error) {
-        console.error("Error decoding token", error);
         return false
       }
     };
@@ -58,6 +56,7 @@ export default function Header() {
       setIsConnect(true);
     } else {
       setIsConnect(false);
+      localStorage.removeItem('token');
     }
     const handleStorageChange = () => {
       const updatedToken = localStorage.getItem('token');
@@ -75,88 +74,86 @@ export default function Header() {
   }, []);
   return (
     <header className={styles.header}>
-      <nav className='menu_center'>
       <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <p className="font-bold text-inherit">DinoTerra</p>
-        </NavbarBrand>
-      </NavbarContent>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarContent>
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
+          <NavbarBrand>
+            <p className="font-bold text-inherit">Dino Terra</p>
+          </NavbarBrand>
+        </NavbarContent>
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          {
+            isConnect ? (
+              Object.entries(menuConnectItems).map(([key, value], index) => (
+                <NavbarItem key={index}>
+                  <Link color="foreground" href={value}>
+                    {key}
+                  </Link>
+                </NavbarItem>
+              ))
+            ) : (
+              Object.entries(menuVisitorItems).map(([key, value], index) => (
+                <NavbarItem key={index}>
+                  <Link color="foreground" href={value}>
+                    {key}
+                  </Link>
+                </NavbarItem>
+              ))
+            )
+          }
+        </NavbarContent>
         {
-          isConnect ? (
-            Object.entries(menuConnectItems).map(([key, value], index) => (
-              <NavbarItem key={index}>
-                <Link color="foreground" href={value}>
+            isConnect ? (
+              <NavbarContent justify="end">
+                <NavbarItem className="hidden lg:flex">
+                  <Link href="#">Account</Link>
+                </NavbarItem>
+              </NavbarContent>
+            ) : (
+              <NavbarContent justify="end">
+                <LoginForm/>
+              </NavbarContent>
+            )
+          }
+        <NavbarMenu>
+        {
+            isConnect ? (
+              Object.entries(menuConnectItems).map(([key, value], index) => (
+                <NavbarMenuItem key={`${key}-${index}`}>
+                <Link
+                  color={
+                    index === 2 ? "primary" : index === menuConnectItems.length - 1 ? "danger" : "foreground"
+                  }
+                  className="w-full"
+                  href="#"
+                  size="lg"
+                >
                   {key}
                 </Link>
-              </NavbarItem>
-            ))
-          ) : (
-            Object.entries(menuVisitorItems).map(([key, value], index) => (
-              <NavbarItem key={index}>
-                <Link color="foreground" href={value}>
+                </NavbarMenuItem>
+              ))
+            ) : (
+              Object.entries(menuVisitorItems).map(([key, value], index) => (
+                <NavbarMenuItem key={`${key}-${index}`}>
+                <Link
+                  color={
+                    index === 2 ? "primary" : index === menuVisitorItems.length - 1 ? "danger" : "foreground"
+                  }
+                  className="w-full"
+                  href="#"
+                  size="lg"
+                >
                   {key}
                 </Link>
-              </NavbarItem>
-            ))
-          )
-        }
-      </NavbarContent>
-      {
-          isConnect ? (
-            <NavbarContent justify="end">
-              <NavbarItem className="hidden lg:flex">
-                <Link href="#">Account</Link>
-              </NavbarItem>
-            </NavbarContent>
-          ) : (
-            <NavbarContent justify="end">
-              <LoginForm/>
-            </NavbarContent>
-          )
-        }
-      <NavbarMenu>
-      {
-          isConnect ? (
-            Object.entries(menuConnectItems).map(([key, value], index) => (
-              <NavbarMenuItem key={`${key}-${index}`}>
-              <Link
-                color={
-                  index === 2 ? "primary" : index === menuConnectItems.length - 1 ? "danger" : "foreground"
-                }
-                className="w-full"
-                href="#"
-                size="lg"
-              >
-                {key}
-              </Link>
-              </NavbarMenuItem>
-            ))
-          ) : (
-            Object.entries(menuVisitorItems).map(([key, value], index) => (
-              <NavbarMenuItem key={`${key}-${index}`}>
-              <Link
-                color={
-                  index === 2 ? "primary" : index === menuVisitorItems.length - 1 ? "danger" : "foreground"
-                }
-                className="w-full"
-                href="#"
-                size="lg"
-              >
-                {key}
-              </Link>
-              </NavbarMenuItem>
-            ))
-          )
-        }
-      </NavbarMenu>
-    </Navbar>
-      </nav>
+                </NavbarMenuItem>
+              ))
+            )
+          }
+        </NavbarMenu>
+      </Navbar>
     </header>
   );
 }

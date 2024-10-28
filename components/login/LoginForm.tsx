@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {NextUIProvider} from "@nextui-org/react";
+import {API_URL} from '../../config/config';
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
@@ -12,9 +13,7 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        console.log("test")
-        console.log(username)
-        const response = await fetch('http://127.0.0.1:8080/api/token/', {
+        const response = await fetch(API_URL + '/account-auth/token', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -22,13 +21,11 @@ export default function LoginForm() {
           body: JSON.stringify({ username, password }),
         });
   
-        console.log (response)
         if (!response.ok) {
           throw new Error('Échec de la connexion');
         } 
   
         const data = await response.json();
-        console.log(data.access)
         localStorage.setItem('token', data.access);
         window.location.reload();
       } catch (error) {

@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {NextUIProvider} from "@nextui-org/react";
+import {API_URL} from '../../config/config';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -13,9 +14,8 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch('http://127.0.0.1:8080/api/token/', { // Assurez-vous que cette URL est correcte pour votre backend
+      const response = await fetch(API_URL+'/account-auth/token', { // Assurez-vous que cette URL est correcte pour votre backend
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

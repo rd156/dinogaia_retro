@@ -1,8 +1,8 @@
 "use client"
 
-// test/test.js
 
 import React, { useEffect, useState } from 'react';
+import {API_URL} from '../../../config/config';
 
 const Test = () => {
   const [data, setData] = useState('');
@@ -16,7 +16,7 @@ const Test = () => {
       }
   
       try {
-        const res = await fetch('http://localhost:8080/api/test', {
+        const res = await fetch(API_URL+'/api/test', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
