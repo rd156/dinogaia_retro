@@ -65,18 +65,18 @@ export default function Home() {
       <div className="content_top" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', alignItems: 'start'}}>
         {topDinos.map((dino) => (
           <Link key={dino.id} href={'/dino'} passHref>
-          <div key={dino.id} style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
-            <img src={dino.favory ? "avatar/"+ dino.avatar + ".png" : "avatar/"+ dino.species + "/default.png"} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
-            <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
-              <h3>{dino.name}</h3>
-              <p>Favori : {dino.favory ? 'Oui' : 'Non'}</p>
-              <p>Espèce : {dino.species}</p>
-              <p>Niveau : {dino.level.lvl}</p>
-              <p>XP : {dino.xp}</p>
-              <p>État : {dino.disease}, {dino.injury}</p>
-              <p>Émeraudes : {dino.emeraude}</p>
+            <div key={dino.id} style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
+              <img src={dino.avatar ? "avatar/"+ dino.avatar + ".webp" : "avatar/"+ dino.species + "/default.webp"} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
+              <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
+                <h3>{dino.name}</h3>
+                <p>Favori : {dino.favory ? 'Oui' : 'Non'}</p>
+                <p>Espèce : {dino.species}</p>
+                <p>Niveau : {dino.level.lvl}</p>
+                <p>XP : {dino.xp}</p>
+                <p>État : {dino.disease}, {dino.injury}</p>
+                <p>Émeraudes : {dino.emeraude}</p>
+              </div>
             </div>
-          </div>
           </Link>
         ))}
       </div>

@@ -20,12 +20,12 @@ export default function Home() {
   const { language, toggleLanguage } = useLanguage();
 
   const imageNames = {
-    "TR/1.webp": "Tyrannosaure",
-    "VE/1.webp": "Vélociraptor",
-    "PT/1.webp": "Ptéranodon",
-    "DP/1.webp": "Dilophosaure",
-    "SM/1.webp": "Smilodon",
-    "MG/1.webp": "Megalodon"
+    "TR/1/1.webp": "Tyrannosaure",
+    "VE/1/1.webp": "Vélociraptor",
+    "PT/1/1.webp": "Ptéranodon",
+    "DP/1/1.webp": "Dilophosaure",
+    "SM/1/1.webp": "Smilodon",
+    "MG/1/1.webp": "Megalodon"
   } as const;
 
   const [translations, setTranslations] = useState({});
