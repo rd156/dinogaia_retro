@@ -13,6 +13,9 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
+        console.log(password)
+        console.log(username)
+        console.log("URL: " + API_URL)
         const response = await fetch(API_URL + '/account-auth/token', {
           method: 'POST',
           headers: {
@@ -21,11 +24,13 @@ export default function LoginForm() {
           body: JSON.stringify({ username, password }),
         });
   
+        console.log (response)
         if (!response.ok) {
           throw new Error('Échec de la connexion');
         } 
   
         const data = await response.json();
+        console.log(data.access)
         localStorage.setItem('token', data.access);
         window.location.reload();
       } catch (error) {

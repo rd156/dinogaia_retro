@@ -1,11 +1,13 @@
 "use client"
 
+import { useLanguage } from '@/context/LanguageContext';
+import { translate } from '@/utils/translate';
 import Image from "next/image";
 import type { Metadata } from "next";
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {API_URL} from '../config/config';
+import {API_URL} from '../../config/config';
 import Link from 'next/link';
 import "./page.css";
 
@@ -16,6 +18,8 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [topDinos, setTopDinos] = useState<any[]>([]);
   const [bottomDinos, setBottomDinos] = useState<any[]>([]);
+  const { language } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
 
   useEffect(() => {

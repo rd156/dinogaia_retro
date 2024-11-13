@@ -1,0 +1,7 @@
+{
+    "CREATE_DINO_TITLE": "Create a new dino",
+    "SUBMIT_BUTTON_CREATION": "Create",
+    "DINO_CREATION_NAME":"Dino's name",
+    "ERR_MISSING_IMAGE": "Please select an image for your dino.",
+    "ERR_CREATION_FAILED": "Dino creation failed. Please try again."
+}
