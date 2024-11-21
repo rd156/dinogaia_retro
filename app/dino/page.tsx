@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from '@/context/LanguageContext';
+import { translate, Loadtranslate} from '@/utils/translate';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { API_URL } from '../../config/config';
@@ -10,7 +11,8 @@ export default function Home() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { language } = useLanguage();
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
   // Fonction pour basculer l'état favori
   const handleFavoriteToggle = async (dinoId: number) => {
@@ -70,6 +72,13 @@ export default function Home() {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
 
   // Filtrer top et bottom dinos
   const topDinos = data.slice(0, 6);
@@ -96,11 +105,11 @@ export default function Home() {
                   </span>
                   {dino.name}
                 </h3>
-                <p>Espèce : {dino.species}</p>
-                <p>Niveau : {dino.level.lvl}</p>
-                <p>XP : {dino.xp}</p>
-                <p>État : {dino.disease}, {dino.injury}</p>
-                <p>Émeraudes : {dino.emeraude}</p>
+                <p>{translations.dino?.SPECIE} : {dino.species}</p>
+                <p>{translations.dino?.LEVEL} : {dino.level.lvl}</p>
+                <p>{translations.dino?.XP} : {dino.xp}</p>
+                <p>{translations.dino?.STATES} : {dino.disease}, {dino.injury}</p>
+                <p>{translations.dino?.EMERALD} : {dino.emeraude}</p>
               </div>
             </div>
           </Link>
@@ -125,11 +134,11 @@ export default function Home() {
                   </span>
                   {dino.name}
                 </h3>
-                <p>Espèce : {dino.species}</p>
-                <p>Niveau : {dino.level.lvl}</p>
-                <p>XP : {dino.xp}</p>
-                <p>État : {dino.disease}, {dino.injury}</p>
-                <p>Émeraudes : {dino.emeraude}</p>
+                <p>{translations.dino?.SPECIE} : {dino.species}</p>
+                <p>{translations.dino?.LEVEL} : {dino.level.lvl}</p>
+                <p>{translations.dino?.XP} : {dino.xp}</p>
+                <p>{translations.dino?.STATES} : {dino.disease}, {dino.injury}</p>
+                <p>{translations.dino?.EMERALD} : {dino.emeraude}</p>
               </div>
             </div>
           </Link>

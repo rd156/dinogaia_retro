@@ -3,5 +3,10 @@
     "SUBMIT_BUTTON_CREATION": "Crée",
     "DINO_CREATION_NAME":"Nom du dino",
     "ERR_MISSING_IMAGE": "Veuillez sélectionner une image pour votre dino.",
-    "ERR_CREATION_FAILED": "Dino creation failed. Please try again."
-  }
+    "ERR_CREATION_FAILED": "Dino creation failed. Please try again.",
+    "SPECIE":"Espèce",
+    "LEVEL":"Niveau",
+    "XP":"XP",
+    "STATES":"État",
+    "EMERALD":"Émeraudes"
+}

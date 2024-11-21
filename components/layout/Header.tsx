@@ -1,5 +1,7 @@
 "use client"
 import styles from './Header.module.css';
+import { useLanguage } from '@/context/LanguageContext';
+import { translate, Loadtranslate} from '@/utils/translate';
 import React from "react";
 import { useState, useEffect } from 'react';
 import { NextUIProvider, Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Input, NavbarItem, Link, Button, Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/react";
@@ -9,30 +11,35 @@ import LoginForm from '@/components/login/LoginForm';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isConnect, setIsConnect] = React.useState(false);
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
-  const menuItems = [
-    "Mon Dino",
-    "Dashboard",
-    "Log Out",
-  ];
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ['menu', 'global']);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
 
-  const menuConnectItems = {
-    "Mon Dino":"#",
-    "Ma grotte":"#",
-    "Shop":"#",
-    "Quete":"#",
-    "Casino":"#",
-    "Craft":"#",
-    "Metier":"#",
-    "Banque":"#",
-    "Autre":"#",
-  }
-
-  const menuVisitorItems = {
-    "titi":"#",
-    "toto":"#",
-    "tutu":"#",
-  }
+    // Génération dynamique des éléments du menu avec traductions
+    const menuConnectItems = translations && translations.menu ? {
+      [translations.menu['MENU_MY_DINO']]: "/dino",
+      [translations.menu['MENU_MY_CAVE']]: "#",
+      [translations.menu['MENU_SHOP']]: "#",
+      [translations.menu['MENU_QUEST']]: "#",
+      [translations.menu['MENU_CASINO']]: "#",
+      [translations.menu['MENU_CRAFT']]: "#",
+      [translations.menu['MENU_JOB']]: "#",
+      [translations.menu['MENU_BANK']]: "#",
+      [translations.menu['MENU_OTHER']]: "#",
+    } : {};
+  
+    const menuVisitorItems = translations && translations.global ? {
+      [translations.global['MENU_TITI'] || "titi"]: "#",
+      [translations.global['MENU_TOTO'] || "toto"]: "#",
+      [translations.global['MENU_TUTU'] || "tutu"]: "#",
+    } : {};
   useEffect(() => {
     const isTokenValid = (token) => {
       if (!token) {
@@ -72,6 +79,7 @@ export default function Header() {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
   return (
     <header className={styles.header}>
       <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -109,7 +117,34 @@ export default function Header() {
             isConnect ? (
               <NavbarContent justify="end">
                 <NavbarItem className="hidden lg:flex">
-                  <Link href="#">Account</Link>
+                  <Link href="#">
+                  <button
+                    onClick={() => toggleLanguage('en')}
+                    style={{
+                      padding: '10px 20px',
+                      cursor: 'pointer',
+                      backgroundColor: language === 'en' ? '#0070f3' : '#ccc',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    English
+                  </button>
+                  <button
+                    onClick={() => toggleLanguage('fr')}
+                    style={{
+                      padding: '10px 20px',
+                      cursor: 'pointer',
+                      backgroundColor: language === 'fr' ? '#0070f3' : '#ccc',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    Francais
+                  </button>
+                  </Link>
                 </NavbarItem>
               </NavbarContent>
             ) : (

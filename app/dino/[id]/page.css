@@ -1,0 +1,26 @@
+.content
+{
+    height: 100vh;
+    width: 100%;
+}
+
+.content_top
+{
+    min-height: 100%;
+    padding-top: 20vh;
+    height: 85vh;
+    padding-left: 10vh;
+    padding-right: 10vh;
+    width: 100%;
+}
+
+.content_bottom {
+    min-height: 100%;
+    width: 100%;
+    padding-top: 15vh;
+    height: 85vh;
+    padding-left: 10vh;
+    background-image: url('/image-medium-1@2x.png');
+    background-size: cover;
+    background-position: center;
+}
