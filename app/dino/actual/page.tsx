@@ -33,7 +33,7 @@ const DinoPage: React.FC = () => {
       const dinoId = localStorage.getItem("dinoId");
       try {
 
-        const response = await fetch(`${API_URL}/dino/${id}`, {
+        const response = await fetch(`${API_URL}/dino/${dinoId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

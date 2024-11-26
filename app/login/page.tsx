@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {NextUIProvider} from "@nextui-org/react";
-import {API_URL} from '../../config/config';
+import {API_URL} from '@/config/config';
 
 export default function Login() {
   const [username, setUsername] = useState('');

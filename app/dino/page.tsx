@@ -4,7 +4,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { translate, Loadtranslate} from '@/utils/translate';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { API_URL } from '../../config/config';
+import { API_URL } from '@/config/config';
 import "./page.css";
 
 export default function Home() {
@@ -88,15 +88,23 @@ export default function Home() {
     <main className="content">
       <div className="content_top" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', alignItems: 'start'}}>
         {topDinos.map((dino) => (
-          <Link key={dino.id} href={'/dino/'+dino.id} passHref>
+          <Link 
+            key={dino.id} 
+            href={'/dino/'+dino.id}
+            passHref
+            onClick={(e) => {
+              localStorage.setItem('dinoId', dino.id);
+              localStorage.setItem('selectedDino', JSON.stringify(dino));
+            }}
+          >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
               <img src={dino.avatar ? `avatar/${dino.avatar}.webp` : `avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
               <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
                 <h3>
                   <span 
                     onClick={(e) => {
-                      e.preventDefault(); // Empêche la navigation lors du clic sur l'étoile
                       handleFavoriteToggle(dino.id);
+                      e.preventDefault();
                     }}
                     style={{ cursor: 'pointer', color: dino.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
                     title="Cliquez pour basculer le favori"
@@ -117,15 +125,24 @@ export default function Home() {
       </div>
       <div className="content_bottom" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', alignItems: 'start'}}>
         {bottomDinos.map((dino) => (
-          <Link key={dino.id} href={'/dino/'+dino.id} passHref>
+          <Link 
+            key={dino.id} 
+            href={'/dino/'+dino.id}
+            passHref
+            onClick={(e) => {
+              localStorage.setItem('dinoId', dino.id);
+              localStorage.setItem('selectedDino', JSON.stringify(dino));
+            }}
+          >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
               <img src={dino.avatar ? `avatar/${dino.avatar}.webp` : `avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
               <div style={{ display: 'flex', flexDirection: 'column', color: 'black' }}>
                 <h3>
                   <span 
                     onClick={(e) => {
-                      e.preventDefault();
+                      localStorage.setItem('selectedDino', JSON.stringify(dino));
                       handleFavoriteToggle(dino.id);
+                      e.preventDefault();
                     }}
                     style={{ cursor: 'pointer', color: dino.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
                     title="Cliquez pour basculer le favori"
