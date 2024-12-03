@@ -115,45 +115,48 @@ const DinoPage: React.FC = () => {
             <div className="dino-info-right">
               <div className="stat-right-block">
                 <div className="stat-item">
-                  <p>Niveau <strong>{data.lvl}</strong></p>
+                  <p>Niveau: <strong>{data.level?.lvl || "N/A"}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>XP <strong>{data.xp}</strong></p>
+                  <p>XP: <strong>{data.xp}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Emeraude <strong>{data.emeraude}</strong></p>
-                </div>
-              </div>
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>Agilite <strong>{data.agilite}</strong></p>
+                  <p>Emeraude: <strong>{data.emeraude}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Intelligence <strong>{data.intelligence}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>Force <strong>{data.force}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>Endurance <strong>{data.endurance}</strong></p>
+                  <p>Luck: <strong>{data.luck}</strong></p>
                 </div>
               </div>
             </div>
             <div className="dino-info-right">
               <div className="stat-right-block">
                 <div className="stat-item">
-                  <p>Taille <strong>{data.taille}</strong></p>
+                  <p>Agilite: <strong>{data.agilite}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Poids <strong>{data.poids}</strong></p>
+                  <p>Intelligence: <strong>{data.intelligence}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Blessure <strong>{data.injury}</strong></p>
+                  <p>Force: <strong>{data.force}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Maladie <strong>{data.disease}</strong></p>
+                  <p>Endurance: <strong>{data.endurance}</strong></p>
+                </div>
+              </div>
+            </div>
+            <div className="dino-info-right">
+              <div className="stat-right-block">
+                <div className="stat-item">
+                  <p>Taille: <strong>{data.taille}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Poids: <strong>{data.poids}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Blessure: <strong>{data.injury}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Maladie: <strong>{data.disease}</strong></p>
                 </div>
               </div>
             </div>
