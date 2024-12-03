@@ -98,7 +98,7 @@ export default function Home() {
             }}
           >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
-              <img src={dino.avatar ? `avatar/${dino.avatar}.webp` : `avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
+              <img src={dino.avatar ? `/avatar/${dino.avatar}.webp` : `/avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
               <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
                 <h3>
                   <span 

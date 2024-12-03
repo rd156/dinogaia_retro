@@ -23,6 +23,31 @@ const DinoPage: React.FC = () => {
     setDinoId(value);
   };
 
+  const handleFavoriteToggle = async (dinoId: number) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      // Appel API pour basculer l'état de favori
+      const response = await fetch(`${API_URL}/dino/favory/${dinoId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Erreur lors de la mise à jour du favori.");
+
+      // Mise à jour locale de l'état favori du dino
+      setData((prevDino) => ({
+        ...prevDino,
+        favory: !prevDino.favory,
+      }));
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du favori:", error);
+    }
+  };
+  
   useEffect(() => {
     updateDinoId();
     const fetchData = async () => {
@@ -33,7 +58,7 @@ const DinoPage: React.FC = () => {
       const dinoId = localStorage.getItem("dinoId");
       try {
 
-        const response = await fetch(`${API_URL}/dino/${id}`, {
+        const response = await fetch(`${API_URL}/dino/${dinoId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -67,14 +92,116 @@ const DinoPage: React.FC = () => {
   }, [language]);
 
   return (
-    <main className="content">
-      <div className="content_top">
-        <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
-          <p>Data Name = {data.name}</p>
+    <div className="content">
+      <div className='dino-container'>
+        <div className="dino-card">
+          <h1 className="dino-name">
+            <span
+              onClick={(e) => {
+                handleFavoriteToggle(data.id);
+                e.preventDefault();
+              }}
+              style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
+              title="Cliquez pour basculer le favori"
+            >
+              {data.favory ? '★' : '☆'}
+            </span>
+            {data.name}
+          </h1>
+          <div className="dino-header">
+            <div className="dino-info-right">
+              <img src={`/avatar/${data.avatar}.webp`} alt={`Image de profil${data.name}`} className="dino-profile-image" />
+            </div>
+            <div className="dino-info-right">
+              <div className="stat-right-block">
+                <div className="stat-item">
+                  <p>Niveau <strong>{data.lvl}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>XP <strong>{data.xp}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Emeraude <strong>{data.emeraude}</strong></p>
+                </div>
+              </div>
+            </div>
+            <div className="dino-info-right">
+              <div className="stat-right-block">
+                <div className="stat-item">
+                  <p>Agilite <strong>{data.agilite}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Intelligence <strong>{data.intelligence}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Force <strong>{data.force}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Endurance <strong>{data.endurance}</strong></p>
+                </div>
+              </div>
+            </div>
+            <div className="dino-info-right">
+              <div className="stat-right-block">
+                <div className="stat-item">
+                  <p>Taille <strong>{data.taille}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Poids <strong>{data.poids}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Blessure <strong>{data.injury}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>Maladie <strong>{data.disease}</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="dino-stats">
+              <div className="stat-block">
+                <h2>Vie</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill life-bar"
+                    style={{ width: `${(data.pv / data.pv_max) * 100}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.pv}/{data.pv_max}
+                </p>
+              </div>
+
+              <div className="stat-block">
+                <h2>PM</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill pm-bar"
+                    style={{ width: `${(data.pm / data.pm_max) * 100}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.pm}/{data.pm_max}
+                </p>
+              </div>
+              <div className="stat-block">
+                <h2>Fatigue</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill fatigue-bar"
+                    style={{ width: `${data.fatigue}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.fatigue}/100
+                </p>
+              </div>
+            </div>
         </div>
       </div>
-    </main>
+    </div>
   );
+
 };
 
 export default DinoPage;

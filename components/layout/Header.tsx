@@ -24,7 +24,7 @@ export default function Header() {
 
     // Génération dynamique des éléments du menu avec traductions
     const menuConnectItems = translations && translations.menu ? {
-      [translations.menu['MENU_MY_DINO']]: "/dino",
+      [translations.menu['MENU_MY_DINO']]: "/dino/actual",
       [translations.menu['MENU_MY_CAVE']]: "#",
       [translations.menu['MENU_SHOP']]: "#",
       [translations.menu['MENU_QUEST']]: "#",
