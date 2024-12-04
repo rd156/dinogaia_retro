@@ -24,7 +24,7 @@ const DinoPage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["hunt", "global"]);
+      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
@@ -58,6 +58,7 @@ const DinoPage: React.FC = () => {
         });
 
         if (!huntResponse.ok) {
+          setErrorMessage(translations.hunt?.ERR_LOAD_HUNT);
           throw new Error("Erreur lors de la récupération de la chasse");
         }
 
@@ -192,7 +193,7 @@ const DinoPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={`weapon/none.webp`}
+                  src={`item/none.webp`}
                   alt="Image de l'arme"
                   style={{
                     width: "100px",
@@ -220,7 +221,7 @@ const DinoPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={`weapon/${weapon.item_name}.webp`}
+                  src={`item/${weapon.item_name}.webp`}
                   alt="Image de l'arme"
                   style={{
                     width: "100px",

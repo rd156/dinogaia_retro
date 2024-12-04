@@ -4,6 +4,7 @@
     "DINO_CREATION_NAME":"Nom du dino",
     "ERR_MISSING_IMAGE": "Veuillez sélectionner une image pour votre dino.",
     "ERR_CREATION_FAILED": "Dino creation failed. Please try again.",
+    "CREATED": "Dino créé avec succès (Nom : [Name], Espèce : [Specie]})",
     "SPECIE":"Espèce",
     "LEVEL":"Niveau",
     "XP":"XP",

@@ -76,52 +76,43 @@ export default function Home() {
       });
   
       if (!response.ok) {
-        throw new Error("Erreur lors de la création du dino.");
+        setErrorMessage(translations.dino?.ERR_CREATION_FAILED);
       }
   
       const result = await response.json();
       if (typeof result === 'string') {
         setErrorMessage(result);
       } else {
-        setMessage(`Dino créé avec succès (Nom : ${dinoName}, Espèce : ${selectedImage})`)
+        const str = translations.dino?.CREATED
+        setMessage(str.replace("[Name]", dinoName).replace("[Specie]", selectedImage))
       }
     } catch (error) {
-      console.error("Erreur lors de la création du dino:", error);
+      setErrorMessage(translations.dino?.ERR_CREATION_FAILED);
     }
   };
 
   return (
-<div 
-      className="page-container" 
+    <div 
+      className="content" 
       style={{
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh',
+        height: '100vh',
         width: '100%',
       }}
     >
-      <div 
-        className="form-container"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '20px',
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', // Transparence
-          borderRadius: '8px',
-          width: '80%', // Largeur ajustée à 80% de la page
-          maxWidth: '1800px', // Limite maximum de largeur pour les grands écrans
-          height: '70vh', // Hauteur fixée à 50% de l'écran
-        }}
-      >   
-        <div style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'}}>
+      {errorMessage && (
+        <p className="alert-red">{errorMessage}</p>
+      )}
+      {message && (
+        <p className="alert-green">{message}</p>
+      )}
+      <div className="dino-create">
           <h2 style={{fontSize: '2.5rem', padding: '20px', color: '#333', marginBottom: '20px', fontWeight: 'bold', textAlign: 'center'}}>
             {translations.dino?.CREATE_DINO_TITLE}
           </h2>
-          </div>
           <form onSubmit={handleSubmit} style={{ padding: '100px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <div style={{ display: 'flex', gap: '20px', marginBottom: '50px' }}>
               {Object.keys(imageNames).map((imagePath, index) => (
@@ -175,12 +166,6 @@ export default function Home() {
             >
               {translations.dino?.SUBMIT_BUTTON_CREATION}
             </button>
-            {errorMessage && (
-              <p style={{ backgroundColor: 'red', color: 'black', marginTop: '15px' }}>{errorMessage}</p>
-            )}
-            {message && (
-              <p style={{ backgroundColor: 'green', color: 'black', marginTop: '15px' }}>{message}</p>
-            )}
           </form>
       </div>
     </div>
