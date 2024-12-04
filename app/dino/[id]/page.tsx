@@ -9,19 +9,13 @@ import "./page.css";
 
 const DinoPage: React.FC = () => {
   const params = useParams();
-  const id = params?.id;
-  const [dinoId, setDinoId] = useState<string | null>(null);
+  const dinoId = params?.id;
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
 
-
-  const updateDinoId = () => {
-    const value = localStorage.getItem("dinoId");
-    setDinoId(value);
-  };
 
   const handleFavoriteToggle = async (dinoId: number) => {
     try {
@@ -49,13 +43,11 @@ const DinoPage: React.FC = () => {
   };
   
   useEffect(() => {
-    updateDinoId();
     const fetchData = async () => {
       setLoading(true);
       setError(null);
       
       const token = localStorage.getItem('token');
-      const dinoId = localStorage.getItem("dinoId");
       try {
 
         const response = await fetch(`${API_URL}/dino/${dinoId}`, {
