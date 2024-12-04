@@ -18,6 +18,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
   const imageNames = {
     "TR/1/1.webp": "Tyrannosaure",
@@ -28,7 +29,6 @@ export default function Home() {
     "MG/1/1.webp": "Megalodon"
   } as const;
 
-  const [translations, setTranslations] = useState({});
   console.log("language:" + language)
 
   useEffect(() => {

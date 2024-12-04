@@ -12,9 +12,18 @@ const DinoPage: React.FC = () => {
   const dinoId = params?.id;
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
+
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
 
 
   const handleFavoriteToggle = async (dinoId: number) => {
@@ -30,23 +39,22 @@ const DinoPage: React.FC = () => {
         },
       });
 
-      if (!response.ok) throw new Error("Erreur lors de la mise à jour du favori.");
-
+      if (!response.ok) {
+        setErrorMessage(translations.dino?.ERR_FAVORY_FAILED);
+      }
       // Mise à jour locale de l'état favori du dino
       setData((prevDino) => ({
         ...prevDino,
         favory: !prevDino.favory,
       }));
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du favori:", error);
+      setErrorMessage(translations.dino?.ERR_FAVORY_FAILED);
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
-      
       const token = localStorage.getItem('token');
       try {
 
@@ -59,14 +67,14 @@ const DinoPage: React.FC = () => {
         });
         
         if (!response.ok) {
-          throw new Error('Erreur lors de la récupération du dino');
+          setErrorMessage(translations.dino?.ERR_LOAD_FAILED);
         }
 
         const fetchedData = await response.json();
         console.log(fetchedData)
         setData(fetchedData);
       } catch (error) {
-        setError('Impossible de récupérer le dino. Veuillez réessayer plus tard.');
+        setErrorMessage(translations.dino?.ERR_LOAD_FAILED);
       } finally {
         setLoading(false);
       }
@@ -75,26 +83,18 @@ const DinoPage: React.FC = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
-      setTranslations(loadedTranslations);
-    };
-    fetchTranslations();
-  }, [language]);
-
   return (
     <div className="content">
       <div className='dino-container'>
         <div className="dino-card">
           <h1 className="dino-name">
-            <span
+            <span 
               onClick={(e) => {
                 handleFavoriteToggle(data.id);
                 e.preventDefault();
               }}
               style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
-              title="Cliquez pour basculer le favori"
+              title={translations.dino?.ADD_FAVORY}
             >
               {data.favory ? '★' : '☆'}
             </span>
@@ -107,55 +107,55 @@ const DinoPage: React.FC = () => {
             <div className="dino-info-right">
               <div className="stat-right-block">
                 <div className="stat-item">
-                  <p>Niveau: <strong>{data.level?.lvl || "N/A"}</strong></p>
+                  <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>XP: <strong>{data.xp}</strong></p>
+                  <p>{translations.dino?.XP}: <strong>{data.xp}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Emeraude: <strong>{data.emeraude}</strong></p>
+                  <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Luck: <strong>{data.luck}</strong></p>
-                </div>
-              </div>
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>Agilite <strong>{data.agilite}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>Intelligence <strong>{data.intelligence}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>Force <strong>{data.force}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>Endurance <strong>{data.endurance}</strong></p>
+                  <p>{translations.dino?.LUCK}: <strong>{data.luck}</strong></p>
                 </div>
               </div>
             </div>
             <div className="dino-info-right">
               <div className="stat-right-block">
                 <div className="stat-item">
-                  <p>Taille <strong>{data.taille}</strong></p>
+                  <p>{translations.dino?.AGILITE}: <strong>{data.agilite}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Poids <strong>{data.poids}</strong></p>
+                  <p>{translations.dino?.INTELLIGENCE}: <strong>{data.intelligence}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Blessure <strong>{data.injury}</strong></p>
+                  <p>{translations.dino?.STRENGH}: <strong>{data.force}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>Maladie <strong>{data.disease}</strong></p>
+                  <p>{translations.dino?.ENDURANCE}: <strong>{data.endurance}</strong></p>
+                </div>
+              </div>
+            </div>
+            <div className="dino-info-right">
+              <div className="stat-right-block">
+                <div className="stat-item">
+                  <p>{translations.dino?.SIZE}: <strong>{data.taille}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.dino?.WEIGHT}: <strong>{data.poids}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.dino?.INJURY}: <strong>{data.injury}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.dino?.DISEASE}: <strong>{data.disease}</strong></p>
                 </div>
               </div>
             </div>
           </div>
           <div className="dino-stats">
               <div className="stat-block">
-                <h2>Vie</h2>
+                <h2>{translations.dino?.LIFE}</h2>
                 <div className="progress-bar">
                   <div
                     className="progress-fill life-bar"
@@ -168,7 +168,7 @@ const DinoPage: React.FC = () => {
               </div>
 
               <div className="stat-block">
-                <h2>PM</h2>
+                <h2>{translations.dino?.PM}</h2>
                 <div className="progress-bar">
                   <div
                     className="progress-fill pm-bar"
@@ -180,7 +180,7 @@ const DinoPage: React.FC = () => {
                 </p>
               </div>
               <div className="stat-block">
-                <h2>Fatigue</h2>
+                <h2>{translations.dino?.FATIGUE}</h2>
                 <div className="progress-bar">
                   <div
                     className="progress-fill fatigue-bar"

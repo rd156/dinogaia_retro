@@ -4,10 +4,22 @@
     "DINO_CREATION_NAME":"Dino's name",
     "ERR_MISSING_IMAGE": "Please select an image for your dino.",
     "ERR_CREATION_FAILED": "Dino creation failed. Please try again.",
+    "ERR_FAVORY_FAILED": "Dino add in favory failed. Please try again.",
+    "ERR_LOAD_FAILED": "Dino load failed.",
     "CREATED": "Dino was create (Name : [Name], Specie : [Specie]})",
+    "ADD_FAVORY": "Add to favory",
     "SPECIE":"Specie",
     "LEVEL":"Level",
     "XP":"XP",
     "STATES":"States",
-    "EMERALD":"Emerald"
+    "EMERALD":"Emerald",
+    "LUCK":"Luck",
+    "AGILITE":"Agility",
+    "INTELLIGENCE":"Intelligence",
+    "STRENGH":"Strengh",
+    "ENDURANCE":"Endurance",
+    "SIZE":"Size",
+    "WEIGHT":"Weight",
+    "INJURY":"Injury",
+    "DISEASE":"Disease"
 }
