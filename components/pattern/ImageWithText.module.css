@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.image {
+  display: block;
+}
+
+.text {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour contraste */
+  color: white;
+  padding: 5px; /* Optionnel : pour un peu d'espace autour du texte */
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom-right-radius: 5px; /* Ajout pour un angle arrondi facultatif */
+}
+
