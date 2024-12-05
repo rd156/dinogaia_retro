@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
@@ -9,22 +11,33 @@ const HuntResultPage: React.FC = () => {
   const searchParams = useSearchParams();
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
   // Récupérer les paramètres terrain et weapon
   const terrain = searchParams.get("terrain");
   const weapon = searchParams.get("weapon");
 
+    // Charger les traductions
+    useEffect(() => {
+      const fetchTranslations = async () => {
+        const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
+        setTranslations(loadedTranslations);
+      };
+      fetchTranslations();
+    }, [language]);
+
   useEffect(() => {
     const fetchHuntResult = async () => {
       setLoading(true);
-      setError(null);
 
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
 
       if (!terrain || !weapon || !dinoId) {
-        setError("Paramètres manquants pour effectuer la chasse.");
+        setErrorMessage(translations.hunt?.NEED_CHOSE);
         setLoading(false);
         return;
       }
@@ -45,14 +58,14 @@ const HuntResultPage: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Erreur lors de l'envoi des données de chasse.");
+          setErrorMessage(translations.hunt?.ERR_HUNT);
         }
 
         const result = await response.json();
         console.log(result);
         setResultData(result);
       } catch (error) {
-        setError("Impossible de récupérer les résultats. Veuillez réessayer.");
+        setErrorMessage(translations.hunt?.ERR_LOAD_HUNT);
       } finally {
         setLoading(false);
       }
@@ -64,33 +77,39 @@ const HuntResultPage: React.FC = () => {
   return (
     <main className="content">
       <div className="content_top">
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
         {resultData && (
           <div className="block">
-            <h2>Résultats de la chasse :</h2>
+            <h2>{translations.hunt?.HUNT_RESULT}</h2>
             <br/>
             <ul>
-              <li><strong>Terrain :</strong> {resultData.terrain}</li>
+              <li><strong>{translations.hunt?.LAND}</strong> {resultData.terrain}</li>
               {weapon !== "None" && (
-                <li><strong>Arme utilisée :</strong> {weapon}</li>
+                <li><strong>{translations.hunt?.USE_WEAPON}</strong> {weapon}</li>
               )}
-              <li><strong>Chasse réussie :</strong> {resultData.type ? "Oui" : "Non"}</li>
+              <li><strong>{translations.hunt?.HUNT_SUCCESS}</strong> {resultData.type ? "Oui" : "Non"}</li>
             </ul>
             <br/>
-            <h3><strong>Détails :</strong></h3>
+            <h3><strong>{translations.hunt?.DETAIL}</strong></h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
             {resultData.items && 
               Object.entries(resultData.items).map(([name, count]) => (
-                <div className="block">
+                <div key={name} className="block">
                   <img
                     src={`items/${name}.webp`}
-                    alt={`Image de ${name}`}
+                    alt={translations.hunt?.IMAGE_OF?.replace("[ItemName]", name)}
                     style={{
                       width: "100px",
                       height: "100px",
                       marginBottom: "10px",
                     }}
                   />
-                  <p>Quantité : {count}</p>
+                  <p>{translations.hunt?.QUANTITY}{count}</p>
                 </div>
               ))
             }
@@ -100,8 +119,8 @@ const HuntResultPage: React.FC = () => {
               <div className={resultData.pv < 0 ? "block-red" : "block-green"}>
                 <p>
                   {resultData.pv < 0 
-                    ? `Tu as perdu ${resultData.pv} PV` 
-                    : `Tu as gagné ${resultData.pv} PV`}
+                    ? translations.hunt?.LOSE_PV?.replace("[nb]", resultData.pv) 
+                    : translations.hunt?.WIN_PV?.replace("[nb]", resultData.pv) }
                 </p>
               </div>
             )}
@@ -109,8 +128,8 @@ const HuntResultPage: React.FC = () => {
               <div className={resultData.pm < 0 ? "block-red" : "block-green"}>
                 <p>
                   {resultData.pm < 0 
-                    ? `Tu as perdu ${resultData.pm} PM` 
-                    : `Tu as gagné ${resultData.pm} PM`}
+                    ? translations.hunt?.LOSE_PM?.replace("[nb]", resultData.pm) 
+                    : translations.hunt?.WIN_PM?.replace("[nb]", resultData.pm)}
                 </p>
               </div>
             )}

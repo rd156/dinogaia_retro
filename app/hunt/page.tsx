@@ -14,12 +14,12 @@ const DinoPage: React.FC = () => {
   const [selectedTerrain, setSelectedTerrain] = useState<string | null>(null);
   const [selectedWeapon, setSelectedWeapon] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const { language } = useLanguage();
-  const [translations, setTranslations] = useState({});
   const [timeRemaining, setTimeRemaining] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [huntResult, setHuntResult] = useState<any[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
 
   // Charger les traductions
   useEffect(() => {
@@ -42,7 +42,6 @@ const DinoPage: React.FC = () => {
 
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
 
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
@@ -59,7 +58,6 @@ const DinoPage: React.FC = () => {
 
         if (!huntResponse.ok) {
           setErrorMessage(translations.hunt?.ERR_LOAD_HUNT);
-          throw new Error("Erreur lors de la récupération de la chasse");
         }
 
         const huntData = await huntResponse.json();
@@ -75,7 +73,7 @@ const DinoPage: React.FC = () => {
           },
         });
         if (!weaponResponse.ok) {
-          throw new Error("Erreur lors de la récupération des armes");
+          setErrorMessage(translations.hunt?.ERR_LOAD_WEAPON);
         }
         setWeapons(await weaponResponse.json());
 
@@ -88,11 +86,11 @@ const DinoPage: React.FC = () => {
           },
         });
         if (!terrainResponse.ok) {
-          throw new Error("Erreur lors de la récupération des terrains");
+          setErrorMessage(translations.hunt?.ERR_LOAD_LAND);
         }
         setTerrains(await terrainResponse.json());
       } catch (error) {
-        setError("Impossible de récupérer les données. Veuillez réessayer plus tard.");
+        setErrorMessage(translations.hunt?.ERR_LOAD);
       } finally {
         setLoading(false);
       }
@@ -127,38 +125,26 @@ const DinoPage: React.FC = () => {
   // Validation et redirection
   const handleValidation = async () => {
     if (selectedTerrain && selectedWeapon) {
-      console.log("Terrain sélectionné:", selectedTerrain);
-      console.log("Arme sélectionnée:", selectedWeapon);
-
       // Redirection via window.location
       window.location.href = `/hunt/result?terrain=${encodeURIComponent(selectedTerrain)}&weapon=${encodeURIComponent(selectedWeapon)}`;
     } else {
-      alert("Veuillez sélectionner un terrain et une arme avant de valider.");
+        
     }
   };
 
   return (
     <main className="content">
       <div className="content_top">
-      {data.hunt != "ready" && timeRemaining !== "0h 0m 0s" && (
-        <div
-          style={{
-            padding: "20px",
-            backgroundColor: "rgba(255, 0, 0, 0.5)",
-            textAlign: "center",
-            borderRadius: "8px",
-          }}
-        >
-         <p>
-            Prochaine chasse dans {timeRemaining}
-          </p>
-        </div>
-      )}
       {errorMessage && (
-        <p style={{ backgroundColor: 'red', color: 'black', marginTop: '15px' }}>{errorMessage}</p>
+        <p className="alert-red">{errorMessage}</p>
       )}
-      {huntResult && (
-        <p style={{ backgroundColor: 'green', color: 'black', marginTop: '15px' }}>{huntResult}</p>
+      {message && (
+        <p className="alert-green">{message}</p>
+      )}
+      {data.hunt != "ready" && timeRemaining !== "0h 0m 0s" && (
+         <p className="alert-red">
+          {translations.hunt?.NEXT_HUNT?.replace("[Time]", timeRemaining)}
+          </p>
       )}
         <h2 style={{
             marginTop: "20px",
@@ -173,7 +159,8 @@ const DinoPage: React.FC = () => {
                   textAlign: "center",
                   cursor: "pointer",
             
-          }}> Choisissez une arme
+          }}>
+          {translations.hunt?.SELECT_WEAPON}
         </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(9, 1fr)", gap: "10px" }}>
             <div
@@ -194,14 +181,14 @@ const DinoPage: React.FC = () => {
               >
                 <img
                   src={`item/none.webp`}
-                  alt="Image de l'arme"
+                  alt={translations.hunt?.IMAGE_WEAPON}
                   style={{
                     width: "100px",
                     height: "100px",
                     marginBottom: "10px",
                   }}
                 />
-                <h3>Aucune arme</h3>
+                <h3>{translations.hunt?.NO_WEAPON}</h3>
               </div>
             {weapons.map((weapon) => (
               <div
@@ -222,7 +209,7 @@ const DinoPage: React.FC = () => {
               >
                 <img
                   src={`item/${weapon.item_name}.webp`}
-                  alt="Image de l'arme"
+                  alt={translations.hunt?.IMAGE_WEAPON}
                   style={{
                     width: "100px",
                     height: "100px",
@@ -246,7 +233,7 @@ const DinoPage: React.FC = () => {
                   justifyContent: "center",
                   textAlign: "center",
                   cursor: "pointer",
-                }}>Choisissez un terrain</h2>
+                }}>{translations.hunt?.CHOSE_LAND}</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
             {terrains.map((terrain) => (
               <div
@@ -267,7 +254,7 @@ const DinoPage: React.FC = () => {
               >
                 <img
                   src={`terrain/${terrain.name}.webp`}
-                  alt="Image du terrain"
+                  alt={translations.hunt?.IMAGE_LAND}
                   style={{
                     width: "200px",
                     height: "200px",
@@ -291,7 +278,7 @@ const DinoPage: React.FC = () => {
                 fontSize: "16px",
               }}
             >
-              Partir en chasse
+              {translations.hunt?.START_HUNT}
             </button>
           </div>
         </div>
