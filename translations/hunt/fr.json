@@ -24,5 +24,7 @@
     "WIN_PV":"Tu as gagné [nb] PV",
     "LOSE_PV":"Tu as perdu [nb] PV",
     "WIN_PM":"Tu as gagné [nb] PM",
-    "LOSE_PM":"Tu as perdu [nb] PM"
+    "LOSE_PM":"Tu as perdu [nb] PM",
+    "COLLECT_ITEM":"Collecter les résultats de la chasse",
+    "COLLECT_SUCCESS":"Les items ont été collectés avec succès !"
 }

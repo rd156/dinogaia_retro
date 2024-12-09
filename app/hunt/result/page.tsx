@@ -74,6 +74,33 @@ const HuntResultPage: React.FC = () => {
     fetchHuntResult();
   }, [terrain, weapon]);
 
+  const handleCollectItems = async () => {
+    setLoading(true);
+
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    try {
+      const response = await fetch(`${API_URL}/dino/waiting/${dinoId}/collect_hunt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setErrorMessage(translations.hunt?.ERR_HUNT);
+      }
+
+      const result = await response.json();
+      setMessage(translations.hunt?.COLLECT_SUCCESS);
+    } catch (err) {
+      setErrorMessage(translations.hunt?.ERR_HUNT);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
     <main className="content">
       <div className="content_top">
@@ -85,7 +112,7 @@ const HuntResultPage: React.FC = () => {
         )}
         {resultData && (
           <div className="block">
-            <h2>{translations.hunt?.HUNT_RESULT}</h2>
+            <h2><strong>{translations.hunt?.HUNT_RESULT}</strong></h2>
             <br/>
             <ul>
               <li><strong>{translations.hunt?.LAND}</strong> {resultData.terrain}</li>
@@ -131,6 +158,25 @@ const HuntResultPage: React.FC = () => {
                     ? translations.hunt?.LOSE_PM?.replace("[nb]", resultData.pm) 
                     : translations.hunt?.WIN_PM?.replace("[nb]", resultData.pm)}
                 </p>
+              </div>
+            )}
+            {resultData.items && (
+              <div>
+                <button
+                onClick={handleCollectItems}
+                  disabled={loading}
+                  style={{
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    borderRadius: "5px",
+                    border: "none",
+                    backgroundColor: loading ? "#ccc" : "#007BFF",
+                    color: "#fff",
+                    cursor: loading ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {translations.hunt?.COLLECT_ITEM}
+                </button>
               </div>
             )}
           </div>

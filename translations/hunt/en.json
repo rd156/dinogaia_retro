@@ -24,5 +24,7 @@
     "WIN_PV":"You win [nb] PV",
     "LOSE_PV":"You lose [nb] PV",
     "WIN_PM":"You win [nb] PM",
-    "LOSE_PM":"You lose [nb] PM"
+    "LOSE_PM":"You lose [nb] PM",
+    "COLLECT_ITEM":"Collect hunting item",
+    "COLLECT_SUCCESS":"Item was collect"
 }
