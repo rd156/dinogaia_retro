@@ -25,6 +25,8 @@
     "LOSE_PV":"You lose [nb] PV",
     "WIN_PM":"You win [nb] PM",
     "LOSE_PM":"You lose [nb] PM",
-    "COLLECT_ITEM":"Collect hunting item",
-    "COLLECT_SUCCESS":"Item was collect"
+    "COLLECT_ITEM":"Collect hunting item (cost 2 emerald)",
+    "COLLECT_SUCCESS":"Item was collect",
+    "SELL_ITEM":"Sell hunting item",
+    "SELL_SUCCESS":"Item was sell"
 }

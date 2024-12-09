@@ -100,6 +100,31 @@ const HuntResultPage: React.FC = () => {
     }
   };
 
+  const handleSellItems = async () => {
+    setLoading(true);
+
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    try {
+      const response = await fetch(`${API_URL}/dino/waiting/${dinoId}/sell_hunt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setErrorMessage(translations.hunt?.ERR_HUNT);
+      }
+
+      const result = await response.json();
+      setMessage(translations.hunt?.SELL_SUCCESS);
+    } catch (err) {
+      setErrorMessage(translations.hunt?.ERR_HUNT);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="content">
@@ -170,14 +195,30 @@ const HuntResultPage: React.FC = () => {
                     fontSize: "16px",
                     borderRadius: "5px",
                     border: "none",
-                    backgroundColor: loading ? "#ccc" : "#007BFF",
+                    backgroundColor: loading ? "#ccc" : "#32ca39",
                     color: "#fff",
                     cursor: loading ? "not-allowed" : "pointer",
                   }}
                 >
                   {translations.hunt?.COLLECT_ITEM}
                 </button>
-              </div>
+                <br />
+                <button
+                onClick={handleSellItems}
+                  disabled={loading}
+                  style={{
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    borderRadius: "5px",
+                    border: "none",
+                    backgroundColor: loading ? "#ccc" : "#ff0000",
+                    color: "#fff",
+                    cursor: loading ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {translations.hunt?.SELL_ITEM}
+                </button>
+            </div>
             )}
           </div>
         )}

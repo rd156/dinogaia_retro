@@ -25,6 +25,8 @@
     "LOSE_PV":"Tu as perdu [nb] PV",
     "WIN_PM":"Tu as gagné [nb] PM",
     "LOSE_PM":"Tu as perdu [nb] PM",
-    "COLLECT_ITEM":"Collecter les résultats de la chasse",
-    "COLLECT_SUCCESS":"Les items ont été collectés avec succès !"
+    "COLLECT_ITEM":"Collecter les résultats de la chasse (coût 2 emeraudes)",
+    "COLLECT_SUCCESS":"Les items ont été collectés avec succès !",
+    "SELL_ITEM":"Vendre les items de la chasse",
+    "SELL_SUCCESS":"Les objects on était vendu"
 }
