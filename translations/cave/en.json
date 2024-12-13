@@ -1,3 +1,9 @@
 {
-    
+    "ERR_LOAD_CAVE": "Cave load failed.",
+    "ERR_LOAD_ITEM": "Item load failed.",
+    "ERR_LOAD":"Error load",
+    "LEVEL":"Level",
+    "SECURITY":"Security",
+    "HYGIENE":"hygiene",
+    "CONFORT":"confort"
 }

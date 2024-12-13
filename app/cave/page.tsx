@@ -52,7 +52,7 @@ const CavePage: React.FC = () => {
           },
         });
         if (!caveResponse.ok) {
-          setErrorMessage(translations.cave?.ERR_LOAD_HUNT);
+          setErrorMessage(translations.cave?.ERR_LOAD_CAVE);
         }
         const cave_info = await caveResponse.json()
         console.log(cave_info)
@@ -81,7 +81,7 @@ const CavePage: React.FC = () => {
           },
         });
         if (!caveResponse.ok) {
-          setErrorMessage(translations.cave?.ERR_LOAD_HUNT);
+          setErrorMessage(translations.cave?.ERR_LOAD_ITEM);
         }
         const item_list = await caveResponse.json()
         console.log(item_list)
@@ -118,6 +118,43 @@ const CavePage: React.FC = () => {
   return (
     <main className="content">
       <div className="content_top">
+      <div className='cave-container'>
+          <div className="cave-card">
+            <h1 className="cave-name">
+              {info.name}
+            </h1>
+            {info.description}
+            <div className="cave-header">
+              <div className="stat-item">
+                <p>{translations.cave?.LEVEL}: <strong>{info.lvl}</strong></p>
+              </div>
+              <div className="stat-item">
+                <p>{translations.dino?.SECURITY}: <strong>{info.security}</strong></p>
+              </div>
+              <div className="stat-item">
+                <p>{translations.dino?.HYGIENE}: <strong>{info.hygiene}</strong></p>
+              </div>
+              <div className="stat-item">
+                <p>{translations.dino?.CONFORT}: <strong>{info.confort}</strong></p>
+              </div>
+            </div>
+            <div className="cave-stats">
+                <div className="stat-block">
+                  <h2>{translations.dino?.LIFE}</h2>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill storage-bar"
+                      style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
+                    >
+                      <span className="progress-text">
+                        {info.storage}/{info.storage_max}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
         <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
         {categories.map((category) => (
             <button
@@ -142,17 +179,8 @@ const CavePage: React.FC = () => {
             <div className="block">
               <h3>Action sur : {selectedItem.item_name}</h3>
               <div style={{ display: "flex", gap: "10px" }}>
-                <button onClick={() => handleButtonClick("use")}>Use</button>
-                <button onClick={() => handleButtonClick("eat")}>Eat</button>
-                <button onClick={() => handleButtonClick("drink")}>Drink</button>
-                <ButtonBordered onClick={() => alert("ButtonBordered Clicked!")} label="Cliquez-moi" />
-                <ButtonCircular onClick={() => alert("ButtonCircular Clicked!")} label="Cliquez-moi" />
-                <ButtonFancy onClick={() => alert("Fancy Clicked!")} label="Cliquez-moi" />
-                <ButtonGlow onClick={() => alert("Glowy!")} label="Glow!" />
-                <ButtonIcon onClick={() => alert("ButtonIcon Clicked!")} label="Cliquez-moi" />
-                <ButtonNeon onClick={() => alert("Neon Activated!")} label="Neon Me!" />
-                <ButtonRipple onClick={() => alert("ButtonRipple Clicked!")} label="Cliquez-moi" />
-                <ButtonThreeD onClick={() => alert("ButtonThreeD Clicked!")} label="Cliquez-moi" />
+                <ButtonFancy onClick={() => handleButtonClick("use")} label="Use" />
+                <ButtonNeon onClick={() => handleButtonClick("eat")} label="Eat" />
               </div>
             </div>
           </div>

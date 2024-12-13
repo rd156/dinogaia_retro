@@ -21,5 +21,8 @@
     "SIZE":"Size",
     "WEIGHT":"Weight",
     "INJURY":"Injury",
-    "DISEASE":"Disease"
+    "DISEASE":"Disease",
+    "LIFE": "Live",
+    "PM": "PM",
+    "FATIGUE": "Fatigue"
 }

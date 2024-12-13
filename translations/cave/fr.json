@@ -1,3 +1,9 @@
 {
-    
+    "ERR_LOAD_CAVE": "Erreur dans le chargement de la grotte.",
+    "ERR_LOAD_ITEM": "Erreur dans le chargement de la grotte.",
+    "ERR_LOAD":"Impossible de récupérer les données. Veuillez réessayer plus tard.",
+    "LEVEL":"Niveau",
+    "SECURITY":"Sécurité",
+    "HYGIENE":"hygiene",
+    "CONFORT":"confort"
 }
