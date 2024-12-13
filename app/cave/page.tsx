@@ -109,15 +109,63 @@ const CavePage: React.FC = () => {
     setSelectedItem((prev) => (prev === item ? null : item)); // Définir ou effacer l'élément sélectionné
   };
 
-  const handleButtonClick = (action) => {
-    console.log(`Action "${action}" effectuée sur l'item :`, selectedItem);
-    // Ajouter ici le code pour envoyer l'action à une API ou traiter l'action localement
-    setSelectedItem(null); // Réinitialise après l'action
+  const handleButtonClick = async (action) => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+
+    try {
+      let apiUrl;
+  
+      if (action === "use") {
+        apiUrl = `${API_URL}/cave/use/${dinoId}`;
+      } else if (action === "eat") {
+        apiUrl = `${API_URL}/cave/eat/${dinoId}`;
+      } else {
+        setErrorMessage(translations.cave?.ERR_TYPE_ACTION);
+        return;
+      }
+  
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
+        },
+        body: JSON.stringify({
+          "item":selectedItem.item_name,
+          "quantity": 1
+        }),
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.cave?.ERR_ACTION);
+      }
+  
+      const result = await response.json();
+      console.log(result)
+      if (result.message==action){
+        setMessage(translations.cave?.ACTION_DONE)
+      }
+      else{
+        setErrorMessage(translations.cave?.ERR_IMPOSSIBLE_ACTION);
+      }
+  
+      setSelectedItem(null);
+    } catch (error) {
+      setErrorMessage(translations.cave?.ERR_ACTION);
+    }
   };
 
+  
   return (
     <main className="content">
-      <div className="content_top">
+      <div className="content_top"> 
+      {errorMessage && (
+        <p className="alert-red">{errorMessage}</p>
+      )}
+      {message && (
+        <p className="alert-green">{message}</p>
+      )}
       <div className='cave-container'>
           <div className="cave-card">
             <h1 className="cave-name">
