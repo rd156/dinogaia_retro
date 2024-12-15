@@ -8,6 +8,7 @@
     "ACTION_DONE" : "Action réussie" ,
     "LEVEL":"Niveau",
     "SECURITY":"Sécurité",
-    "HYGIENE":"hygiene",
-    "CONFORT":"confort"
+    "HYGIENE":"Hygiene",
+    "CONFORT":"Confort",
+    "WAINTING_NUMBER": "Vous avez [Number] item en  attente d'être collecter"
 }

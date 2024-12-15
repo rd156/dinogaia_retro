@@ -8,6 +8,7 @@
     "ACTION_DONE" : "Action done" ,
     "LEVEL":"Level",
     "SECURITY":"Security",
-    "HYGIENE":"hygiene",
-    "CONFORT":"confort"
+    "HYGIENE":"Hygiene",
+    "CONFORT":"Confort",
+    "WAINTING_NUMBER": "You have [Number] wainting item"
 }

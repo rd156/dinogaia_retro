@@ -27,6 +27,7 @@ const CavePage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [info, setInfo] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
+  const [count, setCount] = useState(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -55,7 +56,6 @@ const CavePage: React.FC = () => {
           setErrorMessage(translations.cave?.ERR_LOAD_CAVE);
         }
         const cave_info = await caveResponse.json()
-        console.log(cave_info)
         setInfo(cave_info);
 
       } catch (error) {
@@ -84,7 +84,6 @@ const CavePage: React.FC = () => {
           setErrorMessage(translations.cave?.ERR_LOAD_ITEM);
         }
         const item_list = await caveResponse.json()
-        console.log(item_list)
         setItems(item_list);
 
       } catch (error) {
@@ -156,6 +155,29 @@ const CavePage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCount = async () => {
+      const token = localStorage.getItem("token");
+      const dinoId = localStorage.getItem("dinoId");
+      try {
+        const response = await fetch(`${API_URL}/dino/waiting_item/${dinoId}`, {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setCount(data.count);
+        }
+      }
+      catch (error) {
+      }
+    };
+
+    fetchCount();
+  }, []);
   
   return (
     <main className="content">
@@ -177,30 +199,42 @@ const CavePage: React.FC = () => {
                 <p>{translations.cave?.LEVEL}: <strong>{info.lvl}</strong></p>
               </div>
               <div className="stat-item">
-                <p>{translations.dino?.SECURITY}: <strong>{info.security}</strong></p>
+                <p>{translations.cave?.SECURITY}: <strong>{info.security}</strong></p>
               </div>
               <div className="stat-item">
-                <p>{translations.dino?.HYGIENE}: <strong>{info.hygiene}</strong></p>
+                <p>{translations.cave?.HYGIENE}: <strong>{info.hygiene}</strong></p>
               </div>
               <div className="stat-item">
-                <p>{translations.dino?.CONFORT}: <strong>{info.confort}</strong></p>
+                <p>{translations.cave?.CONFORT}: <strong>{info.confort}</strong></p>
               </div>
             </div>
             <div className="cave-stats">
-                <div className="stat-block">
-                  <h2>{translations.dino?.LIFE}</h2>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill storage-bar"
-                      style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
-                    >
-                      <span className="progress-text">
-                        {info.storage}/{info.storage_max}
-                      </span>
-                    </div>
+              <div className="stat-block">
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill storage-bar"
+                    style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
+                  >
+                    <span className="progress-text">
+                      {info.storage}/{info.storage_max}
+                    </span>
                   </div>
                 </div>
               </div>
+            </div>
+
+            {count > 0 && (
+              <div className="count-container" style={{
+                marginTop: "10px",
+                backgroundColor: "#41c75e",
+              }}>
+                <h3 className="cave-name" onClick={() => {
+                    window.location.href = "/cave/waiting";
+                  }}>
+                  {translations.cave?.WAINTING_NUMBER.replace("[Number]", count)}
+                </h3>
+              </div>
+            )}
           </div>
         </div>
         <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
