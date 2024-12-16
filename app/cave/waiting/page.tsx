@@ -5,17 +5,9 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
-import ImageWithText from "@/components/pattern/ImageWithText";
 import "./page.css";
-import { motion } from "framer-motion";
-import ButtonBordered from "@/components/pattern/ButtonBordered";
-import ButtonCircular from "@/components/pattern/ButtonCircular";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonGlow from "@/components/pattern/ButtonGlow";
-import ButtonIcon from "@/components/pattern/ButtonIcon";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
-import ButtonRipple from "@/components/pattern/ButtonRipple";
-import ButtonThreeD from "@/components/pattern/ButtonThreeD";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -173,8 +165,8 @@ const CavePage: React.FC = () => {
         <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
           <div className="block">
             <div style={{ display: "flex", gap: "10px" }}>
-              <ButtonFancy onClick={() => handleButtonClickAll("get")} label="Tout récuperer pour 2 émeraudes" />
-              <ButtonNeon onClick={() => handleButtonClickAll("sell")} label="Vendre" />
+              <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", 2)} />
+              <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL} />
             </div>
           </div>
         </div>
@@ -186,16 +178,16 @@ const CavePage: React.FC = () => {
                   style={{ textAlign: "center", cursor: "pointer", padding: "10px" }}
                   onClick={() => handleSort("item_name")}
                 >
-                  Nom {sortBy === "item_name" && (isAscending ? "↑" : "↓")}
+                  {translations.cave?.TABLE_NAME} {sortBy === "item_name" && (isAscending ? "↑" : "↓")}
                 </th>
                 <th
                   style={{ textAlign: "center", cursor: "pointer", padding: "10px" }}
                   onClick={() => handleSort("origine")}
                 >
-                  Origine {sortBy === "origine" && (isAscending ? "↑" : "↓")}
+                  {translations.cave?.TABLE_ORIGIN} {sortBy === "origine" && (isAscending ? "↑" : "↓")}
                 </th>
-                <th style={{ textAlign: "center", padding: "10px" }}>Quantité</th>
-                <th style={{ textAlign: "center", padding: "10px" }}>Action</th>
+                <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_QUANTITY}</th>
+                <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_ACTION}</th>
               </tr>
             </thead>
             <tbody>
@@ -206,11 +198,11 @@ const CavePage: React.FC = () => {
                   <td style={{ textAlign: "center", padding: "10px" }}>{item.quantite}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>
                   {item.origine === "hunt" ? (
-                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label="Récuperer pour 2 émeraude" />
+                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.GET.replace("[Number]", 2)} />
                   ) : (
-                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label="Récuperer" />
+                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.FREE_GET}/>
                   )}
-                    <ButtonNeon onClick={() => handleButtonClick("sell", item.item_name)} label="Vendre" />
+                    <ButtonNeon onClick={() => handleButtonClick("sell", item.item_name)} label={translations.cave?.SELL}/>
                   </td>
                 </tr>
               ))}

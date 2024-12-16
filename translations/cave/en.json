@@ -13,5 +13,14 @@
     "WAINTING_NUMBER": "You have [Number] wainting item",
     "ITEM_COLLECT_PAGE": "Collectible item.",
     "EAT": "Eat",
-    "USE": "Use"
+    "USE": "Use",
+    "SELL_ALL": "Sell all",
+    "GET_ALL": "Get all for [Number] emerald(s)",
+    "SELL": "Sell",
+    "GET": "Get for [Number] emerald(s)",
+    "FREE_GET": "Get",
+    "TABLE_NAME": "Name",
+    "TABLE_ORIGIN": "Origin",
+    "TABLE_QUANTITY": "Quantity",
+    "TABLE_ACTION": "Action"
 }

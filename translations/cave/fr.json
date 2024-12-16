@@ -13,5 +13,13 @@
     "WAINTING_NUMBER": "Vous avez [Number] item en  attente d'être collecter",
     "ITEM_COLLECT_PAGE": "Objet a collecté.",
     "EAT": "Consommé",
-    "USE": "Utilisé"
+    "USE": "Utilisé",
+    "SELL_ALL": "Tout Vendre",
+    "GET_ALL": "Tout récupérer pour [Number] émeraude(s)",
+    "SELL": "Vendre",
+    "GET": "Récupérer pour [Number] émeraude(s)",
+    "TABLE_NAME": "Nom",
+    "TABLE_ORIGIN": "Origine",
+    "TABLE_QUANTITY": "Quantité",
+    "TABLE_ACTION": "Action"
 }
