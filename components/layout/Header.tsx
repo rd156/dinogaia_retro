@@ -26,7 +26,7 @@ export default function Header() {
     const menuConnectItems = translations && translations.menu ? {
       [translations.menu['MENU_MY_DINO']]: "/dino/actual",
       [translations.menu['MENU_MY_CAVE']]: "/cave",
-      [translations.menu['MENU_SHOP']]: "#",
+      [translations.menu['MENU_SHOP']]: "/shop",
       [translations.menu['MENU_QUEST']]: "#",
       [translations.menu['MENU_CASINO']]: "#",
       [translations.menu['MENU_CRAFT']]: "#",
