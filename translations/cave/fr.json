@@ -10,5 +10,8 @@
     "SECURITY":"Sécurité",
     "HYGIENE":"Hygiene",
     "CONFORT":"Confort",
-    "WAINTING_NUMBER": "Vous avez [Number] item en  attente d'être collecter"
+    "WAINTING_NUMBER": "Vous avez [Number] item en  attente d'être collecter",
+    "ITEM_COLLECT_PAGE": "Objet a collecté.",
+    "EAT": "Consommé",
+    "USE": "Utilisé"
 }

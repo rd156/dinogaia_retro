@@ -261,8 +261,8 @@ const CavePage: React.FC = () => {
             <div className="block">
               <h3>Action sur : {selectedItem.item_name}</h3>
               <div style={{ display: "flex", gap: "10px" }}>
-                <ButtonFancy onClick={() => handleButtonClick("use")} label="Use" />
-                <ButtonNeon onClick={() => handleButtonClick("eat")} label="Eat" />
+                <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
+                <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
               </div>
             </div>
           </div>

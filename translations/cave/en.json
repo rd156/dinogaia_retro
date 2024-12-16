@@ -10,5 +10,8 @@
     "SECURITY":"Security",
     "HYGIENE":"Hygiene",
     "CONFORT":"Confort",
-    "WAINTING_NUMBER": "You have [Number] wainting item"
+    "WAINTING_NUMBER": "You have [Number] wainting item",
+    "ITEM_COLLECT_PAGE": "Collectible item.",
+    "EAT": "Eat",
+    "USE": "Use"
 }
