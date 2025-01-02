@@ -191,7 +191,7 @@ const CavePage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {items.map((item, index) => (
+              {Array.isArray(items) && items.map((item, index) => (
                 <tr key={index} style={{borderBottom: "1px solid #ddd"}}>
                   <td style={{ textAlign: "center", padding: "10px" }}>{item.item_name}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>{item.origine}</td>

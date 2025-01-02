@@ -2,8 +2,8 @@ Ajouter image espece par lvl
 
 Page magasin
 Page quete
+
 Page casino
-Page atelier
 Page jobs
 Page banque
 page other
@@ -11,3 +11,9 @@ page message
 page fight
 page gestion account
 page accueil
+
+Page atelier
+
+Cave:
+    Ajouter vendre item depuis cave
+    Edit cave
