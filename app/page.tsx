@@ -3,6 +3,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
@@ -12,6 +13,7 @@ const HomePage: React.FC = () => {
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
+  const [isConnect, setIsConnect] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -29,6 +31,16 @@ const HomePage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsConnect(true);
+      window.location.href = "/dino"
+    } else {
+      setIsConnect(false);
+      localStorage.removeItem('token');
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
