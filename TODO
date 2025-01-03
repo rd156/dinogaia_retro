@@ -1,19 +1,30 @@
 Ajouter image espece par lvl
 
+
+Bouton de LVL up
+Cave:
+    Ajouter vendre item depuis cave vers HDV
+    Edit cave
+
+PAGE BUG
+
 Page magasin
 Page quete
+page fight
 
 Page casino
+
 Page jobs
+page message
+
+page gestion account
+
 Page banque
 page other
-page message
-page fight
-page gestion account
-page accueil
+
+page news
+page regle
+page wiki
+page forum
 
 Page atelier
-
-Cave:
-    Ajouter vendre item depuis cave
-    Edit cave

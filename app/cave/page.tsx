@@ -125,6 +125,8 @@ const CavePage: React.FC = () => {
         apiUrl = `${API_URL}/cave/use/${dinoId}`;
       } else if (action === "eat") {
         apiUrl = `${API_URL}/cave/eat/${dinoId}`;
+      }else if (action === "sell_shop") {
+        apiUrl = `${API_URL}/cave/sell_item/${dinoId}`;
       } else {
         setErrorMessage(translations.cave?.ERR_TYPE_ACTION);
         return;
@@ -148,10 +150,17 @@ const CavePage: React.FC = () => {
   
       const result = await response.json();
       console.log(result)
-      if (result.message==action){
+      if (result.message && result.message==action){
         setMessage(translations.cave?.ACTION_DONE)
+        setErrorMessage("")
+      }
+      else if (result.sell)
+      {
+        setMessage(translations.cave?.SELL_RESULT_VALUE.replace("[Number]", result.sell))
+        setErrorMessage("")
       }
       else{
+        setMessage("")
         setErrorMessage(translations.cave?.ERR_IMPOSSIBLE_ACTION);
       }
   
@@ -269,6 +278,7 @@ const CavePage: React.FC = () => {
               <div style={{ display: "flex", gap: "10px" }}>
                 <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
                 <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
+                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
               </div>
             </div>
           </div>
