@@ -36,9 +36,12 @@ export default function Header() {
     } : {};
   
     const menuVisitorItems = translations && translations.global ? {
-      [translations.global['MENU_TITI'] || "titi"]: "#",
-      [translations.global['MENU_TOTO'] || "toto"]: "#",
-      [translations.global['MENU_TUTU'] || "tutu"]: "#",
+      [translations.menu['MENU_NEWS']]: "#",
+      [translations.menu['MENU_REGLE']]: "#",
+      [translations.menu['MENU_WIKI']]: "#",
+      [translations.menu['MENU_FORUM']]: "#",
+
+
     } : {};
   useEffect(() => {
     const isTokenValid = (token) => {
