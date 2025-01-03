@@ -1,0 +1,12 @@
+{
+    "ERR_SAME_PASSWORD": "Les mots de passe ne correspondent pas.",
+    "ERR_ALREADY_ISSET":"Le compte existe déjà",
+    "ERR_UNKNOW": "Une erreur est survenue.",
+    "REGISTER_DONE": "Inscription réussie ! Vous pouvez maintenant vous connecter.",
+    "REGISTER":"Inscription",
+    "REGISTER_BUTTON" : "S'inscrire",
+    "USERNAME": "Nom d'utilisateur",
+    "EMAIL": "Email",
+    "PASSWORD": "Mot de passe",
+    "PASSWORD_CONFIRM": "Confirmer le mot de passe"
+}

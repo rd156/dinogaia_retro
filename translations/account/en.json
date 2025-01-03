@@ -1,0 +1,12 @@
+{
+    "ERR_SAME_PASSWORD": "Passwords do not match.",
+    "ERR_ALREADY_ISSET": "The account already exists.",
+    "ERR_UNKNOW": "An error occurred.",
+    "REGISTER_DONE": "Registration successful! You can now log in.",
+    "REGISTER": "Register",
+    "REGISTER_BUTTON": "Sign Up",
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "PASSWORD_CONFIRM": "Confirm Password"
+}
