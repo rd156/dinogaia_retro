@@ -1,5 +1,6 @@
 {
     "CREATE_DINO_TITLE": "Create a new dino",
+    "CREATE_DINO_REDIRECT": "Create a Dino",
     "SUBMIT_BUTTON_CREATION": "Create",
     "DINO_CREATION_NAME":"Dino's name",
     "ERR_MISSING_IMAGE": "Please select an image for your dino.",

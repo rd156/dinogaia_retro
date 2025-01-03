@@ -5,6 +5,8 @@ import { translate, Loadtranslate} from '@/utils/translate';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { API_URL } from '@/config/config';
+import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ButtonNeon from "@/components/pattern/ButtonNeon";
 import "./page.css";
 
 export default function Home() {
@@ -122,6 +124,18 @@ export default function Home() {
             </div>
           </Link>
         ))}
+        {topDinos.length < 6 && (
+          <Link
+            href={'/dino/create'}
+            passHref
+          >
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+              <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
+                <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} /> 
+              </div>
+            </div>
+          </Link>
+        )}
       </div>
       <div className="content_bottom" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', alignItems: 'start'}}>
         {bottomDinos.map((dino) => (
@@ -160,6 +174,18 @@ export default function Home() {
             </div>
           </Link>
         ))}
+        {topDinos.length >= 6 && (
+          <Link
+            href={'/dino/create'}
+            passHref
+          >
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+              <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
+                <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} /> 
+              </div>
+            </div>
+          </Link>
+        )}
       </div>
     </main>
   );
