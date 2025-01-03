@@ -64,6 +64,10 @@ const DinoPage: React.FC = () => {
       
       const token = localStorage.getItem('token');
       const dinoId = localStorage.getItem("dinoId");
+      if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
       try {
 
         const response = await fetch(`${API_URL}/dino/${dinoId}`, {
