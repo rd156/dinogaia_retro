@@ -72,6 +72,12 @@ const CavePage: React.FC = () => {
       setLoading(true);
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
+      
+      if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
+
       try {
         const caveResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}`, {
           method: "GET",
