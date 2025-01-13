@@ -52,6 +52,7 @@ const CavePage: React.FC = () => {
         }
 
         const fetchedData = await response.json();
+        console.log(fetchedData)
         setBid(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
       } catch (error) {
         setErrorMessage('Impossible de récupérer les bids. Veuillez réessayer plus tard.');
@@ -79,6 +80,7 @@ const CavePage: React.FC = () => {
         });
         
         const fetchedData = await response.json();
+        console.log(fetchedData)
         setMybid(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
       } catch (error) {
         setErrorMessage('Impossible de récupérer les bids. Veuillez réessayer plus tard.');
@@ -101,13 +103,11 @@ const CavePage: React.FC = () => {
         dino: dinoId,
         price: bidAmount,
       };
-      console.log("bidData")
-      console.log(bidData)
       const response = await fetch(`${API_URL}/bid/bid/${bidId}`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
+          'Authorization': "Bearer " + token,
         },
         body: JSON.stringify(bidData),
       });
@@ -117,7 +117,47 @@ const CavePage: React.FC = () => {
       }
   
       const result = await response.json();
-      console.log(result)
+      if (result)
+      {
+        setBid((prevBid) =>
+          prevBid.map((entry) => {
+            if (entry.id === result.bid.id) {
+              return {
+                ...entry,
+                last_price: result.bid.last_price,
+                last_dino: result.bid.last_dino,
+              };
+            } else {
+              return entry;
+            }
+          })
+        )
+        setBid((prevBid) =>
+          prevBid.map((entry) => {
+            if (entry.id === result.bid.id) {
+              return {
+                ...entry,
+                last_price: result.bid.last_price,
+                last_dino: result.bid.last_dino,
+              };
+            } else {
+              return entry;
+            }
+          })
+        )
+        setMybid((prevBid) =>
+          prevBid.map((entry) => {
+            if (entry.bid.id === result.bid.id) {
+              return {
+                ...entry,
+                price: result.price
+              };
+            } else {
+              return entry;
+            }
+          })
+        )
+      }
     } catch (error) {
       setErrorMessage(translations.shop?.ERR_BID);
     }
@@ -125,7 +165,7 @@ const CavePage: React.FC = () => {
 
   const getValueById = (id) => {
     const item = mybid.find((data) => data.bid.id === id);
-    return item ? item.bid.last_price + " E": "Aucune enchere";
+    return item ? item.price + " E": "Aucune enchere";
   };
 
   return (
