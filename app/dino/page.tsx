@@ -131,7 +131,7 @@ export default function Home() {
           >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
               <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
-                <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} /> 
+                <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} />
               </div>
             </div>
           </Link>

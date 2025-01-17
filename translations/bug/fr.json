@@ -1,0 +1,12 @@
+{
+    "REFERENCE": "Réference",
+    "TITLE": "Titre",
+    "STATUS": "Status",
+    "CONTENT": "Contenue",
+    "CREATE_BUG": "Crée un bug",
+    "ENTER_CONTENT": "Entrez le contenu",
+    "ENTER_TITLE": "Entrez le titre",
+    "SUBMIT_BUTTON_CREATION": "Crée le ticket du bug",
+    "ERR_CREATION_FAILED": "Echec de la création du ticket de bug",
+    "CREATED": "Numéro du ticket [REFERENCE]"
+}
