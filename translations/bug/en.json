@@ -1,2 +1,12 @@
 {
+    "REFERENCE": "Reference",
+    "TITLE": "Title",
+    "STATUS": "Status",
+    "CONTENT": "Content",
+    "CREATE_BUG": "Create a bug",
+    "ENTER_CONTENT": "Enter content",
+    "ENTER_TITLE": "Enter title",
+    "SUBMIT_BUTTON_CREATION": "Create the bug ticket",
+    "ERR_CREATION_FAILED": "Bug ticket creation failed",
+    "CREATED": "Ticket number [REFERENCE]"
 }
