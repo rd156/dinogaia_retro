@@ -11,5 +11,7 @@
     "MENU_NEWS":"Les news",
     "MENU_REGLE":"Régle du jeu",
     "MENU_WIKI":"Wiki",
-    "MENU_FORUM":"Forum"
+    "MENU_FORUM":"Forum",
+    "MENU_MY_HUNT":"Chasse",
+    "MENU_BUG":"Signaler un Bug"
 }

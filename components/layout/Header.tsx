@@ -23,16 +23,20 @@ export default function Header() {
   }, [language]);
 
     // Génération dynamique des éléments du menu avec traductions
+    /*
+      [translations.menu['MENU_BANK']]: "#",
+      [translations.menu['MENU_OTHER']]: "#",
+      [translations.menu['MENU_CRAFT']]: "#",
+    */
     const menuConnectItems = translations && translations.menu ? {
       [translations.menu['MENU_MY_DINO']]: "/dino/actual",
+      [translations.menu['MENU_MY_HUNT']]: "/hunt",
       [translations.menu['MENU_MY_CAVE']]: "/cave",
       [translations.menu['MENU_SHOP']]: "/shop",
       [translations.menu['MENU_QUEST']]: "#",
       [translations.menu['MENU_CASINO']]: "#",
-      [translations.menu['MENU_CRAFT']]: "#",
       [translations.menu['MENU_JOB']]: "#",
-      [translations.menu['MENU_BANK']]: "#",
-      [translations.menu['MENU_OTHER']]: "#",
+      [translations.menu['MENU_BUG']]: "/bug",
     } : {};
   
     const menuVisitorItems = translations && translations.global ? {
@@ -40,8 +44,7 @@ export default function Header() {
       [translations.menu['MENU_REGLE']]: "#",
       [translations.menu['MENU_WIKI']]: "#",
       [translations.menu['MENU_FORUM']]: "#",
-
-
+      [translations.menu['MENU_BUG']]: "/bug",
     } : {};
   useEffect(() => {
     const isTokenValid = (token) => {

@@ -7,9 +7,11 @@
     "MENU_CRAFT":"Craft",
     "MENU_JOB":"Job",
     "MENU_BANK":"Bank",
+    "MENU_MY_HUNT":"Hunt",
     "MENU_OTHER":"Other",
     "MENU_NEWS":"News",
     "MENU_REGLE":"Goal",
     "MENU_WIKI":"Wiki",
-    "MENU_FORUM":"Forum"
+    "MENU_FORUM":"Forum",
+    "MENU_BUG":"Bug"
 }
