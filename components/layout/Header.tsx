@@ -33,7 +33,7 @@ export default function Header() {
       [translations.menu['MENU_MY_HUNT']]: "/hunt",
       [translations.menu['MENU_MY_CAVE']]: "/cave",
       [translations.menu['MENU_SHOP']]: "/shop",
-      [translations.menu['MENU_QUEST']]: "#",
+      [translations.menu['MENU_QUEST']]: "/quest",
       [translations.menu['MENU_CASINO']]: "#",
       [translations.menu['MENU_JOB']]: "#",
       [translations.menu['MENU_BUG']]: "/bug",

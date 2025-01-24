@@ -1,30 +1,26 @@
-Ajouter image espece par lvl
-Ajouter image HDV et BID dans /bouton/ pour la page shop
-BID traduction
+P1:
+    Page jobs
+    Page quete
+    page fight
+    Ajouter image espece par lvl
+    Ajouter image HDV et BID dans /bouton/ pour la page shop
+    BID traduction
+    Bouton de LVL up
 
-Bouton de LVL up
-Cave:
-    Ajouter vendre item depuis cave vers HDV
-    Edit cave
+P2:
+    page message
+    Page casino
+    Page magasin HDV
+    Cave:
+        Ajouter vendre item depuis cave vers HDV
+        Edit cave
+P3:
+    page gestion account
+    Page banque
+    page other
+    page news
+    page regle
+    page wiki
+    page forum
 
-PAGE BUG
-
-Page magasin HDV
-Page quete
-page fight
-
-page gestion account
-
-
-Page jobs
-page message
-Page casino
-Page banque
-page other
-
-page news
-page regle
-page wiki
-page forum
-
-Page atelier
+    Page atelier
