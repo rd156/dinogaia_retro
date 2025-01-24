@@ -5,12 +5,14 @@ import { translate, Loadtranslate} from '@/utils/translate';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 import {API_URL} from '@/config/config';
+import ButtonFancy from "@/components/pattern/ButtonFancy";
 import "./page.css";
 
 const DinoPage: React.FC = () => {
   const params = useParams();
   const dinoId = params?.id;
   const [data, setData] = useState<any[]>([]);
+  const [isLevelUp, setIsLevelUp] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -83,6 +85,63 @@ const DinoPage: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const token = localStorage.getItem('token');
+      try {
+
+        const response = await fetch(`${API_URL}/dino/level/${dinoId}/status`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        
+        if (!response.ok) {
+          setErrorMessage(translations.dino?.ERR_LOAD_FAILED);
+        }
+
+        const LevelUpData = await response.json();
+        console.log(LevelUpData)
+        if (LevelUpData.is_possible && LevelUpData.is_possible == true)
+        {
+          setIsLevelUp(true);
+        }
+        
+      } catch (error) {
+        setErrorMessage(translations.dino?.ERR_LOAD_FAILED);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleLevelUpClick = async (dino_id) => {
+    const token = localStorage.getItem("token");
+    console.log(dino_id)
+    try {  
+      const response = await fetch(`${API_URL}/dino/level/${dino_id}/update`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        },
+        body: JSON.stringify({}),
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.dino?.ERR_LEVEL_UP);
+      }
+      const result = await response.json();
+      setIsLevelUp(false);
+    } catch (error) {
+      setErrorMessage(translations.dino?.ERR_LEVEL_UP);
+      setIsLevelUp(false);
+    }
+  };
+
   return (
     <div className="content">
       <div className='dino-container'>
@@ -100,6 +159,7 @@ const DinoPage: React.FC = () => {
             </span>
             {data.name}
           </h1>
+          {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick(data.id)} label={translations.dino?.LEVEL_UP} />}
           <div className="dino-header">
             <div className="dino-info-right">
               <img src={`/avatar/${data.avatar}.webp`} alt={`Image de profil${data.name}`} className="dino-profile-image" />

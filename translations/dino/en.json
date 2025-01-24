@@ -25,5 +25,7 @@
     "DISEASE":"Disease",
     "LIFE": "Live",
     "PM": "PM",
-    "FATIGUE": "Fatigue"
+    "FATIGUE": "Fatigue",
+    "LEVEL_UP": "Level Up",
+    "ERR_LEVEL_UP": "Level Up Failled"
 }

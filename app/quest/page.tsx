@@ -17,7 +17,6 @@ const QuestPage: React.FC = () => {
   const [questFinish, setQuestFinish] = useState<any[]>([]);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-  const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");

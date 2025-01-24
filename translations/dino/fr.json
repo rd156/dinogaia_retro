@@ -25,5 +25,7 @@
     "DISEASE":"Maladie",
     "LIFE": "Vie",
     "PM": "PM",
-    "FATIGUE": "Fatigue"
+    "FATIGUE": "Fatigue",
+    "LEVEL_UP": "Monter de Niveau",
+    "ERR_LEVEL_UP": "Erreur dans la monter de niveau"
 }
