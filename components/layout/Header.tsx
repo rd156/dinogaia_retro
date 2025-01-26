@@ -34,12 +34,14 @@ export default function Header() {
       [translations.menu['MENU_MY_CAVE']]: "/cave",
       [translations.menu['MENU_SHOP']]: "/shop",
       [translations.menu['MENU_QUEST']]: "/quest",
+      [translations.menu['MENU_HISTORY']]: "/story",
       [translations.menu['MENU_CASINO']]: "#",
       [translations.menu['MENU_JOB']]: "#",
       [translations.menu['MENU_BUG']]: "/bug",
     } : {};
   
     const menuVisitorItems = translations && translations.global ? {
+      [translations.menu['MENU_HISTORY']]: "/story",
       [translations.menu['MENU_NEWS']]: "#",
       [translations.menu['MENU_REGLE']]: "#",
       [translations.menu['MENU_WIKI']]: "#",
