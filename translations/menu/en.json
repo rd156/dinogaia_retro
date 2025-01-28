@@ -1,5 +1,5 @@
 {
-    "MENU_MY_DINO": "Dino",
+    "MENU_MY_DINO": "My dino",
     "MENU_MY_CAVE": "Cave",
     "MENU_SHOP":"Shop",
     "MENU_QUEST": "Quest",
@@ -14,5 +14,9 @@
     "MENU_WIKI":"Wiki",
     "MENU_FORUM":"Forum",
     "MENU_HISTORY":"History",
+    "MENU_ACCOUNT": "My account",
+    "MENU_LANGUAGE": "Language",
+    "MENU_PARAMETER": "Setting",
+    "MENU_DECONNECT": "Sign out",
     "MENU_BUG":"Bug"
 }

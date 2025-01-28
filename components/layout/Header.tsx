@@ -4,7 +4,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { translate, Loadtranslate} from '@/utils/translate';
 import React from "react";
 import { useState, useEffect } from 'react';
-import { NextUIProvider, Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Input, NavbarItem, Link, Button, Dropdown, DropdownItem, DropdownMenu } from "@nextui-org/react";
+import { NextUIProvider, Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Input, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu } from "@nextui-org/react";
 import LoginForm from '@/components/login/LoginForm';
 
 
@@ -123,38 +123,56 @@ export default function Header() {
         </NavbarContent>
         {
             isConnect ? (
-              <NavbarContent justify="end">
-                <NavbarItem className="hidden lg:flex">
-                  <Link href="#">
-                  <button
-                    onClick={() => toggleLanguage('en')}
-                    style={{
-                      padding: '10px 20px',
-                      cursor: 'pointer',
-                      backgroundColor: language === 'en' ? '#0070f3' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                    }}
+            <Dropdown>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className="dropdown_color p-0 bg-transparent data-[hover=true]:bg-transparent"
+                    endContent="e"
+                    radius="sm"
+                    variant="light"
                   >
-                    English
-                  </button>
-                  <button
-                    onClick={() => toggleLanguage('fr')}
-                    style={{
-                      padding: '10px 20px',
-                      cursor: 'pointer',
-                      backgroundColor: language === 'fr' ? '#0070f3' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                    }}
-                  >
-                    Francais
-                  </button>
+                    {translations.menu?.MENU_ACCOUNT}
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                aria-label="Account"
+                className="w-[340px]"
+                itemClasses={{
+                  base: "gap-4",
+                }}
+              >
+                <DropdownItem
+                  key="autoscaling"
+                  startContent=""
+                  className={styles.dropdown_color}
+                >
+                  <Link href="/settings/languages" className={styles.link}>
+                    {translations.menu?.MENU_LANGUAGE}
                   </Link>
-                </NavbarItem>
-              </NavbarContent>
+                </DropdownItem>
+                <DropdownItem
+                  key="autoscaling"
+                  startContent=""
+                  className={styles.dropdown_color}
+                >
+                  <Link href="/settings/" className={styles.link}>
+                    {translations.menu?.MENU_PARAMETER}
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key="autoscaling"
+                  startContent=""
+                  className={styles.dropdown_color}
+                >
+                  <Link href="/logout" className={styles.link}>
+                    {translations.menu?.MENU_DECONNECT}
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
             ) : (
               <NavbarContent justify="end">
                 <LoginForm/>

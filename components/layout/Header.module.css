@@ -12,3 +12,28 @@
     margin: 5vh 0;
     min-height: 5vh;
 }
+
+.dropdown_color {
+    border: 1px solid #d1d5db; /* Exemple de bordure */
+    border-radius: 0.375rem;   /* Coins arrondis */
+    padding: 0.5rem;          /* Espacement interne */
+    background-color: #413633bd;
+    color: #7B7B7B;
+}
+
+.link {
+    color: inherit; /* Conserve la couleur du texte parent */
+    text-decoration: none; /* Supprime le soulignement */
+}
+  
+.link:visited {
+    color: inherit; /* Lien visité */
+}
+  
+.link:hover {
+    color: inherit; /* Lien au survol */
+}
+  
+.link:active {
+    color: inherit; /* Lien actif */
+}
