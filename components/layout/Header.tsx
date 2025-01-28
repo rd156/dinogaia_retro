@@ -22,6 +22,10 @@ export default function Header() {
     fetchTranslations();
   }, [language]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+  };
+
     // Génération dynamique des éléments du menu avec traductions
     /*
       [translations.menu['MENU_BANK']]: "#",
@@ -167,7 +171,7 @@ export default function Header() {
                   startContent=""
                   className={styles.dropdown_color}
                 >
-                  <Link href="/logout" className={styles.link}>
+                  <Link href="/" onClick={handleLogout} className={styles.link}>
                     {translations.menu?.MENU_DECONNECT}
                   </Link>
                 </DropdownItem>
@@ -179,41 +183,6 @@ export default function Header() {
               </NavbarContent>
             )
           }
-        <NavbarMenu>
-        {
-            isConnect ? (
-              Object.entries(menuConnectItems).map(([key, value], index) => (
-                <NavbarMenuItem key={`${key}-${index}`}>
-                <Link
-                  color={
-                    index === 2 ? "primary" : index === menuConnectItems.length - 1 ? "danger" : "foreground"
-                  }
-                  className="w-full"
-                  href="#"
-                  size="lg"
-                >
-                  {key}
-                </Link>
-                </NavbarMenuItem>
-              ))
-            ) : (
-              Object.entries(menuVisitorItems).map(([key, value], index) => (
-                <NavbarMenuItem key={`${key}-${index}`}>
-                <Link
-                  color={
-                    index === 2 ? "primary" : index === menuVisitorItems.length - 1 ? "danger" : "foreground"
-                  }
-                  className="w-full"
-                  href="#"
-                  size="lg"
-                >
-                  {key}
-                </Link>
-                </NavbarMenuItem>
-              ))
-            )
-          }
-        </NavbarMenu>
       </Navbar>
     </header>
   );

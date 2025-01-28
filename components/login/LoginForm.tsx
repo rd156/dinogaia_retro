@@ -13,9 +13,6 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        console.log(password)
-        console.log(username)
-        console.log("URL: " + API_URL)
         const response = await fetch(API_URL + '/account-auth/token', {
           method: 'POST',
           headers: {
@@ -42,7 +39,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} style={{ display: 'flex'}}>
       <Input type="text" autoComplete="off" placeholder="Pseudo" onChange={(e) => setUsername(e.target.value)}
       style={{border: '1px solid #999', backgroundColor: '#4b5320', borderColor: '#4b5320', color: '#393f19'}}/>
-      <Input type="password" autoComplete="off" placeholder="Code" onChange={(e) => setPassword(e.target.value)}
+      <Input type="password" autoComplete="off" placeholder="Password" onChange={(e) => setPassword(e.target.value)}
       style={{border: '1px solid #999', backgroundColor: '#4b5320', borderColor: '#4b5320', color: '#393f19'}}/>
       <Button type="submit" style={{ width: '250px', backgroundColor: '#393f19', borderColor: '#393f19'}}> Connexion </Button>
     </form>
