@@ -14,6 +14,10 @@ P2:
         Ajouter vendre item depuis cave vers HDV
         Edit cave
 P3:
+    Add langue:
+        { lang: 'es', label: 'Español' },
+        { lang: 'de', label: 'Deutsch' },
+        { lang: 'it', label: 'Italiano' },
     page gestion account
     Page banque
     page other

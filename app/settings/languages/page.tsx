@@ -16,9 +16,7 @@ const QuestPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [chapter, setChapter] = useState<number>(0);
 
-  // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
     const loadedTranslations = await Loadtranslate(language, ["story", "global"]);
@@ -27,7 +25,10 @@ const QuestPage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
-
+  const languages = [
+    { lang: 'en', label: 'English' },
+    { lang: 'fr', label: 'Français' },
+  ];
   
   return (
     <main className="content">
@@ -39,35 +40,27 @@ const QuestPage: React.FC = () => {
           <p className="alert-green">{message}</p>
         )}
         <div className="block_white">
-                  <Link href="#">
-                  <button
-                    onClick={() => toggleLanguage('en')}
-                    style={{
-                      padding: '10px 20px',
-                      cursor: 'pointer',
-                      backgroundColor: language === 'en' ? '#0070f3' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                    }}
-                  >
-                    English
-                  </button>
-                  
-                  <button
-                    onClick={() => toggleLanguage('fr')}
-                    style={{
-                      padding: '10px 20px',
-                      cursor: 'pointer',
-                      backgroundColor: language === 'fr' ? '#0070f3' : '#ccc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '5px',
-                    }}
-                  >
-                    Francais
-                  </button>
-                  </Link>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+            {languages.map(({ lang, label }) => (
+              <button
+                onClick={() => toggleLanguage(lang)}
+                key={lang}
+                style={{
+                  padding: '10px 20px',
+                  cursor: language === lang ? 'default' : 'pointer',
+                  backgroundColor: language === lang ? '#0070f3' : '#2f2f2f',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  opacity: language === lang ? 1 : 0.6,
+                }}
+                aria-label={`Change language to ${label}`}
+                disabled={language === lang}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </main>
