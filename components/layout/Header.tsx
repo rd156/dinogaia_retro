@@ -11,7 +11,7 @@ import LoginForm from '@/components/login/LoginForm';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isConnect, setIsConnect] = React.useState(false);
-  const { language, toggleLanguage } = useLanguage();
+  const {language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
 
   useEffect(() => {
@@ -149,8 +149,8 @@ export default function Header() {
                 }}
               >
                 <DropdownItem
-                  key="autoscaling"
                   startContent=""
+                  textValue={translations.menu?.MENU_LANGUAGE}
                   className={styles.dropdown_color}
                 >
                   <Link href="/settings/languages" className={styles.link}>
@@ -158,7 +158,7 @@ export default function Header() {
                   </Link>
                 </DropdownItem>
                 <DropdownItem
-                  key="autoscaling"
+                  textValue={translations.menu?.MENU_PARAMETER}
                   startContent=""
                   className={styles.dropdown_color}
                 >
@@ -167,7 +167,7 @@ export default function Header() {
                   </Link>
                 </DropdownItem>
                 <DropdownItem
-                  key="autoscaling"
+                  textValue={translations.menu?.MENU_DECONNECT}
                   startContent=""
                   className={styles.dropdown_color}
                 >
