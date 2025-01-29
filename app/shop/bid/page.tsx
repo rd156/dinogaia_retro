@@ -36,6 +36,10 @@ const CavePage: React.FC = () => {
       setLoading(true);
       setErrorMessage("");
       const dinoId = localStorage.getItem("dinoId");
+	  if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
       setDinoid(dinoId)
       const token = localStorage.getItem('token');
       try {
@@ -70,6 +74,10 @@ const CavePage: React.FC = () => {
       setErrorMessage("");
       const dinoId = localStorage.getItem("dinoId");
       const token = localStorage.getItem('token');
+	  if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
       try {
         const response = await fetch(`${API_URL}/bid/get_bid/${dinoId}`, {
           method: 'GET',
@@ -99,6 +107,10 @@ const CavePage: React.FC = () => {
     try {
       const token = localStorage.getItem('token');
       const dinoId = localStorage.getItem("dinoId");
+	  if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
       const bidData = {
         dino: dinoId,
         price: bidAmount,
@@ -164,7 +176,7 @@ const CavePage: React.FC = () => {
   };
 
   const getValueById = (id) => {
-    const item = mybid.find((data) => data.bid.id === id);
+    const item = mybid.find((data) => data.bid?.id === id);
     return item ? item.price + " E": "Aucune enchere";
   };
 
