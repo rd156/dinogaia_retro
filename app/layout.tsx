@@ -4,7 +4,7 @@ import {Providers} from "./providers";
 import Header from "@/components/layout/Header";
 import Content from "@/components/layout/Content";
 import Footer from "@/components/layout/Footer";
-import { LanguageProvider } from "@/context/LanguageContext"; // Importez le LanguageProvider
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./layout.css";
 
 const inter = Inter({ subsets: ["latin"] });
