@@ -235,7 +235,7 @@ const DinoPage: React.FC = () => {
                   cursor: "pointer",
                 }}>{translations.hunt?.CHOSE_LAND}</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
-            {terrains.map((terrain) => (
+            {terrains.filter(terrain => terrain.possible).map((terrain) => (
               <div
                 key={terrain.name}
                 onClick={() => setSelectedTerrain(terrain.name)}
