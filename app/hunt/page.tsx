@@ -7,7 +7,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 
 const DinoPage: React.FC = () => {
-  const [imageFolder, setImageFolder] = useState<string>('normal');
+  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [dinoId, setDinoId] = useState<string | null>(null);
   const [terrains, setTerrains] = useState<any[]>([]);
   const [weapons, setWeapons] = useState<any[]>([]);
@@ -33,11 +33,11 @@ const DinoPage: React.FC = () => {
 
   // Charger la gestion des images
   useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "normal");
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
   }, []);
 
   const getImageUrl = (itemName: string) => {
-    if (imageFolder == "normal"){
+    if (imageFolder == "reborn"){
       return `${itemName}`;
     }
     else{

@@ -9,7 +9,7 @@ import "./page.css";
 
 const HuntResultPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('normal');
+  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,11 +32,11 @@ const HuntResultPage: React.FC = () => {
 
   // Charger la gestion des images
   useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "normal");
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
   }, []);
 
   const getImageUrl = (itemName: string) => {
-    if (imageFolder == "normal"){
+    if (imageFolder == "reborn"){
       return `${itemName}`;
     }
     else{
