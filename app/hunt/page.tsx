@@ -7,6 +7,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 
 const DinoPage: React.FC = () => {
+  const [imageFolder, setImageFolder] = useState<string>('normal');
   const [dinoId, setDinoId] = useState<string | null>(null);
   const [terrains, setTerrains] = useState<any[]>([]);
   const [weapons, setWeapons] = useState<any[]>([]);
@@ -29,6 +30,20 @@ const DinoPage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
+
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "normal");
+  }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "normal"){
+      return `${itemName}`;
+    }
+    else{
+      return `template_image/${imageFolder}/${itemName}`;
+    }
+  };
 
   // Récupérer l'ID du dino depuis localStorage
   const updateDinoId = () => {
@@ -180,7 +195,7 @@ const DinoPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={`item/none.webp`}
+                  src={getImageUrl(`item/none.webp`)}
                   alt={translations.hunt?.IMAGE_WEAPON}
                   style={{
                     width: "100px",
@@ -208,7 +223,7 @@ const DinoPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={`item/${weapon.item_name}.webp`}
+                  src={getImageUrl(`item/${weapon.item_name}.webp`)}
                   alt={translations.hunt?.IMAGE_WEAPON}
                   style={{
                     width: "100px",
@@ -253,7 +268,7 @@ const DinoPage: React.FC = () => {
                 }}
               >
                 <img
-                  src={`terrain/${terrain.name}.webp`}
+                  src={getImageUrl(`terrain/${terrain.name}.webp`)}
                   alt={translations.hunt?.IMAGE_LAND}
                   style={{
                     width: "200px",

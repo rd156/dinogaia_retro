@@ -9,6 +9,7 @@ import "./page.css";
 
 const HuntResultPage: React.FC = () => {
   const searchParams = useSearchParams();
+  const [imageFolder, setImageFolder] = useState<string>('normal');
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,14 +22,27 @@ const HuntResultPage: React.FC = () => {
   const weapon = searchParams.get("weapon");
 
     // Charger les traductions
-    useEffect(() => {
-      const fetchTranslations = async () => {
-        const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
-        setTranslations(loadedTranslations);
-      };
-      fetchTranslations();
-    }, [language]);
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
 
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "normal");
+  }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "normal"){
+      return `${itemName}`;
+    }
+    else{
+      return `template_image/${imageFolder}/${itemName}`;
+    }
+  };
   useEffect(() => {
     const fetchHuntResult = async () => {
       setLoading(true);
@@ -153,7 +167,7 @@ const HuntResultPage: React.FC = () => {
               Object.entries(resultData.items).map(([name, count]) => (
                 <div key={name} className="block">
                   <img
-                    src={`items/${name}.webp`}
+                    src={getImageUrl(`item/${name}.webp`)}
                     alt={translations.hunt?.IMAGE_OF?.replace("[ItemName]", name)}
                     style={{
                       width: "100px",
