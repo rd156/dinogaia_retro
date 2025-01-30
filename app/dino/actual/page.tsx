@@ -117,7 +117,6 @@ const DinoPage: React.FC = () => {
         }
 
         const LevelUpData = await response.json();
-        console.log(LevelUpData)
         if (LevelUpData.is_possible && LevelUpData.is_possible == true)
         {
           setIsLevelUp(true);
@@ -175,7 +174,7 @@ const DinoPage: React.FC = () => {
           {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick()} label={translations.dino?.LEVEL_UP} />}
           <div className="dino-header">
             <div className="dino-info-right">
-              <img src={`/avatar/${data.avatar}.webp`} alt={`Image de profil${data.name}`} className="dino-profile-image" />
+              <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />
             </div>
             <div className="dino-info-right">
               <div className="stat-right-block">

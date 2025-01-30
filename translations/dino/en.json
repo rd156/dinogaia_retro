@@ -27,5 +27,6 @@
     "PM": "PM",
     "FATIGUE": "Fatigue",
     "LEVEL_UP": "Level Up",
-    "ERR_LEVEL_UP": "Level Up Failled"
+    "ERR_LEVEL_UP": "Level Up Failed",
+    "IMAGE_PROFILE_ALT": "Profil image of [Name]"
 }

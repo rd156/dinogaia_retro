@@ -27,5 +27,6 @@
     "PM": "PM",
     "FATIGUE": "Fatigue",
     "LEVEL_UP": "Monter de Niveau",
-    "ERR_LEVEL_UP": "Erreur dans la monter de niveau"
+    "ERR_LEVEL_UP": "Erreur dans la monter de niveau",
+    "IMAGE_PROFILE_ALT": "Image de profil de [Name]"
 }
