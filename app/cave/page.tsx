@@ -230,9 +230,11 @@ const CavePage: React.FC = () => {
                     className="progress-fill storage-bar"
                     style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
                   >
+                    {info.storage > 0 && (
                     <span className="progress-text">
                       {info.storage}/{info.storage_max}
                     </span>
+                    )}
                   </div>
                 </div>
               </div>
