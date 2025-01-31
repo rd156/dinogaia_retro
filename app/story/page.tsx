@@ -46,6 +46,7 @@ const QuestPage: React.FC = () => {
         }
 
         const chapterData = await response.json();
+        console.log(chapterData)
         if (chapterData.chapter)
         {        
           setChapter(chapterData.chapter);
@@ -71,11 +72,18 @@ const QuestPage: React.FC = () => {
           <p className="alert-green">{message}</p>
         )}
         <div className="block_white">
+          <button
+            key="chapter_0"
+            onClick={() => (window.location.href = `/story/0`)}
+            style={{ marginRight: "10px", padding: "5px 10px", cursor: "pointer" }}
+          >
+            {translations.story?.ORIGIN}
+          </button>
           {
           Array.from({length: chapter}, (_, index) => (
             <button
-              key={index}
-              onClick={() => (window.location.href = `/story/${index}`)}
+              key={"chapter_" + index + 1}
+              onClick={() => (window.location.href = `/story/${index + 1}`)}
               style={{ marginRight: "10px", padding: "5px 10px", cursor: "pointer" }}
             >
               {translations.story?.CHAPITRE.replace("[Number]", index + 1)}
