@@ -82,7 +82,7 @@ const QuestPage: React.FC = () => {
             </button>
           ))}
         </div>
-
+        <br />
         <div className="block_white">
           <p className="title-tab">{translations.story?.["TITLE_"+chapter]}</p>
           <br />
