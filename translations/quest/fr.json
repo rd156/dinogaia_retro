@@ -53,7 +53,29 @@
     "OBJECTIF_CASINO_PLAY": "Tu dois pejouerrdre [Number] au casino",
     "OBJECTIF_CASINO_PLAY_MACHINE": "Tu dois jouer [Number] au casino avec la machine [Machine]",
     "DESCRIPTION": "Description:",
-    "OBJECTIF": "Objectif:"
+    "OBJECTIF": "Objectif:",
+    "QUEST_TYPE_NONE":"Aucun",
+    "QUEST_TYPE_STORY":"Quête principal",
+    "QUEST_TYPE_SECONDARY":"Quête secondaire",
 
+    "QUEST_ufo":"L'UFO",
+    "QUEST_rencontre_monoke":"Moloke",
+    "QUEST_midworld":"Midworld",
+    "QUEST_koyo_le_veloce":"Koyo le Véloce",
+    "QUEST_jogpline_le_sage":"Jopline le Sage",
+    "QUEST_fourberies_hautes_strates": "Fourberies en Hautes Strates",
+    "QUEST_iles_du_ciel": "Les Iles du Ciel",
+    "QUEST_caverne_dragon": "La Caverne du Dragon",
 
+    "QUEST_koyo_le_veloce_STEP_rencontre_koyo": "Rencontre avec Koyo",
+    "QUEST_caverne_dragon_STEP_clef": "Récupérer la clé",
+    "QUEST_iles_du_ciel_STEP_ailes_divines": "Créer des ailes divines",
+    "QUEST_jogpline_le_sage_STEP_capture_jogpline": "Capture de Jogpline",
+    "QUEST_ufo_STEP_give_carte_acces": "Donner la carte d'accès",
+    "QUEST_midworld_STEP_plan_acces": "Récupérer le plan d'accès",
+    "QUEST_rencontre_monoke_STEP_moloke": "Gagner au lancer de couteau",
+    "QUEST_fourberies_hautes_strates_STEP_get_ours": "L'ours polaire",
+    "QUEST_fourberies_hautes_strates_STEP_get_pierre_solaire": "La pierre solaire",
+    "QUEST_fourberies_hautes_strates_STEP_use_pierre_solaire": "Fonctionnement de la pierre solaire",
+    "QUEST_fourberies_hautes_strates_STEP_give_ours": "La carte de l'ours"
 }

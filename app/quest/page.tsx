@@ -206,8 +206,8 @@ const QuestPage: React.FC = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <td style={{ padding: "10px" }}>{possibility.titre}</td>
-                    <td style={{ padding: "10px" }}>{possibility.type}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_'+ possibility.titre] ?? possibility.titre}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_TYPE_'+ possibility.type] ?? possibility.type}</td>
                     <td style={{ padding: "10px" }}>
                       <ButtonFancy onClick={() => handleButtonClick(possibility.titre)} label={translations.quest?.JOIN_QUEST} />
                     </td>
@@ -217,6 +217,7 @@ const QuestPage: React.FC = () => {
             </tbody>
           </table>
         </div>
+        <br />
         <div className="block_white">
           <p className="title-tab">{translations.quest?.ACTIVE_QUEST}</p>
           <br />
@@ -240,8 +241,8 @@ const QuestPage: React.FC = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <td style={{ padding: "10px" }}>{entry.quest_name}</td>
-                    <td style={{ padding: "10px" }}>{entry.step_name}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_'+ entry.quest_name] ?? entry.quest_name}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_'+ entry.quest_name + '_STEP_' + entry.step_name] ?? entry.step_name}</td>
                     <td style={{ padding: "10px" }}>
                       {entry.expire_date ? entry.expire_date : translations.quest?.NO_EXPIRATION}
                     </td>
@@ -530,6 +531,7 @@ const QuestPage: React.FC = () => {
             </tbody>
           </table>
         </div>
+        <br />
         <div className="block_white">
           <p className="title-tab">{translations.quest?.FINISH_QUEST}</p>
           <br />
@@ -553,8 +555,8 @@ const QuestPage: React.FC = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <td style={{ padding: "10px" }}>{finish.quest_name}</td>
-                    <td style={{ padding: "10px" }}>{finish.quest_type}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_'+ finish.quest_name] ?? finish.quest_name}</td>
+                    <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_TYPE_'+ finish.quest_type] ?? finish.quest_type}</td>
                     <td style={{ padding: "10px" }}>
                       {finish.quest_is_repetable ? (
                         <ButtonFancy onClick={() => handleButtonClick(finish.titre)} label={translations.quest?.RESTART_QUEST} />

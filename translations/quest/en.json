@@ -53,5 +53,29 @@
     "OBJECTIF_CASINO_PLAY": "You must play [Number] at the casino",
     "OBJECTIF_CASINO_PLAY_MACHINE": "You must play [Number] at the casino with the machine [Machine]",
     "DESCRIPTION": "Description:",
-    "OBJECTIF": "Objectif:"
+    "OBJECTIF": "Objectif:",
+    "QUEST_TYPE_NONE": "None",
+    "QUEST_TYPE_STORY": "Main Quest",
+    "QUEST_TYPE_SECONDARY": "Side Quest",
+
+    "QUEST_ufo": "The UFO",
+    "QUEST_rencontre_monoke": "Moloke",
+    "QUEST_midworld": "Midworld",
+    "QUEST_koyo_le_veloce": "Koyo the Swift",
+    "QUEST_jogpline_le_sage": "Jopline the Wise",
+    "QUEST_fourberies_hautes_strates": "Trickeries in the High Strata",
+    "QUEST_iles_du_ciel": "The Sky Islands",
+    "QUEST_caverne_dragon": "The Dragon's Cave",
+
+    "QUEST_koyo_le_veloce_STEP_rencontre_koyo": "Meet Koyo",
+    "QUEST_caverne_dragon_STEP_clef": "Retrieve the key",
+    "QUEST_iles_du_ciel_STEP_ailes_divines": "Create divine wings",
+    "QUEST_jogpline_le_sage_STEP_capture_jogpline": "Capture Jogpline",
+    "QUEST_ufo_STEP_give_carte_acces": "Give the access card",
+    "QUEST_midworld_STEP_plan_acces": "Retrieve the access plan",
+    "QUEST_rencontre_monoke_STEP_moloke": "Win the knife-throwing game",
+    "QUEST_fourberies_hautes_strates_STEP_get_ours": "The polar bear",
+    "QUEST_fourberies_hautes_strates_STEP_get_pierre_solaire": "The solar stone",
+    "QUEST_fourberies_hautes_strates_STEP_use_pierre_solaire": "Operation of the solar stone",
+    "QUEST_fourberies_hautes_strates_STEP_give_ours": "The bear's map"
 }
