@@ -236,13 +236,13 @@ const CavePage: React.FC = () => {
                 backgroundColor: "#41c75e",
               }}>
                 <h3 className="collect-result" onClick={() => {
-                    window.location.href = "/shop/bid/collect";
+                    window.location.href = "/shop/bid";
                   }}>
                   {translations.shop?.RESULT_NUMBER.replace("[Number]", count)}
                 </h3>
               </div>
             )}
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", color:"black" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
                 <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ITEM_IMAGE}</th>

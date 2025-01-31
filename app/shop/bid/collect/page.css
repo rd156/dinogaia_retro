@@ -1,0 +1,76 @@
+.block
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-container {
+    margin-bottom: 5vh;
+    font-family: "Arial", sans-serif;
+  }
+  
+.title-name {
+    padding: 2vh;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .cave-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .stat-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .progress-bar {
+    background: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 15px;
+    margin-bottom: 5px;
+    position: relative;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .storage-bar {
+    background: #e4ff4d;
+  }
+  
+  .progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    white-space: nowrap;
+    z-index: 1;
+    line-height: 15px;
+  }
+  
+
+  .progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    white-space: nowrap;
+    z-index: 1;
+    line-height: 15px;
+  }
