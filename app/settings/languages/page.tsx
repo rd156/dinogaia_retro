@@ -11,7 +11,7 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const QuestPage: React.FC = () => {
-  const { language, toggleLanguage } = useLanguage();
+  const {language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,6 +44,7 @@ const QuestPage: React.FC = () => {
       }
   
       const result = await response.json();
+      console.log(result)
       if (result.language)
       {
         toggleLanguage(result.language)
