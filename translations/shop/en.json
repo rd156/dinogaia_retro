@@ -12,5 +12,7 @@
     "TABLE_QUANTITY": "Quantity",
     "TABLE_LAST_PRICE": "Last price",
     "TABLE_MY_BID": "My bid",
-    "TABLE_ACTION": "Action"
+    "TABLE_ACTION": "Action",
+    "BID": "Bid",
+    "AMOUNT": "Amount"
 }

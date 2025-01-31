@@ -12,5 +12,7 @@
     "TABLE_QUANTITY": "Quantité",
     "TABLE_LAST_PRICE": "Dernier prix",
     "TABLE_MY_BID": "Mon enchere",
-    "TABLE_ACTION": "Action"
+    "TABLE_ACTION": "Action",
+    "BID": "Enchérir",
+    "AMOUNT": "Montant"
 }

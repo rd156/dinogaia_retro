@@ -271,7 +271,8 @@ const CavePage: React.FC = () => {
                     }}
                   />
                   </td>
-                  <td style={{ padding: "10px" }}>{entry.item.categorie}</td>
+
+                  <td style={{ padding: "10px" }}>{translations.item?.['CATEGORY_'+ entry.item.categorie] ?? entry.item.categorie}</td>
                   <td style={{ padding: "10px" }}>{entry.day}</td>
                   <td style={{ padding: "10px" }}>{entry.quantity}</td>
                   <td style={{ padding: "10px" }}>{entry.last_price > 0 ? `${entry.last_price} E` : translations.shop?.TABLE_NO_PRICE} {entry.last_dino == dinoid && " (moi)"} </td>
@@ -279,7 +280,7 @@ const CavePage: React.FC = () => {
                   <td style={{ padding: "10px" }}>
                     <input
                       type="number"
-                      placeholder="Montant"
+                      placeholder={translations.shop?.AMOUNT}
                       style={{
                         padding: "5px",
                         marginRight: "10px",
@@ -306,7 +307,7 @@ const CavePage: React.FC = () => {
                       }}
                       onClick={() => handleBid(entry.id, bidAmounts[entry.id])}
                     >
-                      Enchérir
+                      {translations.shop?.BID}
                     </button>
                   </td>
                 </tr>
