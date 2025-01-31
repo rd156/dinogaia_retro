@@ -28,5 +28,19 @@
     "COLLECT_ITEM":"Collecter les résultats de la chasse (coût 2 emeraudes)",
     "COLLECT_SUCCESS":"Les items ont été collectés avec succès !",
     "SELL_ITEM":"Vendre les items de la chasse",
-    "SELL_SUCCESS":"Les objects ont était vendu"
+    "SELL_SUCCESS":"Les objects ont était vendu",
+    "DANGEROUS_SCORE": "Score de dangerosité: [Number]",
+    "TERRAIN_beach":"Plage",
+    "TERRAIN_jungle":"Pleine Jungle",
+    "TERRAIN_canyon":"Canyon",
+    "TERRAIN_sky_islands":"Les îles du ciel",
+    "TERRAIN_dragon_cave":"Caverne du dragon",
+    "TERRAIN_savannah":"La Savane",
+    "TERRAIN_mountain":"La Montagne",
+    "TERRAIN_grand_canyon":"Le grand Canyon",
+    "TERRAIN_midworld":"MidWorld",
+    "TERRAIN_forest_caribou":"La forêt des Cariboux",
+    "TERRAIN_garnet_tray":"Le plateau des grenats",
+    "TERRAIN_garnet_garden":"Jardin des grenats",
+    "TERRAIN_cemetery":"Cimetière"
 }

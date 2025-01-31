@@ -103,7 +103,9 @@ const DinoPage: React.FC = () => {
         if (!terrainResponse.ok) {
           setErrorMessage(translations.hunt?.ERR_LOAD_LAND);
         }
-        setTerrains(await terrainResponse.json());
+        const list_terrain = await terrainResponse.json()
+        setTerrains(list_terrain);
+        console.log(list_terrain)
       } catch (error) {
         setErrorMessage(translations.hunt?.ERR_LOAD);
       } finally {
@@ -276,7 +278,8 @@ const DinoPage: React.FC = () => {
                     marginBottom: "10px",
                   }}
                 />
-                <h3>{terrain.name}</h3>
+                <h3>{translations.hunt?.['TERRAIN_'+ terrain.name] ?? terrain.name}</h3>
+                <h3>{translations.hunt?.DANGEROUS_SCORE?.replace("[Number]", terrain.danger)}</h3>
               </div>
             ))}
           </div>

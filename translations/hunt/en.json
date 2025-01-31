@@ -28,5 +28,19 @@
     "COLLECT_ITEM":"Collect hunting item (cost 2 emerald)",
     "COLLECT_SUCCESS":"Item was collect",
     "SELL_ITEM":"Sell hunting item",
-    "SELL_SUCCESS":"Item was sell"
+    "SELL_SUCCESS":"Item was sell",
+    "DANGEROUS_SCORE": "Danger Score: [Number]",
+    "TERRAIN_beach": "Beach",
+    "TERRAIN_jungle": "Deep Jungle",
+    "TERRAIN_canyon": "Canyon",
+    "TERRAIN_sky_islands": "Sky Islands",
+    "TERRAIN_dragon_cave": "Dragon Cave",
+    "TERRAIN_savannah": "Savannah",
+    "TERRAIN_mountain": "Mountain",
+    "TERRAIN_grand_canyon": "Grand Canyon",
+    "TERRAIN_midworld": "MidWorld",
+    "TERRAIN_forest_caribou": "Caribou Forest",
+    "TERRAIN_garnet_tray": "Garnet Plateau",
+    "TERRAIN_garnet_garden": "Garnet Garden",
+    "TERRAIN_cemetery": "Cemetery"
 }
