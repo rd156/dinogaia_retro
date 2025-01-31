@@ -263,7 +263,7 @@ const CavePage: React.FC = () => {
                   <td style={{ padding: "10px" }}>
                   <img
                     src={getImageUrl(`item/${entry.item.name}.webp`)}
-                    alt={translations.hunt?.IMAGE_WEAPON}
+                    alt={translations.item?.IMAGE_ITEM?.replace("[Item]", entry.item.name)}
                     style={{
                       width: "50px",
                       height: "50px",

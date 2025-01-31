@@ -24,5 +24,7 @@
     "TABLE_NAME": "Name",
     "TABLE_ORIGIN": "Origin",
     "TABLE_QUANTITY": "Quantity",
+    "DISPLAY_ALL": "Show all",
+    "ACTION_ON": "Action on the item: [Item]",
     "TABLE_ACTION": "Action"
 }

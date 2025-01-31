@@ -11,6 +11,7 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
+  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,6 +28,20 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
+
+    // Charger la gestion des images
+    useEffect(() => {
+      setImageFolder(localStorage.getItem("image_template") || "reborn");
+    }, []);
+  
+    const getImageUrl = (itemName: string) => {
+      if (imageFolder == "reborn"){
+        return `/${itemName}`;
+      }
+      else{
+        return `/template_image/${imageFolder}/${itemName}`;
+      }
+    };
 
   // Récupérer les données du serveur
 
@@ -193,15 +208,25 @@ const CavePage: React.FC = () => {
             <tbody>
               {Array.isArray(items) && items.map((item, index) => (
                 <tr key={index} style={{borderBottom: "1px solid #ddd"}}>
-                  <td style={{ textAlign: "center", padding: "10px" }}>{item.item_name}</td>
-                  <td style={{ textAlign: "center", padding: "10px" }}>{item.origine}</td>
+                  <td style={{ padding: "10px" }}>
+                  <img
+                    src={getImageUrl(`item/${item.item_name}.webp`)}
+                    alt={translations.item?.IMAGE_ITEM?.replace("[Item]", item.item_name)}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  </td>
+                  <td style={{ textAlign: "center", padding: "10px" }}>{translations.item?.['ORIGIN_'+ item.origine] ?? item.origine}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>{item.quantite}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>
-                  {item.origine === "hunt" ? (
-                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.GET.replace("[Number]", 2)} />
-                  ) : (
-                    <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.FREE_GET}/>
-                  )}
+                    {item.origine === "hunt" ? (
+                      <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.GET.replace("[Number]", 2)} />
+                    ) : (
+                      <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.FREE_GET}/>
+                    )}
                     <ButtonNeon onClick={() => handleButtonClick("sell", item.item_name)} label={translations.cave?.SELL}/>
                   </td>
                 </tr>

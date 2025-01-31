@@ -1,4 +1,7 @@
 {
+    "IMAGE_ITEM": "Image of the item [Item]",
+
+    "ORIGIN_hunt": "hunt",
     "CATEGORY_MEDOC": "Medicine",
     "CATEGORY_FOOD": "Food",
     "CATEGORY_ATK": "Attack",

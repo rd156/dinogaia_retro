@@ -283,7 +283,7 @@ const CavePage: React.FC = () => {
                 cursor: "pointer",
               }}
             >
-              {category === "ALL" ? "Tout afficher" : category}
+              {category === "ALL" ? translations.cave?.DISPLAY_ALL : translations.item?.['CATEGORY_'+ category] ?? category}
             </button>
           ))}
       </div>
@@ -291,8 +291,10 @@ const CavePage: React.FC = () => {
       {selectedItem && (
         <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
           <div className="block_white">
-            <h3>Action sur : {selectedItem.item_name}</h3>
-            <div style={{ display: "flex", gap: "10px" }}>
+            <h3 style={{marginBottom: "10px"}}>
+              {translations.cave?.["ACTION_ON"].replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name] ?? selectedItem.item_name)}
+            </h3>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
               <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
               <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
               <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
@@ -309,10 +311,10 @@ const CavePage: React.FC = () => {
             <div
               key={name}
               className="block_white"
-              onClick={() => handleItemClick({ item_name, quantite, item_categorie })} // Enregistre l'item sélectionné
+              onClick={() => handleItemClick({ item_name, quantite, item_categorie })}
               >
                 <ImageWithText src={getImageUrl(`item/${item_name}.webp`)}alt={`${item_name} image`} quantity={quantite} />
-                <p>{item_name}</p>
+                <p>{translations.item?.['ITEM_'+ item_name] ?? item_name}</p>
             </div>
           ))
         }
