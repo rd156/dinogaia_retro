@@ -1,102 +1,71 @@
-.content
-{
-    height: 100vh;
-    width: 100%;
-}
-
-.content_top
-{
-    min-height: 100%;
-    padding-top: 20vh;
-    height: 85vh;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    width: 100%;
-}
-
-.content_bottom {
-    min-height: 100%;
-    width: 100%;
-    padding-top: 15vh;
-    height: 85vh;
-    padding-left: 10vh;
-    background-image: url('/image-medium-1@2x.png');
-    background-size: cover;
-    background-position: center;
-}
 .dino-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: "Arial", sans-serif;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+}
+
 .dino-card {
-    background: rgba(255, 255, 255, 0.5);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    width: 100vh;
-  }
-  .dino-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 5vh;
-  }
-  
-  .dino-profile-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    margin-bottom: 15px;
-  }
+width: 100vh;
+}
 
-  .dino-info-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+.dino-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 5vh;
+}
 
-  .dino-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
+.dino-profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  margin-bottom: 15px;
+}
 
-  .dino-stats .stat-block {
-    margin-bottom: 20px;
-  }
+.dino-info-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-  .stat-item{
-    text-align: left;
-  }
-  
-  .progress-bar {
-    background: #444;
-    border-radius: 5px;
-    overflow: hidden;
-    height: 15px;
-    margin-bottom: 5px;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    border-radius: 5px;
-  }
-  
-  .life-bar {
-    background: #ff4d4d;
-  }
-  
-  .pm-bar {
-    background: #4da6ff;
-  }
+.dino-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
-  .fatigue-bar {
-    background: #e4ff4d;
-  }
+.dino-stats .stat-block {
+  margin-bottom: 20px;
+}
+
+.stat-item{
+  text-align: left;
+}
+
+.progress-bar {
+  background: #444;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 15px;
+  margin-bottom: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.life-bar {
+  background: #ff4d4d;
+}
+
+.pm-bar {
+  background: #4da6ff;
+}
+
+.fatigue-bar {
+  background: #e4ff4d;
+}

@@ -157,20 +157,20 @@ const CavePage: React.FC = () => {
         {message && (
           <p className="alert-green">{message}</p>
         )}
-        <div className='title-container'>
+        <div className='block_white title-container'>
           <h1 className="title-name">
             {translations.cave?.ITEM_COLLECT_PAGE}
           </h1>
         </div>
         <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
-          <div className="block">
+          <div className="block block_white">
             <div style={{ display: "flex", gap: "10px" }}>
               <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", 2)} />
               <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL} />
             </div>
           </div>
         </div>
-        <div className="table-container">
+        <div className="block_white">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>

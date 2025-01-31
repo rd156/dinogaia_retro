@@ -156,114 +156,116 @@ const DinoPage: React.FC = () => {
   
   return (
     <div className="content">
-      <div className='dino-container'>
-        <div className="dino-card">
-          <h1 className="dino-name">
-            <span 
-              onClick={(e) => {
-                handleFavoriteToggle(data.id);
-                e.preventDefault();
-              }}
-              style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
-              title={translations.dino?.ADD_FAVORY}
-            >
-              {data.favory ? '★' : '☆'}
-            </span>
-            {data.name}
-          </h1>
-          {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick()} label={translations.dino?.LEVEL_UP} />}
-          <div className="dino-header">
-            <div className="dino-info-right">
-              <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
+      <div className='content_top'>
+        <div className='dino-container'>
+          <div className="block_white dino-card">
+            <h1 className="dino-name">
+              <span 
+                onClick={(e) => {
+                  handleFavoriteToggle(data.id);
+                  e.preventDefault();
+                }}
+                style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
+                title={translations.dino?.ADD_FAVORY}
+              >
+                {data.favory ? '★' : '☆'}
+              </span>
+              {data.name}
+            </h1>
+            {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick()} label={translations.dino?.LEVEL_UP} />}
+            <div className="dino-header">
+              <div className="dino-info-right">
+                <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />
+              </div>
+              <div className="dino-info-right">
+                <div className="stat-right-block">
+                  <div className="stat-item">
+                    <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.XP}: <strong>{data.xp}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.LUCK}: <strong>{data.luck}</strong></p>
+                  </div>
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.XP}: <strong>{data.xp}</strong></p>
+              </div>
+              <div className="dino-info-right">
+                <div className="stat-right-block">
+                  <div className="stat-item">
+                    <p>{translations.dino?.AGILITE}: <strong>{data.agilite}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.INTELLIGENCE}: <strong>{data.intelligence}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.STRENGH}: <strong>{data.force}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.ENDURANCE}: <strong>{data.endurance}</strong></p>
+                  </div>
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.LUCK}: <strong>{data.luck}</strong></p>
+              </div>
+              <div className="dino-info-right">
+                <div className="stat-right-block">
+                  <div className="stat-item">
+                    <p>{translations.dino?.SIZE}: <strong>{data.taille}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.WEIGHT}: <strong>{data.poids}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.INJURY}: <strong>{data.injury}</strong></p>
+                  </div>
+                  <div className="stat-item">
+                    <p>{translations.dino?.DISEASE}: <strong>{data.disease}</strong></p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.AGILITE}: <strong>{data.agilite}</strong></p>
+            <div className="dino-stats">
+                <div className="stat-block">
+                  <h2>{translations.dino?.LIFE}</h2>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill life-bar"
+                      style={{ width: `${(data.pv / data.pv_max) * 100}%` }}
+                    ></div>
+                  </div>
+                  <p>
+                    {data.pv}/{data.pv_max}
+                  </p>
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.INTELLIGENCE}: <strong>{data.intelligence}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.STRENGH}: <strong>{data.force}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.ENDURANCE}: <strong>{data.endurance}</strong></p>
-                </div>
-              </div>
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.SIZE}: <strong>{data.taille}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.WEIGHT}: <strong>{data.poids}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.INJURY}: <strong>{data.injury}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.DISEASE}: <strong>{data.disease}</strong></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="dino-stats">
-              <div className="stat-block">
-                <h2>{translations.dino?.LIFE}</h2>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill life-bar"
-                    style={{ width: `${(data.pv / data.pv_max) * 100}%` }}
-                  ></div>
-                </div>
-                <p>
-                  {data.pv}/{data.pv_max}
-                </p>
-              </div>
 
-              <div className="stat-block">
-                <h2>{translations.dino?.PM}</h2>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill pm-bar"
-                    style={{ width: `${(data.pm / data.pm_max) * 100}%` }}
-                  ></div>
+                <div className="stat-block">
+                  <h2>{translations.dino?.PM}</h2>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill pm-bar"
+                      style={{ width: `${(data.pm / data.pm_max) * 100}%` }}
+                    ></div>
+                  </div>
+                  <p>
+                    {data.pm}/{data.pm_max}
+                  </p>
                 </div>
-                <p>
-                  {data.pm}/{data.pm_max}
-                </p>
-              </div>
-              <div className="stat-block">
-                <h2>{translations.dino?.FATIGUE}</h2>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill fatigue-bar"
-                    style={{ width: `${data.fatigue}%` }}
-                  ></div>
+                <div className="stat-block">
+                  <h2>{translations.dino?.FATIGUE}</h2>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill fatigue-bar"
+                      style={{ width: `${data.fatigue}%` }}
+                    ></div>
+                  </div>
+                  <p>
+                    {data.fatigue}/100
+                  </p>
                 </div>
-                <p>
-                  {data.fatigue}/100
-                </p>
               </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>

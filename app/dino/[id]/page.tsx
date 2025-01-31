@@ -144,9 +144,10 @@ const DinoPage: React.FC = () => {
 
   return (
     <div className="content">
-      <div className='dino-container'>
-        <div className="dino-card">
-          <h1 className="dino-name">
+      <div className='content_top'>
+        <div className='dino-container'>
+          <div className="block_white dino-card">
+            <h1 className="dino-name">
             <span 
               onClick={(e) => {
                 handleFavoriteToggle(data.id);
@@ -252,6 +253,7 @@ const DinoPage: React.FC = () => {
                 </p>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>

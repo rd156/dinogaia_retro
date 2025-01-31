@@ -1,89 +1,13 @@
-.content
-{
-    height: 100vh;
-    width: 100%;
-}
-
-.content_top
-{
-    min-height: 100%;
-    padding-top: 20vh;
-    height: 80vh;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    padding-bottom: 150vh;
-}
-
-.block
-{
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-}
-
-.block-red
-{
-    padding: 10px;
-    background-color: rgba(255, 0, 0, 0.7);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-}
-.block-green
-{
-    padding: 10px;
-    background-color: rgba(0, 255, 0, 0.7);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-}
-
-.alert-red {
-    background: rgba(255, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: 'black';
-}
-
-.alert-green {
-    background: rgba(0, 255, 0, 0.5);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: 'black';
-}
 
 .cave-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10vh;
+    margin-bottom: 20px;
     font-family: "Arial", sans-serif;
   }
   
 .cave-card {
-    background: rgba(255, 255, 255, 0.5);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
     width: 100vh;
   }
 .cave-name {

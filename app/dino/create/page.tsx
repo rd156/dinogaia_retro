@@ -109,7 +109,7 @@ export default function Home() {
       {message && (
         <p className="alert-green">{message}</p>
       )}
-      <div className="dino-create">
+      <div className="block_white">
           <h2 style={{fontSize: '2.5rem', padding: '20px', color: '#333', marginBottom: '20px', fontWeight: 'bold', textAlign: 'center'}}>
             {translations.dino?.CREATE_DINO_TITLE}
           </h2>

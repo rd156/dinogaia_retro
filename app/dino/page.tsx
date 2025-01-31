@@ -99,7 +99,7 @@ export default function Home() {
               localStorage.setItem('selectedDino', JSON.stringify(dino));
             }}
           >
-            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
               <img src={dino.avatar ? `/avatar/${dino.avatar}.webp` : `/avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
               <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
                 <h3>
@@ -129,7 +129,7 @@ export default function Home() {
             href={'/dino/create'}
             passHref
           >
-            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
               <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
                 <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} />
               </div>
@@ -148,7 +148,7 @@ export default function Home() {
               localStorage.setItem('selectedDino', JSON.stringify(dino));
             }}
           >
-            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
               <img src={dino.avatar ? `avatar/${dino.avatar}.webp` : `avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
               <div style={{ display: 'flex', flexDirection: 'column', color: 'black' }}>
                 <h3>
@@ -179,7 +179,7 @@ export default function Home() {
             href={'/dino/create'}
             passHref
           >
-            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
+            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
               <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
                 <ButtonNeon label={translations.dino?.CREATE_DINO_REDIRECT} /> 
               </div>

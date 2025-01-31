@@ -219,7 +219,7 @@ const CavePage: React.FC = () => {
         <p className="alert-green">{message}</p>
       )}
       <div className='cave-container'>
-          <div className="cave-card">
+          <div className="cave-card block_white">
             <h1 className="cave-name">
               {info.name}
             </h1>
@@ -268,8 +268,8 @@ const CavePage: React.FC = () => {
               </div>
             )}
           </div>
-        </div>
-        <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+      </div>
+      <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
         {categories.map((category) => (
             <button
               key={category}
@@ -286,36 +286,36 @@ const CavePage: React.FC = () => {
               {category === "ALL" ? "Tout afficher" : category}
             </button>
           ))}
-        </div>
+      </div>
 
-        {selectedItem && (
-          <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
-            <div className="block">
-              <h3>Action sur : {selectedItem.item_name}</h3>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
-                <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
-                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
-              </div>
+      {selectedItem && (
+        <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
+          <div className="block_white">
+            <h3>Action sur : {selectedItem.item_name}</h3>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
+              <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
+              <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
-          {items &&
-            Object.entries(items)
-              .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
-              .map(([name, { item_name, quantite, item_categorie }]) => (
-                <div
-                  key={name}
-                  className="block"
-                  onClick={() => handleItemClick({ item_name, quantite, item_categorie })} // Enregistre l'item sélectionné
-                  >
-                  <ImageWithText src={getImageUrl(`item/${item_name}.webp`)}alt={`${item_name} image`} quantity={quantite} />
-                  <p>{item_name}</p>
-                  
-                </div>
-              ))}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
+        {items &&
+          Object.entries(items)
+          .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
+          .map(([name, { item_name, quantite, item_categorie }]) => (
+            <div
+              key={name}
+              className="block_white"
+              onClick={() => handleItemClick({ item_name, quantite, item_categorie })} // Enregistre l'item sélectionné
+              >
+                <ImageWithText src={getImageUrl(`item/${item_name}.webp`)}alt={`${item_name} image`} quantity={quantite} />
+                <p>{item_name}</p>
+            </div>
+          ))
+        }
         </div>
       </div>
     </main>

@@ -151,7 +151,7 @@ const HuntResultPage: React.FC = () => {
           <p className="alert-green">{message}</p>
         )}
         {resultData && (
-          <div className="block">
+          <div className="block_white">
             <h2><strong>{translations.hunt?.HUNT_RESULT}</strong></h2>
             <br/>
             <ul>
@@ -166,7 +166,7 @@ const HuntResultPage: React.FC = () => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
             {resultData.items && 
               Object.entries(resultData.items).map(([name, count]) => (
-                <div key={name} className="block">
+                <div key={name}>
                   <img
                     src={getImageUrl(`item/${name}.webp`)}
                     alt={translations.hunt?.IMAGE_OF?.replace("[ItemName]", name)}
