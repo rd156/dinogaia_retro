@@ -19,6 +19,7 @@ import ButtonThreeD from "@/components/pattern/ButtonThreeD";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
+  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,6 +38,20 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
+
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
+  }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "reborn"){
+      return `/${itemName}`;
+    }
+    else{
+      return `/template_image/${imageFolder}/${itemName}`;
+    }
+  };
 
   // Récupérer les données du serveur
   useEffect(() => {
@@ -296,8 +311,9 @@ const CavePage: React.FC = () => {
                   className="block"
                   onClick={() => handleItemClick({ item_name, quantite, item_categorie })} // Enregistre l'item sélectionné
                   >
-                  <ImageWithText src={`/item/${item_name}.webp`} alt={`${item_name} image`} quantity={quantite} />
+                  <ImageWithText src={getImageUrl(`item/${item_name}.webp`)}alt={`${item_name} image`} quantity={quantite} />
                   <p>{item_name}</p>
+                  
                 </div>
               ))}
         </div>

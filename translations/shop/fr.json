@@ -1,5 +1,16 @@
 {
     "SHOP_CHOICE": "Choix du marché",
     "DAILY_BID": "Enchère quotidienne",
-    "SHOP_HDV": "HDV du joueur"
+    "SHOP_HDV": "HDV du joueur",
+    "RESULT_NUMBER": "Vous avez gagné [Number] enchère(s) que vous pouvez récupérer.",
+    "TABLE_NO_BID": "Aucune enchere",
+    "TABLE_NO_PRICE": "Aucun prix",
+    "TABLE_ITEM_NAME": "Nom",
+    "TABLE_ITEM_IMAGE": "Object",
+    "TABLE_CATEGORY": "Catégorie",
+    "TABLE_DAY": "Jour",
+    "TABLE_QUANTITY": "Quantité",
+    "TABLE_LAST_PRICE": "Dernier prix",
+    "TABLE_MY_BID": "Mon enchere",
+    "TABLE_ACTION": "Action"
 }

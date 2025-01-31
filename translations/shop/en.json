@@ -1,5 +1,16 @@
 {
     "SHOP_CHOICE": "Market Choice",
     "DAILY_BID": "Daily Auction",
-    "SHOP_HDV": "Player's Market"
+    "SHOP_HDV": "Player's Auction House",
+    "RESULT_NUMBER": "You have won [Number] auction(s) that you can claim.",
+    "TABLE_NO_BID": "No auction",
+    "TABLE_NO_PRICE": "No price",
+    "TABLE_ITEM_NAME": "Name",
+    "TABLE_ITEM_IMAGE": "Object",
+    "TABLE_CATEGORY": "Category",
+    "TABLE_DAY": "Day",
+    "TABLE_QUANTITY": "Quantity",
+    "TABLE_LAST_PRICE": "Last price",
+    "TABLE_MY_BID": "My bid",
+    "TABLE_ACTION": "Action"
 }

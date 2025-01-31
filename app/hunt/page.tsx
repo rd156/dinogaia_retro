@@ -38,10 +38,10 @@ const DinoPage: React.FC = () => {
 
   const getImageUrl = (itemName: string) => {
     if (imageFolder == "reborn"){
-      return `${itemName}`;
+      return `/${itemName}`;
     }
     else{
-      return `template_image/${imageFolder}/${itemName}`;
+      return `/template_image/${imageFolder}/${itemName}`;
     }
   };
 

@@ -39,3 +39,9 @@
     text-align: center;
     color: 'black';
 }
+
+.collect-result {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }

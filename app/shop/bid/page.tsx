@@ -11,11 +11,12 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
+  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [bid, setBid] = useState<any[]>([]);
   const [mybid, setMybid] = useState<any[]>([]);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-  const [resultData, setResultData] = useState<any>(null);
+  const [count, setCount] = useState(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -30,6 +31,20 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
+
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
+  }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "reborn"){
+      return `/${itemName}`;
+    }
+    else{
+      return `/template_image/${imageFolder}/${itemName}`;
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,7 +103,6 @@ const CavePage: React.FC = () => {
         });
         
         const fetchedData = await response.json();
-        console.log(fetchedData)
         setMybid(Array.isArray(fetchedData) ? fetchedData : [fetchedData]);
       } catch (error) {
         setErrorMessage('Impossible de récupérer les bids. Veuillez réessayer plus tard.');
@@ -175,9 +189,33 @@ const CavePage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchCount = async () => {
+      const token = localStorage.getItem("token");
+      const dinoId = localStorage.getItem("dinoId");
+      try {
+        const response = await fetch(`${API_URL}/bid/result/${dinoId}`, {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setCount(data.length);
+        }
+      }
+      catch (error) {
+      }
+    };
+
+    fetchCount();
+  }, []);
+
   const getValueById = (id) => {
     const item = mybid.find((data) => data.bid?.id === id);
-    return item ? item.price + " E": "Aucune enchere";
+    return item ? item.price + " E": translations.shop?.TABLE_NO_BID;
   };
 
   return (
@@ -189,17 +227,31 @@ const CavePage: React.FC = () => {
         {message && (
           <p className="alert-green">{message}</p>
         )}
+        
         <div className="block_white">
+          {count > 0 && (
+              <div className="count-container" style={{
+                marginTop: "10px",
+                marginBottom: "10px",
+                backgroundColor: "#41c75e",
+              }}>
+                <h3 className="collect-result" onClick={() => {
+                    window.location.href = "/shop/bid/collect";
+                  }}>
+                  {translations.shop?.RESULT_NUMBER.replace("[Number]", count)}
+                </h3>
+              </div>
+            )}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
-                <th style={{ padding: "10px" }}>Nom</th>
-                <th style={{ padding: "10px" }}>Catégorie</th>
-                <th style={{ padding: "10px" }}>Jour</th>
-                <th style={{ padding: "10px" }}>Quantité</th>
-                <th style={{ padding: "10px" }}>Dernier prix</th>
-                <th style={{ padding: "10px" }}>Mon enchere</th>
-                <th style={{ padding: "10px" }}>Action</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ITEM_IMAGE}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_CATEGORY}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_DAY}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_QUANTITY}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_LAST_PRICE}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_MY_BID}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ACTION}</th>
               </tr>
             </thead>
             <tbody>
@@ -208,11 +260,21 @@ const CavePage: React.FC = () => {
                   key={entry.id}
                   style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}
                 >
-                  <td style={{ padding: "10px" }}>{entry.item.name}</td>
+                  <td style={{ padding: "10px" }}>
+                  <img
+                    src={getImageUrl(`item/${entry.item.name}.webp`)}
+                    alt={translations.hunt?.IMAGE_WEAPON}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  </td>
                   <td style={{ padding: "10px" }}>{entry.item.categorie}</td>
                   <td style={{ padding: "10px" }}>{entry.day}</td>
                   <td style={{ padding: "10px" }}>{entry.quantity}</td>
-                  <td style={{ padding: "10px" }}>{entry.last_price > 0 ? `${entry.last_price} E` : "Aucun prix"} {entry.last_dino == dinoid && " (moi)"} </td>
+                  <td style={{ padding: "10px" }}>{entry.last_price > 0 ? `${entry.last_price} E` : translations.shop?.TABLE_NO_PRICE} {entry.last_dino == dinoid && " (moi)"} </td>
                   <td style={{ padding: "10px" }}>{getValueById(entry.id)}</td>
                   <td style={{ padding: "10px" }}>
                     <input
@@ -225,11 +287,11 @@ const CavePage: React.FC = () => {
                         borderRadius: "5px",
                         width: "100px",
                       }}
-                      value={bidAmounts[entry.id] || ""} // Associer la valeur au montant spécifique à la ligne
+                      value={bidAmounts[entry.id] || ""}
                       onChange={(e) =>
                         setBidAmounts((prev) => ({
                           ...prev,
-                          [entry.id]: e.target.value, // Mettre à jour uniquement pour cette ligne
+                          [entry.id]: e.target.value,
                         }))
                       }
                     />
@@ -242,7 +304,7 @@ const CavePage: React.FC = () => {
                         borderRadius: "5px",
                         cursor: "pointer",
                       }}
-                      onClick={() => handleBid(entry.id, bidAmounts[entry.id])} // Passer le montant de cette ligne
+                      onClick={() => handleBid(entry.id, bidAmounts[entry.id])}
                     >
                       Enchérir
                     </button>
