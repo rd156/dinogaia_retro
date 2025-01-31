@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const ButtonNeon = ({ onClick, label = "Button" }) => {
+const ButtonNeon = ({ onClick, label = "" }) => {
   return (
     <motion.button
       whileHover={{

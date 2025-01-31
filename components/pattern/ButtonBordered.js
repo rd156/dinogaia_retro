@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const ButtonBordered = ({ onClick, label = "Click Me!" }) => {
+const ButtonBordered = ({ onClick, label = "" }) => {
   return (
     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
       <button

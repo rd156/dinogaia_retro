@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { FaRocket } from "react-icons/fa";
 
-const ButtonIcon = ({ onClick, label = "Launch!" }) => {
+const ButtonIcon = ({ onClick, label = "" }) => {
   return (
     <Button
       onClick={onClick}

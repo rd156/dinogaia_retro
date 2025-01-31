@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const ButtonThreeD = ({ onClick, label = "Push Me!" }) => {
+const ButtonThreeD = ({ onClick, label = "" }) => {
   return (
     <motion.div whileHover={{ y: -5 }} whileTap={{ y: 2 }}>
       <button
