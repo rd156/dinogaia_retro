@@ -1,8 +1,8 @@
 .header {
     background-size: cover;
     background-position: center;
-    background-color: #413633bd;
-    color: #7B7B7B;
+    background-color: #2c2523d3;
+    color: #9c9b9b;
     text-align: center;
     position: fixed;
     left: 0;
@@ -17,8 +17,8 @@
     border: 1px solid #d1d5db; /* Exemple de bordure */
     border-radius: 0.375rem;   /* Coins arrondis */
     padding: 0.5rem;          /* Espacement interne */
-    background-color: #413633bd;
-    color: #7B7B7B;
+    background-color: #2c2523d3;
+    color: #9c9b9b;
 }
 
 .link {
