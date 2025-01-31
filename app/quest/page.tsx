@@ -249,9 +249,9 @@ const QuestPage: React.FC = () => {
                   {expandedRowActiveQuest === entry.id && (
                     <tr>
                       <td colSpan="4" style={{ padding: "10px" }}>
-                        <strong>Description:</strong>
+                        <strong>{translations.quest?.DESCRIPTION}</strong>
                         <br/>
-                        <strong>Objectif:</strong>
+                        <strong>{translations.quest?.OBJECTIF}:</strong>
                         <ul>
                           {entry.objectifs.map((objectif, index) => ( 
                             <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>

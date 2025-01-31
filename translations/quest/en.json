@@ -51,5 +51,7 @@
     "OBJECTIF_CASINO_LOSE_LUCK": "You must lose [Number] luck points at the casino",
     "OBJECTIF_CASINO_LOSE_LUCK_MACHINE": "You must lose [Number] luck points at the casino with the machine [Machine]",
     "OBJECTIF_CASINO_PLAY": "You must play [Number] at the casino",
-    "OBJECTIF_CASINO_PLAY_MACHINE": "You must play [Number] at the casino with the machine [Machine]"
+    "OBJECTIF_CASINO_PLAY_MACHINE": "You must play [Number] at the casino with the machine [Machine]",
+    "DESCRIPTION": "Description:",
+    "OBJECTIF": "Objectif:"
 }
