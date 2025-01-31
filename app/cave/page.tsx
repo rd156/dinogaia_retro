@@ -294,7 +294,7 @@ const CavePage: React.FC = () => {
             <h3 style={{marginBottom: "10px"}}>
               {translations.cave?.["ACTION_ON"].replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name] ?? selectedItem.item_name)}
             </h3>
-            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
               <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
               <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
               <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
