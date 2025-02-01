@@ -28,6 +28,7 @@ export default function Header() {
 
     // Génération dynamique des éléments du menu avec traductions
     /*
+      [translations.menu['MENU_CASINO']]: "#",
       [translations.menu['MENU_BANK']]: "#",
       [translations.menu['MENU_OTHER']]: "#",
       [translations.menu['MENU_CRAFT']]: "#",
@@ -39,8 +40,7 @@ export default function Header() {
       [translations.menu['MENU_SHOP']]: "/shop",
       [translations.menu['MENU_QUEST']]: "/quest",
       [translations.menu['MENU_HISTORY']]: "/story",
-      [translations.menu['MENU_CASINO']]: "#",
-      [translations.menu['MENU_JOB']]: "#",
+      [translations.menu['MENU_JOB']]: "/job",
       [translations.menu['MENU_BUG']]: "/bug",
     } : {};
   
