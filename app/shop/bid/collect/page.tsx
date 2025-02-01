@@ -12,112 +12,75 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
   const [imageFolder, setImageFolder] = useState<string>('reborn');
-  const [resultData, setResultData] = useState<any>(null);
+  const [bid, setBid] = useState<any[]>([]);
+  const [mybid, setMybid] = useState<any[]>([]);
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
+  const [winBig, setWinBig] = useState(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
-  const [translations, setTranslations] = useState({});
-  const [items, setItems] = useState([]);
+  const [dinoid, setDinoid] = useState();
+  const [bidAmounts, setBidAmounts] = useState({});
+  const [data, setData] = useState(winBig);
 
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["cave", "item", "global"]);
+    const loadedTranslations = await Loadtranslate(language, ["shop", "item", "global"]);
     setTranslations(loadedTranslations);
     };
     fetchTranslations();
   }, [language]);
 
-    // Charger la gestion des images
-    useEffect(() => {
-      setImageFolder(localStorage.getItem("image_template") || "reborn");
-    }, []);
-  
-    const getImageUrl = (itemName: string) => {
-      if (imageFolder == "reborn"){
-        return `/${itemName}`;
-      }
-      else{
-        return `/template_image/${imageFolder}/${itemName}`;
-      }
-    };
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
+  }, []);
 
-  // Récupérer les données du serveur
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "reborn"){
+      return `/${itemName}`;
+    }
+    else{
+      return `/template_image/${imageFolder}/${itemName}`;
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    const fetchCount = async () => {
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
       try {
-        const caveResponse = await fetch(`${API_URL}/dino/waiting/${dinoId}`, {
+        const response = await fetch(`${API_URL}/bid/result/${dinoId}`, {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token,
           },
         });
-        if (!caveResponse.ok) {
-          setErrorMessage(translations.cave?.ERR_LOAD_ITEM);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data)
+          setData(data);
         }
-        const item_list = await caveResponse.json()
-        console.log(item_list)
-        setItems(item_list);
-
-      } catch (error) {
-        setErrorMessage(translations.cave?.ERR_LOAD);
-      } finally {
-        setLoading(false);
+      }
+      catch (error) {
       }
     };
-
-    fetchData();
+    fetchCount();
   }, []);
 
-  // Fonction pour trier les items
-  const [sortBy, setSortBy] = useState("");
-  const [isAscending, setIsAscending] = useState(true);
-
-  // Fonction pour trier les items
-  const handleSort = (key) => {
-    const sortedItems = [...items].sort((a, b) => {
-      if (a[key] < b[key]) return isAscending ? -1 : 1;
-      if (a[key] > b[key]) return isAscending ? 1 : -1;
-      return 0;
-    });
-
-    setItems(sortedItems);
-    setSortBy(key);
-    setIsAscending((prevState) => (key === sortBy ? !prevState : true));
-  };
-
-  const handleButtonClick = async (action, item) => {
+  const handleButtonClick = async (id_bid) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
-
-    console.log(action + " " +  item)
     try {
-      let apiUrl;
-
-      if (action === "get") {
-        apiUrl = `${API_URL}/dino/waiting/${dinoId}/collect`;
-      } else if (action === "sell") {
-        apiUrl = `${API_URL}/dino/waiting/${dinoId}/sell`;
-      } else {
-        setErrorMessage(translations.cave?.ERR_TYPE_ACTION);
-        return;
-      }
-  
-      const response = await fetch(apiUrl, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/bid/result/${dinoId}/collect/${id_bid}`, {
+        method: "GET",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': "Bearer " + token,
         },
-        body: JSON.stringify({
-          "item": item
-        }),
       });
   
       if (!response.ok) {
@@ -125,39 +88,9 @@ const CavePage: React.FC = () => {
       }
   
       const result = await response.json();
-    } catch (error) {
-      setErrorMessage(translations.cave?.ERR_ACTION);
-    }
-  };
-
-  const handleButtonClickAll = async (action) => {
-    const token = localStorage.getItem("token");
-    const dinoId = localStorage.getItem("dinoId");
-
-    try {
-      let apiUrl;
-
-      if (action === "get") {
-        apiUrl = `${API_URL}/dino/waiting/${dinoId}/collect`;
-      } else if (action === "sell") {
-        apiUrl = `${API_URL}/dino/waiting/${dinoId}/sell`;
-      } else {
-        setErrorMessage(translations.cave?.ERR_TYPE_ACTION);
-        return;
+      if (result.bid.id === id_bid){
+        setData((prevData) => prevData.filter((entry) => entry.bid.id !== id_bid));
       }
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer " + token,
-        }
-      });
-  
-      if (!response.ok) {
-        setErrorMessage(translations.cave?.ERR_ACTION);
-      }
-  
-      const result = await response.json();
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
     }
@@ -165,69 +98,36 @@ const CavePage: React.FC = () => {
 
   return (
     <main className="content">
-      <div className="content_top"> 
+      <div className="content_top">
         {errorMessage && (
           <p className="alert-red">{errorMessage}</p>
         )}
         {message && (
           <p className="alert-green">{message}</p>
         )}
-        <div className='block_white title-container'>
-          <h1 className="title-name">
-            {translations.cave?.ITEM_COLLECT_PAGE}
-          </h1>
-        </div>
-        <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
-          <div className="block block_white">
-            <div style={{ display: "flex", gap: "10px" }}>
-              <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", 2)} />
-              <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL} />
-            </div>
-          </div>
-        </div>
+        
         <div className="block_white">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
-                <th
-                  style={{ textAlign: "center", cursor: "pointer", padding: "10px" }}
-                  onClick={() => handleSort("item_name")}
-                >
-                  {translations.cave?.TABLE_NAME} {sortBy === "item_name" && (isAscending ? "↑" : "↓")}
-                </th>
-                <th
-                  style={{ textAlign: "center", cursor: "pointer", padding: "10px" }}
-                  onClick={() => handleSort("origine")}
-                >
-                  {translations.cave?.TABLE_ORIGIN} {sortBy === "origine" && (isAscending ? "↑" : "↓")}
-                </th>
-                <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_QUANTITY}</th>
-                <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_ACTION}</th>
+                <th style={{ padding: "10px" }}>Object</th>
+                <th style={{ padding: "10px" }}>Quantity</th>
+                <th style={{ padding: "10px" }}>FOOD</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_LAST_PRICE}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_DAY}</th>
+                <th style={{ padding: "10px" }}>Action</th>
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(items) && items.map((item, index) => (
-                <tr key={index} style={{borderBottom: "1px solid #ddd"}}>
+              {data && data.map((entry) => (
+                <tr key={entry.bid.id} style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}>
+                  <td style={{ padding: "10px" }}>{entry.bid.item.name}</td>
+                  <td style={{ padding: "10px" }}>{entry.bid.quantity}</td>
+                  <td style={{ padding: "10px" }}>{entry.bid.item.categorie}</td>
+                  <td style={{ padding: "10px" }}>{entry.bid.last_price}</td>
+                  <td style={{ padding: "10px" }}>{entry.bid.day}</td>
                   <td style={{ padding: "10px" }}>
-                  <img
-                    src={getImageUrl(`item/${item.item_name}.webp`)}
-                    alt={translations.item?.IMAGE_ITEM?.replace("[Item]", item.item_name)}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  </td>
-                  <td style={{ textAlign: "center", padding: "10px" }}>{translations.item?.['ORIGIN_'+ item.origine] ?? item.origine}</td>
-                  <td style={{ textAlign: "center", padding: "10px" }}>{item.quantite}</td>
-                  <td style={{ textAlign: "center", padding: "10px" }}>
-                    {item.origine === "hunt" ? (
-                      <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.GET.replace("[Number]", 2)} />
-                    ) : (
-                      <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.FREE_GET}/>
-                    )}
-                    <ButtonNeon onClick={() => handleButtonClick("sell", item.item_name)} label={translations.cave?.SELL}/>
+                    <button onClick={() => handleButtonClick(entry.bid.id)}>Recuperer</button>
                   </td>
                 </tr>
               ))}

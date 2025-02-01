@@ -242,7 +242,7 @@ const CavePage: React.FC = () => {
                 </h3>
               </div>
             )}
-          <table style={{ width: "100%", borderCollapse: "collapse", color:"black" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
                 <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ITEM_IMAGE}</th>
