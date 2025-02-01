@@ -110,24 +110,34 @@ const CavePage: React.FC = () => {
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
-                <th style={{ padding: "10px" }}>Object</th>
-                <th style={{ padding: "10px" }}>Quantity</th>
-                <th style={{ padding: "10px" }}>FOOD</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ITEM_IMAGE}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_QUANTITY}</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_CATEGORY}</th>
                 <th style={{ padding: "10px" }}>{translations.shop?.TABLE_LAST_PRICE}</th>
                 <th style={{ padding: "10px" }}>{translations.shop?.TABLE_DAY}</th>
-                <th style={{ padding: "10px" }}>Action</th>
+                <th style={{ padding: "10px" }}>{translations.shop?.TABLE_ACTION}</th>
               </tr>
             </thead>
             <tbody>
               {data && data.map((entry) => (
                 <tr key={entry.bid.id} style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}>
-                  <td style={{ padding: "10px" }}>{entry.bid.item.name}</td>
+                                    <td style={{ padding: "10px" }}>
+                  <img
+                    src={getImageUrl(`item/${entry.bid.item.name}.webp`)}
+                    alt={translations.item?.IMAGE_ITEM?.replace("[Item]", entry.bid.item.name)}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  </td>
                   <td style={{ padding: "10px" }}>{entry.bid.quantity}</td>
-                  <td style={{ padding: "10px" }}>{entry.bid.item.categorie}</td>
-                  <td style={{ padding: "10px" }}>{entry.bid.last_price}</td>
+                  <td style={{ padding: "10px" }}>{translations.item?.['CATEGORY_'+ entry.bid.item.categorie] ?? entry.bid.item.categorie}</td>
+                  <td style={{ padding: "10px" }}>{entry.bid.last_price + " E"}</td>
                   <td style={{ padding: "10px" }}>{entry.bid.day}</td>
                   <td style={{ padding: "10px" }}>
-                    <button onClick={() => handleButtonClick(entry.bid.id)}>Recuperer</button>
+                    <button onClick={() => handleButtonClick(entry.bid.id)}> {translations.shop?.RETRIEVE} </button>
                   </td>
                 </tr>
               ))}

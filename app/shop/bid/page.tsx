@@ -236,7 +236,7 @@ const CavePage: React.FC = () => {
                 backgroundColor: "#41c75e",
               }}>
                 <h3 className="collect-result" onClick={() => {
-                    window.location.href = "/shop/bid";
+                    window.location.href = "/shop/bid/collect";
                   }}>
                   {translations.shop?.RESULT_NUMBER.replace("[Number]", count)}
                 </h3>
