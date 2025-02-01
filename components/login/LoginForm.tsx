@@ -27,9 +27,11 @@ export default function LoginForm() {
         } 
   
         const data = await response.json();
-        console.log(data.access)
-        localStorage.setItem('token', data.access);
-        window.location.reload();
+        if (data.access)
+        {
+          localStorage.setItem('token', data.access);
+          window.location.href = "/dino"
+        }
       } catch (error) {
         setError('Échec de la connexion. Veuillez vérifier vos identifiants.');
       }
