@@ -1,0 +1,31 @@
+{
+    "TABLE_NAME": "Nom du métier",
+    "TABLE_DESCRIPTION": "Description",
+    "TABLE_FORMATION": "Formation",
+    "TABLE_SALARY": "Salaire",
+    "TABLE_ACTION": "Action",
+    "JOIN_JOB": "Rejoindre",
+    "EXIT_JOB": "Démissionner",
+    "SALARY": "Salaire :",
+    "LVL": "Niveau :",
+    "XP": "Expérience :",
+    "FORMATION": "Formation :",
+    "ERR_EXIT_JOB": "Erreur lors de la démission",
+    "ERR_JOIN_JOB": "Erreur lors de la tentative de rejoindre le métier",
+    "ERR_SALARY_JOB": "Erreur lors de la collecte du salaire",
+    "COLLECT_SALARY": "Collecter le salaire",
+
+    "JOB_chomeur": "Chômeur",
+    "JOB_fireman": "Pompier",
+    "JOB_royal_guard": "Garde royale",
+    "JOB_magician": "Magicien",
+    "JOB_professional_hunter": "Chasseur professionnel",
+    "JOB_captain_royal_guard": "Capitaine de la garde royale",
+
+    "JOB_DESCRIPTION_chomeur": "Pas de bonus",
+    "JOB_DESCRIPTION_fireman": "Regagne 5 points de vie supplémentaires chaque jour.",
+    "JOB_DESCRIPTION_royal_guard": "Touche une prime de risque de +1 émeraude par jour.",
+    "JOB_DESCRIPTION_magician": "Regagne 16 points de mana par jour au lieu de 10.",
+    "JOB_DESCRIPTION_professional_hunter": "Permet d'effectuer de 0 à 2 événements supplémentaires par chasse.",
+    "JOB_DESCRIPTION_captain_royal_guard": "Touche des pots-de-vin (entre 1 et 6 émeraudes par jour)."
+}

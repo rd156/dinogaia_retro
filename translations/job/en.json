@@ -1,0 +1,31 @@
+{
+    "TABLE_NAME": "Job Name",
+    "TABLE_DESCRIPTION": "Description",
+    "TABLE_FORMATION": "Training",
+    "TABLE_SALARY": "Salary",
+    "TABLE_ACTION": "Action",
+    "JOIN_JOB": "Join",
+    "EXIT_JOB": "Resign",
+    "SALARY": "Salary:",
+    "LVL": "Level:",
+    "XP": "Experience:",
+    "FORMATION": "Training:",
+    "ERR_EXIT_JOB": "Error during resignation",
+    "ERR_JOIN_JOB": "Error when attempting to join the job",
+    "ERR_SALARY_JOB": "Error when collecting salary",
+    "COLLECT_SALARY": "Collect salary",
+
+    "JOB_chomeur": "Unemployed",
+    "JOB_fireman": "Firefighter",
+    "JOB_royal_guard": "Royal Guard",
+    "JOB_magician": "Magician",
+    "JOB_professional_hunter": "Professional Hunter",
+    "JOB_captain_royal_guard": "Captain of the Royal Guard",
+
+    "JOB_DESCRIPTION_chomeur": "No bonus",
+    "JOB_DESCRIPTION_fireman": "Regains 5 additional health points each day.",
+    "JOB_DESCRIPTION_royal_guard": "Receives a risk bonus of +1 emerald per day.",
+    "JOB_DESCRIPTION_magician": "Regains 16 mana points per day instead of 10.",
+    "JOB_DESCRIPTION_professional_hunter": "Allows performing 0 to 2 additional events per hunt.",
+    "JOB_DESCRIPTION_captain_royal_guard": "Receives bribes (between 1 and 6 emeralds per day)."
+}
