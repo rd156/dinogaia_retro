@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
         {message && (
           <p className="alert-green">{message}</p>
         )}
-        <div className="block_white">
+        <div className="block_white center">
         <h1 style={{border: "2px solid red", padding: "10px", display: "inline-block" }}>{translations.account?.REGISTER}</h1>
           <div style={{ maxWidth: "50vh", margin: "0 auto", padding: "20px" }}>
             <form onSubmit={handleSubmit}>
