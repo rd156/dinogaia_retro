@@ -21,7 +21,6 @@ export default function LoginForm() {
           body: JSON.stringify({ username, password }),
         });
   
-        console.log (response)
         if (!response.ok) {
           throw new Error('Échec de la connexion');
         } 
@@ -30,6 +29,7 @@ export default function LoginForm() {
         if (data.access)
         {
           localStorage.setItem('token', data.access);
+          localStorage.removeItem('dinoId');
           window.location.href = "/dino"
         }
       } catch (error) {
