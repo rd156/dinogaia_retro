@@ -60,6 +60,11 @@ const DinoPage: React.FC = () => {
 
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
+      
+      if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
 
       try {
         // Récupération des données de chasse
@@ -205,9 +210,9 @@ const DinoPage: React.FC = () => {
                     marginBottom: "10px",
                   }}
                 />
-                <h3>{translations.hunt?.NO_WEAPON}</h3>
-              </div>
-            {weapons.map((weapon) => (
+              <h3>{translations.hunt?.NO_WEAPON}</h3>
+            </div>
+            {Array.isArray(weapons) && weapons.map((weapon) => (
               <div
                 key={weapon.item_name}
                 onClick={() => setSelectedWeapon(weapon.item_name)}
