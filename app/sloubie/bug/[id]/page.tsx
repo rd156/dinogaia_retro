@@ -17,10 +17,17 @@ const DinoPage: React.FC = () => {
   const [recompense, setRecompense] = useState({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [message, setMessage] = useState("");
+  const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
+  const [errorMessageGift, setErrorMessageGift] = useState("");
+  
+  const [messageAnswer, setMessageAnswer] = useState("");
+  const [messageGift, setMessageGift] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [response, setResponse] = useState("");
+  const [giftType, setGiftType] = useState("items"); // Valeur par défaut
+  const [giftName, setGiftName] = useState("");
+  const [giftQuantity, setGiftQuantity] = useState(1);  // Track the gift quantity
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -72,7 +79,7 @@ const DinoPage: React.FC = () => {
     e.preventDefault();
 
     if (!response.trim()) {
-      setErrorMessage("La réponse ne peut pas être vide.");
+      setErrorMessageAnswer("La réponse ne peut pas être vide.");
       return;
     }
     try {
@@ -90,14 +97,55 @@ const DinoPage: React.FC = () => {
       });
 
       if (!responseData.ok) {
-        setErrorMessage("Une erreur est survenue lors de l'envoi de la réponse.");
+        setErrorMessageAnswer("Une erreur est survenue lors de l'envoi de la réponse.");
       } else {
         const result = await responseData.json();
         setBug(result)
-        setMessage("Réponse envoyée avec succès !");
+        setMessageAnswer("Réponse envoyée avec succès !");
       }
     } catch (error) {
-      setErrorMessage("Une erreur est survenue. Essayez à nouveau.");
+      setErrorMessageAnswer("Une erreur est survenue. Essayez à nouveau.");
+    }
+  };
+
+  const handleGiftSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!giftName.trim() || giftQuantity <= 0) {
+      setErrorMessageGift("Le nom de l'objet et la quantité doivent être valides.");
+      return;
+    }
+    
+    try {
+      const token = localStorage.getItem("token");
+      const giftData = await fetch(`${API_URL}/sloubie/bug/${bugId}/add_gift`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          "password": inputValue,
+          "giftType": giftType,
+          "name": giftName,
+          "quantity": giftQuantity,
+        }),
+      });
+
+      if (!giftData.ok) {
+        setErrorMessageGift("Une erreur est survenue lors de l'envoi du cadeau.");
+      } else {
+        const result = await giftData.json();
+        setBug(result)
+        const tmp = JSON.parse(result.recompense)
+        if (tmp)
+        {
+          setRecompense(tmp);
+        }
+        setMessageGift("Cadeau envoyé avec succès !");
+      }
+    } catch (error) {
+      setErrorMessageGift("Une erreur est survenue. Essayez à nouveau.");
     }
   };
 
@@ -180,8 +228,8 @@ const DinoPage: React.FC = () => {
           </div>
           <div className="mt-6 p-4 border rounded-lg bg-gray-100">
             <h3 className="text-lg font-semibold">Ajouter une réponse :</h3>
-            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-            {message && <p className="text-green-500">{message}</p>}
+            {errorMessageAnswer && <p className="text-red-500">{errorMessageAnswer}</p>}
+            {messageAnswer && <p className="text-green-500">{messageAnswer}</p>}
             <form onSubmit={handleSubmitResponse}>
               <textarea
                 value={response}
@@ -192,6 +240,42 @@ const DinoPage: React.FC = () => {
               />
               <div className="mt-2">
                 <button type="submit" className="button">Envoyer la réponse</button>
+              </div>
+            </form>
+          </div>
+          <div className="mt-6 p-4 border rounded-lg bg-gray-100">
+            <h3 className="text-lg font-semibold">Ajouter un cadeau :</h3>
+            {errorMessageGift && <p className="text-red-500">{errorMessageGift}</p>}
+            {messageGift && <p className="text-green-500">{messageGift}</p>}
+            <form onSubmit={handleGiftSubmit}>
+              <select
+                value={giftType}
+                onChange={(e) => setGiftType(e.target.value)}
+                className="w-full p-2 border rounded-md"
+              >
+                <option value="items">Items</option>
+                <option value="emeraud">Emeraud</option>
+                <option value="luck">Luck</option>
+              </select>
+
+              <input
+                type="text"
+                value={giftName}
+                onChange={(e) => setGiftName(e.target.value)}
+                className="w-full p-2 border rounded-md mt-2"
+                placeholder="Nom de l'objet"
+              />
+              <input
+                type="number"
+                value={giftQuantity}
+                onChange={(e) => setGiftQuantity(Number(e.target.value))}
+                className="w-full p-2 border rounded-md mt-2"
+                placeholder="Quantité"
+                min="1"
+              />
+
+              <div className="mt-2">
+                <button type="submit" className="button">Envoyer le cadeau</button>
               </div>
             </form>
           </div>

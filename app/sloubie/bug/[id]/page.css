@@ -1,71 +1,19 @@
-.dino-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Arial", sans-serif;
-}
-
-.dino-card {
-width: 100vh;
-}
-
-.dino-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 5vh;
-}
-
-.dino-profile-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  margin-bottom: 15px;
-}
-
-.dino-info-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.dino-name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.dino-stats .stat-block {
-  margin-bottom: 20px;
-}
-
-.stat-item{
-  text-align: left;
-}
-
-.progress-bar {
-  background: #444;
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
   border-radius: 5px;
-  overflow: hidden;
-  height: 15px;
-  margin-bottom: 5px;
+  cursor: pointer;
 }
 
-.progress-fill {
-  height: 100%;
+.button:hover {
+  background-color: #0056b3;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.life-bar {
-  background: #ff4d4d;
-}
-
-.pm-bar {
-  background: #4da6ff;
-}
-
-.fatigue-bar {
-  background: #e4ff4d;
 }
