@@ -232,9 +232,9 @@ const CavePage: React.FC = () => {
                     {translations.shop?.RESULT_WIN_NUMBER.replace("[Number]", countWin)}
                   </h3>
                 )}
-                {countBid > 0 && (
+                {countBid > 0 && countBid > countWin && (
                   <h3 className="collect-result" onClick={() => {window.location.href = "/shop/bid/collect";}}>
-                    {translations.shop?.RESULT_LOSE_NUMBER.replace("[Number]", countBid)}
+                    {translations.shop?.RESULT_LOSE_NUMBER.replace("[Number]", ((countBid ?? 0) - (countWin ?? 0)))}
                   </h3>
                 )}
               </div>
