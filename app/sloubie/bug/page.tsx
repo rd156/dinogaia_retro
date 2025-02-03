@@ -15,8 +15,9 @@ const HomePage: React.FC = () => {
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-  const [inputValue, setInputValue] = useState("");
   const [bugs, setBugs] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState("ALL");
 
   // Charger les traductions
   useEffect(() => {
@@ -37,7 +38,8 @@ const HomePage: React.FC = () => {
           'Authorization': "Bearer " + token,
         },
         body: JSON.stringify({
-          "password": inputValue
+          "password": inputValue,
+          "status": selectedOption
         }),
       });
   
@@ -53,6 +55,10 @@ const HomePage: React.FC = () => {
     } catch (error) {
       setErrorMessage("reloas error");
     }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
   };
 
   const changeStatusClick = async (id, status) => {
@@ -114,6 +120,16 @@ const HomePage: React.FC = () => {
               className="flex-1 p-2 border rounded-md"
               placeholder="Tapez ici..."
             />
+              <select
+                value={selectedOption}
+                onChange={handleSelectChange}
+                className="p-2 border rounded-md"
+              >
+                <option value="ALL">ALL</option>
+                <option value="NEW">NEW</option>
+                <option value="OPEN">OPEN</option>
+                <option value="CLOSE">CLOSE</option>
+              </select>
             <ButtonFancy onClick={() => reloadClick()} label="Reload" />
           </div>
           <div style={{ marginTop: "30px" }}>
