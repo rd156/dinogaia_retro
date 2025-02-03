@@ -61,7 +61,7 @@ const CavePage: React.FC = () => {
       if ("reference" in result)
       {
         const str = translations.bug?.CREATED
-        setMessage(str.replace("[REFERENCE]", result.reference))
+        setMessage(str.replace("[Reference]", result.reference))
       }
       else{
         setErrorMessage(translations.bug?.ERR_CREATION_FAILED);

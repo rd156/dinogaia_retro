@@ -95,6 +95,7 @@ const CavePage: React.FC = () => {
                 <tr
                   key={entry.id}
                   style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}
+                  onClick={() => (window.location.href = `/bug/${entry.id}`)}
                 >
                   <td style={{ padding: "10px" }}>{entry.reference}</td>
                   <td style={{ padding: "10px" }}>{entry.title}</td>
