@@ -16,7 +16,9 @@ const CavePage: React.FC = () => {
   const [mybid, setMybid] = useState<any[]>([]);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-  const [count, setCount] = useState(null);
+  const [countWin, setCountWin] = useState(null);
+  const [countBid, setCountBid] = useState(null);
+  
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -203,7 +205,11 @@ const CavePage: React.FC = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setCount(data.length);
+          const today = new Date().toISOString().split('T')[0];
+          const nbenchere = data.filter(item => item.bid.day < today);
+          const nbwinData = data.filter(item => item.bid.day < today && item.bid.last_dino === item.dino);
+          setCountWin(nbwinData.length);
+          setCountBid(nbenchere.length);
         }
       }
       catch (error) {
@@ -229,17 +235,22 @@ const CavePage: React.FC = () => {
         )}
         
         <div className="block_white">
-          {count > 0 && (
+          {(countWin > 0 || countBid > 0) && (
               <div className="count-container" style={{
                 marginTop: "10px",
                 marginBottom: "10px",
                 backgroundColor: "#41c75e",
               }}>
-                <h3 className="collect-result" onClick={() => {
-                    window.location.href = "/shop/bid/collect";
-                  }}>
-                  {translations.shop?.RESULT_NUMBER.replace("[Number]", count)}
-                </h3>
+                {countWin > 0 && (
+                  <h3 className="collect-result" onClick={() => {window.location.href = "/shop/bid/collect";}}>
+                    {translations.shop?.RESULT_WIN_NUMBER.replace("[Number]", countWin)}
+                  </h3>
+                )}
+                {countBid > 0 && (
+                  <h3 className="collect-result" onClick={() => {window.location.href = "/shop/bid/collect";}}>
+                    {translations.shop?.RESULT_LOSE_NUMBER.replace("[Number]", countBid)}
+                  </h3>
+                )}
               </div>
             )}
           <table style={{ width: "100%", borderCollapse: "collapse" }}>

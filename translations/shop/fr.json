@@ -2,7 +2,8 @@
     "SHOP_CHOICE": "Choix du marché",
     "DAILY_BID": "Enchère quotidienne",
     "SHOP_HDV": "HDV du joueur",
-    "RESULT_NUMBER": "Vous avez gagné [Number] enchère(s) que vous pouvez récupérer.",
+    "RESULT_WIN_NUMBER": "Vous avez gagné [Number] enchère(s) que vous pouvez récupérer.",
+    "RESULT_LOSE_NUMBER": "Vous avez perdu [Number] enchère(s) mais vous pouvez récupérer votre mise.",
     "TABLE_NO_BID": "Aucune enchère",
     "TABLE_NO_PRICE": "Aucun prix",
     "TABLE_ITEM_NAME": "Nom",
@@ -14,6 +15,7 @@
     "TABLE_MY_BID": "Mon enchère",
     "TABLE_ACTION": "Action",
     "BID": "Enchère",
-    "RETRIEVE": "Récupérer",
+    "RETRIEVE_OBJECT": "Récupérer l'object",
+    "RETRIEVE_EMERAUD": "Récupérer la mise",
     "AMOUNT": "Montant"
 }

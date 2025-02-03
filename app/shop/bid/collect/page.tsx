@@ -137,7 +137,13 @@ const CavePage: React.FC = () => {
                   <td style={{ padding: "10px" }}>{entry.bid.last_price + " E"}</td>
                   <td style={{ padding: "10px" }}>{entry.bid.day}</td>
                   <td style={{ padding: "10px" }}>
-                    <button onClick={() => handleButtonClick(entry.bid.id)}> {translations.shop?.RETRIEVE} </button>
+                    {
+                      entry.bid.last_dino === entry.dino ? (
+                        <ButtonFancy onClick={() => handleButtonClick(entry.bid.id)} label={translations.shop?.RETRIEVE_OBJECT} />
+                      ) : entry.bid.last_dino !== entry.dino && entry.price > 0 ? (
+                        <ButtonNeon onClick={() => handleButtonClick(entry.bid.id)} label={translations.shop?.RETRIEVE_EMERAUD} />
+                      ) : null
+                    }
                   </td>
                 </tr>
               ))}
