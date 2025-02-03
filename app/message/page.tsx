@@ -1,0 +1,165 @@
+"use client";
+
+import { useLanguage } from "@/context/LanguageContext";
+import { Loadtranslate } from "@/utils/translate";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import React from 'react';
+import { API_URL } from "@/config/config";
+import "./page.css";
+import Link from "next/link";
+import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ButtonNeon from "@/components/pattern/ButtonNeon";
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+const MessagesPage: React.FC = () => {
+  const params = useParams();
+  const router = useRouter();
+  const [messagesList, setMessagesList] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const { language } = useLanguage();
+  const [translations, setTranslations] = useState({});
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortBy, setSortBy] = useState<'date' | 'sender'>('date');
+
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ["message", "global"]);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const dinoId = localStorage.getItem("dinoId");
+        const response = await fetch(`${API_URL}/message/${dinoId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des messages");
+        }
+
+        const result = await response.json();
+        setMessagesList(result);
+      } catch (error) {
+        setErrorMessage("Impossible de charger les messages.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, [params.id]);
+
+  const sortMessages = (field: 'date' | 'sender') => {
+    const sortedMessages = [...messagesList];
+    const order = sortOrder === 'asc' ? 1 : -1;
+
+    sortedMessages.sort((a, b) => {
+      if (field === 'date') {
+        const dateA = new Date(a.created_at).getTime();
+        const dateB = new Date(b.created_at).getTime();
+        return (dateA - dateB) * order;
+      } else if (field === 'sender') {
+        const senderA = a.sender ? a.sender.toLowerCase() : '';
+        const senderB = b.sender ? b.sender.toLowerCase() : '';
+        if (senderA < senderB) return -1 * order;
+        if (senderA > senderB) return 1 * order;
+        return 0;
+      }
+      return 0;
+    });
+
+    setMessagesList(sortedMessages);
+    setSortBy(field);
+    setSortOrder(order === 1 ? 'desc' : 'asc');
+  };
+
+  return (
+    <main className="content">
+      <div className="content_top">
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
+        <div className="block_white">
+          <Link
+            href={'/message/create'}
+            passHref
+          >
+            <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
+              <ButtonFancy label={translations.message?.CREATE_MESSAGE} />
+            </div>
+          </Link>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
+                <th
+                  style={{ padding: "10px", cursor: "pointer" }}
+                  onClick={() => sortMessages('sender')}
+                >
+                  {translations.message?.SENDER}
+                  {sortBy === 'sender' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
+                </th>
+                <th style={{ padding: "10px" }}>
+                  {translations.message?.TITLE}
+                </th>
+                <th style={{ padding: "10px" }}>{translations.message?.CONTENT}</th>
+                <th
+                  style={{ padding: "10px", cursor: "pointer" }}
+                  onClick={() => sortMessages('date')}
+                >
+                  {translations.message?.DATE}
+                  {sortBy === 'date' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {messagesList.map((entry) => (
+                <tr
+                  key={entry.id}
+                  style={{ fontWeight: entry.is_read === false ? "bold" : "normal", borderBottom: "1px solid #ddd", textAlign: "left" }}
+                  onClick={() => (window.location.href = `/message/${entry.id}`)}
+                >
+                  <td style={{ padding: "10px" }}>{entry.sender || translations.message?.MSG_SYSTEM}</td>
+                  <td style={{ padding: "10px" }}>
+                    {(entry.title && entry.dino) ? `${entry.title}` : ""}
+                  </td>
+                  <td style={{ padding: "10px" }}>
+                    {entry.content.length > 100 ? entry.content.substring(0, 100) + "..." : entry.content}
+                  </td>
+                  <td style={{ padding: "10px" }}>{formatDate(entry.created_at)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default MessagesPage;
+

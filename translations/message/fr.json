@@ -1,0 +1,14 @@
+{
+    "CREATE_MESSAGE": "Crée un message",
+    "TITLE": "Titre",
+    "CONTENT": "Contenue",
+    "SENDER": "Expediteur",
+    "DATE": "Date",
+    "TYPE": "Type",
+    "COMPONENT": "Composant",
+    "MSG_SYSTEM": "Message système",
+    "BACK_MSG_LIST": "Retour à la liste des messages",
+    "FORM_BUTTON_ANSWER": "Répondre",
+    "ADD_ANSWER": "Ajouter une réponse :",
+    "FORM_BUTTON_CREATE_MESSAGE": "Crée un message"
+}
