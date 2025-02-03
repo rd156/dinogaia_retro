@@ -15,6 +15,7 @@
     "TABLE_MY_BID": "My Bid",
     "TABLE_ACTION": "Action",
     "BID": "Bid",
+    "BID_OR_REBID": "Bid or add to the auction",
     "RETRIEVE_OBJECT": "Retrieve Object",
     "RETRIEVE_EMERAUD": "Retrieve Stake",
     "AMOUNT": "Amount"

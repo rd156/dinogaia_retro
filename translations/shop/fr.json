@@ -15,6 +15,7 @@
     "TABLE_MY_BID": "Mon enchère",
     "TABLE_ACTION": "Action",
     "BID": "Enchère",
+    "BID_OR_REBID": "Enchèrir ou ajouter à l'enchère",
     "RETRIEVE_OBJECT": "Récupérer l'object",
     "RETRIEVE_EMERAUD": "Récupérer la mise",
     "AMOUNT": "Montant"

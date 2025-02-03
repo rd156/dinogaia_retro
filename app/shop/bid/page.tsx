@@ -304,7 +304,7 @@ const CavePage: React.FC = () => {
                       }}
                       onClick={() => handleBid(entry.id, bidAmounts[entry.id])}
                     >
-                      {translations.shop?.BID}
+                      {translations.shop?.BID_OR_REBID}
                     </button>
                   </td>
                 </tr>
