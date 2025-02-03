@@ -69,7 +69,7 @@ const CavePage: React.FC = () => {
                   transition: "background-color 0.3s"
                 }}>
                   <img 
-                    src="/bouton/bid.jpg"
+                    src="/bouton/bid.webp"
                     alt="Bid" 
                     style={{
                       width: "250px",        
@@ -104,7 +104,7 @@ const CavePage: React.FC = () => {
                   transition: "background-color 0.3s"
                 }}>
                   <img 
-                    src="/bouton/hdv.jpg"
+                    src="/bouton/hdv.webp"
                     alt="Bid" 
                     style={{
                       width: "250px",        
