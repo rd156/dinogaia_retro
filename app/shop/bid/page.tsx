@@ -145,6 +145,7 @@ const CavePage: React.FC = () => {
       }
   
       const result = await response.json();
+      console.log(result)
       if (result)
       {
         setBid((prevBid) =>
@@ -160,31 +161,16 @@ const CavePage: React.FC = () => {
             }
           })
         )
-        setBid((prevBid) =>
-          prevBid.map((entry) => {
-            if (entry.id === result.bid.id) {
-              return {
-                ...entry,
-                last_price: result.bid.last_price,
-                last_dino: result.bid.last_dino,
-              };
-            } else {
-              return entry;
-            }
-          })
-        )
-        setMybid((prevBid) =>
-          prevBid.map((entry) => {
-            if (entry.bid.id === result.bid.id) {
-              return {
-                ...entry,
-                price: result.price
-              };
-            } else {
-              return entry;
-            }
-          })
-        )
+        setMybid((prevMyBid) => {
+          const updatedBid = prevMyBid.find((b) => b.bid?.id === result.bid.id);
+          if (updatedBid) {
+            return prevMyBid.map((b) =>
+              b.bid?.id === result.bid.id ? { ...b, price: result.price } : b
+            );
+          } else {
+            return [...prevMyBid, { bid: { id: result.bid.id }, price: result.price }];
+          }
+        });
       }
     } catch (error) {
       setErrorMessage(translations.shop?.ERR_BID);
