@@ -6,12 +6,14 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 import {API_URL} from '@/config/config';
 import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ButtonNeon from "@/components/pattern/ButtonNeon";
 import "./page.css";
 
 const DinoPage: React.FC = () => {
   const params = useParams();
   const [data, setData] = useState<any[]>([]);
   const [bugId, setBugId] = useState(params?.id);
+  const [accountId, setAccountId] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [bug, setBug] = useState({});
   const [recompense, setRecompense] = useState({});
@@ -149,6 +151,69 @@ const DinoPage: React.FC = () => {
     }
   };
 
+  const changeStatusClick = async (id, status) => {
+    const token = localStorage.getItem("token");
+    try {  
+      const response = await fetch(`${API_URL}/sloubie/bug/${id}/change_status`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        },
+        body: JSON.stringify({
+          "password": inputValue,
+          "status" : status
+        }),
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.job?.ERR_SALARY_JOB);
+      }
+      const result = await response.json();
+      if (result)
+      {
+        setBug(result)   
+      }
+    } catch (error) {
+      setErrorMessage("reloas error");
+    }
+  };
+
+  const changeAccountClick = async () => {
+    const token = localStorage.getItem("token");
+    try {  
+      const response = await fetch(`${API_URL}/sloubie/bug/${bugId}/change_account`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        },
+        body: JSON.stringify({
+          "password": inputValue,
+          "account_id": accountId
+        }),
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.bug?.ERR_CHANGE_ACCOUNT);
+      }
+      const result = await response.json();
+      console.log(result)
+      if (result)
+      {
+        setBug(result)
+        setResponse(result.answer)
+        setRecompense({});
+        const tmp = JSON.parse(result.recompense)
+        if (tmp)
+        {
+          setRecompense(tmp);
+        }
+      }
+    } catch (error) {
+    }
+  };
+
   return (
     <div className="content">
       <div className='content_top'>
@@ -170,6 +235,12 @@ const DinoPage: React.FC = () => {
           <ButtonFancy onClick={reloadClick} label="Reload" />
         </div>
         <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
+          {bug.status === "CLOSE" && (
+            <ButtonFancy onClick={() => changeStatusClick(bug.id, "OPEN")} label="Open" />
+          )}
+          {(bug.status === "OPEN" || bug.status === "NEW") && (
+            <ButtonNeon onClick={() => changeStatusClick(bug.id, "CLOSE")} label="Close" />
+          )}
           <h2 className="text-2xl font-bold mb-4">Bug #{bug.id}</h2>
 
           <p className="text-gray-600"><strong>Référence :</strong> {bug.reference}</p>
@@ -278,6 +349,16 @@ const DinoPage: React.FC = () => {
                 <button type="submit" className="button">Envoyer le cadeau</button>
               </div>
             </form>
+          </div>
+          <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+            <input
+              type="text"
+              value={accountId}
+              onChange={(e) => setAccountId(e.target.value)}
+              className="flex-1 p-2 border rounded-md"
+              placeholder="id"
+            />
+            <ButtonFancy onClick={changeAccountClick} label="Affecter" />
           </div>
         </div>
       </div>
