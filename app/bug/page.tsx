@@ -63,6 +63,26 @@ const CavePage: React.FC = () => {
     fetchData();
   }, []);
 
+  const hasReward = (recompense: any) => {
+    if (!recompense) return false;
+  
+    let tmp;
+    try {
+      tmp = typeof recompense === "string" ? JSON.parse(recompense) : recompense;
+    } catch (error) {
+      console.error("Invalid JSON format for recompense:", error);
+      return false;
+    }
+  
+    return (
+      tmp && (
+        (tmp.items && typeof tmp.items === "object" && Object.keys(tmp.items).length > 0) || 
+        tmp.emeraud || 
+        tmp.luck
+      )
+    );
+  };
+
   return (
     <main className="content">
       <div className="content_top">
@@ -88,6 +108,7 @@ const CavePage: React.FC = () => {
                 <th style={{ padding: "10px" }}>{translations.bug?.TITLE}</th>
                 <th style={{ padding: "10px" }}>{translations.bug?.STATUS}</th>
                 <th style={{ padding: "10px" }}>{translations.bug?.CONTENT}</th>
+                <th style={{ padding: "10px" }}>{translations.bug?.REWARD}</th>
               </tr>
             </thead>
             <tbody>
@@ -102,6 +123,20 @@ const CavePage: React.FC = () => {
                   <td style={{ padding: "10px" }}>{entry.status}</td>
                   <td style={{ padding: "10px" }}>
                     {entry.content.length > 100 ? entry.content.substring(0, 100) + "..." : entry.content}
+                  </td>
+                  <td style={{ padding: "10px", color: 
+                    entry.status === "CLOSE"
+                      ? hasReward(entry.recompense) 
+                        ? "green"
+                        : "red"
+                      : "red"
+                  }}>
+                    {entry.status === "CLOSE"
+                      ? hasReward(entry.recompense) 
+                        ? translations.bug?.HAVE_REWARD
+                        : translations.bug?.NO_REWARD
+                      : translations.bug?.HAVE_NOT_REWARD
+                    }
                   </td>
                 </tr>
               ))}

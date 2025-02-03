@@ -4,6 +4,7 @@
     "STATUS": "Statut",
     "CONTENT": "Contenu",
     "CREATE_BUG": "Créer un bug",
+    "REWARD": "Récompense",
     "ENTER_CONTENT": "Entrez le contenu",
     "ENTER_TITLE": "Entrez le titre",
     "SUBMIT_BUTTON_CREATION": "Créer le ticket du bug",
@@ -17,10 +18,15 @@
     "USER_BUG_TITLE": "Titre : ",
     "USER_BUG_CONTENT": "Contenu : ",
     "USER_BUG_ANSWER": "Réponse : ",
-    "USER_BUG_RECOMPENSE": "Récompense : ",
+    "USER_BUG_REWARD": "Récompense : ",
     "USER_BUG_EMERAUD": "Émeraude : ",
     "USER_BUG_LUCK": "Chance : ",
     "USER_BUG_ITEM": "Objet",
     "USER_BUG_QUANTITE": "Quantité",
-    "USER_BUG_NO_ITEM": "Aucun objet associé à la récompense."
+    "USER_BUG_NO_ITEM": "Aucun objet associé à la récompense.",
+    "USER_BUG_NONE": "Aucune",
+    "USER_BUG_NONE_CONTENT": "Aucun contenu.",
+    "HAVE_REWARD": "Récompense à collecter",
+    "HAVE_NOT_REWARD": "Pas encore de récompense",
+    "NO_REWARD": "Pas de récompense"
 }

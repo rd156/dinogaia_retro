@@ -107,6 +107,25 @@ const DinoPage: React.FC = () => {
     }
   };
 
+  const hasReward = (recompense: any) => {
+    if (!recompense) return false;
+  
+    let tmp;
+    try {
+      tmp = typeof recompense === "string" ? JSON.parse(recompense) : recompense;
+    } catch (error) {
+      console.error("Invalid JSON format for recompense:", error);
+      return false;
+    }
+  
+    return (
+      tmp && (
+        (tmp.items && typeof tmp.items === "object" && Object.keys(tmp.items).length > 0) || 
+        tmp.emeraud || 
+        tmp.luck
+      )
+    );
+  };
   return (
     <div className="content">
       <div className='content_top'>
@@ -131,7 +150,7 @@ const DinoPage: React.FC = () => {
 
           <div className="mt-4 p-4 border rounded-lg bg-gray-100">
             <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_CONTENT}</h3>
-            <p className="text-gray-700 whitespace-pre-line">{bug.content || "Aucun contenu."}</p>
+            <p className="text-gray-700 whitespace-pre-line">{bug.content || translations.bug?.USER_BUG_NONE_CONTENT}</p>
           </div>
 
           {bug.answer && (
@@ -142,9 +161,9 @@ const DinoPage: React.FC = () => {
           )}
 
           <div className="mt-4 p-4 border rounded-lg bg-yellow-100">
-            <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_RECOMPENSE}</h3>
-            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_EMERAUD}</strong>{recompense.emeraud || "Aucune"}</p>
-            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_LUCK}</strong>{recompense.luck || "Aucune"}</p>
+            <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_REWARD}</h3>
+            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_EMERAUD}</strong>{recompense.emeraud || translations.bug?.USER_BUG_NONE}</p>
+            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_LUCK}</strong>{recompense.luck || translations.bug?.USER_BUG_NONE}</p>
             
             {recompense && recompense.items && Object.keys(recompense.items).length > 0 ? (
               <table className="w-full mt-2 border-collapse">
@@ -167,7 +186,7 @@ const DinoPage: React.FC = () => {
               <p className="text-gray-600">{translations.bug?.USER_BUG_NO_ITEM}</p>
             )}
             <br />
-            {recompense && bug.is_recup === false && (
+            {hasReward(recompense) && bug.status === "CLOSE" && (
               <ButtonFancy onClick={() => collectClick(bug.id)} label={translations.bug?.COLLECT} />
             )}
           </div>
