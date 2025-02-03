@@ -244,6 +244,7 @@ const DinoPage: React.FC = () => {
           <h2 className="text-2xl font-bold mb-4">Bug #{bug.id}</h2>
 
           <p className="text-gray-600"><strong>Référence :</strong> {bug.reference}</p>
+          <p className="text-gray-600"><strong>Date :</strong> {bug.created_at}</p>
           {bug.username && (
             <p className="text-gray-600"><strong>Username :</strong> {bug.username} ({bug.account})</p>
           )}

@@ -81,11 +81,11 @@ const HomePage: React.FC = () => {
             <table style={{ marginTop: "30px", width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
+                  <th style={{ padding: "10px" }}>id account</th>
+                  <th style={{ padding: "10px" }}>id user</th>
+                  <th style={{ padding: "10px" }}>username</th>
                   <th style={{ padding: "10px" }}>pseudo</th>
                   <th style={{ padding: "10px" }}>nb_dino</th>
-                  <th style={{ padding: "10px" }}>test</th>
-                  <th style={{ padding: "10px" }}>test</th>
-                  <th style={{ padding: "10px" }}>test</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,6 +94,9 @@ const HomePage: React.FC = () => {
                     key={entry.id}
                     style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}
                   >
+                    <td style={{ padding: "10px" }}>{entry.id}</td>
+                    <td style={{ padding: "10px" }}>{entry.user_id}</td>
+                    <td style={{ padding: "10px" }}>{entry.username}</td>
                     <td style={{ padding: "10px" }}>{entry.pseudo}</td>
                     <td style={{ padding: "10px" }}>{entry.nb_dino}</td>
                   </tr>

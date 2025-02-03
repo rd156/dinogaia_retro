@@ -151,6 +151,7 @@ const HomePage: React.FC = () => {
                   <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
                     <th style={{ padding: "10px" }}>Id du ticket</th>
                     <th style={{ padding: "10px" }}>Reference</th>
+                    <th style={{ padding: "10px" }}>Date</th>
                     <th style={{ padding: "10px" }}>Proprietaire (id)</th>
                     <th style={{ padding: "10px" }}>Titre</th>
                     <th style={{ padding: "10px" }}>Contenue</th>
@@ -169,6 +170,7 @@ const HomePage: React.FC = () => {
                     >
                       <td style={{ padding: "10px" }}>{entry.id}</td>
                       <td style={{ padding: "10px" }}>{entry.reference}</td>
+                      <td style={{ padding: "10px" }}>{entry.created_at}</td>
                       <td style={{ padding: "10px" }}>
                         {entry.username} ({entry.account})
                       </td>
