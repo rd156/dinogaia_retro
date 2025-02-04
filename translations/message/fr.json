@@ -27,5 +27,8 @@
     "CREATE_ANSWER_DONE": "Réponse envoyée avec succès !",
     "DISPLAY_CATEGORIE_ALL": "Toutes les messages",
     "DISPLAY_CATEGORIE_PLAYER": "Joueur",
-    "DISPLAY_CATEGORIE_SYSTEM": "Système"
+    "DISPLAY_CATEGORIE_SYSTEM": "Système",
+    "DISPLAY_CATEGORIE_READ": "Message lu",
+    "DISPLAY_CATEGORIE_UNREAD": "Message non lu",
+    "IS_READ": "Statut"
 }

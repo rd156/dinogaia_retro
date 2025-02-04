@@ -26,5 +26,8 @@
     "CREATE_ANSWER_DONE": "Answer sent successfully!",
     "DISPLAY_CATEGORIE_ALL": "All messages",
     "DISPLAY_CATEGORIE_PLAYER": "Player",
-    "DISPLAY_CATEGORIE_SYSTEM": "System"
+    "DISPLAY_CATEGORIE_SYSTEM": "System",
+    "DISPLAY_CATEGORIE_READ": "Read",
+    "DISPLAY_CATEGORIE_UNREAD": "Unread",
+    "IS_READ": "Status"
 }

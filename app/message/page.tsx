@@ -32,6 +32,8 @@ const MessagesPage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'date' | 'sender'>('date');
+  const [activeCategory, setActiveCategory] = useState("ALL");
+  const categories = ["ALL", "PLAYER", "SYSTEM", "READ", "UNREAD"];
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -119,8 +121,6 @@ const MessagesPage: React.FC = () => {
     }
   };
   
-  const [activeCategory, setActiveCategory] = useState("ALL");
-  const categories = ["ALL", "PLAYER", "SYSTEM"];
 
   const handleCategoryToggle = (category) => {
     const fetchMessages = async () => {
@@ -217,15 +217,15 @@ const MessagesPage: React.FC = () => {
                   style={{ fontWeight: entry.is_read === false ? "bold" : "normal", borderBottom: "1px solid #ddd", textAlign: "left" }}
                   onClick={() => (window.location.href = `/message/${entry.id}`)}
                 >
-                  <td style={{ padding: "10px" }}>
+                  <td style={{ padding: "10px", width: "20%"}}>
                     {entry?.sender_name && entry?.sender_pseudo
                     ? `${entry.sender_name} (${entry.sender_pseudo})`
                     : translations.message?.MSG_SYSTEM}
                   </td>
-                  <td style={{ padding: "10px" }}>{entry.title ? `${entry.title}` : ""}</td>
+                  <td style={{ padding: "10px", width: "20%" }}>{entry.title ? `${entry.title}` : ""}</td>
                   <td style={{ padding: "10px" }}> {parseMessageContent(entry.content)}
                   </td>
-                  <td style={{ padding: "10px" }}>{formatDate(entry.created_at)}</td>
+                  <td style={{ padding: "10px", width: "10%" }}>{formatDate(entry.created_at)}</td>
                 </tr>
               ))}
             </tbody>

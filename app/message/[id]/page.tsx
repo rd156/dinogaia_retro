@@ -45,12 +45,15 @@ const MessageDetailPage: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const dinoId = localStorage.getItem("dinoId");
-        const response = await fetch(`${API_URL}/message/${dinoId}/get/${params.id}`, {
-          method: "GET",
+        const response = await fetch(`${API_URL}/message/${dinoId}/read_one`, {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
+          body: JSON.stringify({
+            "id": params.id
+          }),
         });
 
         if (!response.ok) {
@@ -58,6 +61,7 @@ const MessageDetailPage: React.FC = () => {
         }
 
         const result = await response.json();
+        console.log(result)
         setMessage(result);
       } catch (error) {
         setErrorMessage(translations.message?.ERROR_LOAD_MSG);
@@ -124,7 +128,7 @@ const MessageDetailPage: React.FC = () => {
     <main className="content">
       <div className="content_top">
         <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
-          <h2>{message?.title || translations.message?.NO_TITLE}</h2>
+          <h2><strong>{translations.message?.TITLE}: </strong> {message?.title || translations.message?.NO_TITLE}</h2>
           <br />
           <p>
             <strong>{translations.message?.SENDER}: </strong>
