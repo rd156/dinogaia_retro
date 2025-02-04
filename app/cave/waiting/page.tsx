@@ -133,7 +133,6 @@ const CavePage: React.FC = () => {
   const handleButtonClickAll = async (action) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
-
     try {
       let apiUrl;
 
