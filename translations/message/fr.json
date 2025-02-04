@@ -10,5 +10,18 @@
     "BACK_MSG_LIST": "Retour à la liste des messages",
     "FORM_BUTTON_ANSWER": "Répondre",
     "ADD_ANSWER": "Ajouter une réponse :",
-    "FORM_BUTTON_CREATE_MESSAGE": "Crée un message"
+    "FORM_BUTTON_CREATE_MESSAGE": "Crée un message",
+    "ERROR_LOAD_LIST_MSG": "Impossible de charger les messages.",
+    "ERROR_CREATE_MSG": "Une erreur est survenue lors de la création du message.",
+    "ERROR_LOAD_MSG": "Impossible de charger le message.",
+    "ERROR_MANDATORY_INPUT": "Tous les champs sont requis.",
+    "MSG_CREATED" : "Message créé avec succès !",
+    "SEARCH_USER": "Rechercher un utilisateur (3 characters min)",
+    "SELECT_USER": "Sélectionner un utilisateur",
+    "ENTER_PSEUDO": "Entrez un pseudo...",
+    "CHOSE_DINO": "Choisir un Dino",
+    "SELECT_DINO": "Sélectionnez un Dino",
+    "ERROR_MANDATORY_ANSWER": "La réponse ne peut pas être vide.",
+    "ERROR_CREATE_ANSWER": "Une erreur est survenue lors de l'envoi de la réponse.",
+    "CREATE_ANSWER_DONE": "Réponse envoyée avec succès !"
 }

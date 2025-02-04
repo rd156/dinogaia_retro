@@ -60,7 +60,7 @@ const MessageDetailPage: React.FC = () => {
         const result = await response.json();
         setMessage(result);
       } catch (error) {
-        setErrorMessage("Impossible de charger le message.");
+        setErrorMessage(translations.message?.ERROR_LOAD_MSG);
       } finally {
         setLoading(false);
       }
@@ -71,10 +71,6 @@ const MessageDetailPage: React.FC = () => {
     }
   }, [params.id]);
 
-  if (loading) {
-    return <p>{translations.global?.LOADING || "Chargement..."}</p>;
-  }
-
   if (errorMessage) {
     return <p className="alert-red">{errorMessage}</p>;
   }
@@ -84,7 +80,7 @@ const MessageDetailPage: React.FC = () => {
 
     console.log(response)
     if (!response.trim()) {
-      setErrorMessageAnswer("La réponse ne peut pas être vide.");
+      setErrorMessageAnswer(translations.message?.ERROR_MANDATORY_ANSWER);
       return;
     }
     try {
@@ -102,14 +98,14 @@ const MessageDetailPage: React.FC = () => {
       });
 
       if (!responseData.ok) {
-        setErrorMessageAnswer("Une erreur est survenue lors de l'envoi de la réponse.");
+        setErrorMessageAnswer(translations.message?.ERROR_CREATE_ANSWER);
       } else {
         const result = await responseData.json();
         console.log(result)
-        setMessageAnswer("Réponse envoyée avec succès !");
+        setMessageAnswer(translations.message?.CREATE_ANSWER_DONE);
       }
     } catch (error) {
-      setErrorMessageAnswer("Une erreur est survenue. Essayez à nouveau.");
+      setErrorMessageAnswer(translations.message?.ERROR_CREATE_ANSWER);
     }
   };
   const handleResponseChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -144,7 +140,7 @@ const MessageDetailPage: React.FC = () => {
           <p>{parseMessageContent(message?.content)}</p>
           <br />
           <div className="buttons">
-            <Link href="/messages" passHref>
+            <Link href="/message" passHref>
               <ButtonNeon label={translations.message?.BACK_MSG_LIST} />
             </Link>
           </div>

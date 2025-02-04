@@ -9,12 +9,11 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -43,11 +42,17 @@ const MessagesPage: React.FC = () => {
   }, [language]);
 
   useEffect(() => {
+    const dinoId = localStorage.getItem("dinoId");
+      
+    if (dinoId === null || dinoId === "")
+    {
+      window.location.href = "/dino"
+    }
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("token");
         const dinoId = localStorage.getItem("dinoId");
-        const response = await fetch(`${API_URL}/message/${dinoId}`, {
+        const response = await fetch(`${API_URL}/message/${dinoId}/categorie/PLAYER`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -56,13 +61,13 @@ const MessagesPage: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Erreur lors du chargement des messages");
+          throw new Error(translations.message?.ERROR_LOAD_LIST_MSG);
         }
 
         const result = await response.json();
         setMessagesList(result);
       } catch (error) {
-        setErrorMessage("Impossible de charger les messages.");
+        setErrorMessage(translations.message?.ERROR_LOAD_LIST_MSG);
       } finally {
         setLoading(false);
       }
@@ -74,26 +79,46 @@ const MessagesPage: React.FC = () => {
   const sortMessages = (field: 'date' | 'sender') => {
     const sortedMessages = [...messagesList];
     const order = sortOrder === 'asc' ? 1 : -1;
-
+  
     sortedMessages.sort((a, b) => {
       if (field === 'date') {
         const dateA = new Date(a.created_at).getTime();
         const dateB = new Date(b.created_at).getTime();
         return (dateA - dateB) * order;
       } else if (field === 'sender') {
-        const senderA = a.sender ? a.sender.toLowerCase() : '';
-        const senderB = b.sender ? b.sender.toLowerCase() : '';
+        const senderA = a.sender_name && a.sender_pseudo
+        ? `${a.sender_name.toLowerCase()} (${a.sender_pseudo.toLowerCase()})`
+        : "";
+      const senderB = b.sender_name && b.sender_pseudo
+        ? `${b.sender_name.toLowerCase()} (${b.sender_pseudo.toLowerCase()})`
+        : "";
         if (senderA < senderB) return -1 * order;
         if (senderA > senderB) return 1 * order;
         return 0;
       }
       return 0;
     });
-
+  
     setMessagesList(sortedMessages);
     setSortBy(field);
     setSortOrder(order === 1 ? 'desc' : 'asc');
+  };  
+
+  const parseMessageContent = (content: any) => {
+    try {
+      const tmp = JSON.parse(content);
+      if (tmp.content)
+      {
+        return tmp.content.length > 100 ? tmp.content.substring(0, 100) + "..." : tmp.content;
+      }
+      else{
+        return content;
+      }
+    } catch (error) {
+      return content;
+    }
   };
+  
 
   return (
     <main className="content">
@@ -143,12 +168,13 @@ const MessagesPage: React.FC = () => {
                   style={{ fontWeight: entry.is_read === false ? "bold" : "normal", borderBottom: "1px solid #ddd", textAlign: "left" }}
                   onClick={() => (window.location.href = `/message/${entry.id}`)}
                 >
-                  <td style={{ padding: "10px" }}>{entry.sender || translations.message?.MSG_SYSTEM}</td>
                   <td style={{ padding: "10px" }}>
-                    {(entry.title && entry.dino) ? `${entry.title}` : ""}
+                    {entry?.sender_name && entry?.sender_pseudo
+                    ? `${entry.sender_name} (${entry.sender_pseudo})`
+                    : translations.message?.MSG_SYSTEM}
                   </td>
-                  <td style={{ padding: "10px" }}>
-                    {entry.content.length > 100 ? entry.content.substring(0, 100) + "..." : entry.content}
+                  <td style={{ padding: "10px" }}>{entry.title ? `${entry.title}` : ""}</td>
+                  <td style={{ padding: "10px" }}> {parseMessageContent(entry.content)}
                   </td>
                   <td style={{ padding: "10px" }}>{formatDate(entry.created_at)}</td>
                 </tr>

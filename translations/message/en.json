@@ -1,3 +1,27 @@
 {
-    "CREATE_MESSAGE": "Crée un message"
+    "CREATE_MESSAGE": "Create a message",
+    "TITLE": "Title",
+    "CONTENT": "Content",
+    "SENDER": "Sender",
+    "DATE": "Date",
+    "TYPE": "Type",
+    "COMPONENT": "Component",
+    "MSG_SYSTEM": "System message",
+    "BACK_MSG_LIST": "Back to message list",
+    "FORM_BUTTON_ANSWER": "Reply",
+    "ADD_ANSWER": "Add an answer:",
+    "FORM_BUTTON_CREATE_MESSAGE": "Create a message",
+    "ERROR_LOAD_LIST_MSG": "Unable to load messages.",
+    "ERROR_CREATE_MSG": "An error occurred while creating the message.",
+    "ERROR_LOAD_MSG": "Unable to load the message.",
+    "ERROR_MANDATORY_INPUT": "All fields are required.",
+    "MSG_CREATED" : "Message created successfully!",
+    "SEARCH_USER": "Search for a user (3 characters min)",
+    "SELECT_USER": "Select a user",
+    "ENTER_PSEUDO": "Enter a pseudo...",
+    "CHOSE_DINO": "Choose a Dino",
+    "SELECT_DINO": "Select a Dino",
+    "ERROR_MANDATORY_ANSWER": "The answer cannot be empty.",
+    "ERROR_CREATE_ANSWER": "An error occurred while sending the answer.",
+    "CREATE_ANSWER_DONE": "Answer sent successfully!"
 }
