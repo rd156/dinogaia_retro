@@ -82,6 +82,7 @@ const CavePage: React.FC = () => {
 
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -107,6 +108,8 @@ const CavePage: React.FC = () => {
         const item_list = await caveResponse.json()
         setItems(item_list);
 
+        console.log(item_list)
+
       } catch (error) {
         setErrorMessage(translations.cave?.ERR_LOAD);
       } finally {
@@ -126,9 +129,20 @@ const CavePage: React.FC = () => {
   };
 
   const handleItemClick = (item) => {
-    setSelectedItem((prev) => (prev === item ? null : item)); // Définir ou effacer l'élément sélectionné
+    console.log(item)
+    setSelectedItem((prev) => (prev === item ? null : item));
   };
 
+  const removeItem = (itemToRemove) => {
+    const updatedItems = items.map(item => 
+      item.item_name === itemToRemove.item_name 
+        ? { ...item, quantite: item.quantite - 1 } // Diminue la quantité si > 1
+        : item
+    ).filter(item => item.quantite > 0); // Supprime l'item si quantité = 0
+  
+    setItems(updatedItems);
+  };  
+  
   const handleButtonClick = async (action) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
@@ -168,11 +182,13 @@ const CavePage: React.FC = () => {
       if (result.message && result.message==action){
         setMessage(translations.cave?.ACTION_DONE)
         setErrorMessage("")
+        removeItem(selectedItem)
       }
       else if (result.sell)
       {
         setMessage(translations.cave?.SELL_RESULT_VALUE.replace("[Number]", result.sell))
         setErrorMessage("")
+        removeItem(selectedItem)
       }
       else{
         setMessage("")
@@ -212,112 +228,120 @@ const CavePage: React.FC = () => {
   return (
     <main className="content">
       <div className="content_top"> 
-      {errorMessage && (
-        <p className="alert-red">{errorMessage}</p>
-      )}
-      {message && (
-        <p className="alert-green">{message}</p>
-      )}
-      <div className='cave-container'>
-          <div className="cave-card block_white">
-            <h1 className="cave-name">
-              {info.name}
-            </h1>
-            {info.description}
-            <div className="cave-header">
-              <div className="stat-item">
-                <p>{translations.cave?.LEVEL}: <strong>{info.lvl}</strong></p>
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
+        <div className='cave-container'>
+            <div className="cave-card block_white">
+              <h1 className="cave-name">
+                {info.name}
+              </h1>
+              {info.description}
+              <div className="cave-header">
+                <div className="stat-item">
+                  <p>{translations.cave?.LEVEL}: <strong>{info.lvl}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.cave?.SECURITY}: <strong>{info.security}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.cave?.HYGIENE}: <strong>{info.hygiene}</strong></p>
+                </div>
+                <div className="stat-item">
+                  <p>{translations.cave?.CONFORT}: <strong>{info.confort}</strong></p>
+                </div>
               </div>
-              <div className="stat-item">
-                <p>{translations.cave?.SECURITY}: <strong>{info.security}</strong></p>
-              </div>
-              <div className="stat-item">
-                <p>{translations.cave?.HYGIENE}: <strong>{info.hygiene}</strong></p>
-              </div>
-              <div className="stat-item">
-                <p>{translations.cave?.CONFORT}: <strong>{info.confort}</strong></p>
-              </div>
-            </div>
-            <div className="cave-stats">
-              <div className="stat-block">
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill storage-bar"
-                    style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
-                  >
-                    {info.storage > 0 && (
-                    <span className="progress-text">
-                      {info.storage}/{info.storage_max}
-                    </span>
-                    )}
+              <div className="cave-stats">
+                <div className="stat-block">
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill storage-bar"
+                      style={{ width: `${(info.storage/info.storage_max) * 100}%` }}
+                    >
+                      {info.storage > 0 && (
+                      <span className="progress-text">
+                        {info.storage}/{info.storage_max}
+                      </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {count > 0 && (
-              <div className="count-container" style={{
-                marginTop: "10px",
-                backgroundColor: "#41c75e",
-              }}>
-                <h3 className="cave-name" onClick={() => {
-                    window.location.href = "/cave/waiting";
-                  }}>
-                  {translations.cave?.WAINTING_NUMBER.replace("[Number]", count)}
-                </h3>
-              </div>
-            )}
-          </div>
-      </div>
-      <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
-        {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryToggle(category)}
-              style={{
-                padding: "10px",
-                backgroundColor: activeCategory === category ? "#007BFF" : "#ccc",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              {category === "ALL" ? translations.cave?.DISPLAY_ALL : translations.item?.['CATEGORY_'+ category] ?? category}
-            </button>
-          ))}
-      </div>
-
-      {selectedItem && (
-        <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
-          <div className="block_white">
-            <h3 style={{marginBottom: "10px"}}>
-              {translations.cave?.["ACTION_ON"].replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name] ?? selectedItem.item_name)}
-            </h3>
-            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
-              <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
-              <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
-              <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
+              {count > 0 && (
+                <div className="count-container" style={{
+                  marginTop: "10px",
+                  backgroundColor: "#41c75e",
+                }}>
+                  <h3 className="cave-name" onClick={() => {
+                      window.location.href = "/cave/waiting";
+                    }}>
+                    {translations.cave?.WAINTING_NUMBER.replace("[Number]", count)}
+                  </h3>
+                </div>
+              )}
             </div>
-          </div>
         </div>
-      )}
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
-        {items &&
-          Object.entries(items)
-          .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
-          .map(([name, { item_name, quantite, item_categorie }]) => (
-            <div
-              key={name}
-              className="block_white"
-              onClick={() => handleItemClick({ item_name, quantite, item_categorie })}
+        <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+          {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryToggle(category)}
+                style={{
+                  padding: "10px",
+                  backgroundColor: activeCategory === category ? "#007BFF" : "#ccc",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
               >
-                <ImageWithText src={getImageUrl(`item/${item_name}.webp`)}alt={`${item_name} image`} quantity={quantite} />
-                <p>{translations.item?.['ITEM_'+ item_name] ?? item_name}</p>
+                {category === "ALL" ? translations.cave?.DISPLAY_ALL : translations.item?.['CATEGORY_'+ category] ?? category}
+              </button>
+            ))}
+        </div>
+
+        {selectedItem && (
+          <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
+            <div className="block_white">
+              <h3 style={{marginBottom: "10px"}}>
+                {translations.cave?.["ACTION_ON"].replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name] ?? selectedItem.item_name)}
+              </h3>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
+                {selectedItem.action && selectedItem.action.use && (
+                  <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
+                )}
+                {selectedItem.action && selectedItem.action.eat && (
+                  <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
+                )}
+                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
+              </div>
             </div>
-          ))
-        }
+          </div>
+        )}
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
+          {items &&
+            Object.entries(items)
+              .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
+              .map(([name, item]) => (
+                <div
+                  key={name}
+                  className="block_white"
+                  onClick={() => handleItemClick(item)}
+                >
+                  <ImageWithText 
+                    src={getImageUrl(`item/${item.item_name}.webp`)}
+                    alt={`${item.item_name} image`}
+                    quantity={item.quantite} 
+                  />
+                  <p>{translations.item?.['ITEM_' + item.item_name] ?? item.item_name}</p>
+                </div>
+              ))
+          }
         </div>
       </div>
     </main>
