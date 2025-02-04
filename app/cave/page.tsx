@@ -317,6 +317,9 @@ const CavePage: React.FC = () => {
                 {selectedItem.action && selectedItem.action.eat && (
                   <ButtonNeon onClick={() => handleButtonClick("eat")} label={translations.cave?.EAT} />
                 )}
+                {selectedItem.action && selectedItem.action.open && (
+                  <ButtonFancy onClick={() => handleButtonClick("open")} label={translations.cave?.USE} />
+                )}
                 <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
               </div>
             </div>
