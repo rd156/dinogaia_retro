@@ -26,5 +26,10 @@
     "TABLE_QUANTITY": "Quantity",
     "DISPLAY_ALL": "Show all",
     "ACTION_ON": "Action on the item: [Item]",
-    "TABLE_ACTION": "Action"
+    "TABLE_ACTION": "Action",
+    "ACTION_DONE_use": "Successful use",
+    "ACTION_DONE_eat": "The object has been consumed",
+    "ACTION_DONE_gift": "The object has been given",
+    "ACTION_DONE_move": "The object has been moved",
+    "ACTION_DONE_open": "The object has been opened"
 }

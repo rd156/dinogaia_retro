@@ -168,7 +168,7 @@ const CavePage: React.FC = () => {
           'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
         },
         body: JSON.stringify({
-          "item":selectedItem.item_name,
+          "item": selectedItem.item_name,
           "quantity": 1
         }),
       });
@@ -180,7 +180,7 @@ const CavePage: React.FC = () => {
       const result = await response.json();
       console.log(result)
       if (result.message && result.message==action){
-        setMessage(translations.cave?.ACTION_DONE)
+        setMessage(translations.cave?.["ACTION_DONE_" + action] ?? translations.cave?.ACTION_DONE);
         setErrorMessage("")
         removeItem(selectedItem)
       }
@@ -228,12 +228,6 @@ const CavePage: React.FC = () => {
   return (
     <main className="content">
       <div className="content_top"> 
-        {errorMessage && (
-          <p className="alert-red">{errorMessage}</p>
-        )}
-        {message && (
-          <p className="alert-green">{message}</p>
-        )}
         <div className='cave-container'>
             <div className="cave-card block_white">
               <h1 className="cave-name">
@@ -303,7 +297,13 @@ const CavePage: React.FC = () => {
               </button>
             ))}
         </div>
-
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
+        <br />
         {selectedItem && (
           <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc", borderRadius: "5px" }}>
             <div className="block_white">
