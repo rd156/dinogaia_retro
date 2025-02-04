@@ -17,8 +17,9 @@ const ItemEditPage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-
   const [itemId, setItemId] = useState(params?.id);
+  const categories = ["MEDOC", "FOOD", "ATK", "GOLD", "WEAPON","SKILL", "PACK", "ARTE", "OTHER", "HABI","TALIS", "QUEST", "KEY", "CHEST", "RES","ANIMAL"];
+
 
   // Charger les traductions
   useEffect(() => {
@@ -156,13 +157,19 @@ const ItemEditPage: React.FC = () => {
               </div>
               <div>
                 <label>Catégorie</label>
-                <input
-                  type="text"
+                <select
                   name="categorie"
                   value={item.categorie || ""}
                   onChange={handleChange}
                   className="p-2 border rounded-md w-full"
-                />
+                >
+                  <option value="">Sélectionner une catégorie</option>
+                  {categories.map((categorie, index) => (
+                    <option key={index} value={categorie}>
+                      {categorie}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label>Prix Minimum</label>
