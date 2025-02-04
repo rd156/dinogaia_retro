@@ -72,6 +72,31 @@ const ItemsPage: React.FC = () => {
     }
   };
 
+  const exportItems = async () => {
+    const token = localStorage.getItem("token");
+    console.log("inputName:", inputName);
+
+    try {
+      let url = `${API_URL}/data/export/item`;
+      let options = {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      };
+
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        setErrorMessage(translations.items?.ERR_LOAD_ITEMS || "Erreur lors du chargement des items");
+        return;
+      }
+
+      const result = await response.json();
+    } catch (error) {
+    }
+  };
+  
   useEffect(() => {
     loadItems();
   }, []);
@@ -83,10 +108,6 @@ const ItemsPage: React.FC = () => {
     } else {
       setSelectedItemId(id);
     }
-  };
-
-  const logger = (test) => {
-    console.log(test)
   };
 
   return (
@@ -189,6 +210,8 @@ const ItemsPage: React.FC = () => {
               </table>
             </div>
           </div>
+          <br />
+          <ButtonFancy onClick={() => exportItems()} label="Export" />
         </div>
       </div>
     </main>
