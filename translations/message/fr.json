@@ -12,6 +12,7 @@
     "ADD_ANSWER": "Ajouter une réponse :",
     "FORM_BUTTON_CREATE_MESSAGE": "Crée un message",
     "ERROR_LOAD_LIST_MSG": "Impossible de charger les messages.",
+    "ERROR_LOAD_CATEGORIE_MSG": "Impossible de charger les messages de la catégorie [Name].",
     "ERROR_CREATE_MSG": "Une erreur est survenue lors de la création du message.",
     "ERROR_LOAD_MSG": "Impossible de charger le message.",
     "ERROR_MANDATORY_INPUT": "Tous les champs sont requis.",
@@ -23,5 +24,8 @@
     "SELECT_DINO": "Sélectionnez un Dino",
     "ERROR_MANDATORY_ANSWER": "La réponse ne peut pas être vide.",
     "ERROR_CREATE_ANSWER": "Une erreur est survenue lors de l'envoi de la réponse.",
-    "CREATE_ANSWER_DONE": "Réponse envoyée avec succès !"
+    "CREATE_ANSWER_DONE": "Réponse envoyée avec succès !",
+    "DISPLAY_CATEGORIE_ALL": "Toutes les messages",
+    "DISPLAY_CATEGORIE_PLAYER": "Joueur",
+    "DISPLAY_CATEGORIE_SYSTEM": "Système"
 }

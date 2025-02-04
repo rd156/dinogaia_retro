@@ -52,7 +52,7 @@ const MessagesPage: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const dinoId = localStorage.getItem("dinoId");
-        const response = await fetch(`${API_URL}/message/${dinoId}/categorie/PLAYER`, {
+        const response = await fetch(`${API_URL}/message/${dinoId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -119,6 +119,37 @@ const MessagesPage: React.FC = () => {
     }
   };
   
+  const [activeCategory, setActiveCategory] = useState("ALL");
+  const categories = ["ALL", "PLAYER", "SYSTEM"];
+
+  const handleCategoryToggle = (category) => {
+    const fetchMessages = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const dinoId = localStorage.getItem("dinoId");
+        const response = await fetch(`${API_URL}/message/${dinoId}/categorie/`+category, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(translations.message?.ERROR_LOAD_CATEGORIE_MSG.replace("[Name]", translations.message?.['DISPLAY_CATEGORIE_'+ category]));
+        }
+
+        const result = await response.json();
+        setMessagesList(result);
+      } catch (error) {
+        setErrorMessage(translations.message?.ERROR_LOAD_CATEGORIE_MSG.replace("[Name]", translations.message?.['DISPLAY_CATEGORIE_'+ category]));
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMessages();
+    setActiveCategory((prevCategory) => (prevCategory === category ? "ALL" : category));
+  };
 
   return (
     <main className="content">
@@ -138,6 +169,24 @@ const MessagesPage: React.FC = () => {
               <ButtonFancy label={translations.message?.CREATE_MESSAGE} />
             </div>
           </Link>
+          <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+            {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryToggle(category)}
+                  style={{
+                    padding: "10px",
+                    backgroundColor: activeCategory === category ? "#007BFF" : "#ccc",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {category === "ALL" ? translations.message?.DISPLAY_CATEGORIE_ALL : translations.message?.['DISPLAY_CATEGORIE_'+ category] ?? category}
+                </button>
+              ))}
+          </div>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>

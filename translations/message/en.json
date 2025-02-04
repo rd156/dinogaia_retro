@@ -23,5 +23,8 @@
     "SELECT_DINO": "Select a Dino",
     "ERROR_MANDATORY_ANSWER": "The answer cannot be empty.",
     "ERROR_CREATE_ANSWER": "An error occurred while sending the answer.",
-    "CREATE_ANSWER_DONE": "Answer sent successfully!"
+    "CREATE_ANSWER_DONE": "Answer sent successfully!",
+    "DISPLAY_CATEGORIE_ALL": "All messages",
+    "DISPLAY_CATEGORIE_PLAYER": "Player",
+    "DISPLAY_CATEGORIE_SYSTEM": "System"
 }
