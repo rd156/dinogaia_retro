@@ -1,0 +1,79 @@
+/* 📌 Conteneur général */
+.combat-container {
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 📜 Détails du combat */
+.combat-summary {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.status {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.status.completed {
+  color: white;
+  background-color: green;
+}
+
+.status.in_progress {
+  color: white;
+  background-color: orange;
+}
+
+.status.waiting {
+  color: white;
+  background-color: gray;
+}
+
+/* 📊 Tableau des rounds */
+.rounds-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.rounds-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.rounds-table th, .rounds-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.rounds-table th {
+  background: #4285f4;
+  color: white;
+}
+
+.rounds-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+/* 🔙 Bouton Retour */
+.btn-back {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #ff4d4d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #cc0000;
+}
