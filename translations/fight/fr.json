@@ -1,6 +1,7 @@
 {
     "ERROR_LOAD_FIGHT": "Erreur lors du chargement des combats.",
     "ERROR_LOAD_DINO": "Erreur lors du chargement des dinos.",
+    "ERROR_LOAD_PREVIEW": "Erreur lors du chargement des détails du combat.",
     "ERROR_CREATE_FIGHT": "Erreur lors du creation du combat.",
     "ERROR_UPDATE_FIGHT": "Erreur lors de la complétion du combat.",
     "SELECT_DINO": "🦖 Sélectionner un Dino",
@@ -28,5 +29,20 @@
     "ENNEMY": "Ennemie",
     "CHOSE_ATTACK": "🗡️ Choisissez une attaque",
     "CHOSE_DEFENSE": "🛡️ Choisissez une défense",
-    "ROUND_VALIDATE": "✔️ Valider Tour"
+    "ROUND_VALIDATE": "✔️ Valider Tour",
+    "FIGHT_PREVIEW_TITLE": "📜 Aperçu du Combat #[Number]",
+    "PREVIEW_DATE": "📅 Date :",
+    "PREVIEW_STATUS": "🏁 Statut :",
+    "PREVIEW_ROUND": "🔄 Round",
+    "PREVIEW_POINT": "🔄 Point",
+    "PREVIEW_TABLE_ROUND":"🔢 Round",
+    "PREVIEW_TABLE_ATTACK":"⚔️ Attaque [Name]",
+    "PREVIEW_TABLE_DEFENSE":"🛡️ Défense [Name]",
+    "PREVIEW_TABLE_POINT":"🏆 Point [Name]",
+    "PREVIEW_TABLE_WINNER_ROUND":"🦖 Gagnant",
+    "ERROR_NO_ROUND": "Aucun round disponible.",
+    "BACK_LIST_FICHT":"Retour aux combats",
+    "BUTTON_REVENGE": "Revanche",
+    "LOADING": "Chargement en cours..."
+    
 }

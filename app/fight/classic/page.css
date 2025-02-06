@@ -79,8 +79,13 @@
   color: white;
 }
 
-.btn-result {
+.btn-result-win {
   background: #34a853;
+  color: white;
+}
+
+.btn-result-lose {
+  background: #a8343e;
   color: white;
 }
 

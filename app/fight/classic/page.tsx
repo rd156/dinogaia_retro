@@ -49,7 +49,6 @@ const CombatListPage: React.FC = () => {
         setCombatsWaiting(data.waiting || []);
         setCombatsStart(data.combats_start || []);
         setCombatsTermines(data.combats_termines || []);
-
       } catch (error) {
         setMessage(translations.fight?.ERROR_LOAD_FIGHT);
       }
@@ -169,7 +168,7 @@ const CombatListPage: React.FC = () => {
                   <tbody>
                     {combatsWaiting.map((combat) => (
                       <tr key={combat.id}>
-                        <td>{combat.joueur_name}</td>
+                        <td>{combat.joueur_account_name}</td>
                         <td>
                           <Link href={`/fight/classic/update/${combat.id}`}>
                             <button className="btn btn-view">{translations.fight?.TABLE_FIGHT}</button>
@@ -196,7 +195,7 @@ const CombatListPage: React.FC = () => {
                   <tbody>
                     {combatsStart.map((combat) => (
                       <tr key={combat.id}>
-                        <td>{combat.ennemi_name}</td>
+                        <td>{combat.ennemi_account_name}</td>
                         <td>
                           {translations.fight?.["STATUS_"+combat.status]}
                         </td>
@@ -223,14 +222,20 @@ const CombatListPage: React.FC = () => {
                       <tr key={combat.id}>
                         {
                           combat.joueur == getDinoId() ? (
-                            <td>{combat.ennemi_name}</td>
+                            <td>{combat.ennemi_account_name}</td>
                           ):(
-                            <td>{combat.joueur_name}</td>
+                            <td>{combat.joueur_account_name}</td>
                           )
                         }
                         <td>
                           <Link href={`/fight/classic/preview/${combat.id}`}>
-                            <button className="btn btn-result">{translations.fight?.SEE_RESULT}</button>
+                            {
+                              combat.gagnant == getDinoId()?(
+                                <button className="btn btn-result-win">{translations.fight?.SEE_RESULT}</button>
+                              ):(
+                                <button className="btn btn-result-lose">{translations.fight?.SEE_RESULT}</button>
+                              )
+                            }
                           </Link>
                         </td>
                       </tr>

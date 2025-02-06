@@ -1,3 +1,82 @@
+h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.round-message {
+  font-size: 18px;
+  color: yellow;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.battlefield {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.character {
+  text-align: center;
+}
+
+.character-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  border: 5px solid white;
+}
+
+.vs {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 20px;
+  animation: glow 1.5s infinite alternate;
+}
+
+.selection {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.attack-selection, .defense-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.choice-button {
+  padding: 5px;
+  margin: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.choice-button:hover {
+  transform: scale(1.1);
+}
+
+.choice-button.selected {
+  border: 2px solid yellow;
+}
+
+.zone-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  border: 2px solid white;
+  transition: transform 0.3s;
+}
+
+.zone-img:hover {
+  transform: scale(1.1);
+}
+
 /* 📌 Conteneur général */
 .combat-container {
   padding: 20px;
@@ -63,7 +142,7 @@
 
 /* 🔙 Bouton Retour */
 .btn-back {
-  margin-top: 20px;
+  margin: 20px;
   padding: 10px 20px;
   border-radius: 8px;
   background: #ff4d4d;
@@ -76,4 +155,21 @@
 
 .btn-back:hover {
   background: #cc0000;
+}
+
+/* 🔙 Bouton Revanche */
+.btn-revenge {
+  margin: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #3de746;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-revenge:hover {
+  background: #3de746;
 }
