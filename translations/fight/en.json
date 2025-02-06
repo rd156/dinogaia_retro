@@ -10,7 +10,7 @@
     "SELECT_ACCOUNT_FORM": "Select an account",
     "SELECT_DINO_FORM": "Select a dino",
     "CREATE_FIGHT": "Challenge the dino",
-    "FIGHT_LIST_TITLE": "⚔️ Classic Fight List",
+    "FIGHT_CLASSIC_LIST_TITLE": "⚔️ Classic Fight List",
     "FIGHT_WAITING_TITLE": "⏳ Pending Fights",
     "NO_FIGHT_WAITING_TITLE": "No fights pending.",
     "FIGHT_START_TITLE": "🔥 Ongoing Fights",
@@ -43,5 +43,6 @@
     "ERROR_NO_ROUND": "No rounds available.",
     "BACK_LIST_FICHT": "Back to fights",
     "BUTTON_REVENGE": "Rematch",
-    "LOADING": "Loading..."
+    "LOADING": "Loading...",
+    "FIGHT_FAST_LIST_TITLE": "⚔️ Fast Fight List"
 }

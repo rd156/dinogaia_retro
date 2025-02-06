@@ -35,7 +35,7 @@ const CombatListPage: React.FC = () => {
     const dinoId = localStorage.getItem("dinoId");
     const fetchCombats = async () => {
       try {
-        const response = await fetch(`${API_URL}/fight/classic/list/${dinoId}`, {
+        const response = await fetch(`${API_URL}/fight/fast/list/${dinoId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -107,7 +107,6 @@ const CombatListPage: React.FC = () => {
         <div className="combat-container">
             <div className="select-dino-container block_white">
             <h2>{translations.fight?.SELECT_DINO}</h2>
-
             <div className="select-row">
               <input
                 type="text"
@@ -141,7 +140,7 @@ const CombatListPage: React.FC = () => {
               )}
               {selectedDino > 0 && (
                 <Link
-                  href={'/fight/classic/create/'+selectedDino}
+                  href={'/fight/fast/create/'+selectedDino}
                   passHref
                 >
                   <div style={{padding: '25px', flexDirection: 'column', textAlign: 'center', color: 'black'}}>
@@ -153,7 +152,7 @@ const CombatListPage: React.FC = () => {
           </div>
 
           <div>
-            <h1 className="title block_white">{translations.fight?.FIGHT_CLASSIC_LIST_TITLE}</h1>
+            <h1 className="title block_white">{translations.fight?.FIGHT_FAST_LIST_TITLE}</h1>
           </div>
           <div className="combat-grid">
             <div className="combat-card waiting block_white">
@@ -169,9 +168,9 @@ const CombatListPage: React.FC = () => {
                   <tbody>
                     {combatsWaiting.map((combat) => (
                       <tr key={combat.id}>
-                        <td>{combat.joueur_account_name}</td>
+                        <td>{combat.dino1_account_name}</td>
                         <td>
-                          <Link href={`/fight/classic/update/${combat.id}`}>
+                          <Link href={`/fight/fast/update/${combat.id}`}>
                             <button className="btn btn-view">{translations.fight?.TABLE_FIGHT}</button>
                           </Link>
                         </td>
@@ -196,7 +195,7 @@ const CombatListPage: React.FC = () => {
                   <tbody>
                     {combatsStart.map((combat) => (
                       <tr key={combat.id}>
-                        <td>{combat.ennemi_account_name}</td>
+                        <td>{combat.dino2_account_name}</td>
                         <td>
                           {translations.fight?.["STATUS_"+combat.status]}
                         </td>
@@ -222,14 +221,14 @@ const CombatListPage: React.FC = () => {
                     {combatsTermines.map((combat) => (
                       <tr key={combat.id}>
                         {
-                          combat.joueur == getDinoId() ? (
-                            <td>{combat.ennemi_account_name}</td>
+                          combat.dino1 == getDinoId() ? (
+                            <td>{combat.dino2_account_name}</td>
                           ):(
-                            <td>{combat.joueur_account_name}</td>
+                            <td>{combat.dino1_account_name}</td>
                           )
                         }
                         <td>
-                          <Link href={`/fight/classic/preview/${combat.id}`}>
+                          <Link href={`/fight/fast/preview/${combat.id}`}>
                             {
                               combat.gagnant == getDinoId()?(
                                 <button className="btn btn-result-win">{translations.fight?.SEE_RESULT}</button>

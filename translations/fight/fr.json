@@ -10,7 +10,7 @@
     "SELECT_ACCOUNT_FORM": "Sélectionnez un compte",
     "SELECT_DINO_FORM": "Sélectionnez un dino",
     "CREATE_FIGHT": "Défier le dino",
-    "FIGHT_LIST_TITLE": "⚔️ Liste des Combats Classic",
+    "FIGHT_CLASSIC_LIST_TITLE": "⚔️ Liste des Combats Classic",
     "FIGHT_WAITING_TITLE": "⏳ Combats en attente",
     "NO_FIGHT_WAITING_TITLE": "Aucun combat en attente.",
     "FIGHT_START_TITLE": "🔥 Combats en cours",
@@ -43,6 +43,15 @@
     "ERROR_NO_ROUND": "Aucun round disponible.",
     "BACK_LIST_FICHT":"Retour aux combats",
     "BUTTON_REVENGE": "Revanche",
-    "LOADING": "Chargement en cours..."
-    
+    "LOADING": "Chargement en cours...",
+    "FIGHT_FAST_LIST_TITLE": "⚔️ Liste des Combats Rapide",
+    "CHOSE_ITEM": "🗡️ Choisissez un objet",
+    "IMAGE_NO_ATTACK": "Pas d'attaque disponible",
+    "IMAGE_ATTACK": "Image d'attaque",
+    "FIGHT_START_BUTTON": "Lancer le combat",
+    "ACTUAL_FIGHT_DISPLAY": "⚔️ Combat ⚔️",
+    "FIGHT_FAST_PREVIEW_TITLE": "📜 Aperçu du Combat Rapide #[Number]",
+    "ROUND_ITEM": "Item",
+    "ROUND_NORMAL": "Round [Number]",
+    "ROUND_TOTAL": "Total"
 }
