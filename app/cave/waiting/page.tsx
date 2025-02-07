@@ -16,6 +16,7 @@ const CavePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [cost, setCost] = useState(0);
+  const [totalSell, setTotalSell] = useState(0);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [items, setItems] = useState([]);
@@ -67,6 +68,11 @@ const CavePage: React.FC = () => {
         if (item_list.some(item => item.origine === "hunt")) {
           setCost(prevCost => prevCost + 2);
         }
+        const totalCost = item_list.reduce(
+          (sum, item) => sum + (parseInt(item.item_price_min) * item.quantite),
+          0
+        )
+        setTotalSell(totalCost / 2);
 
       } catch (error) {
         setErrorMessage(translations.cave?.ERR_LOAD);
@@ -169,6 +175,10 @@ const CavePage: React.FC = () => {
     }
   };
 
+  const getSellValue = (item) => {
+    return item.item_price_min * item.quantite / 2
+  };
+  
   return (
     <main className="content">
       <div className="content_top"> 
@@ -193,7 +203,8 @@ const CavePage: React.FC = () => {
                   <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL_FREE} />
                 )
               }
-              <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL} />
+              
+              <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL_VALUE.replace("[Number]", totalSell)} />
 
             </div>
           </div>
@@ -241,7 +252,7 @@ const CavePage: React.FC = () => {
                       ) : (
                         <ButtonFancy onClick={() => handleButtonClick("get", item)} label={translations.cave?.FREE_GET}/>
                       )}
-                      <ButtonNeon onClick={() => handleButtonClick("sell", item)} label={translations.cave?.SELL}/>
+                      <ButtonNeon onClick={() => handleButtonClick("sell", item)} label={translations.cave?.SELL_VALUE.replace("[Number]", getSellValue(item))}/>
                     </div>
                   </td>
                 </tr>
