@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Loadtranslate } from "@/utils/translate";
 import "./page.css";
+import ImageWithText from "@/components/pattern/ImageWithText";
 import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
@@ -71,7 +72,7 @@ const CombatPage: React.FC = () => {
       }
 
       try {
-        const caveResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}`, {
+        const caveResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}/type/ATK`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -229,14 +230,10 @@ const handleValidate = async () => {
                       cursor: "pointer",
                     }}
                   >
-                    <img
-                      src={getImageUrl(`item/${item.item_name}.webp`)}
-                      alt={translations.fight?.IMAGE_ATTACK}
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        marginBottom: "10px",
-                      }}
+                    <ImageWithText 
+                        src={getImageUrl(`item/${item.item_name}.webp`)}
+                        alt={`${item.item_name} image`}
+                        quantity={item.quantite} 
                     />
                     <h3>{item.item_name}</h3>
                   </div>

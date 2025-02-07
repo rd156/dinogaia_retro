@@ -7,6 +7,7 @@ import "./page.css";
 import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
+import ImageWithText from "@/components/pattern/ImageWithText";
 
 const attackZones = ["haut", "milieu", "bas"];
 
@@ -68,7 +69,7 @@ const CombatPage: React.FC = () => {
       }
 
       try {
-        const caveResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}`, {
+        const caveResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}/type/ATK`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -223,14 +224,10 @@ const CombatPage: React.FC = () => {
                       cursor: "pointer",
                     }}
                   >
-                    <img
+                    <ImageWithText 
                       src={getImageUrl(`item/${item.item_name}.webp`)}
-                      alt={translations.fight?.IMAGE_ATTACK}
-                      style={{
-                        width: "100px",
-                        height: "100px",
-                        marginBottom: "10px",
-                      }}
+                      alt={`${item.item_name} image`}
+                      quantity={item.quantite} 
                     />
                     <h3>{item.item_name}</h3>
                   </div>
