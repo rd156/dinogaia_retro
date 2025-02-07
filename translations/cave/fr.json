@@ -21,6 +21,7 @@
     "GET_ALL": "Tout récupérer pour [Number] émeraude(s)",
     "SELL": "Vendre",
     "GET": "Récupérer pour [Number] émeraude(s)",
+    "FREE_GET": "Récupérer",
     "TABLE_NAME": "Nom",
     "TABLE_ORIGIN": "Origine",
     "TABLE_QUANTITY": "Quantité",

@@ -21,6 +21,7 @@
     "GET_ALL": "Get all for [Number] emerald(s)",
     "SELL": "Sell",
     "GET": "Retrieve for [Number] emerald(s)",
+    "FREE_GET": "Retrieve",
     "TABLE_NAME": "Name",
     "TABLE_ORIGIN": "Origin",
     "TABLE_QUANTITY": "Quantity",

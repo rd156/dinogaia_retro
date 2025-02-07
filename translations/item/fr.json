@@ -2,6 +2,7 @@
     "IMAGE_ITEM":"Image de l'object [Item]",
 
     "ORIGIN_hunt": "Chasse",
+    "ORIGIN_fight": "Combat",
     "CATEGORY_MEDOC": "Médicament",
     "CATEGORY_FOOD": "Nourriture",
     "CATEGORY_ATK": "Attaque",
