@@ -17,6 +17,7 @@ const DinoPage: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [waitingSalary, setWaitingSalary] = useState(null)
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
@@ -154,25 +155,90 @@ const DinoPage: React.FC = () => {
       setIsLevelUp(false);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setErrorMessage("");
+      const token = localStorage.getItem('token');
+      const dinoId = localStorage.getItem("dinoId");
+      if (dinoId === null || dinoId === "")
+      {
+        window.location.href = "/dino"
+      }
+      try {
+        const response = await fetch(`${API_URL}/job/${dinoId}/waiting_salary`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des bid');
+        }
+
+        const fetchedData = await response.json();
+        setWaitingSalary(fetchedData);
+      } catch (error) {
+        
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const salaryButtonClick = async () => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    try {  
+      const response = await fetch(`${API_URL}/job/${dinoId}/salary`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        }
+      });
   
+      if (!response.ok) {
+        setErrorMessage(translations.job?.ERR_SALARY_JOB);
+      }
+      const result = await response.json();
+      if (result)
+      {
+        setWaitingSalary(null)
+      }
+    } catch (error) {
+      setErrorMessage(translations.job?.ERR_SALARY_JOB);
+    }
+  };
+
   return (
     <div className="content">
       <div className='content_top'>
         <div className='dino-container'>
           <div className="block_white dino-card">
-            <h1 className="dino-name">
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
               <span 
                 onClick={(e) => {
                   handleFavoriteToggle(data.id);
                   e.preventDefault();
                 }}
-                style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
+                style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px' }}
                 title={translations.dino?.ADD_FAVORY}
               >
                 {data.favory ? '★' : '☆'}
               </span>
-              {data.name}
-            </h1>
+              <h1 className="dino-name" style={{ margin: 0 }}>{data.name}</h1>
+              {waitingSalary && waitingSalary.jours > 0 && (
+                <div style={{ marginLeft: 'auto' }}>
+                  <ButtonFancy onClick={() => salaryButtonClick()} label={translations.dino?.COLLECT_SALARY} />
+                </div>
+              )}
+            </div>
             {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick()} label={translations.dino?.LEVEL_UP} />}
             <div className="dino-header">
               <div className="dino-info-right">
@@ -228,49 +294,48 @@ const DinoPage: React.FC = () => {
               </div>
             </div>
             <div className="dino-stats">
-                <div className="stat-block">
-                  <h2>{translations.dino?.LIFE}</h2>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill life-bar"
-                      style={{ width: `${(data.pv / data.pv_max) * 100}%` }}
-                    ></div>
-                  </div>
-                  <p>
-                    {data.pv}/{data.pv_max}
-                  </p>
+              <div className="stat-block">
+                <h2>{translations.dino?.LIFE}</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill life-bar"
+                    style={{ width: `${(data.pv / data.pv_max) * 100}%` }}
+                  ></div>
                 </div>
-
-                <div className="stat-block">
-                  <h2>{translations.dino?.PM}</h2>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill pm-bar"
-                      style={{ width: `${(data.pm / data.pm_max) * 100}%` }}
-                    ></div>
-                  </div>
-                  <p>
-                    {data.pm}/{data.pm_max}
-                  </p>
-                </div>
-                <div className="stat-block">
-                  <h2>{translations.dino?.FATIGUE}</h2>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill fatigue-bar"
-                      style={{ width: `${data.fatigue}%` }}
-                    ></div>
-                  </div>
-                  <p>
-                    {data.fatigue}/100
-                  </p>
-                </div>
+                <p>
+                  {data.pv}/{data.pv_max}
+                </p>
               </div>
-              <div className="flex justify-center items-center">
-                <Link href="/dino">
-                  <button className="btn btn-back">{translations.dino?.RETURN_LIST}</button>
-                </Link>
+              <div className="stat-block">
+                <h2>{translations.dino?.PM}</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill pm-bar"
+                    style={{ width: `${(data.pm / data.pm_max) * 100}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.pm}/{data.pm_max}
+                </p>
               </div>
+              <div className="stat-block">
+                <h2>{translations.dino?.FATIGUE}</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill fatigue-bar"
+                    style={{ width: `${data.fatigue}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.fatigue}/100
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Link href="/dino">
+                <button className="btn btn-back">{translations.dino?.RETURN_LIST}</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
