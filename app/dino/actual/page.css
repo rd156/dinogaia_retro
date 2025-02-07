@@ -69,3 +69,20 @@
   .fatigue-bar {
     background: #e4ff4d;
   }
+
+/* 🔙 Bouton Retour */
+.btn-back {
+  margin: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: #ff4d4d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #cc0000;
+}

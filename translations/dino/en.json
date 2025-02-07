@@ -28,5 +28,6 @@
     "FATIGUE": "Fatigue",
     "LEVEL_UP": "Level Up",
     "ERR_LEVEL_UP": "Level Up Failed",
-    "IMAGE_PROFILE_ALT": "Profil image of [Name]"
+    "IMAGE_PROFILE_ALT": "Profil image of [Name]",
+    "RETURN_LIST": "Return to the list of dinos"
 }

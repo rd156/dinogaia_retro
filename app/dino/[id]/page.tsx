@@ -5,6 +5,7 @@ import { translate, Loadtranslate} from '@/utils/translate';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 import {API_URL} from '@/config/config';
+import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import "./page.css";
 
@@ -252,6 +253,11 @@ const DinoPage: React.FC = () => {
                   {data.fatigue}/100
                 </p>
               </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <Link href="/dino">
+                <button className="btn btn-back">{translations.dino?.RETURN_LIST}</button>
+              </Link>
             </div>
           </div>
         </div>
