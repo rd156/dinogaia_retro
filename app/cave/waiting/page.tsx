@@ -15,6 +15,7 @@ const CavePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [cost, setCost] = useState(0);
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [items, setItems] = useState([]);
@@ -63,6 +64,9 @@ const CavePage: React.FC = () => {
         const item_list = await caveResponse.json()
         console.log(item_list)
         setItems(item_list);
+        if (item_list.some(item => item.origine === "hunt")) {
+          setCost(prevCost => prevCost + 2);
+        }
 
       } catch (error) {
         setErrorMessage(translations.cave?.ERR_LOAD);
@@ -183,8 +187,15 @@ const CavePage: React.FC = () => {
         <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
           <div className="block block_white">
             <div style={{ display: "flex", gap: "10px" }}>
-              <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", 2)} />
+              {
+                cost > 0 ? (
+                  <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", cost)} />
+                ):(
+                  <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL_FREE} />
+                )
+              }
               <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL} />
+
             </div>
           </div>
         </div>

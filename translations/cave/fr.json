@@ -19,6 +19,7 @@
     "SELL_ALL": "Tout vendre",
     "SELL_RESULT_VALUE": "Vous avez vendu pour [Number] émeraude(s)",
     "GET_ALL": "Tout récupérer pour [Number] émeraude(s)",
+    "GET_ALL_FREE": "Tout récupérer",
     "SELL": "Vendre",
     "GET": "Récupérer pour [Number] émeraude(s)",
     "FREE_GET": "Récupérer",

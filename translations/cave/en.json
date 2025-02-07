@@ -19,6 +19,7 @@
     "SELL_ALL": "Sell all",
     "SELL_RESULT_VALUE": "You sold for [Number] emerald(s)",
     "GET_ALL": "Get all for [Number] emerald(s)",
+    "GET_ALL_FREE": "Get all",
     "SELL": "Sell",
     "GET": "Retrieve for [Number] emerald(s)",
     "FREE_GET": "Retrieve",
