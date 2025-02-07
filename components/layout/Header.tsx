@@ -103,7 +103,7 @@ export default function Header() {
             className="sm:hidden"
           />
           <NavbarBrand>
-            <p className="font-bold text-inherit">Dino Terra</p>
+            <p className="font-bold text-inherit">DinoGaia Reborn</p>
           </NavbarBrand>
         </NavbarContent>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
