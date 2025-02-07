@@ -97,7 +97,7 @@ const CombatPreviewPage: React.FC = () => {
           </div>
         {combat ? (
           <>
-            <div className="combat-summary">{translations.fight?.TITLE_VS}
+            <div className="combat-summary">
               <p><strong>{translations.fight?.PREVIEW_DATE}</strong> {new Date(combat.created_at).toLocaleString()}</p>
               <p><strong>{translations.fight?.PREVIEW_STATUS}</strong> <span className={`status ${combat.status}`}>{combat.status}</span></p>
             </div>
@@ -117,7 +117,7 @@ const CombatPreviewPage: React.FC = () => {
                     </thead>
                     <tbody>
                       {combat.joueur_attack.map((_, index) => (
-                        <tr key={index} style={{backgroundColor: combat.gagnant == getDinoId() ? "rgb(0, 255, 0, 0.3)" : "rgb(255, 0, 0, 0.3)",}}>
+                        <tr key={index} style={{backgroundColor: combat.gagnant == getDinoId() ? "rgb(0, 255, 0, 0.3)" : "rgb(255, 0, 0, 0.3)"}}>
                           <td>{index + 1}</td>
                           <td>{Array.isArray(combat.joueur_attack[index]) ? combat.joueur_attack[index].join(", ") : combat.joueur_attack[index] || "—"}</td>
                           <td>{Array.isArray(combat.joueur_defense[index]) ? combat.joueur_defense[index].join(", ") : combat.joueur_defense[index] || "—"}</td>

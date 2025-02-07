@@ -29,7 +29,7 @@ const CombatPreviewPage: React.FC = () => {
     const token = localStorage.getItem("token");
     const fetchCombatDetails = async () => {
       try {
-        const response = await fetch(`${API_URL}/fight/fast/preview/${combatId}`, {
+        const response = await fetch(`${API_URL}/fight/ultrafast/preview/${combatId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -60,6 +60,23 @@ const CombatPreviewPage: React.FC = () => {
     return (localStorage.getItem("dinoId"))
   };
 
+  const extractParenthesesContent = (text: string): string | null => {
+    const match = text.match(/\(([^)]+)\)/);
+    return match ? match[1] : null;
+  };
+    
+  const getOpponentName = (combat: CombatType) => {
+    switch (combat.opponent_type) {
+      case "player":
+        return extractParenthesesContent(combat.opponent_name);
+      case "sbire":
+        return translations.fight?.NAME_SBIRE.replace("[Name]", combat.opponent_name);
+      case "shadow":
+        return translations.fight?.NAME_SHADOW.replace("[Name]", extractParenthesesContent(combat.dino1_account_name));
+      default:
+        return translations.fight?.UNKNOW
+    }
+  };
 
   return (
     <main className="content">
@@ -72,7 +89,7 @@ const CombatPreviewPage: React.FC = () => {
             <div className="character">
               {
                 combat && combat.dino1 ? (
-                  <img style={{border: combat.winner === combat.dino1 ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.dino1_avatar}.webp`} alt="Image du joueur" className="character-img" />
+                  <img style={{border: combat.winner_type === "player" ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.dino1_avatar}.webp`} alt="Image du joueur" className="character-img" />
                 ):(
                   <img src={`/avatar/default.webp`} alt="Image du joueur" className="character-img" />
                 )
@@ -88,17 +105,14 @@ const CombatPreviewPage: React.FC = () => {
             <div className="vs">{translations.fight?.TITLE_VS}</div>
             <div className="character">
               {
-                combat && combat.dino2 ? (
-                  <img style={{border: combat.winner === combat.dino2 ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.dino2_avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du l'opposant" className="character-img" />
-                )
-              }
+                combat && (
+                <img style={{border: combat.winner_type != "player" ? "5px solid green" : "5px solid red"}} src={`/avatar/default.webp`} alt="Image du opposant" className="character-img" />
+              )}
               {
-                combat && combat.dino2 ? (
-                  <p>{combat.dino2_name}</p>
+                combat && combat.dino1 ? (
+                  <p>{combat.dino1_name}</p>
                 ):(
-                  <p>{translations.fight?.ENNEMY}</p>
+                  <p>{translations.fight?.PLAYER}</p>
                 )
               }
             </div>
@@ -118,17 +132,10 @@ const CombatPreviewPage: React.FC = () => {
                       <tr>
                         <th>{translations.fight?.PREVIEW_TABLE_ROUND}</th>
                         <th>{combat.dino1_name}</th>
-                        <th>{combat.dino2_name}</th>
+                        <th>{getOpponentName(combat)}</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <tr key="item">
-                      <td>{translations.fight?.ROUND_ITEM}</td>
-                      {/* Vérifie d'abord si les clés existent dans 'resultat' avant d'y accéder */}
-                      <td>{resultat && resultat[combat.dino1.toString()] ? resultat[combat.dino1.toString()].item : ""}</td>
-                      <td>{resultat && resultat[combat.dino2.toString()] ? resultat[combat.dino2.toString()].item : ""}</td>
-                    </tr>
-
                     {resultat && resultat[combat.dino1.toString()] && resultat[combat.dino2.toString()] && 
                       resultat[combat.dino1.toString()].hit && resultat[combat.dino2.toString()].hit &&
                       resultat[combat.dino1.toString()].hit.length > 0 ? (
@@ -169,21 +176,9 @@ const CombatPreviewPage: React.FC = () => {
                 )}
               </div>
             </div>
-            <Link href="/fight/fast">
+            <Link href="/fight/ultrafast">
               <button className="btn btn-back">{translations.fight?.BACK_LIST_FICHT}</button>
             </Link>
-            {
-              getDinoId() == combat.dino1 ? (
-                <Link href={`/fight/fast/create/${combat.dino2}`}>
-                  <button className="btn btn-revenge">{translations.fight?.BUTTON_REVENGE}</button>
-                </Link>
-              ):(
-                <Link href={`/fight/fast/create/${combat.dino1}`}>
-                  <button className="btn btn-revenge">{translations.fight?.BUTTON_REVENGE}</button>
-                </Link>
-              )
-            }
-            
           </>
         ) : (
           <p>{translations.fight?.LOADING}</p>

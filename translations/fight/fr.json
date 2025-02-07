@@ -19,6 +19,7 @@
     "NO_FIGHT_END_TITLE": "Aucun combat terminé.",
     "TABLE_AGAIN": "Adversaire",
     "TABLE_ACTION": "Action",
+    "TABLE_RESULT": "Résultat",
     "TABLE_FIGHT": "Combattre",
     "SEE_RESULT": "Voir le résulat",
     "STATUS_waiting": "En attente",
@@ -27,6 +28,8 @@
     "TOUR_DISPLAY": "Tour [Number]: Choisissez votre attaque et défense",
     "PLAYER": "Joueur",
     "ENNEMY": "Ennemie",
+    "WINNER": "Gagnant",
+    "LOSER": "Perdant",
     "CHOSE_ATTACK": "🗡️ Choisissez une attaque",
     "CHOSE_DEFENSE": "🛡️ Choisissez une défense",
     "ROUND_VALIDATE": "✔️ Valider Tour",
@@ -53,5 +56,10 @@
     "FIGHT_FAST_PREVIEW_TITLE": "📜 Aperçu du Combat Rapide #[Number]",
     "ROUND_ITEM": "Item",
     "ROUND_NORMAL": "Round [Number]",
-    "ROUND_TOTAL": "Total"
+    "ROUND_TOTAL": "Total",
+    "FIGHT_ULTRAFAST_LIST_TITLE": "⚔️ Liste des Combats UltraRapide",
+    "ULTRAFAST_ALEA_START": "Lancer le combat",
+    "NAME_SBIRE": "Sbire de [Name]",
+    "NAME_SHADOW": "Ombre de [Name]",
+    "UNKNOW": "Inconnu"
 }
