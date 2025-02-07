@@ -37,6 +37,7 @@ export default function Header() {
       [translations.menu['MENU_MY_DINO']]: "/dino/actual",
       [translations.menu['MENU_MY_HUNT']]: "/hunt",
       [translations.menu['MENU_MY_CAVE']]: "/cave",
+      [translations.menu['MENU_FIGHT']]: "/fight",
       [translations.menu['MENU_SHOP']]: "/shop",
       [translations.menu['MENU_QUEST']]: "/quest",
       [translations.menu['MENU_MESSAGE']]: "/message",

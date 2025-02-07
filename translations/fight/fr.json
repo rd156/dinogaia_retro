@@ -61,5 +61,9 @@
     "ULTRAFAST_ALEA_START": "Lancer le combat",
     "NAME_SBIRE": "Sbire de [Name]",
     "NAME_SHADOW": "Ombre de [Name]",
-    "UNKNOW": "Inconnu"
+    "UNKNOW": "Inconnu",
+    "FIGHT_CHOICE": "Choix du combat",
+    "MENU_CLASSIC_FIGHT": "Combat classique",
+    "MENU_FAST_FIGHT": "Combat rapide",
+    "MENU_ULTRAFAST_FIGHT": "Combat ultra rapide"
 }

@@ -61,5 +61,9 @@
     "ULTRAFAST_ALEA_START": "Start the fight",
     "NAME_SBIRE": "Minion of [Name]",
     "NAME_SHADOW": "Shadow of [Name]",
-    "UNKNOW": "Unknown"
+    "UNKNOW": "Unknown",
+    "FIGHT_CHOICE": "Fight Choice",
+    "MENU_CLASSIC_FIGHT": "Classic Fight",
+    "MENU_FAST_FIGHT": "Fast Fight",
+    "MENU_ULTRAFAST_FIGHT": "UltraFast Fight"
 }
