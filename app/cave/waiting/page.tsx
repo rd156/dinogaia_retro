@@ -98,9 +98,9 @@ const CavePage: React.FC = () => {
   const handleButtonClick = async (action, item) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
+    console.log(item)
     try {
       let apiUrl;
-
       if (action === "get") {
         apiUrl = `${API_URL}/dino/waiting/${dinoId}/collect`;
       } else if (action === "sell") {
@@ -117,7 +117,7 @@ const CavePage: React.FC = () => {
           'Authorization': "Bearer " + token,
         },
         body: JSON.stringify({
-          "item": item
+          "waitingId": item.id
         }),
       });
   
@@ -126,9 +126,8 @@ const CavePage: React.FC = () => {
       }
   
       const result = await response.json();
-      console.log(result)
       setItems((prevItems) =>
-        prevItems.filter(item => !result.some(removeItem => removeItem.item_name === item.item_name))
+        prevItems.filter(item => !result.some(removeItem => removeItem.id === item.id))
       );
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
@@ -238,11 +237,11 @@ const CavePage: React.FC = () => {
                   <td style={{ textAlign: "center", padding: "10px" }}>
                     <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                       {item.origine === "hunt" ? (
-                        <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.GET.replace("[Number]", 2)} />
+                        <ButtonFancy onClick={() => handleButtonClick("get", item)} label={translations.cave?.GET.replace("[Number]", 2)} />
                       ) : (
-                        <ButtonFancy onClick={() => handleButtonClick("get", item.item_name)} label={translations.cave?.FREE_GET}/>
+                        <ButtonFancy onClick={() => handleButtonClick("get", item)} label={translations.cave?.FREE_GET}/>
                       )}
-                      <ButtonNeon onClick={() => handleButtonClick("sell", item.item_name)} label={translations.cave?.SELL}/>
+                      <ButtonNeon onClick={() => handleButtonClick("sell", item)} label={translations.cave?.SELL}/>
                     </div>
                   </td>
                 </tr>
