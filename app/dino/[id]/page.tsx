@@ -204,7 +204,7 @@ const DinoPage: React.FC = () => {
                   <p>{translations.dino?.SIZE}: <strong>{data.taille}</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>{translations.dino?.WEIGHT}: <strong>{data.poids}</strong></p>
+                  <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
                 </div>
                 <div className="stat-item">
                   <p>{translations.dino?.INJURY}: <strong>{data.injury}</strong></p>
