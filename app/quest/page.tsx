@@ -169,6 +169,11 @@ const QuestPage: React.FC = () => {
   
       const result = await response.json();
       console.log(result)
+      if (result.id)
+      {
+        setQuestActive((prevQuest) => [...prevQuest, result]);
+        setQuestPossibility((prevQuest) => prevQuest.filter(quest => quest.titre !== result.quest_name));
+      }
     } catch (error) {
       setErrorMessage(translations.quest?.ERR_JOIN_QUEST);
     }
@@ -252,7 +257,7 @@ const QuestPage: React.FC = () => {
                       <td colSpan="4" style={{ padding: "10px" }}>
                         <strong>{translations.quest?.DESCRIPTION}</strong>
                         <br/>
-                        <strong>{translations.quest?.OBJECTIF}:</strong>
+                        <strong>{translations.quest?.OBJECTIF}</strong>
                         <ul>
                           {entry.objectifs.map((objectif, index) => ( 
                             <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
