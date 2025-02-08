@@ -279,7 +279,7 @@ const DinoPage: React.FC = () => {
               <div className="dino-info-right">
                 <div className="stat-right-block">
                   <div className="stat-item">
-                    <p>{translations.dino?.SIZE}: <strong>{data.taille}</strong></p>
+                    <p>{translations.dino?.SIZE}: <strong>{(Math.round(data.taille * 100) / 100).toFixed(2)}</strong></p>
                   </div>
                   <div className="stat-item">
                     <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
