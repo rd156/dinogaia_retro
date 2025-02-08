@@ -71,7 +71,7 @@ const CombatListPage: React.FC = () => {
       
       const newCombat = await response.json();
       console.log(newCombat)
-      if (newCombat)
+      if (newCombat.id)
       {
         setCombatsTermines((prevCombats) => [...prevCombats, newCombat]);
       }
