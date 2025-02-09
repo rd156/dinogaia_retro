@@ -20,5 +20,7 @@
     "MENU_LANGUAGE": "Language",
     "MENU_PARAMETER": "Setting",
     "MENU_DECONNECT": "Sign out",
-    "MENU_BUG":"Bug"
+    "MENU_BUG":"Bug",
+    "MENU_DINO_ACTUAL_DISPLAY": "Your current dinosaur is \"[Name]\", a [Specie] of level [Level].",
+    "MENU_DINO_ACTUAL_NONE": "No dinosaur selected"
 }

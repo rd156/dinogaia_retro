@@ -20,5 +20,8 @@
     "MENU_LANGUAGE": "Langue",
     "MENU_PARAMETER": "Paramètre",
     "MENU_DECONNECT": "Déconnexion",
-    "MENU_BUG":"Signaler un Bug"
+    "MENU_BUG":"Signaler un Bug",
+    "MENU_DINO_ACTUAL_DISPLAY": "Votre dinosaure actuel est \"[Name]\", [Specie] de niveau [Level].",
+    "MENU_DINO_ACTUAL_NONE": "Aucun dinosaure selectionné"
+
 }

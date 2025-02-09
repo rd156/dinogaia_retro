@@ -16,6 +16,14 @@ export default function Home() {
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
 
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
+
   // Fonction pour basculer l'état favori
   const handleFavoriteToggle = async (dinoId: number) => {
     try {
@@ -74,13 +82,6 @@ export default function Home() {
 
     fetchData();
   }, []);
-  useEffect(() => {
-    const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
-      setTranslations(loadedTranslations);
-    };
-    fetchTranslations();
-  }, [language]);
 
   // Filtrer top et bottom dinos
   const topDinos = data.slice(0, 6);
@@ -97,6 +98,7 @@ export default function Home() {
             onClick={(e) => {
               localStorage.setItem('dinoId', dino.id);
               localStorage.setItem('selectedDino', JSON.stringify(dino));
+              window.dispatchEvent(new Event("storage"));
             }}
           >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>

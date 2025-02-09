@@ -1,3 +1,9 @@
 {
-    "GLOBAL_TITLE": "Title"
+    "GLOBAL_TITLE": "Title",
+    "DINO_TYPE_TR": "T-Rex",
+    "DINO_TYPE_VE": "Velociraptor",
+    "DINO_TYPE_DP": "Dilophosaure",
+    "DINO_TYPE_SM": "Smilodon",
+    "DINO_TYPE_PT": "Pterodactyle",
+    "DINO_TYPE_MG": "Megalodon"
 }

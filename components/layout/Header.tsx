@@ -13,6 +13,7 @@ export default function Header() {
   const [isConnect, setIsConnect] = React.useState(false);
   const {language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
+  const [selectedDino, setSelectedDino] = useState(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -22,9 +23,40 @@ export default function Header() {
     fetchTranslations();
   }, [language]);
 
+  const getDino= () => {
+    const storedDino = localStorage.getItem('selectedDino');
+    if (storedDino) {
+      try {
+        const parsedDino = JSON.parse(storedDino);
+        setSelectedDino(parsedDino);
+      } catch (error) {
+      }
+    }
+  }
+
+  useEffect(() => {
+    getDino()
+  }, []);
+  
+  useEffect(() => {
+    const handleStorageChange = () => {
+      getDino()
+    };
+    window.addEventListener("storage", handleStorageChange);
+  
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  const removeStorageAccountData= () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('dinoId');
+    localStorage.removeItem('selectedDino');
+  }
   const handleLogout = (event) => {
     event.preventDefault();
-    localStorage.removeItem('token');
+    removeStorageAccountData()
     window.location.href = "/";
   };
 
@@ -65,6 +97,7 @@ export default function Header() {
       [translations.menu['MENU_FORUM']]: "#",
       [translations.menu['MENU_BUG']]: "/bug",
     } : {};
+  
 
   useEffect(() => {
     const isTokenValid = (token) => {
@@ -89,7 +122,7 @@ export default function Header() {
       setIsConnect(true);
     } else {
       setIsConnect(false);
-      localStorage.removeItem('token');
+      removeStorageAccountData()
     }
     const handleStorageChange = () => {
       const updatedToken = localStorage.getItem('token');
@@ -97,7 +130,7 @@ export default function Header() {
         setIsConnect(true);
       } else {
         setIsConnect(false);
-        localStorage.removeItem('token');
+        removeStorageAccountData()
       }
     };
     window.addEventListener('storage', handleStorageChange);
@@ -190,6 +223,25 @@ export default function Header() {
           )
         }
       </Navbar>
+      
+      {
+        isConnect && (
+          selectedDino && selectedDino.level ? (
+            <div className="w-full bg-black text-white text-center py-2">
+              {
+                translations.menu?.MENU_DINO_ACTUAL_DISPLAY
+                  .replace("[Name]", selectedDino.name)
+                  .replace("[Level]", selectedDino.level.lvl)
+                  .replace("[Specie]", translations.global?.["DINO_TYPE_" + selectedDino.species])
+              }
+            </div>
+          ) : (
+            <div className="w-full bg-black text-white text-center py-2">
+              {translations.menu?.MENU_DINO_ACTUAL_NONE}
+            </div>
+          )
+        )
+      }
     </header>
   );
 }
