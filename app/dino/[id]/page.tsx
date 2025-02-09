@@ -17,6 +17,7 @@ const DinoPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [waitingSalary, setWaitingSalary] = useState(null)
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
 
@@ -28,6 +29,35 @@ const DinoPage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setErrorMessage("");
+      const token = localStorage.getItem('token');
+      try {
+        const response = await fetch(`${API_URL}/job/${dinoId}/waiting_salary`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des bid');
+        }
+
+        const fetchedData = await response.json();
+        setWaitingSalary(fetchedData);
+      } catch (error) {
+        
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleFavoriteToggle = async (dinoId: number) => {
     try {
@@ -143,24 +173,54 @@ const DinoPage: React.FC = () => {
     }
   };
 
+  const salaryButtonClick = async () => {
+    const token = localStorage.getItem("token");
+    try {  
+      const response = await fetch(`${API_URL}/job/${dinoId}/salary`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        }
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.job?.ERR_SALARY_JOB);
+      }
+      const result = await response.json();
+      if (result)
+      {
+        setWaitingSalary(null)
+      }
+    } catch (error) {
+      setErrorMessage(translations.job?.ERR_SALARY_JOB);
+    }
+  };
+
+  
   return (
     <div className="content">
       <div className='content_top'>
         <div className='dino-container'>
           <div className="block_white dino-card">
-            <h1 className="dino-name">
-            <span 
-              onClick={(e) => {
-                handleFavoriteToggle(data.id);
-                e.preventDefault();
-              }}
-              style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px'}}
-              title={translations.dino?.ADD_FAVORY}
-            >
-              {data.favory ? '★' : '☆'}
-            </span>
-            {data.name}
-          </h1>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <span 
+                onClick={(e) => {
+                  handleFavoriteToggle(data.id);
+                  e.preventDefault();
+                }}
+                style={{ cursor: 'pointer', color: data.favory ? 'gold' : 'gray', fontSize: '36px', marginRight: '20px' }}
+                title={translations.dino?.ADD_FAVORY}
+              >
+                {data.favory ? '★' : '☆'}
+              </span>
+              <h1 className="dino-name" style={{ margin: 0 }}>{data.name}</h1>
+              {waitingSalary && waitingSalary.jours > 0 && (
+                <div style={{ marginLeft: 'auto' }}>
+                  <ButtonFancy onClick={() => salaryButtonClick()} label={translations.dino?.COLLECT_SALARY} />
+                </div>
+              )}
+            </div>
           {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick(data.id)} label={translations.dino?.LEVEL_UP} />}
           <div className="dino-header">
             <div className="dino-info-right">
