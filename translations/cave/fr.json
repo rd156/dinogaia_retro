@@ -36,5 +36,6 @@
     "ACTION_DONE_eat": "L'objet a été consommé",
     "ACTION_DONE_gift": "L'objet a été donné",
     "ACTION_DONE_move": "L'objet a été déplacé",
-    "ACTION_DONE_open": "L'objet a été ouvert"
+    "ACTION_DONE_open": "L'objet a été ouvert",
+    "CAVE_ERROR_storage_full": "L'espace de stockage de la grotte est plein"
 }

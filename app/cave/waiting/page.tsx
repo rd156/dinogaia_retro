@@ -180,6 +180,7 @@ const CavePage: React.FC = () => {
       }
       else{
         setErrorResult(result)
+        setErrorMessage(translations.cave?.CAVE_ERROR_storage_full)
       }
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
