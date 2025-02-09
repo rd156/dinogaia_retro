@@ -134,7 +134,7 @@ const CombatListPage: React.FC = () => {
                   <option value="">{translations.fight?.SELECT_DINO_FORM}</option>
                   {dinos.map((dino) => (
                     <option key={dino.id} value={dino.id}>
-                      {dino.name}
+                      {translations.fight?.DISPLAY_DINO_FORM.replace("[Name]", dino.name).replace("[Number]", dino.level?.lvl ?? 1)}
                     </option>
                   ))}
                 </select>

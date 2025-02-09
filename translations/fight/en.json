@@ -66,5 +66,6 @@
     "MENU_CLASSIC_FIGHT": "Classic Fight",
     "MENU_FAST_FIGHT": "Fast Fight",
     "MENU_ULTRAFAST_FIGHT": "UltraFast Fight",
-    "ERROR_you_dino_has_not_health": "Your dinosaur has run out of health."
+    "ERROR_you_dino_has_not_health": "Your dinosaur has run out of health.",
+    "DISPLAY_DINO_FORM": "[Name] (Level [Number])"
 }

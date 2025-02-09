@@ -66,5 +66,6 @@
     "MENU_CLASSIC_FIGHT": "Combat classique",
     "MENU_FAST_FIGHT": "Combat rapide",
     "MENU_ULTRAFAST_FIGHT": "Combat ultra rapide",
-    "ERROR_you_dino_has_not_health": "Votre dinosaure n'a plus de points de vie."
+    "ERROR_you_dino_has_not_health": "Votre dinosaure n'a plus de points de vie.",
+    "DISPLAY_DINO_FORM": "[Name] (Niv [Number])"
 }
