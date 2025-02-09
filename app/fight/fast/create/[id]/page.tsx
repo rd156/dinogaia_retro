@@ -54,7 +54,6 @@ const CombatPage: React.FC = () => {
           setFighterTwo(data.player2)
         }
       } catch (error) {
-        setMessageError(translations.fight?.ERROR_CREATE_FIGHT);
       }
     };
   
@@ -79,16 +78,12 @@ const CombatPage: React.FC = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (!caveResponse.ok) {
-          setMessageError(translations.fight?.ERROR_CREATE_FIGHT);
-        }
         const item_list = await caveResponse.json()
         setItems(item_list);
 
         console.log(item_list)
 
       } catch (error) {
-        setMessageError(translations.fight?.ERROR_CREATE_FIGHT);
       }
     };
 
@@ -135,6 +130,7 @@ const handleValidate = async () => {
     }
     else
     {
+      setMessageError(data)
     }
   } catch (error) {
   }
@@ -243,10 +239,13 @@ const handleValidate = async () => {
           </div>
 
           <div style={{ marginTop: "50px", marginBottom: "20px", textAlign: "center" }}>
-            <ButtonFancy label={translations.fight?.FIGHT_START_BUTTON} onClick={handleValidate} />
+            {messageError == "" ? (
+                <ButtonFancy label={translations.fight?.FIGHT_START_BUTTON} onClick={handleValidate} />
+              ):(
+                <h2>{translations.fight?.["ERROR_" + messageError]}</h2>
+              )
+            }
           </div>
-
-          
         </div>
       </div>
     </main>

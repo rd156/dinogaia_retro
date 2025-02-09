@@ -59,7 +59,6 @@ const CombatPage: React.FC = () => {
           setFighterTwo(data.player2)
         }
       } catch (error) {
-        setMessageError(translations.fight?.ERROR_CREATE_FIGHT);
       }
     };
   
@@ -120,6 +119,7 @@ const sendCombatData = async (updatedAttacks: string[], updatedDefenses: string[
     }
     else
     {
+      setMessageError(data)
     }
   } catch (error) {
   }
@@ -194,8 +194,12 @@ const sendCombatData = async (updatedAttacks: string[], updatedDefenses: string[
               ))}
             </div>
           </div>
-
-          <ButtonFancy label={translations.fight?.ROUND_VALIDATE} onClick={handleValidateRound} />
+          {messageError == "" ? (
+            <ButtonFancy label={translations.fight?.ROUND_VALIDATE} onClick={handleValidateRound} />
+            ):(
+              <h2>{translations.fight?.["ERROR_" + messageError]}</h2>
+            )
+          }
         </div>
       </div>
     </main>

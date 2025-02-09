@@ -14,6 +14,7 @@ const CombatListPage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [combatsTermines, setCombatsTermines] = useState<any[]>([]);
   const [message, setMessage] = useState<string>("");
+  const [messageError, setMessageError] = useState<string>("");
 
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const [dinos, setDinos] = useState<any[]>([]);
@@ -75,6 +76,10 @@ const CombatListPage: React.FC = () => {
       {
         setCombatsTermines((prevCombats) => [...prevCombats, newCombat]);
       }
+      else
+      {
+        setMessageError(newCombat)
+      }
     }
     catch (error) {
     }
@@ -110,9 +115,15 @@ const CombatListPage: React.FC = () => {
             <h1 className="title block_white">{translations.fight?.FIGHT_ULTRAFAST_LIST_TITLE}</h1>
           </div>
           <div className="select-dino-container block_white">
-            <Link href="" onClick={() => handleAccountSelect()}>
-              <ButtonNeon label={translations.fight?.ULTRAFAST_ALEA_START} />
-            </Link>
+            {
+              messageError == "" ? (
+                <Link href="" onClick={() => handleAccountSelect()}>
+                  <ButtonNeon label={translations.fight?.ULTRAFAST_ALEA_START} />
+                </Link>
+              ):(
+                <h2>{translations.fight?.["ERROR_" + messageError]}</h2>
+              )
+            }
           </div>
           <div className="combat-grid">
             <div className="combat-card completed block_white">
