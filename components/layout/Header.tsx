@@ -22,8 +22,10 @@ export default function Header() {
     fetchTranslations();
   }, [language]);
 
-  const handleLogout = () => {
+  const handleLogout = (event) => {
+    event.preventDefault();
     localStorage.removeItem('token');
+    window.location.href = "/";
   };
 
     // Génération dynamique des éléments du menu avec traductions
@@ -33,18 +35,27 @@ export default function Header() {
       [translations.menu['MENU_OTHER']]: "#",
       [translations.menu['MENU_CRAFT']]: "#",
     */
-    const menuConnectItems = translations && translations.menu ? {
-      [translations.menu['MENU_MY_DINO']]: "/dino/actual",
-      [translations.menu['MENU_MY_HUNT']]: "/hunt",
-      [translations.menu['MENU_MY_CAVE']]: "/cave",
-      [translations.menu['MENU_FIGHT']]: "/fight",
-      [translations.menu['MENU_SHOP']]: "/shop",
-      [translations.menu['MENU_QUEST']]: "/quest",
-      [translations.menu['MENU_MESSAGE']]: "/message",
-      [translations.menu['MENU_HISTORY']]: "/story",
-      [translations.menu['MENU_JOB']]: "/job",
-      [translations.menu['MENU_BUG']]: "/bug",
-    } : {};
+      const menuConnectItems = translations && translations.menu ? {
+        [translations.menu['MENU_MY_DINO']]: "/dino/actual",
+        [translations.menu['MENU_MY_CAVE']]: "/cave",
+        [translations.menu['MENU_MY_HUNT']]: "/hunt",
+        [translations.menu['MENU_FIGHT']]: [
+          { name: "CLASSIC", link: "/fight/classic" },
+          { name: "FAST", link: "/fight/fast" },
+          { name: "ULTRAFAST", link: "/fight/ultrafast" }
+        ],
+        [translations.menu['MENU_SHOP']]: "/shop",
+        [translations.menu['MENU_QUEST']]: "/quest",
+        [translations.menu['MENU_JOB']]: "/job",
+        [translations.menu['MENU_MESSAGE']]: "/message",
+        [translations.menu['MENU_HISTORY']]: "/story",
+        [translations.menu['MENU_ACCOUNT']]: [
+          { name: translations.menu?.MENU_BUG, link: "/bug"},
+          { name: translations.menu?.MENU_PARAMETER, link: "/settings"},
+          { name: translations.menu?.MENU_DECONNECT, onClick: handleLogout }
+        ]
+      } : {};
+      
   
     const menuVisitorItems = translations && translations.global ? {
       [translations.menu['MENU_HISTORY']]: "/story",
@@ -54,6 +65,7 @@ export default function Header() {
       [translations.menu['MENU_FORUM']]: "#",
       [translations.menu['MENU_BUG']]: "/bug",
     } : {};
+
   useEffect(() => {
     const isTokenValid = (token) => {
       if (!token) {
@@ -94,6 +106,61 @@ export default function Header() {
     };
   }, []);
 
+  const displayMenuElement = (key, value, index) => {
+    if (Array.isArray(value)) {
+      return (
+        <Dropdown key={index}>
+          <NavbarItem>
+            <DropdownTrigger>
+              <Button
+                disableRipple
+                className="dropdown_color p-0 bg-transparent data-[hover=true]:bg-transparent"
+                endContent="e"
+                radius="sm"
+                variant="light"
+              >
+                {key}
+              </Button>
+            </DropdownTrigger>
+          </NavbarItem>
+          <DropdownMenu
+            aria-label={key}
+            className="w-[340px]"
+            itemClasses={{
+              base: "gap-4",
+            }}
+          >
+            {value.map((subItem, subIndex) => (
+              <DropdownItem
+                key={subIndex}
+                startContent=""
+                textValue={subItem.name}
+                className={styles.dropdown_color}
+              >
+                {subItem.onClick ? (
+                  <Link onClick={subItem.onClick} className={styles.link}>
+                    {subItem.name}
+                  </Link>
+                ) : (
+                  <Link href={subItem.link} className={styles.link}>
+                    {subItem.name}
+                  </Link>
+                )}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+      );
+    }
+    return (
+      <NavbarItem key={index}>
+        <Link color="foreground" href={value}>
+          {key}
+        </Link>
+      </NavbarItem>
+    );
+  };
+
   return (
     <header className={styles.header}>
       <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -109,82 +176,19 @@ export default function Header() {
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           {
             isConnect ? (
-              Object.entries(menuConnectItems).map(([key, value], index) => (
-                <NavbarItem key={index}>
-                  <Link color="foreground" href={value}>
-                    {key}
-                  </Link>
-                </NavbarItem>
-              ))
+              Object.entries(menuConnectItems).map(([key, value], index) => displayMenuElement(key, value, index))
             ) : (
-              Object.entries(menuVisitorItems).map(([key, value], index) => (
-                <NavbarItem key={index}>
-                  <Link color="foreground" href={value}>
-                    {key}
-                  </Link>
-                </NavbarItem>
-              ))
+              Object.entries(menuVisitorItems).map(([key, value], index) => displayMenuElement(key, value, index))
             )
           }
         </NavbarContent>
         {
-            isConnect ? (
-            <Dropdown>
-              <NavbarItem>
-                <DropdownTrigger>
-                  <Button
-                    disableRipple
-                    className="dropdown_color p-0 bg-transparent data-[hover=true]:bg-transparent"
-                    endContent="e"
-                    radius="sm"
-                    variant="light"
-                  >
-                    {translations.menu?.MENU_ACCOUNT}
-                  </Button>
-                </DropdownTrigger>
-              </NavbarItem>
-              <DropdownMenu
-                aria-label="Account"
-                className="w-[340px]"
-                itemClasses={{
-                  base: "gap-4",
-                }}
-              >
-                <DropdownItem
-                  startContent=""
-                  textValue={translations.menu?.MENU_LANGUAGE}
-                  className={styles.dropdown_color}
-                >
-                  <Link href="/settings/languages" className={styles.link}>
-                    {translations.menu?.MENU_LANGUAGE}
-                  </Link>
-                </DropdownItem>
-                <DropdownItem
-                  textValue={translations.menu?.MENU_PARAMETER}
-                  startContent=""
-                  className={styles.dropdown_color}
-                >
-                  <Link href="/settings/" className={styles.link}>
-                    {translations.menu?.MENU_PARAMETER}
-                  </Link>
-                </DropdownItem>
-                <DropdownItem
-                  textValue={translations.menu?.MENU_DECONNECT}
-                  startContent=""
-                  className={styles.dropdown_color}
-                >
-                  <Link href="/" onClick={handleLogout} className={styles.link}>
-                    {translations.menu?.MENU_DECONNECT}
-                  </Link>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-            ) : (
-              <NavbarContent justify="end">
-                <LoginForm/>
-              </NavbarContent>
-            )
-          }
+          !isConnect && (
+            <NavbarContent justify="end">
+              <LoginForm />
+            </NavbarContent>
+          )
+        }
       </Navbar>
     </header>
   );
