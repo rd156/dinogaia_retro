@@ -14,6 +14,7 @@ const CavePage: React.FC = () => {
   const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorResult, setErrorResult] = useState("");
   const [message, setMessage] = useState("");
   const [cost, setCost] = useState(0);
   const [totalSell, setTotalSell] = useState(0);
@@ -150,6 +151,8 @@ const CavePage: React.FC = () => {
         apiUrl = `${API_URL}/dino/waiting/${dinoId}/collect`;
       } else if (action === "sell") {
         apiUrl = `${API_URL}/dino/waiting/${dinoId}/sell`;
+      } else if (action === "get_free") {
+        apiUrl = `${API_URL}/dino/waiting/${dinoId}/collect_free`;
       } else {
         setErrorMessage(translations.cave?.ERR_TYPE_ACTION);
         return;
@@ -167,9 +170,17 @@ const CavePage: React.FC = () => {
       }
   
       const result = await response.json();
-      setItems((prevItems) =>
-        prevItems.filter(item => !result.some(removeItem => removeItem.item_name === item.item_name))
-      );
+      console.log(result)
+      if (Array.isArray(result)) {
+        setItems((prevItems) =>
+          prevItems.filter(item =>
+            !result.some(removeItem => removeItem.id === item.id)
+          )
+        );
+      }
+      else{
+        setErrorResult(result)
+      }
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
     }
@@ -196,16 +207,17 @@ const CavePage: React.FC = () => {
         <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
           <div className="block block_white">
             <div style={{ display: "flex", gap: "10px" }}>
-              {
+              {errorResult == "" && (
                 cost > 0 ? (
-                  <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", cost)} />
-                ):(
-                  <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL_FREE} />
+                  <>
+                    <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL.replace("[Number]", cost)} />
+                    <ButtonFancy onClick={() => handleButtonClickAll("get_free")} label={translations.cave?.GET_ALL_FREE} />
+                  </>
+                ) : (
+                  <ButtonFancy onClick={() => handleButtonClickAll("get")} label={translations.cave?.GET_ALL_WHEN_FREE} />
                 )
-              }
-              
+              )}
               <ButtonNeon onClick={() => handleButtonClickAll("sell")} label={translations.cave?.SELL_ALL_VALUE.replace("[Number]", totalSell)} />
-
             </div>
           </div>
         </div>
