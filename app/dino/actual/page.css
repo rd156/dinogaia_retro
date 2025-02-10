@@ -37,6 +37,10 @@
     margin-bottom: 20px;
   }
 
+  .dino-action {
+    margin-bottom: 20px;
+  }
+
   .dino-stats .stat-block {
     margin-bottom: 20px;
   }
@@ -63,13 +67,18 @@
   }
   
   .pm-bar {
-    background: #4da6ff;
+    background: #c74dff;
   }
 
   .fatigue-bar {
     background: #e4ff4d;
   }
-
+  .faim-bar {
+    background: #4dff56;
+  }
+  .soif-bar {
+    background: #4da6ff;
+  }
 /* 🔙 Bouton Retour */
 .btn-back {
   margin: 20px;

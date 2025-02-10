@@ -25,10 +25,15 @@
     "DISEASE":"Maladie",
     "LIFE": "Vie",
     "PM": "PM",
+    "HUNGER": "Faim",
+    "THIRST": "Soif",
     "FATIGUE": "Fatigue",
     "LEVEL_UP": "Monter de Niveau",
     "ERR_LEVEL_UP": "Erreur dans la monter de niveau",
     "IMAGE_PROFILE_ALT": "Image de profil de [Name]",
     "RETURN_LIST": "Retour à la liste des dinos",
-    "COLLECT_SALARY": "Collecter le salaire"
+    "COLLECT_SALARY": "Collecter le salaire",
+    "ACTION_POSSIBILITY": "Action possible: ",
+    "ACTION_THIRST": "Boire",
+    "ACTION_HUNGER": "Manger"
 }
