@@ -192,12 +192,26 @@ const ItemsPage: React.FC = () => {
                            textAlign: "left",
                            backgroundColor: "rgb(255,255,255,0.5)"
                          }}>
-                          <td>EAT: {item.action?.eat ? "True" : "False"}</td>
-                          <td>USE: {item.action?.use ? "True" : "False"}</td>
-                          <td>OPEN: {item.action?.open ? "True" : "False"}</td>
-                          <td>GIFT: {item.action?.gift ? "True" : "False"}</td>
-                          <td>MOVE: {item.action?.move ? "True" : "False"}</td>
-                          <td>
+                            <td colSpan="5">
+                              <div style={{ 
+                                display: "flex",
+                                flexWrap: "wrap",
+                                paddingLeft: "20px",
+                                paddingRight: "50px",
+                                justifyContent: "space-between",  // Répartit les éléments uniformément
+                                gap: "10px",  // Ajoute un espace entre eux
+                                width: "100%"  // Prend toute la largeur de la cellule
+                              }}>
+                                <span>EAT: {item.action?.eat ? "True" : "False"}</span>
+                                <span>USE: {item.action?.use ? "True" : "False"}</span>
+                                <span>OPEN: {item.action?.open ? "True" : "False"}</span>
+                                <span>GIFT: {item.action?.gift ? "True" : "False"}</span>
+                                <span>MOVE: {item.action?.move ? "True" : "False"}</span>
+                                <span>SHOP: {item.action?.shop ? "True" : "False"}</span>
+                                <span>ARENA: {item.action?.arena ? "True" : "False"}</span>
+                              </div>
+                            </td>
+                            <td>
                             <Link href={`/sloubie/item/${item.id}`}>
                               <ButtonFancy label="Editer" />
                             </Link>

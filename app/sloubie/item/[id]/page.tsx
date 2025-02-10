@@ -201,7 +201,6 @@ const ItemEditPage: React.FC = () => {
                   className="p-2 border rounded-md w-full"
                 />
               </div>
-              {/* Ajoutez d'autres champs ici si nécessaire */}
               <div>
                 <label>Stockage</label>
                 <input
@@ -253,57 +252,73 @@ const ItemEditPage: React.FC = () => {
                 />
               </div>
               <div>
-  <label>Actions</label>
-  <div>
-    <label>
-      <input
-        type="checkbox"
-        name="eat"  // Correspond au champ action.eat
-        checked={item?.action?.eat || false}
-        onChange={handleChange}
-      />
-      Manger
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        name="use"  // Correspond au champ action.use
-        checked={item?.action?.use || false}
-        onChange={handleChange}
-      />
-      Utiliser
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        name="open"  // Correspond au champ action.open
-        checked={item?.action?.open || false}
-        onChange={handleChange}
-      />
-      Ouvrir
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        name="move"  // Correspond au champ action.move
-        checked={item?.action?.move || false}
-        onChange={handleChange}
-      />
-      Déplacer
-    </label>
-    <label>
-      <input
-        type="checkbox"
-        name="gift"  // Correspond au champ action.gift
-        checked={item?.action?.gift || false}
-        onChange={handleChange}
-      />
-      Offrir
-    </label>
-  </div>
-</div>
-
-              {/* Ajoutez d'autres champs supplémentaires ici si nécessaire */}
+                <label>Actions</label>
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="eat"  // Correspond au champ action.eat
+                      checked={item?.action?.eat || false}
+                      onChange={handleChange}
+                    />
+                    Manger
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="use"  // Correspond au champ action.use
+                      checked={item?.action?.use || false}
+                      onChange={handleChange}
+                    />
+                    Utiliser
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="open"  // Correspond au champ action.open
+                      checked={item?.action?.open || false}
+                      onChange={handleChange}
+                    />
+                    Ouvrir
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="move"  // Correspond au champ action.move
+                      checked={item?.action?.move || false}
+                      onChange={handleChange}
+                    />
+                    Déplacer
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="gift"  // Correspond au champ action.gift
+                      checked={item?.action?.gift || false}
+                      onChange={handleChange}
+                    />
+                    Offrir
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="shop"
+                      checked={item?.action?.shop || false}
+                      onChange={handleChange}
+                    />
+                    Trouvable dans le shop
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="arena"
+                      checked={item?.action?.arena || false}
+                      onChange={handleChange}
+                    />
+                    Drop en arene
+                  </label>
+                </div>
+              </div>
               <div className="flex gap-4">
                 <ButtonFancy type="submit" label="Mettre à jour" />
               </div>
