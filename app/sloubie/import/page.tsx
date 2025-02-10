@@ -112,6 +112,14 @@ const HomePage: React.FC = () => {
               <ButtonFancy onClick={() => importClick("quest")} label="Import Quête" />
               <ButtonFancy onClick={() => exportClick("quest")} label="Export Quête" />
             </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("pnj")} label="Import PNJ" />
+              <ButtonFancy onClick={() => exportClick("pnj")} label="Export PNJ" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("shop")} label="Import Magasin" />
+              <ButtonFancy onClick={() => exportClick("shop")} label="Export Magasin" />
+            </div>
           </div>
         </div>
       </div>
