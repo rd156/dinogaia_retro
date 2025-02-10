@@ -197,7 +197,25 @@ const DinoPage: React.FC = () => {
     }
   };
 
-  
+  const drinkWellButtonClick = async () => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    try {  
+      const response = await fetch(`${API_URL}/dino/water_well/${dinoId}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        }
+      });
+      const result = await response.json();
+      if (result){
+        setData(result);
+      }
+    } catch (error) {
+    }
+  };
+ 
   return (
     <div className="content">
       <div className='content_top'>
@@ -275,7 +293,57 @@ const DinoPage: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="dino-stats">
+            {(data.faim < 100 || data.soif < 100) && (
+              <div className="dino-action" style={{ display: "flex", flexDirection: "column", gap: "15px", alignItems: "center" }}>
+                <span style={{ fontSize: "18px", fontWeight: "bold", color: "#164617" }}>
+                  {translations.dino?.ACTION_POSSIBILITY}
+                </span>
+                <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
+                  {data.faim < 100 && (
+                    <a href="/cave" style={{ textDecoration: "none" }}>
+                      <button
+                        style={{
+                          backgroundColor: "#FF9800",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "8px",
+                          padding: "10px 20px",
+                          cursor: "pointer",
+                          fontSize: "16px",
+                          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                          transition: "background-color 0.3s, transform 0.3s",
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#FF5722"}
+                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#FF9800"}
+                      >
+                        {translations.dino?.ACTION_HUNGER}
+                      </button>
+                    </a>
+                  )}
+                  {data.soif < 100 && (
+                    <button
+                      onClick={() => drinkWellButtonClick()}
+                      style={{
+                        backgroundColor: "#2196F3",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "10px 20px",
+                        cursor: "pointer",
+                        fontSize: "16px",
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                        transition: "background-color 0.3s, transform 0.3s",
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#1976D2"}
+                      onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#2196F3"}
+                    >
+                      {translations.dino?.ACTION_THIRST}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+<div className="dino-stats">
               <div className="stat-block">
                 <h2>{translations.dino?.LIFE}</h2>
                 <div className="progress-bar">
@@ -288,7 +356,6 @@ const DinoPage: React.FC = () => {
                   {data.pv}/{data.pv_max}
                 </p>
               </div>
-
               <div className="stat-block">
                 <h2>{translations.dino?.PM}</h2>
                 <div className="progress-bar">
@@ -299,6 +366,30 @@ const DinoPage: React.FC = () => {
                 </div>
                 <p>
                   {data.pm}/{data.pm_max}
+                </p>
+              </div>
+              <div className="stat-block">
+                <h2>{translations.dino?.HUNGER}</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill faim-bar"
+                    style={{ width: `${data.faim}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.faim}/100
+                </p>
+              </div>
+              <div className="stat-block">
+                <h2>{translations.dino?.THIRST}</h2>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill soif-bar"
+                    style={{ width: `${data.soif}%` }}
+                  ></div>
+                </div>
+                <p>
+                  {data.soif}/100
                 </p>
               </div>
               <div className="stat-block">
