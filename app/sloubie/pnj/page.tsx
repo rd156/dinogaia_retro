@@ -82,6 +82,9 @@ const HomePage: React.FC = () => {
             />
             <ButtonFancy onClick={() => reloadClick()} label="Reload" />
           </div>
+          <Link href={`/sloubie/pnj/0`}>
+            <ButtonFancy label="Crée un nouveau" />
+          </Link>
           <div style={{ marginTop: "30px" }}>
             {/* Ajout d'un conteneur avec max-height et overflow */}
             <div
