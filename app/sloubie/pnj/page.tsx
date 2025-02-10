@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
       }
       const result = await response.json();
       console.log(result)
-      if (result)
+      if (Array.isArray(result))
       {
         setPnjs(result)
       }
