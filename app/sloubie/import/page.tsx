@@ -19,7 +19,6 @@ const HomePage: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("ALL");
 
-  // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(language, ["account", "global"]);
@@ -28,10 +27,10 @@ const HomePage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
-  const reloadClick = async () => {
+  const importClick = async (value) => {
     const token = localStorage.getItem("token");
     try {  
-      const response = await fetch(`${API_URL}/data/import/fight`, {
+      const response = await fetch(`${API_URL}/data/import/${value}`, {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -39,9 +38,6 @@ const HomePage: React.FC = () => {
         }
       });
   
-      if (!response.ok) {
-        setErrorMessage(translations.job?.ERR_SALARY_JOB);
-      }
       const result = await response.json();
       console.log(result)
       if (result)
@@ -53,31 +49,23 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value);
-  };
-
-  const changeStatusClick = async (id, status) => {
+  const exportClick = async (value) => {
     const token = localStorage.getItem("token");
     try {  
-      const response = await fetch(`${API_URL}/sloubie/bug/${id}/change_status`, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/data/export/${value}`, {
+        method: "GET",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': "Bearer " + token,
-        },
-        body: JSON.stringify({
-          "password": inputValue,
-          "status" : status
-        }),
+        }
       });
   
-      if (!response.ok) {
-        setErrorMessage(translations.job?.ERR_SALARY_JOB);
-      }
       const result = await response.json();
-      console.log("edit")
       console.log(result)
+      if (result)
+      {
+        setBugs(result)
+      }
     } catch (error) {
       setErrorMessage("reloas error");
     }
@@ -89,19 +77,41 @@ const HomePage: React.FC = () => {
         {errorMessage && <p className="alert-red">{errorMessage}</p>}
         {message && <p className="alert-green">{message}</p>}
         <div className="block_white center">
-          <div style={{ margin: "50px" }}>
-            <h1
-              style={{
-                border: "2px solid red",
-                padding: "10px",
-                display: "inline-block",
-              }}
-            >
-              Gestion Import
-            </h1>
-          </div>
-          <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
-            <ButtonFancy onClick={() => reloadClick()} label="Import Terrain" />
+          <div className="flex flex-col items-center justify-center min-h-screen">
+            <div style={{ margin: "50px" }}>
+              <h1
+                style={{
+                  border: "2px solid red",
+                  display: "inline-block",
+                }}
+              >
+                Gestion Import
+              </h1>
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("fight")} label="Import Combat" />
+              <ButtonFancy onClick={() => exportClick("fight")} label="Export Combat" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("hunt")} label="Import Chasse" />
+              <ButtonFancy onClick={() => exportClick("hunt")} label="Export Chasse" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("item")} label="Import Items" />
+              <ButtonFancy onClick={() => exportClick("item")} label="Export Items" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("job")} label="Import Metier" />
+              <ButtonFancy onClick={() => exportClick("job")} label="Export Metier" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("level")} label="Import Niveau" />
+              <ButtonFancy onClick={() => exportClick("level")} label="Export Niveau" />
+            </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => importClick("quest")} label="Import Quête" />
+              <ButtonFancy onClick={() => exportClick("quest")} label="Export Quête" />
+            </div>
           </div>
         </div>
       </div>
