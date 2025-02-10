@@ -207,7 +207,6 @@ const ItemsPage: React.FC = () => {
                                 <span>OPEN: {item.action?.open ? "True" : "False"}</span>
                                 <span>GIFT: {item.action?.gift ? "True" : "False"}</span>
                                 <span>MOVE: {item.action?.move ? "True" : "False"}</span>
-                                <span>SHOP: {item.action?.shop ? "True" : "False"}</span>
                                 <span>ARENA: {item.action?.arena ? "True" : "False"}</span>
                               </div>
                             </td>
