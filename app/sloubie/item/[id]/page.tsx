@@ -81,8 +81,8 @@ const ItemEditPage: React.FC = () => {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-          password: inputValue,  // Mot de passe pour la vérification
-          ...updatedItem,  // Les données de l'item mises à jour directement
+          password: inputValue,
+          ...updatedItem,
         }),
       });      
 
@@ -257,7 +257,7 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="eat"  // Correspond au champ action.eat
+                      name="eat"
                       checked={item?.action?.eat || false}
                       onChange={handleChange}
                     />
@@ -266,7 +266,7 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="use"  // Correspond au champ action.use
+                      name="use"
                       checked={item?.action?.use || false}
                       onChange={handleChange}
                     />
@@ -275,7 +275,7 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="open"  // Correspond au champ action.open
+                      name="open"
                       checked={item?.action?.open || false}
                       onChange={handleChange}
                     />
@@ -284,7 +284,7 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="move"  // Correspond au champ action.move
+                      name="move"
                       checked={item?.action?.move || false}
                       onChange={handleChange}
                     />
@@ -293,7 +293,7 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="gift"  // Correspond au champ action.gift
+                      name="gift"
                       checked={item?.action?.gift || false}
                       onChange={handleChange}
                     />
