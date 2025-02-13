@@ -1,3 +1,10 @@
 {
-    "ERROR_REDIRECT_HOME_BUTTON": "Back to Home"
+    "ERROR_REDIRECT_HOME_BUTTON": "Back to home",
+    "ERROR_incorrect_price": "Incorrect price",
+    "ERROR_incorrect_quantity": "Incorrect quantity",
+    "ERROR_storage_full": "Storage full",
+    "ERROR_not_enought_emeraude": "Not enough emeralds",
+    "ERROR_invalid_parameter": "Invalid parameter",
+    "ERROR_permission_denied": "Permission denied",
+    "ERROR_offline": "Offline"
 }

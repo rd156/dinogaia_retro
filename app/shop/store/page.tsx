@@ -22,7 +22,7 @@ const MessagesPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["message", "global"]);
+      const loadedTranslations = await Loadtranslate(language, ["pnj", "shop", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
@@ -45,6 +45,7 @@ const MessagesPage: React.FC = () => {
         }
 
         const result = await response.json();
+        console.log(result)
 
         // Récupération des catégories uniques
         const uniqueCategories = ["ALL", ...new Set(result.map((shop) => shop.category_name))];
@@ -58,7 +59,7 @@ const MessagesPage: React.FC = () => {
 
         setShopList(filteredShops);
       } catch (error) {
-        setErrorMessage(translations.message?.ERROR_LOAD_LIST_MSG);
+        setErrorMessage(translations.shop?.ERROR_LOAD_LIST_SHOP);
       } finally {
         setLoading(false);
       }
@@ -91,7 +92,6 @@ const MessagesPage: React.FC = () => {
         {errorMessage && <p className="alert-red">{errorMessage}</p>}
         {loading ? <p>Chargement...</p> : (
           <div className="block_white">
-            {/* Boutons de filtre par catégorie */}
             <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
               {categories.map((category) => (
                 <button
@@ -106,7 +106,7 @@ const MessagesPage: React.FC = () => {
                     cursor: "pointer",
                   }}
                 >
-                  {category === "ALL" ? translations.message?.DISPLAY_CATEGORIE_ALL : translations.message?.['DISPLAY_CATEGORIE_' + category] ?? category}
+                  {category === "ALL" ? translations.shop?.DISPLAY_CATEGORY_ALL : translations.shop?.['DISPLAY_CATEGORY_' + category] ?? category}
                 </button>
               ))}
             </div>
@@ -116,27 +116,27 @@ const MessagesPage: React.FC = () => {
               <thead>
                 <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
                   <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => sortShops('name')}>
-                    Nom du magasin {sortBy === 'name' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
+                    {translations.shop?.TABLE_HEADER_shop_name} {sortBy === 'name' && (sortOrder === 'asc' ? translations.SORT_ASC : translations.SORT_DESC)}
                   </th>
                   <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => sortShops('pnj_name')}>
-                    Nom du vendeur {sortBy === 'pnj_name' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
+                    {translations.shop?.TABLE_HEADER_seller_name} {sortBy === 'pnj_name' && (sortOrder === 'asc' ? translations.SORT_ASC : translations.SORT_DESC)}
                   </th>
                   <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => sortShops('category_name')}>
-                    Type de magasin {sortBy === 'category_name' && (sortOrder === 'asc' ? ' ↑' : ' ↓')}
+                    {translations.shop?.TABLE_HEADER_shop_type} {sortBy === 'category_name' && (sortOrder === 'asc' ? translations.SORT_ASC : translations.SORT_DESC)}
                   </th>
-                  <th>Action</th>
+                  <th>{translations.shop?.TABLE_HEADER_action}</th>
                 </tr>
               </thead>
               <tbody>
                 {shopList.map((entry) => (
                   <tr key={entry.id} style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}>
-                    <td style={{ padding: "10px", width: "20%" }}>{entry.name}</td>
-                    <td style={{ padding: "10px", width: "20%" }}>{entry.pnj_name}</td>
-                    <td style={{ padding: "10px" }}>{entry.category_name}</td>
-                    <td style={{ padding: "10px", width: "10%" }}>
+                    <td style={{ padding: "10px", width: "20%" }}>{translations.pnj?.["shop_"+entry.category_name+"_" + entry.name]}</td>
+                    <td style={{ padding: "10px", width: "20%" }}>{translations.pnj?.["pnj_" + entry.pnj_name]}</td>
+                    <td style={{ padding: "10px" }}>{translations.shop?.['DISPLAY_CATEGORY_' + entry.category_name]}</td>
+                    <td style={{ padding: "10px"}}>
                       <Link href={`/shop/store/${entry.name}`} passHref>
                         <button style={{ padding: "5px 10px", backgroundColor: "#28a745", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer" }}>
-                          Voir
+                        {translations.shop?.ENTER_SHOP}
                         </button>
                       </Link>
                     </td>

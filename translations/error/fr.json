@@ -1,3 +1,10 @@
 {
-    "ERROR_REDIRECT_HOME_BUTTON": "Retour à l'accueil"
+    "ERROR_REDIRECT_HOME_BUTTON": "Retour à l'accueil",
+    "ERROR_incorrect_price": "Prix incorrect",
+    "ERROR_incorrect_quantity": "Quantité incorrecte",
+    "ERROR_storage_full": "Stock plein",
+    "ERROR_not_enought_emeraude": "Pas assez d'émeraudes",
+    "ERROR_invalid_parameter": "Paramètre invalide",
+    "ERROR_permission_denied": "Permission refusée",
+    "ERROR_offline": "Hors ligne"
 }
