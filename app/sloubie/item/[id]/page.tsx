@@ -302,15 +302,6 @@ const ItemEditPage: React.FC = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="shop"
-                      checked={item?.action?.shop || false}
-                      onChange={handleChange}
-                    />
-                    Trouvable dans le shop
-                  </label>
-                  <label>
-                    <input
-                      type="checkbox"
                       name="arena"
                       checked={item?.action?.arena || false}
                       onChange={handleChange}
