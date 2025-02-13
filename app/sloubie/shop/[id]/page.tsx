@@ -244,6 +244,12 @@ const StoreDetailPage: React.FC = () => {
               <p style={{ textAlign: "center" }}>
                 <strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store.category_name]}
               </p>
+              <p style={{ textAlign: "center" }}>
+                <strong>{translations.shop?.TITLE_HORAIRE}</strong> {store.opening_hours}
+              </p>
+              <p style={{ textAlign: "center" }}>
+                <strong>{translations.shop?.TITLE_IS_OPEN}</strong> {store.is_open ? "Ouvert" : "Fermé"}
+              </p>
               <br />
               <div style={{ textAlign: "center" }} className="buttons">
                 <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/sloubie/shop")} />
