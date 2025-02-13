@@ -179,6 +179,34 @@ const QuestPage: React.FC = () => {
     }
   };
   
+  const validateStepClick = async (action) => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    console.log(action)
+    try {  
+      const response = await fetch(`${API_URL}/quest/update_step`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        },
+        body: JSON.stringify({
+          "dino_id": dinoId,
+          "quest_name":action
+        }),
+      });
+  
+      const result = await response.json();
+      console.log(result)
+      if (typeof result === 'object' && result !== null) {
+        setQuestActive(prevQuests => prevQuests.filter(quest => quest.quest_name !== action));
+        setQuestFinish(prevFinished => [...prevFinished, result]);
+      }
+    } catch (error) {
+      setErrorMessage(translations.quest?.ERR_JOIN_QUEST);
+    }
+  };
+
   return (
     <main className="content">
       <div className="content_top">
@@ -232,6 +260,7 @@ const QuestPage: React.FC = () => {
                 <th style={{ padding: "10px" }}>{translations.quest?.TITLE}</th>
                 <th style={{ padding: "10px" }}>{translations.quest?.STEP}</th>
                 <th style={{ padding: "10px" }}>{translations.quest?.EXPIRE_DATE}</th>
+                <th style={{ padding: "10px" }}>{translations.quest?.ACTION}</th>
               </tr>
             </thead>
             <tbody>
@@ -250,6 +279,15 @@ const QuestPage: React.FC = () => {
                     <td style={{ padding: "10px" }}>{translations.quest?.['QUEST_'+ entry.quest_name + '_STEP_' + entry.step_name] ?? entry.step_name}</td>
                     <td style={{ padding: "10px" }}>
                       {entry.expire_date ? entry.expire_date : translations.quest?.NO_EXPIRATION}
+                    </td>
+                    <td style={{ padding: "10px" }}>
+                      {Array.isArray(entry.objectifs) && entry.objectifs.length > 0 && 
+                        entry.objectifs.every(obj => obj.is_finish) && (
+                          <ButtonFancy 
+                            onClick={() => validateStepClick(entry.quest_name)} 
+                            label={translations.quest?.NEXT_STEP_QUEST} 
+                          />
+                      )}
                     </td>
                   </tr>
                   {expandedRowActiveQuest === entry.id && (
