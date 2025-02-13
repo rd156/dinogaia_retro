@@ -47,6 +47,17 @@ const CavePage: React.FC = () => {
 
   // Récupérer les données du serveur
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+  
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -239,25 +250,26 @@ const CavePage: React.FC = () => {
                   {translations.cave?.TABLE_ORIGIN} {sortBy === "origine" && (isAscending ? "↑" : "↓")}
                 </th>
                 <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_QUANTITY}</th>
+                <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_EXPIRE}</th>
                 <th style={{ textAlign: "center", padding: "10px" }}>{translations.cave?.TABLE_ACTION}</th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(items) && items.map((item, index) => (
                 <tr key={index} style={{borderBottom: "1px solid #ddd"}}>
-                  <td style={{ padding: "10px" }}>
-                  <img
-                    src={getImageUrl(`item/${item.item_name}.webp`)}
-                    alt={translations.item?.IMAGE_ITEM?.replace("[Item]", item.item_name)}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      marginBottom: "10px",
-                    }}
-                  />
+                  <td className="p-2">
+                    <div className="flex items-center space-x-3">
+                      <img
+                        src={getImageUrl(`item/${item.item_name}.webp`)}
+                        alt={translations.item?.IMAGE_ITEM?.replace("[Item]", item.item_name)}
+                        className="w-12 h-12"
+                      />
+                      <span>{translations.item?.["ITEM_" + item.item_name]}</span>
+                    </div>
                   </td>
                   <td style={{ textAlign: "center", padding: "10px" }}>{translations.item?.['ORIGIN_'+ item.origine] ?? item.origine}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>{item.quantite}</td>
+                  <td style={{ textAlign: "center", padding: "10px" }}>{formatDate(item.expire_date)}</td>
                   <td style={{ textAlign: "center", padding: "10px" }}>
                     <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                       {item.origine === "hunt" ? (
