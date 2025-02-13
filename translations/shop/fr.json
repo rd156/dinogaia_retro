@@ -29,6 +29,8 @@
     "DISPLAY_CATEGORY_alchemist": "Alchimiste",
     "DISPLAY_CATEGORY_jeweler": "Bijoutier",
     "DISPLAY_CATEGORY_grocery": "Epicerie",
+    "DISPLAY_CATEGORY_furniture": "Ameublement",
+    "DISPLAY_CATEGORY_school": "Ecole",
     "DISPLAY_CATEGORY_archaeologist": "Archéologue",
     "TABLE_HEADER_shop_name": "Nom du magasin",
     "TABLE_HEADER_seller_name": "Nom du vendeur",

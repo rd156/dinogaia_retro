@@ -29,6 +29,8 @@
     "DISPLAY_CATEGORY_alchemist": "Alchemist",
     "DISPLAY_CATEGORY_jeweler": "Jeweler",
     "DISPLAY_CATEGORY_grocery": "Grocery",
+    "DISPLAY_CATEGORY_school": "School",
+    "DISPLAY_CATEGORY_furniture": "Furniture",
     "DISPLAY_CATEGORY_archaeologist": "Archaeologist",
     "TABLE_HEADER_shop_name": "Shop Name",
     "TABLE_HEADER_seller_name": "Seller Name",
