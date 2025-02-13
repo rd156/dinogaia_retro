@@ -22,6 +22,10 @@
     "MENU_DECONNECT": "Déconnexion",
     "MENU_BUG":"Signaler un Bug",
     "MENU_DINO_ACTUAL_DISPLAY": "Votre dinosaure actuel est \"[Name]\", [Specie] de niveau [Level].",
-    "MENU_DINO_ACTUAL_NONE": "Aucun dinosaure selectionné"
-
+    "MENU_DINO_ACTUAL_NONE": "Aucun dinosaure selectionné",
+    "MENU_FIGHT_CLASSIC":"Combat classique",
+    "MENU_FIGHT_FAST":"Combat rapide",
+    "MENU_FIGHT_ULTRAFAST":"Combat ultra rapide",
+    "MENU_SHOP_BID": "Enchere",
+    "MENU_SHOP_STORE": "Boutique"
 }

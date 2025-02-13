@@ -22,5 +22,10 @@
     "MENU_DECONNECT": "Sign out",
     "MENU_BUG":"Bug",
     "MENU_DINO_ACTUAL_DISPLAY": "Your current dinosaur is \"[Name]\", a [Specie] of level [Level].",
-    "MENU_DINO_ACTUAL_NONE": "No dinosaur selected"
+    "MENU_DINO_ACTUAL_NONE": "No dinosaur selected",
+    "MENU_FIGHT_CLASSIC": "Classic Fight",
+    "MENU_FIGHT_FAST": "Fast Fight",
+    "MENU_FIGHT_ULTRAFAST": "Ultrafast Fight",
+    "MENU_SHOP_BID": "Auction",
+    "MENU_SHOP_STORE": "Shop"
 }

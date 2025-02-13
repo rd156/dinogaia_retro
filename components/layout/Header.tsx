@@ -72,11 +72,14 @@ export default function Header() {
         [translations.menu['MENU_MY_CAVE']]: "/cave",
         [translations.menu['MENU_MY_HUNT']]: "/hunt",
         [translations.menu['MENU_FIGHT']]: [
-          { name: "CLASSIC", link: "/fight/classic" },
-          { name: "FAST", link: "/fight/fast" },
-          { name: "ULTRAFAST", link: "/fight/ultrafast" }
+          { name: translations.menu['MENU_FIGHT_CLASSIC'], link: "/fight/classic" },
+          { name: translations.menu['MENU_FIGHT_FAST'], link: "/fight/fast" },
+          { name: translations.menu['MENU_FIGHT_ULTRAFAST'], link: "/fight/ultrafast" }
         ],
-        [translations.menu['MENU_SHOP']]: "/shop",
+        [translations.menu['MENU_SHOP']]: [
+          { name: translations.menu['MENU_SHOP_BID'], link: "/shop/bid" },
+          { name: translations.menu['MENU_SHOP_STORE'], link: "/shop/store" }
+        ],
         [translations.menu['MENU_QUEST']]: "/quest",
         [translations.menu['MENU_JOB']]: "/job",
         [translations.menu['MENU_MESSAGE']]: "/message",

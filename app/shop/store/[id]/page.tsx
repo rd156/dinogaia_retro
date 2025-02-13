@@ -136,7 +136,7 @@ const StoreDetailPage: React.FC = () => {
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store.category_name]}</p>
           <br />
           <div style={{textAlign:"center"}} className="buttons">
-            <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/shop")} />
+            <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/shop/store")} />
           </div>
         </div>
         <div className="mt-6 max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
