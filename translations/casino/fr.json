@@ -1,0 +1,8 @@
+{
+    "CASINO_CHOICE" :"Choix de la machine",
+    "CASINO_FREE_PARTY" :"Lancer gratuit",
+    "CASINO_FREE_PARTY_AGAIN" :"Lancer gratuit ([Number])",
+    "CASINO_PLAY" :"Lancer pour [Number] E",
+    "SPINNING": "Tourne",
+    "LAST_PRICE": "Dernier Gain [Number]"
+}
