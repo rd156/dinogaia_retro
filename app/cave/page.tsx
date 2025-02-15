@@ -29,6 +29,7 @@ const CavePage: React.FC = () => {
   const [info, setInfo] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
   const [count, setCount] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -310,6 +311,7 @@ const CavePage: React.FC = () => {
               <h3 style={{marginBottom: "10px"}}>
                 {translations.cave?.["ACTION_ON"].replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name] ?? selectedItem.item_name)}
               </h3>
+              {translations.item?.['ITEM_DESC_' + selectedItem.item_name] ?? translations.item?.NO_DESC.replace("[Item]", translations.item?.['ITEM_' + selectedItem.item_name])}
               <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
                 {selectedItem.action && selectedItem.action.use && (
                   <ButtonFancy onClick={() => handleButtonClick("use")} label={translations.cave?.USE} />
@@ -328,23 +330,39 @@ const CavePage: React.FC = () => {
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
           {items &&
-            Object.entries(items)
-              .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
-              .map(([name, item]) => (
-                <div
-                  key={name}
-                  className="block_white"
-                  onClick={() => handleItemClick(item)}
+          Object.entries(items)
+          .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
+          .map(([name, item]) => (
+            <div
+              key={name}
+              className="relative block_white"
+              onClick={() => handleItemClick(item)}
+              onMouseEnter={() => setHoveredItem(name)}
+              onMouseLeave={() => setHoveredItem(null)}
+            >
+              <ImageWithText 
+                src={getImageUrl(`item/${item.item_name}.webp`)}
+                alt={`${item.item_name} image`}
+                quantity={item.quantite} 
+              />
+              <p>{translations.item?.['ITEM_' + item.item_name] ?? item.item_name}</p>
+
+              {hoveredItem === name && (
+                <div 
+                  className="absolute bg-gray-800 text-white text-sm p-4 rounded shadow-lg z-50"
+                  style={{
+                    maxWidth: '200%',
+                    whiteSpace: 'normal',
+                    overflowWrap: 'break-word',
+                    wordBreak: 'break-word',
+                    minHeight: '60px',
+                  }}
                 >
-                  <ImageWithText 
-                    src={getImageUrl(`item/${item.item_name}.webp`)}
-                    alt={`${item.item_name} image`}
-                    quantity={item.quantite} 
-                  />
-                  <p>{translations.item?.['ITEM_' + item.item_name] ?? item.item_name}</p>
+                  {translations.item?.['ITEM_DESC_' + item.item_name] ?? translations.item?.NO_DESC.replace("[Item]", translations.item?.['ITEM_' + item.item_name])}
                 </div>
-              ))
-          }
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </main>
