@@ -1,3 +1,8 @@
 {
-
+    "CASINO_CHOICE": "Machine Choice",
+    "CASINO_FREE_PARTY": "Free Spin",
+    "CASINO_FREE_PARTY_AGAIN": "Free Spin ([Number])",
+    "CASINO_PLAY": "Spin for [Number] E",
+    "SPINNING": "Spinning",
+    "LAST_PRICE": "Last Win [Number]"
 }
