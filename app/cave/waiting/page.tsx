@@ -8,6 +8,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -259,12 +260,10 @@ const CavePage: React.FC = () => {
                 <tr key={index} style={{borderBottom: "1px solid #ddd"}}>
                   <td className="p-2">
                     <div className="flex items-center space-x-3">
-                      <img
-                        src={getImageUrl(`item/${item.item_name}.webp`)}
-                        alt={translations.item?.IMAGE_ITEM?.replace("[Item]", item.item_name)}
-                        className="w-12 h-12"
+                      <ItemWithTooltip 
+                        itemName={item.item_name}
+                        translations={translations.item}
                       />
-                      <span>{translations.item?.["ITEM_" + item.item_name]}</span>
                     </div>
                   </td>
                   <td style={{ textAlign: "center", padding: "10px" }}>{translations.item?.['ORIGIN_'+ item.origine] ?? item.origine}</td>

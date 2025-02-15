@@ -8,6 +8,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -259,41 +260,10 @@ const CavePage: React.FC = () => {
                   style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}
                 >
                   <td style={{ padding: "10px" }}>
-                    <div 
-                      className="relative flex items-center space-x-3" 
-                      onMouseEnter={() => setHoveredItem(entry.item.name)} 
-                      onMouseLeave={() => setHoveredItem(null)}
-                    >
-                      <img
-                        src={getImageUrl(`item/${entry.item.name}.webp`)}
-                        alt={translations.item?.IMAGE_ITEM?.replace("[Item]", entry.item.name)}
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          marginBottom: "10px",
-                        }}
-                      />
-                      <span>{translations.item?.["ITEM_" + entry.item.name]}</span>
-                      {hoveredItem === entry.item.name && (
-                        <div 
-                          className="absolute bg-gray-800 text-white text-sm p-4 rounded shadow-lg z-50"
-                          style={{
-                            minWidth: '300px', // Définit une largeur minimale plus large
-                            width: 'auto', // Permet au texte de s'adapter en fonction de la longueur
-                            maxWidth: '500px', // La largeur maximale de la boîte
-                            whiteSpace: 'normal', // Permet au texte de se diviser en plusieurs lignes
-                            overflowWrap: 'break-word', // Casse les mots trop longs
-                            wordBreak: 'break-word', // Casse les mots pour éviter qu'ils débordent
-                            left: '50%', // Centre la boîte horizontalement
-                            transform: 'translateX(-50%)', // Déplace la boîte pour la centrer parfaitement
-                            top: '100%', // Positionne la boîte juste en dessous de l'image
-                            padding: '10px', // Donne plus d'espace intérieur
-                          }}
-                        >
-                          {translations.item?.['ITEM_DESC_' + entry.item.name] ?? translations.item?.NO_DESC.replace("[Item]", translations.item?.['ITEM_' + entry.item.name])}
-                        </div>
-                      )}
-                    </div>
+                    <ItemWithTooltip 
+                      itemName={entry.item.name}
+                      translations={translations.item}
+                    />
                   </td>
                   <td style={{ padding: "10px" }}>{translations.item?.['CATEGORY_'+ entry.item.categorie] ?? entry.item.categorie}</td>
                   <td style={{ padding: "10px" }}>{entry.day}</td>

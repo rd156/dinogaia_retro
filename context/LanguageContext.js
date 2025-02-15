@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('fr'); // Par défaut en anglais
+  const [language, setLanguage] = useState('fr');
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") || "fr";

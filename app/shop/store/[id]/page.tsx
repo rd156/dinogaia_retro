@@ -8,6 +8,8 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
+
 
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
@@ -21,6 +23,7 @@ const StoreDetailPage: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const [hoveredItem, setHoveredItem] = useState(null); 
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -160,15 +163,11 @@ const StoreDetailPage: React.FC = () => {
             <tbody>
               {store?.products?.map((product: any) => (
                 <tr key={product.item_name} className="border-b">
-                  <td className="p-2">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={getImageUrl(`item/${product.item_name}.webp`)}
-                        alt={translations.item?.IMAGE_ITEM?.replace("[Item]", product.item_name)}
-                        className="w-12 h-12"
-                      />
-                      <span>{translations.item?.["ITEM_" + product.item_name]}</span>
-                    </div>
+                  <td className="p-2 relative">
+                    <ItemWithTooltip 
+                      itemName={product.item_name}
+                      translations={translations.item}
+                    />
                   </td>
                   <td className="p-2">{translations.shop?.DISPLAY_PRICE.replace("[Number]", product.price)}</td>
                   <td className="p-2">
