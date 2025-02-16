@@ -21,6 +21,8 @@ const DinoPage: React.FC = () => {
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -307,7 +309,49 @@ const DinoPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            {(data.faim < 100 || data.soif < 100) && (
+            <div 
+              style={{ 
+                display: "flex", 
+                justifyContent: "center", 
+                alignItems: "center", 
+                border: "2px solid #92303d",
+                padding: "10px",
+                borderRadius: "5px",
+                marginBottom: "20px",
+                position: "relative",
+              }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {data.is_dead && (
+                <span style={{ fontSize: "25px", fontWeight: "bold", color: "#92303d"}}>
+                  {translations.dino?.DINO_DEAD}
+                </span>
+              )}
+
+              {isHovered && (
+                <div 
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "#333",
+                    color: "#fff",
+                    padding: "5px 10px",
+                    borderRadius: "5px",
+                    fontSize: "14px",
+                    whiteSpace: "nowrap",
+                    marginTop: "5px",
+                    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                    zIndex: 50,
+                  }}
+                >
+                  {translations.dino?.DINO_DESC_DEAD}
+                </div>
+              )}
+            </div>
+            { data.is_dead == false && (data.faim < 100 || data.soif < 100) && (
               <div className="dino-action" style={{ display: "flex", flexDirection: "column", gap: "15px", alignItems: "center" }}>
                 <span style={{ fontSize: "18px", fontWeight: "bold", color: "#164617" }}>
                   {translations.dino?.ACTION_POSSIBILITY}

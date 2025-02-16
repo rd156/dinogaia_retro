@@ -35,5 +35,7 @@
     "COLLECT_SALARY": "Collect salary",
     "ACTION_POSSIBILITY": "Action available: ",
     "ACTION_THIRST": "Drink",
-    "ACTION_HUNGER": "Eat"
+    "ACTION_HUNGER": "Eat",
+    "DINO_DEAD": "Your dino is dead",
+    "DINO_DESC_DEAD": "You should find a way to bring it back to life."
 }
