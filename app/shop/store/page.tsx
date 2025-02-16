@@ -134,7 +134,7 @@ const MessagesPage: React.FC = () => {
                     <td style={{ padding: "10px", width: "20%" }}>{translations.pnj?.["pnj_" + entry.pnj_name]}</td>
                     <td style={{ padding: "10px" }}>{translations.shop?.['DISPLAY_CATEGORY_' + entry.category_name]}</td>
                     <td style={{ padding: "10px"}}>
-                      <Link href={`/shop/store/${entry.name}`} passHref>
+                      <Link href={`/shop/store/${entry.category_name}/${entry.name}`} passHref>
                         <button style={{ padding: "5px 10px", backgroundColor: "#28a745", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer" }}>
                         {translations.shop?.ENTER_SHOP}
                         </button>

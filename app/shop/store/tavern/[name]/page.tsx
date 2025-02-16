@@ -46,7 +46,7 @@ const StoreDetailPage: React.FC = () => {
     const fetchStoreDetail = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_URL}/shop/${params.id}`, {
+        const response = await fetch(`${API_URL}/shop/${params.name}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -68,10 +68,10 @@ const StoreDetailPage: React.FC = () => {
       }
     };
 
-    if (params.id) {
+    if (params.name) {
       fetchStoreDetail();
     }
-  }, [params.id]);
+  }, [params.name]);
 
   const handleBuyProduct = async (selectedProduct) => {
     if (!selectedProduct) return;
@@ -79,7 +79,7 @@ const StoreDetailPage: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
-      const response = await fetch(`${API_URL}/shop/${params.id}/buy/${selectedProduct.item_name}`, {
+      const response = await fetch(`${API_URL}/shop/${params.name}/buy/${selectedProduct.item_name}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -132,7 +132,7 @@ const StoreDetailPage: React.FC = () => {
       <div className="content_top">
         <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
           <h1 className="text-4xl text-center font-bold">
-            <strong>{translations.pnj?.["shop_" + store.category_name + "_" + store.name]}</strong>
+            <strong>Taverne {translations.pnj?.["shop_" + store.category_name + "_" + store.name]}</strong>
           </h1>
           <br />
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_OWNER}</strong> {translations.pnj?.["pnj_" + store.pnj_name]}</p>
