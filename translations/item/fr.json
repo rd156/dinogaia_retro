@@ -354,5 +354,7 @@
     "ITEM_blueberry": "Myrtille",
     "ITEM_DESC_blueberry": "En plus de rendre ta bouche bleu, ce fruit te fera gagner 5 PV",
     "ITEM_watermelon": "Pastèque",
-    "ITEM_DESC_watermelon": "Ce fruit attire les Dodos et te fera gagner 5 PV"
+    "ITEM_DESC_watermelon": "Ce fruit attire les Dodos et te fera gagner 5 PV",
+    "ITEM_pierre_resurection": "Pierre de résurection",
+    "ITEM_DESC_pierre_resurection": "Cette pierre sert peut-être à quelque chose."
 }
