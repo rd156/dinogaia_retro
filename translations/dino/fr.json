@@ -37,5 +37,8 @@
     "ACTION_THIRST": "Boire",
     "ACTION_HUNGER": "Manger",
     "DINO_DEAD": "Votre dino est mort",
-    "DINO_DESC_DEAD": "Vous devriez trouver une solution pour le ramener à la vie."
+    "DINO_DESC_DEAD": "Vous devriez trouver une solution pour le ramener à la vie.",
+    "INJURY_SAIN": "Indemne",
+    "DISEASE_SAIN": "Sain",
+    "DISEASE_OVEREATING": "Trop manger"
 }

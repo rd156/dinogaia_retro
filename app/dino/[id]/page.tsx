@@ -286,10 +286,14 @@ const DinoPage: React.FC = () => {
                   <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
                 </div>
                 <div className="stat-item">
-                  <p>{translations.dino?.INJURY}: <strong>{data.injury}</strong></p>
+                  <p>
+                    {translations.dino?.INJURY}: <strong style={{ color: data.injury !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["INJURY_" + data.injury]}</strong>
+                  </p>
                 </div>
                 <div className="stat-item">
-                  <p>{translations.dino?.DISEASE}: <strong>{data.disease}</strong></p>
+                  <p>
+                    {translations.dino?.DISEASE}: <strong style={{ color: data.disease !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["DISEASE_" + data.disease]}</strong>
+                  </p>
                 </div>
               </div>
             </div>
