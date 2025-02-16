@@ -309,24 +309,25 @@ const DinoPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div 
-              style={{ 
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center", 
-                border: "2px solid #92303d",
-                padding: "10px",
-                borderRadius: "5px",
-                marginBottom: "20px",
-                position: "relative",
-              }}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
               {data.is_dead && (
-                <span style={{ fontSize: "25px", fontWeight: "bold", color: "#92303d"}}>
-                  {translations.dino?.DINO_DEAD}
-                </span>
+                <div 
+                  style={{ 
+                    display: "flex", 
+                    justifyContent: "center", 
+                    alignItems: "center", 
+                    border: "2px solid #92303d",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    marginBottom: "20px",
+                    position: "relative",
+                  }}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <span style={{ fontSize: "25px", fontWeight: "bold", color: "#92303d"}}>
+                    {translations.dino?.DINO_DEAD}
+                  </span>
+                </div>
               )}
 
               {isHovered && (
@@ -350,7 +351,6 @@ const DinoPage: React.FC = () => {
                   {translations.dino?.DINO_DESC_DEAD}
                 </div>
               )}
-            </div>
             { data.is_dead == false && (data.faim < 100 || data.soif < 100) && (
               <div className="dino-action" style={{ display: "flex", flexDirection: "column", gap: "15px", alignItems: "center" }}>
                 <span style={{ fontSize: "18px", fontWeight: "bold", color: "#164617" }}>
