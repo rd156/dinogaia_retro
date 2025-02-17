@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { API_URL } from '@/config/config';
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
-import "./page.css";
 
 export default function Home() {
   const [data, setData] = useState<any[]>([]);
@@ -102,7 +101,13 @@ export default function Home() {
             }}
           >
             <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
-              <img src={dino.avatar ? `/avatar/${dino.avatar}.webp` : `/avatar/${dino.species}/default.webp`} alt="Image de profil" style={{ width: '200px', height: '200px', marginRight: '10px' }} />
+              <img 
+                src={dino.avatar ? `/avatar/${dino.avatar}.webp` : `/avatar/${dino.species}/default.webp`}
+                alt="Image de profil"
+                className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 object-cover rounded"
+              />
+
+              
               <div style={{padding: '25px', display: 'flex', flexDirection: 'column', color: 'black'}}>
                 <h3>
                   <span 

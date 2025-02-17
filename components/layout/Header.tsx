@@ -146,7 +146,7 @@ export default function Header() {
     if (Array.isArray(value)) {
       return (
         <Dropdown key={index}>
-          <NavbarItem>
+          <NavbarContent>
             <DropdownTrigger>
               <Button
                 disableRipple
@@ -158,13 +158,14 @@ export default function Header() {
                 {key}
               </Button>
             </DropdownTrigger>
-          </NavbarItem>
+          </NavbarContent>
           <DropdownMenu
             aria-label={key}
             className="w-[340px]"
             itemClasses={{
               base: "gap-4",
             }}
+            autoFocus={false}
           >
             {value.map((subItem, subIndex) => (
               <DropdownItem
@@ -174,11 +175,11 @@ export default function Header() {
                 className={styles.dropdown_color}
               >
                 {subItem.onClick ? (
-                  <Link onClick={subItem.onClick} className={styles.link}>
+                  <Link onClick={subItem.onClick} className={styles.link} tabIndex="-1">
                     {subItem.name}
                   </Link>
                 ) : (
-                  <Link href={subItem.link} className={styles.link}>
+                  <Link href={subItem.link} className={styles.link} tabIndex="-1">
                     {subItem.name}
                   </Link>
                 )}
@@ -190,7 +191,7 @@ export default function Header() {
     }
     return (
       <NavbarItem key={index}>
-        <Link color="foreground" href={value}>
+        <Link color="foreground" href={value} tabIndex="-1">
           {key}
         </Link>
       </NavbarItem>
@@ -218,6 +219,20 @@ export default function Header() {
             )
           }
         </NavbarContent>
+        <NavbarMenu className={styles.navbarMenuLightBackground}>
+          {isConnect
+            ? Object.entries(menuConnectItems).map(([key, value], index) => (
+                <NavbarMenuItem key={index}>
+                  {displayMenuElement(key, value, index)}
+                </NavbarMenuItem>
+              ))
+            : Object.entries(menuVisitorItems).map(([key, value], index) => (
+                <NavbarMenuItem key={index}>
+                  {displayMenuElement(key, value, index)}
+                </NavbarMenuItem>
+              ))}
+        </NavbarMenu>
+
         {
           !isConnect && (
             <NavbarContent justify="end">

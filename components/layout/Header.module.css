@@ -8,9 +8,13 @@
     left: 0;
     top: 0;
     width: 100%;
-    /* Minimum */
-    margin: 5vh 0;
-    min-height: 5vh;
+}
+
+@media (min-width: 768px) {
+    .header{
+        margin: 5vh 0;
+        min-height: 5vh;
+    }
 }
 
 .dropdown_color {
@@ -37,3 +41,7 @@
 .link:active {
     color: inherit; /* Lien actif */
 }
+
+.navbarMenuLightBackground {
+    background-color: rgba(255, 255, 255, 0.6);
+  }

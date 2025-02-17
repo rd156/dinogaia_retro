@@ -2,71 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Home.css */
-html,
-body {
+/* Global styles */
+html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-image: url('/image-background-1@2x.png');
-    background-size: cover;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+    background: url('/image-background-1@2x.png') center/cover fixed no-repeat;
 }
 
-.content
-{
-    height: 100vh;
+/* Main content container */
+.content {
+    min-height: 100vh;
     width: 100%;
 }
 
-.content_top
-{
+/* Top section */
+.content_top {
     min-height: 100%;
-    padding-top: 20vh;
-    height: 80vh;
-    padding-left: 10vh;
-    padding-right: 10vh;
-    padding-bottom: 150vh;
+    height: auto;
+    padding: 20vh 10vh 150vh;
 }
 
+/* Bottom section */
 .content_bottom {
     min-height: 100%;
     width: 100%;
     padding-top: 15vh;
-    height: 85vh;
+    height: auto;
     padding-left: 10vh;
-    background-image: url('/image-medium-1@2x.png');
-    background-size: cover;
-    background-position: center;
+    background: url('/image-medium-1@2x.png') center/cover no-repeat;
 }
 
+/* Block styling */
 .block_white {
-    background: rgba(196, 188, 188, 0.827);
+    background: rgba(196, 188, 188, 0.83);
     padding: 20px;
-    color: rgba(0, 0, 0);
+    color: black;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Alert styles */
+.alert-red, .alert-green {
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    color: black;
 }
 
 .alert-red {
     background: rgba(255, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: 'black';
 }
 
 .alert-green {
     background: rgba(0, 255, 0, 0.5);
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: 'black';
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content_top, .content_bottom {
+        padding-left: 5vh;
+        padding-right: 5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .content_top, .content_bottom {
+        padding-left: 2vh;
+        padding-right: 2vh;
+        padding-top: 10vh;
+    }
 }
