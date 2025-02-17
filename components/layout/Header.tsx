@@ -198,7 +198,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <Navbar className={styles.navbar} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}

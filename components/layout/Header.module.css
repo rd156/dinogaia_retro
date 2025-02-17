@@ -10,13 +10,18 @@
     width: 100%;
     text-align: left;
 }
-
 @media (min-width: 768px) {
     .header{
         margin: 5vh 0;
         min-height: 5vh;
     }
 }
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: flex-start !important;
+    }
+}
+  
 
 .dropdown_color {
     border: 1px solid #d1d5db; /* Exemple de bordure */
