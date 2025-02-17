@@ -165,33 +165,31 @@ export default function Header() {
             itemClasses={{
               base: "gap-4",
             }}
-            autoFocus={false}
           >
-            {value.map((subItem, subIndex) => (
-              <DropdownItem
-                key={subIndex}
-                startContent=""
-                textValue={subItem.name}
-                className={styles.dropdown_color}
-              >
-                {subItem.onClick ? (
-                  <Link onClick={subItem.onClick} className={styles.link} tabIndex="-1">
-                    {subItem.name}
-                  </Link>
-                ) : (
-                  <Link href={subItem.link} className={styles.link} tabIndex="-1">
-                    {subItem.name}
-                  </Link>
-                )}
-              </DropdownItem>
-            ))}
+          {value.map((subItem, subIndex) => (
+            <DropdownItem
+              key={subIndex}
+              startContent=""
+              textValue={subItem.name}
+              className={styles.dropdown_color}
+              href={subItem.link} // Applique le lien directement au DropdownItem
+              onClick={(e) => {
+                e.stopPropagation(); // Empêche la propagation du clic
+                if (subItem.onClick) {
+                  subItem.onClick(); // Appelle la fonction de clic si elle existe
+                }
+              }}
+            >
+              {subItem.name} {/* Le texte du lien */}
+            </DropdownItem>
+          ))}
           </DropdownMenu>
         </Dropdown>
       );
     }
     return (
       <NavbarContent key={index} className={styles.navbarContentItem}>
-        <Link color="foreground" href={value} tabIndex="-1">
+        <Link color="foreground" href={value}>
           {key}
         </Link>
       </NavbarContent>
