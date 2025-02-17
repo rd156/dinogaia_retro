@@ -45,3 +45,9 @@
 .navbarMenuLightBackground {
     background-color: rgba(255, 255, 255, 0.6);
   }
+
+.navbarContentItem {
+    display: flex; /* Utilise flexbox pour aligner les éléments horizontalement */
+    align-items: center; /* Aligne verticalement les éléments */
+    white-space: nowrap; /* Empêche le texte de se couper en plusieurs lignes */
+  }

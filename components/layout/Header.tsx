@@ -190,11 +190,11 @@ export default function Header() {
       );
     }
     return (
-      <NavbarItem key={index}>
+      <NavbarContent key={index} className={styles.navbarContentItem}>
         <Link color="foreground" href={value} tabIndex="-1">
           {key}
         </Link>
-      </NavbarItem>
+      </NavbarContent>
     );
   };
 
