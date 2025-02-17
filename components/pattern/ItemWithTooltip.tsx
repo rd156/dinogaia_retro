@@ -22,7 +22,7 @@ const ItemWithTooltip = ({ itemName, translations }) => {
       <div className="relative">
         <img
           src={getImageUrl(`item/${itemName}.webp`)}
-          alt={translations.IMAGE_ITEM?.replace("[Item]", itemName)}
+          alt={translations?.IMAGE_ITEM?.replace("[Item]", itemName)}
           className="w-12 h-12"
         />
 
@@ -41,13 +41,13 @@ const ItemWithTooltip = ({ itemName, translations }) => {
               marginTop: "5px",
             }}
           >
-            {translations["ITEM_DESC_" + itemName] ?? 
+            {translations?.["ITEM_DESC_" + itemName] ?? 
               translations.NO_DESC?.replace("[Item]", translations["ITEM_" + itemName])}
           </div>
         )}
       </div>
 
-      <span>{translations["ITEM_" + itemName] ?? itemName}</span>
+      <span>{translations?.["ITEM_" + itemName] ?? itemName}</span>
     </div>
   );
 };
