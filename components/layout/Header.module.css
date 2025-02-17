@@ -3,11 +3,12 @@
     background-position: center;
     background-color: #2c2523d3;
     color: #9c9b9b;
-    text-align: center;
     position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 100vw;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
