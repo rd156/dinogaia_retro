@@ -167,22 +167,23 @@ export default function Header() {
             }}
           >
           {value.map((subItem, subIndex) => (
-            <DropdownItem
-              key={subIndex}
-              startContent=""
-              textValue={subItem.name}
-              className={styles.dropdown_color}
-              href={subItem.link} // Applique le lien directement au DropdownItem
-              onClick={(e) => {
-                e.stopPropagation(); // Empêche la propagation du clic
-                if (subItem.onClick) {
-                  subItem.onClick(); // Appelle la fonction de clic si elle existe
-                }
-              }}
-            >
-              {subItem.name} {/* Le texte du lien */}
-            </DropdownItem>
-          ))}
+              <DropdownItem
+                key={subIndex}
+                startContent=""
+                textValue={subItem.name}
+                className={styles.dropdown_color}
+              >
+                {subItem.onClick ? (
+                  <Link onClick={subItem.onClick} className={styles.link}>
+                    {subItem.name}
+                  </Link>
+                ) : (
+                  <Link href={subItem.link} className={styles.link}>
+                    {subItem.name}
+                  </Link>
+                )}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </Dropdown>
       );
@@ -195,7 +196,7 @@ export default function Header() {
       </NavbarContent>
     );
   };
-
+  
   return (
     <header className={styles.header}>
       <Navbar className={styles.navbar} onMenuOpenChange={setIsMenuOpen}>
