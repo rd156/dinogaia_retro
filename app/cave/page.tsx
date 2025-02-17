@@ -280,13 +280,14 @@ const CavePage: React.FC = () => {
               )}
             </div>
         </div>
-        <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+        <div>
           {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => handleCategoryToggle(category)}
                 style={{
                   padding: "10px",
+                  margin: "10px",
                   backgroundColor: activeCategory === category ? "#007BFF" : "#ccc",
                   color: "#fff",
                   border: "none",
@@ -328,7 +329,7 @@ const CavePage: React.FC = () => {
           </div>
         )}
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px", }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
           {items &&
           Object.entries(items)
           .filter(([_, item]) => activeCategory === "ALL" || item.item_categorie === activeCategory)
