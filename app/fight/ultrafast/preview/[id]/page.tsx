@@ -78,6 +78,18 @@ const CombatPreviewPage: React.FC = () => {
     }
   };
 
+  const getOpponentId = (combat: { dino2?: number; sbire: number }): string => {
+    if (combat.dino2){
+      return combat.dino2
+    }
+    else if (combat.sbire) {
+      return combat.sbire
+    }
+    else{
+      return 0
+    }
+  };
+  
   return (
     <main className="content">
       <div className="content_top">
@@ -136,15 +148,15 @@ const CombatPreviewPage: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                    {resultat && resultat[combat.dino1.toString()] && resultat[combat.dino2.toString()] && 
-                      resultat[combat.dino1.toString()].hit && resultat[combat.dino2.toString()].hit &&
+                    {resultat && resultat[combat.dino1.toString()] && resultat[getOpponentId(combat).toString()] && 
+                      resultat[combat.dino1.toString()].hit && resultat[getOpponentId(combat).toString()].hit &&
                       resultat[combat.dino1.toString()].hit.length > 0 ? (
                       <>
                         {resultat[combat.dino1.toString()].hit.map((_, index) => (
                           <tr key={"round" + index}>
                             <td>{translations.fight?.ROUND_NORMAL.replace("[Number]", index + 1)}</td>
                             <td>{resultat[combat.dino1.toString()].hit[index]}</td>
-                            <td>{resultat[combat.dino2.toString()].hit[index]}</td>
+                            <td>{resultat[getOpponentId(combat).toString()].hit[index]}</td>
                           </tr>
                         ))}
                       </>
@@ -156,11 +168,11 @@ const CombatPreviewPage: React.FC = () => {
                       </tr>
                     )}
 
-                    {resultat && resultat[combat.dino1.toString()] && resultat[combat.dino2.toString()] ? (
+                    {resultat && resultat[combat.dino1.toString()] && resultat[getOpponentId(combat).toString()] ? (
                       <tr key="total">
                         <td>{translations.fight?.ROUND_TOTAL}</td>
                         <td>{resultat[combat.dino1.toString()].total}</td>
-                        <td>{resultat[combat.dino2.toString()].total}</td>
+                        <td>{resultat[getOpponentId(combat).toString()].total}</td>
                       </tr>
                     ):(
                       <tr key="total">
