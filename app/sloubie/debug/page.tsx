@@ -79,6 +79,9 @@ const MessagesPage: React.FC = () => {
             <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
               <ButtonFancy onClick={() => actionClick("debug/storage")} label="Debug Storage" />
             </div>
+            <div className="flex items-center gap-2 p-4 border rounded-lg shadow-md max-w-md">
+              <ButtonFancy onClick={() => actionClick("debug/job")} label="Debug Job Name" />
+            </div>
           </div>
         </div>
       </div>
