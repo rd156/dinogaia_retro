@@ -256,7 +256,7 @@ const DinoPage: React.FC = () => {
               )}
             </div>
             {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick()} label={translations.dino?.LEVEL_UP} />}
-              {data && data && (
+              {data && (
               <div className="dino-header">
                 <div className="dino-info-right">
                   <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />

@@ -241,63 +241,65 @@ const DinoPage: React.FC = () => {
               )}
             </div>
           {isLevelUp && <ButtonFancy onClick={() => handleLevelUpClick(data.id)} label={translations.dino?.LEVEL_UP} />}
-          <div className="dino-header">
-            <div className="dino-info-right">
-              <img src={`/avatar/${data.avatar}.webp`} alt={`Image de profil${data.name}`} className="dino-profile-image" />
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
+            {data && (
+              <div className="dino-header">
+                <div className="dino-info-right">
+                  <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.XP}: <strong>{data.xp}</strong></p>
+                <div className="dino-info-right">
+                  <div className="stat-right-block">
+                    <div className="stat-item">
+                      <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.XP}: <strong>{data.xp} / {data.next_level?.xp}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.LUCK}: <strong>{data.luck}</strong></p>
+                    </div>
+                  </div>
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>
+                <div className="dino-info-right">
+                  <div className="stat-right-block">
+                    <div className="stat-item">
+                      <p>{translations.dino?.AGILITE}: <strong>{data.agilite} / {data.next_level?.agilite}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.INTELLIGENCE}: <strong>{data.intelligence} / {data.next_level?.intelligence}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.STRENGH}: <strong>{data.force} / {data.next_level?.force}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.ENDURANCE}: <strong>{data.endurance} / {data.next_level?.endurance}</strong></p>
+                    </div>
+                  </div>
                 </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.LUCK}: <strong>{data.luck}</strong></p>
+                <div className="dino-info-right">
+                  <div className="stat-right-block">
+                    <div className="stat-item">
+                      <p>{translations.dino?.SIZE}: <strong>{(Math.round(data.taille * 100) / 100).toFixed(2)}</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>
+                        {translations.dino?.INJURY}: <strong style={{ color: data.injury !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["INJURY_" + data.injury]}</strong>
+                      </p>
+                    </div>
+                    <div className="stat-item">
+                      <p>
+                        {translations.dino?.DISEASE}: <strong style={{ color: data.disease !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["DISEASE_" + data.disease]}</strong>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.AGILITE}: <strong>{data.agilite}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.INTELLIGENCE}: <strong>{data.intelligence}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.STRENGH}: <strong>{data.force}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.ENDURANCE}: <strong>{data.endurance}</strong></p>
-                </div>
-              </div>
-            </div>
-            <div className="dino-info-right">
-              <div className="stat-right-block">
-                <div className="stat-item">
-                  <p>{translations.dino?.SIZE}: <strong>{(Math.round(data.taille * 100) / 100).toFixed(2)}</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
-                </div>
-                <div className="stat-item">
-                  <p>
-                    {translations.dino?.INJURY}: <strong style={{ color: data.injury !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["INJURY_" + data.injury]}</strong>
-                  </p>
-                </div>
-                <div className="stat-item">
-                  <p>
-                    {translations.dino?.DISEASE}: <strong style={{ color: data.disease !== "SAIN" ? "red" : "inherit" }}>{translations.dino?.["DISEASE_" + data.disease]}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+            )}
             {data.is_dead && (
               <div 
                 style={{ 
