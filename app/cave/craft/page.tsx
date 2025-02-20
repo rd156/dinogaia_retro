@@ -7,6 +7,8 @@ import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
+import ImageWithText from "@/components/pattern/ImageWithText";
+import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const RecipePage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -17,13 +19,14 @@ const RecipePage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
   const [openRecipeId, setOpenRecipeId] = useState<number | null>(null);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["craft", "item", "global"]);
+      const loadedTranslations = await Loadtranslate(language, ["craft", "item", "global", "error"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
@@ -32,6 +35,15 @@ const RecipePage: React.FC = () => {
   useEffect(() => {
     setImageFolder(localStorage.getItem("image_template") || "reborn");
   }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "reborn"){
+      return `/${itemName}`;
+    }
+    else{
+      return `/template_image/${imageFolder}/${itemName}`;
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,9 +66,10 @@ const RecipePage: React.FC = () => {
         });
 
         if (!recipesResponse.ok) {
-          throw new Error("Erreur lors de la récupération des recettes");
+          throw new Error(translations.craft?.ERR_LOAD_RECIPE);
         }
         const recipeData = await recipesResponse.json();
+        console.log(recipeData)
 
         const itemsResponse = await fetch(`${API_URL}/cave/get_item/${dinoId}`, {
           method: "GET",
@@ -67,23 +80,22 @@ const RecipePage: React.FC = () => {
         });
 
         if (!itemsResponse.ok) {
-          throw new Error("Erreur lors de la récupération des items");
+          throw new Error(translations.craft?.ERR_LOAD_ITEM);
         }
-
         const itemsData = await itemsResponse.json();
+        console.log(itemsData)
         setItems(itemsData);
-  
-        // Trier les recettes par le nombre d'ingrédients manquants (le plus bas en premier)
+
         const availableItems = new Set(itemsData.map(item => item.item_name));
         const sortedRecipes = recipeData.sort((a, b) => {
           const missingA = a.requirements.filter(req => !availableItems.has(req.item)).length;
           const missingB = b.requirements.filter(req => !availableItems.has(req.item)).length;
-          return missingA - missingB; // Tri ascendant par le nombre d'ingrédients manquants
+          return missingA - missingB;
         });
         setRecipes(sortedRecipes);
 
       } catch (error) {
-        setErrorMessage("Une erreur est survenue");
+        setErrorMessage(translations.craft?.ERR_LOAD);
       } finally {
         setLoading(false);
       }
@@ -112,11 +124,20 @@ const RecipePage: React.FC = () => {
         valueA = a.craft_type.toLowerCase();
         valueB = b.craft_type.toLowerCase();
       } else if (column === "requirements_length") {
-        const ownedB = b.requirements.filter(req => availableItems.has(req.item)).length;
-        const ownedA = a.requirements.filter(req => availableItems.has(req.item)).length;
-      
-        valueA = ownedA; // On trie sur ce qu'on possède, pas sur ce qui manque
-        valueB = ownedB;
+        // Calcule les unités manquantes pour A
+        const missingA = a.requirements.reduce((acc, req) => {
+          const availableQuantity = items.find(item => item.item_name === req.item)?.quantite || 0;
+          return acc + Math.max(req.quantity - availableQuantity, 0);
+        }, 0);
+  
+        // Calcule les unités manquantes pour B
+        const missingB = b.requirements.reduce((acc, req) => {
+          const availableQuantity = items.find(item => item.item_name === req.item)?.quantite || 0;
+          return acc + Math.max(req.quantity - availableQuantity, 0);
+        }, 0);
+  
+        valueA = missingA;
+        valueB = missingB;
       } else {
         return 0;
       }
@@ -129,26 +150,86 @@ const RecipePage: React.FC = () => {
     setRecipes(sortedRecipes);
   };
 
-  // Créer un Set des items disponibles pour une vérification rapide
-  const availableItems = new Set(items.map(item => item.item_name));
+  const handleButtonClick = async (action) => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    console.log(action)
+    try {  
+      const response = await fetch(`${API_URL}/craft/craft`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        },
+        body: JSON.stringify({
+          "id": dinoId,
+          "id_recipe":action
+        }),
+      });
+  
+      if (!response.ok) {
+        setErrorMessage(translations.craft?.ERR_CRAFT);
+      }
+  
+      const result = await response.json();
+      console.log(result)
+      if (typeof result === "object")
+      {
+        setItems((prevItems) => {
+          let updatedItems = prevItems.map(item => {
+            const requirement = result.requirements.find(req => req.item === item.item_name);
+            if (requirement) {
+              return {
+                ...item,
+                quantite: Math.max(0, item.quantite - requirement.quantity)
+              };
+            }
+            return item;
+          }).filter(item => item.quantite > 0);
+          const craftedItemIndex = updatedItems.findIndex(item => item.item_name === result.item);
+          if (craftedItemIndex !== -1) {
+            updatedItems[craftedItemIndex].quantite += 1;
+          } else {
+            updatedItems.push({ item_name: result.item, quantite: 1 });
+          }
+        
+          return updatedItems;
+        });
+        setMessage(translations.craft?.CRAFT_DONE.replace("[Number]", 1).replace("[Name]", translations.item?.['ITEM_' + result.item]))
+        setErrorMessage("")
+      }
+      else{
+        setMessage("")
+        setErrorMessage(result)
+      }
+    } catch (error) {
+      setErrorMessage(translations.craft?.ERR_CRAFT);
+    }
+  };
 
   return (
     <main className="content">
       <div className="content_top">
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
         <div className="block_white">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
                 <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => handleSort("item")}>
-                  Recette {sortColumn === "item" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
+                  {translations.craft?.TABLE_RECIPE} {sortColumn === "item" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
                 </th>
                 <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => handleSort("craft_type")}>
-                  Type {sortColumn === "craft_type" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
+                {translations.craft?.TABLE_TYPE} {sortColumn === "craft_type" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
                 </th>
                 <th style={{ padding: "10px", cursor: "pointer" }} onClick={() => handleSort("requirements_length")}>
-                  nb_ingredient {sortColumn === "requirements_length" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
+                {translations.craft?.TABLE_NB_INGREDIENT}{sortColumn === "requirements_length" ? (sortOrder === "asc" ? "▲" : "▼") : ""}
                 </th>
-                <th style={{ padding: "10px" }}>Action</th>
+                <th style={{ padding: "10px" }}>{translations.craft?.TABLE_ACTION}</th>
               </tr>
             </thead>
             <tbody>
@@ -169,42 +250,68 @@ const RecipePage: React.FC = () => {
                         translations={translations.item}
                       />
                     </td>
-                    <td style={{ padding: "10px" }}>{entry.craft_type}</td>
+                    <td style={{ padding: "10px" }}>{translations.craft?.["CRAFT_TYPE_" + entry.craft_type]}</td>
                     <td style={{ padding: "10px" }}>
                       {(() => {
-                        const totalIngredients = entry.requirements.length;
-                        const missingIngredients = entry.requirements.filter(req => !availableItems.has(req.item)).length;
+                        const totalRequired = entry.requirements.reduce((acc, req) => acc + req.quantity, 0);
+                        const totalAvailable = entry.requirements.reduce((acc, req) => {
+                          const availableQuantity = items.find(item => item.item_name === req.item)?.quantite || 0;
+                          return acc + Math.min(availableQuantity, req.quantity);
+                        }, 0);
 
-                        return missingIngredients > 0 ? (
+                        return totalAvailable < totalRequired ? (
                           <span style={{ color: "red" }}>
-                            {missingIngredients} / {totalIngredients}
+                            {totalAvailable} / {totalRequired}
                           </span>
                         ) : (
-                          <span style={{ color: "green" }}>{totalIngredients + "/" + totalIngredients}</span>
+                          <span style={{ color: "green" }}>
+                            {totalAvailable} / {totalRequired}
+                          </span>
                         );
                       })()}
                     </td>
-
-                    <td style={{ padding: "10px" }}>CRAFT</td>
+                    <td style={{ padding: "10px" }}>
+                      <ButtonFancy onClick={() => handleButtonClick(entry.id)} label={translations.craft?.START_CRAFT} />
+                    </td>
                   </tr>
 
                   {openRecipeId === index && (
                     <tr>
                       <td colSpan={4} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-                        <strong>Détails de la recette :</strong>
-                        <ul>
+                        <strong>{translations.craft?.RECIPE_DETAILS}</strong>
+                        <div 
+                          style={{ 
+                            display: "flex", 
+                            flexWrap: "wrap", 
+                            gap: "10px"
+                          }}
+                        >
                           {entry.requirements.map((requirement, reqIndex) => {
-                            const isAvailable = availableItems.has(requirement.item);
+                            const availableQuantity = items.find(item => item.item_name === requirement.item)?.quantite || 0;
+                            const isAvailable = availableQuantity >= requirement.quantity;
+
                             return (
-                              <li 
+                              <span 
                                 key={reqIndex} 
-                                style={{ color: isAvailable ? "black" : "red" }}
+                                style={{ 
+                                  color: isAvailable ? "green" : "red",
+                                  backgroundColor: "#fff",
+                                  padding: "5px 10px",
+                                  borderRadius: "5px",
+                                  border: "2px solid",
+                                  borderBlockColor: isAvailable ? "green" : "red",
+                                }}
                               >
-                                {requirement.item} x {requirement.quantity}
-                              </li>
+                                <ImageWithText 
+                                  src={getImageUrl(`item/${requirement.item}.webp`)}
+                                  alt={`${requirement.item} image`}
+                                  quantity={availableQuantity} 
+                                />
+                                <p>{translations.item?.['ITEM_' + requirement.item] ?? requirement.item} {availableQuantity} / {requirement.quantity}</p>
+                              </span>
                             );
                           })}
-                        </ul>
+                        </div>
                       </td>
                     </tr>
                   )}

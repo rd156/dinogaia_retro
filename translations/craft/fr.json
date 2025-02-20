@@ -1,0 +1,16 @@
+{
+    "ERR_LOAD": "Une erreur est survenue",
+    "ERR_LOAD_ITEM": "Erreur lors de la récupération des objets",
+    "ERR_LOAD_RECIPE": "Erreur lors de la récupération des recettes",
+    "ERR_CRAFT": "Erreur lors de la création de l'objet",
+    "TABLE_RECIPE": "Recette",
+    "TABLE_TYPE": "Type",
+    "TABLE_NB_INGREDIENT": "Nombre d'ingrédients",
+    "TABLE_ACTION": "Action",
+    "CRAFT_TYPE_QUEST": "Quête",
+    "CRAFT_TYPE_JOBS": "Métier",
+    "CRAFT_TYPE_DEFAULT": "Normal",
+    "RECIPE_DETAILS": "Détails de la recette :",
+    "START_CRAFT": "Fabriquer",
+    "CRAFT_DONE": "Vous avez fabriqué [Number] [Name]"
+}

@@ -1,0 +1,16 @@
+{
+    "ERR_LOAD": "An error has occurred",
+    "ERR_LOAD_ITEM": "Error while retrieving items",
+    "ERR_LOAD_RECIPE": "Error while retrieving recipes",
+    "ERR_CRAFT": "Error during item creation",
+    "TABLE_RECIPE": "Recipe",
+    "TABLE_TYPE": "Type",
+    "TABLE_NB_INGREDIENT": "Number of ingredients",
+    "TABLE_ACTION": "Action",
+    "CRAFT_TYPE_QUEST": "Quest",
+    "CRAFT_TYPE_JOBS": "Job",
+    "CRAFT_TYPE_DEFAULT": "Normal",
+    "RECIPE_DETAILS": "Recipe details:",
+    "START_CRAFT": "Craft",
+    "CRAFT_DONE": "You have crafted [Number] [Name]"
+}
