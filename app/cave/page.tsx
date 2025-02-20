@@ -278,6 +278,7 @@ const CavePage: React.FC = () => {
                   </h3>
                 </div>
               )}
+              <ButtonGlow onClick={() => { window.location.href = "/cave/craft"; }} label={translations.cave?.CRAFT_BUTTON} />
             </div>
         </div>
         <div>

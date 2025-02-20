@@ -12,5 +12,6 @@
     "CRAFT_TYPE_DEFAULT": "Normal",
     "RECIPE_DETAILS": "Détails de la recette :",
     "START_CRAFT": "Fabriquer",
-    "CRAFT_DONE": "Vous avez fabriqué [Number] [Name]"
+    "CRAFT_DONE": "Vous avez fabriqué [Number] [Name]",
+    "CAVE_BUTTON": "Retourner dans ma grotte"
 }

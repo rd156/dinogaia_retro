@@ -8,6 +8,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 import ImageWithText from "@/components/pattern/ImageWithText";
+import ButtonGlow from "@/components/pattern/ButtonGlow";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const RecipePage: React.FC = () => {
@@ -216,6 +217,9 @@ const RecipePage: React.FC = () => {
         {message && (
           <p className="alert-green">{message}</p>
         )}
+        <div className="block_white" style={{ marginBottom: "50px"}}>
+          <ButtonGlow onClick={() => { window.location.href = "/cave"; }} label={translations.craft?.CAVE_BUTTON} />
+        </div>
         <div className="block_white">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>

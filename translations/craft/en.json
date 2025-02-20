@@ -12,5 +12,6 @@
     "CRAFT_TYPE_DEFAULT": "Normal",
     "RECIPE_DETAILS": "Recipe details:",
     "START_CRAFT": "Craft",
-    "CRAFT_DONE": "You have crafted [Number] [Name]"
+    "CRAFT_DONE": "You have crafted [Number] [Name]",
+    "CAVE_BUTTON": "Return to my cave"
 }

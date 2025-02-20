@@ -38,5 +38,6 @@
     "ACTION_DONE_gift": "The object has been given",
     "ACTION_DONE_move": "The object has been moved",
     "ACTION_DONE_open": "The object has been opened",
-    "CAVE_ERROR_storage_full": "The cave storage is full"
+    "CAVE_ERROR_storage_full": "The cave storage is full",
+    "CRAFT_BUTTON": "Craft an item"
 }
