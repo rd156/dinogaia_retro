@@ -21,6 +21,8 @@
     "ENDURANCE":"Endurance",
     "SIZE":"Taille",
     "WEIGHT":"Poid",
+    "AGE": "Age",
+    "AGE_DAY": "[Number] jour(s)",
     "INJURY":"Blessure",
     "DISEASE":"Maladie",
     "LIFE": "Vie",

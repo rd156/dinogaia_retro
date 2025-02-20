@@ -232,6 +232,15 @@ const DinoPage: React.FC = () => {
     } catch (error) {
     }
   };
+
+  const getDaysDifference = (dateString: string): number => {
+    const givenDate = new Date(dateString);
+    const today = new Date();
+  
+    const differenceInTime = today.getTime() - givenDate.getTime();
+    return Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
+  };
+
   return (
     <div className="content">
       <div className='content_top'>
@@ -300,6 +309,9 @@ const DinoPage: React.FC = () => {
                     </div>
                     <div className="stat-item">
                       <p>{translations.dino?.WEIGHT}: <strong>{(Math.round(data.poids * 100) / 100).toFixed(2)} kg</strong></p>
+                    </div>
+                    <div className="stat-item">
+                      <p>{translations.dino?.AGE}: <strong>{translations.dino?.AGE_DAY.replace("[Number]" ,getDaysDifference(data.date_naissance))}</strong></p>
                     </div>
                     <div className="stat-item">
                       <p>
