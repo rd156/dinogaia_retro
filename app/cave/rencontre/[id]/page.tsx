@@ -1,0 +1,142 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
+import { useParams, useRouter } from "next/navigation";
+import { translate, Loadtranslate } from "@/utils/translate";
+import { useSearchParams } from "next/navigation";
+import { API_URL } from "@/config/config";
+
+const CavePage: React.FC = () => {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const [imageFolder, setImageFolder] = useState<string>("reborn");
+  const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
+  const [loading, setLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const { language, toggleLanguage } = useLanguage();
+  const [translations, setTranslations] = useState({});
+  const [items, setItems] = useState<any[]>([]);
+  const [count, setCount] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  // Charger les traductions
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const loadedTranslations = await Loadtranslate(language, [
+        "cave",
+        "item",
+        "global",
+      ]);
+      setTranslations(loadedTranslations);
+    };
+    fetchTranslations();
+  }, [language]);
+
+  // Charger la gestion des images
+  useEffect(() => {
+    setImageFolder(localStorage.getItem("image_template") || "reborn");
+  }, []);
+
+  const getImageUrl = (itemName: string) => {
+    if (imageFolder == "reborn") {
+      return `/${itemName}`;
+    } else {
+      return `/template_image/${imageFolder}/${itemName}`;
+    }
+  };
+
+  // Récupérer les données de la rencontre
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const dinoId = localStorage.getItem("dinoId");
+      try {
+        const caveResponse = await fetch(`${API_URL}/rencontre/${dinoId}/${params.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await caveResponse.json();
+        console.log(result)
+        setRencontreInfo(result);
+      } catch (error) {
+        setErrorMessage("Erreur de chargement");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Fonction pour gérer le passage à l'action suivante après un choix
+  const handleChoiceClick = async (choiceId: number) => {
+    const token = localStorage.getItem("token");
+    const dinoId = localStorage.getItem("dinoId");
+    try {
+      const response = await fetch(`${API_URL}/rencontre/${dinoId}/${rencontreInfo.id}/next_step_action`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ choice_id: choiceId }),
+      });
+      const result = await response.json();
+      console.log(result)
+
+      if (typeof result === "object"){
+        setRencontreInfo(result);
+      } else {
+        
+      }
+    } catch (error) {
+      setErrorMessage("Erreur de communication avec l'API");
+    }
+  };
+
+  return (
+    <main className="content">
+      <div className="content_top">
+        <div className="block_white">
+          {rencontreInfo ? (
+            <div>
+              <h2>Action en cours: {rencontreInfo.current_action.name}</h2>
+              <p>{rencontreInfo.current_action.description}</p>
+              <div>
+                {rencontreInfo.current_action.choices.map((choice: any) => (
+                  <button
+                    key={choice.id}
+                    onClick={() => handleChoiceClick(choice.id)}  // Passer l'ID du choix
+                    style={{
+                      margin: "10px",
+                      padding: "10px 20px",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {choice.text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p>{errorMessage || "Aucune rencontre trouvée"}</p>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default CavePage;
+
