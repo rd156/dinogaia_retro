@@ -6,13 +6,15 @@ import { useParams, useRouter } from "next/navigation";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
+import Link from "next/link";
 
-const CavePage: React.FC = () => {
+const RencontrePage: React.FC = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const [imageFolder, setImageFolder] = useState<string>("reborn");
   const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
   const [loading, setLoading] = useState<boolean>(true);
+  const [endRencontre, setEndrencontre] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
@@ -92,8 +94,16 @@ const CavePage: React.FC = () => {
 
       if (typeof result === "object"){
         setRencontreInfo(result);
-      } else {
-        
+      }
+      else if(result == "conversation_terminer")
+      {
+        setRencontreInfo(null);
+        setEndrencontre(true);
+        setErrorMessage("");
+      }
+      else {
+        setErrorMessage(result);
+        setRencontreInfo(null);
       }
     } catch (error) {
       setErrorMessage("Erreur de communication avec l'API");
@@ -104,39 +114,59 @@ const CavePage: React.FC = () => {
     <main className="content">
       <div className="content_top">
         <div className="block_white">
-          {rencontreInfo ? (
-            <div>
-              <h2>Action en cours: {rencontreInfo.current_action.name}</h2>
-              <p>{rencontreInfo.current_action.description}</p>
-              <div>
-                {rencontreInfo.current_action.choices.map((choice: any) => (
-                  <button
-                    key={choice.id}
-                    onClick={() => handleChoiceClick(choice.id)}  // Passer l'ID du choix
-                    style={{
-                      margin: "10px",
-                      padding: "10px 20px",
-                      fontSize: "16px",
-                      cursor: "pointer",
-                      backgroundColor: "#4CAF50",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    {choice.text}
-                  </button>
-                ))}
-              </div>
-            </div>
+          {endRencontre ? (
+            <Link href="/cave">
+              <button
+                style={{
+                  margin: "10px",
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                }}
+              >
+                Retour a ma grotte
+              </button>
+            </Link>
           ) : (
-            <p>{errorMessage || "Aucune rencontre trouvée"}</p>
+            rencontreInfo ? (
+              <div>
+                <h2>Action en cours: {rencontreInfo.current_action.name}</h2>
+                <p>{rencontreInfo.current_action.description}</p>
+                <div>
+                  {rencontreInfo.current_action.choices.map((choice: any) => (
+                    <button
+                      key={choice.id}
+                      onClick={() => handleChoiceClick(choice.id)}
+                      style={{
+                        margin: "10px",
+                        padding: "10px 20px",
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        backgroundColor: "#4CAF50",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {choice.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p>{errorMessage || "Aucune rencontre trouvée"}</p>
+            )
           )}
+
         </div>
       </div>
     </main>
   );
 };
 
-export default CavePage;
+export default RencontrePage;
 
