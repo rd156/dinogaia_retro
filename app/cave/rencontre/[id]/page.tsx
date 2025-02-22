@@ -127,7 +127,7 @@ const RencontrePage: React.FC = () => {
              {rencontreInfo && (
                 <div>
                     <img src={"/pnj/"+ rencontreInfo.pnj.name + ".webp"} alt={"Image de " + translations.pnj?.["pnj_" + rencontreInfo.pnj.name]} className="dino-profile-image" />
-                    <p className="text">{rencontreInfo && translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}</p>
+                    <p className="text">{translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}</p>
                 </div>
               )}
             </div>

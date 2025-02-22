@@ -5,7 +5,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
-import Link from "next/link"; // Importation de Link
+import Link from "next/link";
+import "./page.css";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ const CavePage: React.FC = () => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(language, [
         "cave",
-        "item",
+        "pnj",
         "global",
       ]);
       setTranslations(loadedTranslations);
@@ -73,26 +74,18 @@ const CavePage: React.FC = () => {
     fetchData();
   }, []);
 
-  // Fonction pour gérer l'action lorsque le choix est sélectionné
-  const handleChoiceClick = (nextActionId: number) => {
-    // Ici tu pourrais ajouter une logique pour gérer ce qui se passe après un choix
-    console.log("Choix sélectionné, action suivante:", nextActionId);
-  };
-
   return (
     <main className="content">
       <div className="content_top">
         <div className="block_white">
-          {loading ? (
-            <p>Chargement...</p>
-          ) : (
-            // Affichage des informations de la rencontre
-            rencontreInfo.map((rencontre) => (
+          <div className="rencontre-title">
+            <h2>{translations.cave?.RENCONTRE_TITLE}</h2>
+          </div>
+
+          { rencontreInfo.map((rencontre) => (
               <div key={rencontre.id}>
-                <h2>Action en cours: {rencontre.current_action.name}</h2>
                 <p>{rencontre.current_action.description}</p>
 
-                {/* Ajouter un bouton pour rediriger vers la page de la rencontre */}
                 <Link href={`/cave/rencontre/${rencontre.id}`}>
                   <button
                     style={{
@@ -106,12 +99,12 @@ const CavePage: React.FC = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    Voir la rencontre #{rencontre.id}
+                    {translations.pnj?.["pnj_" + rencontre.pnj.name]}
                   </button>
                 </Link>
               </div>
             ))
-          )}
+          }
         </div>
       </div>
     </main>

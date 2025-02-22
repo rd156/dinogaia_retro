@@ -42,5 +42,6 @@
     "CRAFT_BUTTON": "Craft an item",
     "RENCONTRE_NOT_FOUND": "No encounter found",
     "CAVE_BUTTON": "Return to my cave",
-    "RENCONTRE_BUTTON": "Go see the encounter"
+    "RENCONTRE_BUTTON": "Go see the encounter",
+    "RENCONTRE_TITLE": "Daily Encounter"
 }

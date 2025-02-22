@@ -43,5 +43,6 @@
 
     "RENCONTRE_NOT_FOUND": "Aucune rencontre trouvée",
     "CAVE_BUTTON": "Retourner dans ma grotte",
-    "RENCONTRE_BUTTON": "Allez voir la rencontre"
+    "RENCONTRE_BUTTON": "Allez voir la rencontre",
+    "RENCONTRE_TITLE": "Rencontre du jour"
 }
