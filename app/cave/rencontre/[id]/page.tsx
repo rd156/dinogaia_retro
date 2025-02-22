@@ -29,6 +29,7 @@ const RencontrePage: React.FC = () => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(language, [
         "pnj",
+        "dialogue",
         "cave",
         "global",
       ]);
@@ -154,7 +155,7 @@ const RencontrePage: React.FC = () => {
               ) : (
                 rencontreInfo ? (
                   <div>
-                    <h2>{rencontreInfo.current_action.name}</h2>
+                    <h2>{translations.dialogue?.["TEXT_" + rencontreInfo.current_action.name]}</h2>
                     <div>
                       {rencontreInfo.current_action.choices.map((choice: any) => (
                         <button
@@ -171,7 +172,7 @@ const RencontrePage: React.FC = () => {
                             borderRadius: "5px",
                           }}
                         >
-                          {choice.text}
+                          {translations.dialogue?.["CHOICE_" + choice.text]}
                         </button>
                       ))}
                     </div>

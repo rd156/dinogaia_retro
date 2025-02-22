@@ -1,3 +1,13 @@
 {
-
+    "TEXT_koyo_laisser_vie_sauve_please": "Une étrange créature se trouve devant votre grotte. Elle se présente sous le nom de Koyo et vous implore de la laisser partir en un seul morceau.",
+    "CHOICE_koyo_laisser_partir": "Laisser partir Koyo",
+    "CHOICE_koyo_kidnapper": "Essayer de le kidnapper pour obtenir une rançon",
+    "CHOICE_koyo_attaquer": "Attaquer Koyo",
+    "CHOICE_ignorer_creature": "Ignorer la créature",
+    "TEXT_koyo_combat_kidnapper": "Vous essayez d'attacher la créature, mais elle se défend. S'ensuit un combat assez rapide.",
+    "TEXT_koyo_combat_attaquer": "Vous frappez la créature avec la première chose à votre portée.",
+    "CHOICE_koyo_ismort": "Vérifier si la créature respire encore",
+    "TEXT_koyo_mort": "La pauvre créature est morte.",
+    "CHOICE_eloigner_discretement": "S'éloigner discrètement",
+    "CHOICE_continuer": "Continuer"
 }

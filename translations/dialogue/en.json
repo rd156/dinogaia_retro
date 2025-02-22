@@ -1,3 +1,13 @@
 {
-
+    "TEXT_koyo_laisser_vie_sauve_please": "A strange creature stands in front of your cave. It introduces itself as Koyo and begs you to let it leave in one piece.",
+    "CHOICE_koyo_laisser_partir": "Let Koyo go",
+    "CHOICE_koyo_kidnapper": "Try to kidnap it for a ransom",
+    "CHOICE_koyo_attaquer": "Attack Koyo",
+    "CHOICE_ignorer_creature": "Ignore the creature",
+    "TEXT_koyo_combat_kidnapper": "You try to tie up the creature, but it fights back. A quick battle ensues.",
+    "TEXT_koyo_combat_attaquer": "You hit the creature with the first thing within reach.",
+    "CHOICE_koyo_ismort": "Check if the creature is still breathing",
+    "TEXT_koyo_mort": "The poor creature is dead.",
+    "CHOICE_eloigner_discretement": "Move away discreetly",
+    "CHOICE_continuer": "Continue"
 }
