@@ -39,5 +39,8 @@
     "ACTION_DONE_move": "The object has been moved",
     "ACTION_DONE_open": "The object has been opened",
     "CAVE_ERROR_storage_full": "The cave storage is full",
-    "CRAFT_BUTTON": "Craft an item"
+    "CRAFT_BUTTON": "Craft an item",
+    "RENCONTRE_NOT_FOUND": "No encounter found",
+    "CAVE_BUTTON": "Return to my cave",
+    "RENCONTRE_BUTTON": "Go see the encounter"
 }

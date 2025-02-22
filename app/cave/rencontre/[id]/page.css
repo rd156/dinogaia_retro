@@ -1,0 +1,27 @@
+.rencontre-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Arial", sans-serif;
+}
+  
+.dino-profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    margin-bottom: 15px;
+}
+
+.rencontre-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0; /* Supprime les marges inutiles */
+  }
+  

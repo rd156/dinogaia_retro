@@ -7,6 +7,7 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import Link from "next/link";
+import "./page.css";
 
 const RencontrePage: React.FC = () => {
   const params = useParams();
@@ -27,8 +28,8 @@ const RencontrePage: React.FC = () => {
   useEffect(() => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(language, [
+        "pnj",
         "cave",
-        "item",
         "global",
       ]);
       setTranslations(loadedTranslations);
@@ -36,7 +37,6 @@ const RencontrePage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
-  // Charger la gestion des images
   useEffect(() => {
     setImageFolder(localStorage.getItem("image_template") || "reborn");
   }, []);
@@ -49,7 +49,6 @@ const RencontrePage: React.FC = () => {
     }
   };
 
-  // Récupérer les données de la rencontre
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -65,7 +64,12 @@ const RencontrePage: React.FC = () => {
         });
         const result = await caveResponse.json();
         console.log(result)
-        setRencontreInfo(result);
+        if (typeof result === "object"){
+          setRencontreInfo(result);
+        }
+        else {
+          setErrorMessage(result);
+        }
       } catch (error) {
         setErrorMessage("Erreur de chargement");
       } finally {
@@ -76,7 +80,6 @@ const RencontrePage: React.FC = () => {
     fetchData();
   }, []);
 
-  // Fonction pour gérer le passage à l'action suivante après un choix
   const handleChoiceClick = async (choiceId: number) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
@@ -106,62 +109,79 @@ const RencontrePage: React.FC = () => {
         setRencontreInfo(null);
       }
     } catch (error) {
-      setErrorMessage("Erreur de communication avec l'API");
     }
   };
 
   return (
     <main className="content">
       <div className="content_top">
-        <div className="block_white">
-          {endRencontre ? (
-            <Link href="/cave">
-              <button
-                style={{
-                  margin: "10px",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                  cursor: "pointer",
-                  backgroundColor: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                }}
-              >
-                Retour a ma grotte
-              </button>
-            </Link>
-          ) : (
-            rencontreInfo ? (
-              <div>
-                <h2>Action en cours: {rencontreInfo.current_action.name}</h2>
-                <p>{rencontreInfo.current_action.description}</p>
+        {errorMessage && (
+          <p className="alert-red">{errorMessage}</p>
+        )}
+        {message && (
+          <p className="alert-green">{message}</p>
+        )}
+        <div className="rencontre-container block_white">
+          <div className="content_block_display">
+            <div className="rencontre-header">
+             {rencontreInfo && (
                 <div>
-                  {rencontreInfo.current_action.choices.map((choice: any) => (
-                    <button
-                      key={choice.id}
-                      onClick={() => handleChoiceClick(choice.id)}
-                      style={{
-                        margin: "10px",
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      {choice.text}
-                    </button>
-                  ))}
+                    <img src={"/pnj/"+ rencontreInfo.pnj.name + ".webp"} alt={"Image de " + translations.pnj?.["pnj_" + rencontreInfo.pnj.name]} className="dino-profile-image" />
+                    <p className="text">{rencontreInfo && translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}</p>
                 </div>
-              </div>
-            ) : (
-              <p>{errorMessage || "Aucune rencontre trouvée"}</p>
-            )
-          )}
-
+              )}
+            </div>
+            <br />
+            <br />
+            <div className="rencontre-content">
+              {endRencontre ? (
+                <Link href="/cave">
+                  <button
+                    style={{
+                      margin: "10px",
+                      padding: "10px 20px",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {translations.cave?.CAVE_BUTTON}
+                  </button>
+                </Link>
+              ) : (
+                rencontreInfo ? (
+                  <div>
+                    <h2>{rencontreInfo.current_action.name}</h2>
+                    <div>
+                      {rencontreInfo.current_action.choices.map((choice: any) => (
+                        <button
+                          key={choice.id}
+                          onClick={() => handleChoiceClick(choice.id)}
+                          style={{
+                            margin: "10px",
+                            padding: "10px 20px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                            backgroundColor: "#4CAF50",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          {choice.text}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <p>{translations.pnj?.RENCONTRE_NOT_FOUND}</p>
+                )
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </main>
