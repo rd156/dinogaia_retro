@@ -43,5 +43,6 @@
     "RENCONTRE_NOT_FOUND": "No encounter found",
     "CAVE_BUTTON": "Return to my cave",
     "RENCONTRE_BUTTON": "Go see the encounter",
-    "RENCONTRE_TITLE": "Daily Encounter"
+    "RENCONTRE_TITLE": "Daily Encounter",
+    "RENCONTRE_CAVE_SOMEONE": "There is someone in front of your cave."
 }

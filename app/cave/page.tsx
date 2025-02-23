@@ -27,6 +27,7 @@ const CavePage: React.FC = () => {
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [info, setInfo] = useState<any[]>([]);
+  const [rencontre, setRencontre] = useState<any>(null);
   const [items, setItems] = useState<any[]>([]);
   const [count, setCount] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -54,7 +55,6 @@ const CavePage: React.FC = () => {
     }
   };
 
-  // Récupérer les données du serveur
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -74,6 +74,38 @@ const CavePage: React.FC = () => {
         const cave_info = await caveResponse.json()
         setInfo(cave_info);
 
+      } catch (error) {
+        setErrorMessage(translations.cave?.ERR_LOAD);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const dinoId = localStorage.getItem("dinoId");
+      try {
+        const rencontreResponse = await fetch(`${API_URL}/dino/rencontre/${dinoId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const rencontre_info = await rencontreResponse.json()
+        if (typeof rencontre_info === "object"){
+          console.log(rencontre_info)
+          setRencontre(rencontre_info);
+        }
+        else{
+          setRencontre(null);
+          setErrorMessage(rencontre_info);
+        }
       } catch (error) {
         setErrorMessage(translations.cave?.ERR_LOAD);
       } finally {
@@ -231,10 +263,19 @@ const CavePage: React.FC = () => {
       <div className="content_top"> 
         <div className='cave-container'>
             <div className="cave-card block_white">
-              <h1 className="cave-name">
-                {info.name}
-              </h1>
-              {info.description}
+              <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                <div>
+                  <h1 className="cave-name">
+                    {info.name}
+                  </h1>
+                  {info.description}
+                </div>
+                  { rencontre && (
+                    <div style={{ marginLeft: 'auto' }}>
+                      <ButtonFancy onClick={() => { window.location.href = "/cave/rencontre/"+ rencontre.id }} label={translations.cave?.RENCONTRE_CAVE_SOMEONE} />
+                    </div>
+                  )}
+              </div>
               <div className="cave-header">
                 <div className="stat-item">
                   <p>{translations.cave?.LEVEL}: <strong>{info.lvl}</strong></p>

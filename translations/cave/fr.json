@@ -40,9 +40,9 @@
     "ACTION_DONE_open": "L'objet a été ouvert",
     "CAVE_ERROR_storage_full": "L'espace de stockage de la grotte est plein",
     "CRAFT_BUTTON": "Fabriquer un objet",
-
     "RENCONTRE_NOT_FOUND": "Aucune rencontre trouvée",
     "CAVE_BUTTON": "Retourner dans ma grotte",
     "RENCONTRE_BUTTON": "Allez voir la rencontre",
-    "RENCONTRE_TITLE": "Rencontre du jour"
+    "RENCONTRE_TITLE": "Rencontre du jour",
+    "RENCONTRE_CAVE_SOMEONE": "Il y a quelqu'un devant votre grotte."
 }
