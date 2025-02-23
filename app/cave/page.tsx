@@ -104,7 +104,6 @@ const CavePage: React.FC = () => {
         }
         else{
           setRencontre(null);
-          setErrorMessage(rencontre_info);
         }
       } catch (error) {
         setErrorMessage(translations.cave?.ERR_LOAD);
