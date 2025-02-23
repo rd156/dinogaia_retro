@@ -9,5 +9,13 @@
     "CHOICE_koyo_ismort": "Check if the creature is still breathing",
     "TEXT_koyo_mort": "The poor creature is dead.",
     "CHOICE_eloigner_discretement": "Move away discreetly",
-    "CHOICE_continuer": "Continue"
+    "CHOICE_continuer": "Continue",
+    "TEXT_jogpline_laisser_vie_sauve_please": "A strange creature stands in front of your cave. It introduces itself as Jogpline and begs you to let it leave in one piece.",
+    "CHOICE_jogpline_laisser_partir": "Let Jogpline go",
+    "CHOICE_jogpline_kidnapper": "Try to kidnap it for ransom",
+    "CHOICE_jogpline_attaquer": "Attack Jogpline",
+    "TEXT_jogpline_combat_kidnapper": "You try to tie up the creature, but it resists. A short fight ensues.",
+    "TEXT_jogpline_combat_attaquer": "You hit the creature with the first thing within reach.",
+    "CHOICE_jogpline_ismort": "Check if the creature is still breathing",
+    "TEXT_jogpline_mort": "The poor creature is dead."
 }
