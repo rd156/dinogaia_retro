@@ -82,7 +82,7 @@ const CavePage: React.FC = () => {
             <h2>{translations.cave?.RENCONTRE_TITLE}</h2>
           </div>
 
-          { rencontreInfo.map((rencontre) => (
+          {rencontreInfo && rencontreInfo.map((rencontre) => (
               <div key={rencontre.id}>
                 <p>{rencontre.current_action.description}</p>
 
