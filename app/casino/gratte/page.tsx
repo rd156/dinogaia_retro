@@ -119,7 +119,7 @@ const MyScratchCard = () => {
                             width={300}
                             height={300}
                             image="/avatar/default.webp"
-                            finishPercent={50}
+                            finishPercent={60}
                             onComplete={handleComplete}
                             progress={progress}
                             onProgressChange={(newProgress) => setProgress(newProgress)}
