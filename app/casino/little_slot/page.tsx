@@ -17,7 +17,7 @@ const CasinoMachine = () => {
   const [spinning, setSpinning] = useState(false);
   const [reelsCount, setReelsCount] = useState([]);
   const [casinoDino, setCasinoDino] = useState({});
-  const [lastPrice, setLastPrice] = useState({});
+  const [lastPrice, setLastPrice] = useState(null);
   
   
   // Charger les traductions
