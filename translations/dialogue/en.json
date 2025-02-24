@@ -29,5 +29,8 @@
     "CHOICE_doctor_rubble_dilution_miel": "Honey",
     "CHOICE_doctor_rubble_plutonium_liquide": "Liquid Plutonium",
     "CHOICE_doctor_rubble_bave_escargot": "Snail Slime",
-    "CHOICE_doctor_rubble_seve_palmier": "Palm Tree Sap"
+    "CHOICE_doctor_rubble_seve_palmier": "Palm Tree Sap",
+    "TEXT_colis_devant": "There is a package in front of your cave",
+    "CHOICE_prendre_le_colis": "Take the package",
+    "CHOICE_laisser_colis": "Leave the package and go back"    
 }

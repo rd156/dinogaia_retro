@@ -29,5 +29,8 @@
     "CHOICE_doctor_rubble_dilution_miel": "Miel",
     "CHOICE_doctor_rubble_plutonium_liquide": "Plutonium Liquide",
     "CHOICE_doctor_rubble_bave_escargot": "Bave d'escargot",
-    "CHOICE_doctor_rubble_seve_palmier": "Sève de palmier"
+    "CHOICE_doctor_rubble_seve_palmier": "Sève de palmier",
+    "TEXT_colis_devant": "Il y a un colis devant votre grotte",
+    "CHOICE_prendre_le_colis" : "Prendre le colis",
+    "CHOICE_laisser_colis" : "Laisser le colis et rentrer"
 }
