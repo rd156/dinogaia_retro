@@ -59,38 +59,34 @@ export default function Header() {
     removeStorageAccountData()
     window.location.href = "/";
   };
-
-    // Génération dynamique des éléments du menu avec traductions
     /*
-      [translations.menu['MENU_CASINO']]: "#",
       [translations.menu['MENU_BANK']]: "#",
       [translations.menu['MENU_OTHER']]: "#",
-      [translations.menu['MENU_CRAFT']]: "#",
     */
-      const menuConnectItems = translations && translations.menu ? {
-        [translations.menu['MENU_MY_DINO']]: "/dino/actual",
-        [translations.menu['MENU_MY_CAVE']]: "/cave",
-        [translations.menu['MENU_MY_HUNT']]: "/hunt",
-        [translations.menu['MENU_FIGHT']]: [
-          { name: translations.menu['MENU_FIGHT_CLASSIC'], link: "/fight/classic" },
-          { name: translations.menu['MENU_FIGHT_FAST'], link: "/fight/fast" },
-          { name: translations.menu['MENU_FIGHT_ULTRAFAST'], link: "/fight/ultrafast" }
-        ],
-        [translations.menu['MENU_SHOP']]: [
-          { name: translations.menu['MENU_SHOP_BID'], link: "/shop/bid" },
-          { name: translations.menu['MENU_SHOP_STORE'], link: "/shop/store" }
-        ],
-        [translations.menu['MENU_QUEST']]: "/quest",
-        [translations.menu['MENU_JOB']]: "/job",
-        [translations.menu['MENU_CASINO']]: "/casino/little_slot",
-        [translations.menu['MENU_MESSAGE']]: "/message",
-        [translations.menu['MENU_HISTORY']]: "/story",
-        [translations.menu['MENU_ACCOUNT']]: [
-          { name: translations.menu?.MENU_BUG, link: "/bug"},
-          { name: translations.menu?.MENU_PARAMETER, link: "/settings"},
-          { name: translations.menu?.MENU_DECONNECT, onClick: handleLogout }
-        ]
-      } : {};
+    const menuConnectItems = translations && translations.menu ? {
+      [translations.menu['MENU_MY_DINO']]: "/dino/actual",
+      [translations.menu['MENU_MY_CAVE']]: "/cave",
+      [translations.menu['MENU_MY_HUNT']]: "/hunt",
+      [translations.menu['MENU_FIGHT']]: [
+        { name: translations.menu['MENU_FIGHT_CLASSIC'], link: "/fight/classic" },
+        { name: translations.menu['MENU_FIGHT_FAST'], link: "/fight/fast" },
+        { name: translations.menu['MENU_FIGHT_ULTRAFAST'], link: "/fight/ultrafast" }
+      ],
+      [translations.menu['MENU_SHOP']]: [
+        { name: translations.menu['MENU_SHOP_BID'], link: "/shop/bid" },
+        { name: translations.menu['MENU_SHOP_STORE'], link: "/shop/store" }
+      ],
+      [translations.menu['MENU_QUEST']]: "/quest",
+      [translations.menu['MENU_JOB']]: "/job",
+      [translations.menu['MENU_CASINO']]: "/casino/little_slot",
+      [translations.menu['MENU_MESSAGE']]: "/message",
+      [translations.menu['MENU_HISTORY']]: "/story",
+      [translations.menu['MENU_ACCOUNT']]: [
+        { name: translations.menu?.MENU_BUG, link: "/bug"},
+        { name: translations.menu?.MENU_PARAMETER, link: "/settings"},
+        { name: translations.menu?.MENU_DECONNECT, onClick: handleLogout }
+      ]
+    } : {};
       
   
     const menuVisitorItems = translations && translations.global ? {
