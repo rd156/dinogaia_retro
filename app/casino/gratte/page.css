@@ -1,0 +1,19 @@
+/* styles.css */
+.button-common {
+    margin-top: 1rem; /* mt-4 */
+    background-color: #429b4a; /* bg-blue-500 */
+    color: white; /* text-white */
+    padding: 0.5rem 1.5rem; /* px-6 py-2 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-common:hover {
+    background-color: #1d4ed8; /* hover:bg-blue-700 */
+  }
+  
+  .button-common:disabled {
+    opacity: 0.5; /* disabled:opacity-50 */
+  }
+  

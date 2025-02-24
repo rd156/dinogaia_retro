@@ -168,9 +168,9 @@ const CavePage: React.FC = () => {
   const removeItem = (itemToRemove) => {
     const updatedItems = items.map(item => 
       item.item_name === itemToRemove.item_name 
-        ? { ...item, quantite: item.quantite - 1 } // Diminue la quantité si > 1
+        ? { ...item, quantite: item.quantite - 1 }
         : item
-    ).filter(item => item.quantite > 0); // Supprime l'item si quantité = 0
+    ).filter(item => item.quantite > 0);
   
     setItems(updatedItems);
   };  

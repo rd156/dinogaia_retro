@@ -12,6 +12,7 @@
     "@nextui-org/react": "^2.2.10",
     "framer-motion": "^11.18.2",
     "next": "14.1.0",
+    "next-scratchcard": "^0.0.4",
     "next-themes": "^0.3.0",
     "pixi.js": "^8.8.0",
     "punycode": "^2.3.1",
