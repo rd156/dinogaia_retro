@@ -27,5 +27,7 @@
     "MENU_FIGHT_FAST": "Fast Fight",
     "MENU_FIGHT_ULTRAFAST": "Ultrafast Fight",
     "MENU_SHOP_BID": "Auction",
-    "MENU_SHOP_STORE": "Shop"
+    "MENU_SHOP_STORE": "Shop",
+    "MENU_CASINO_MACHINE_777": "Slot Machine",
+    "MENU_CASINO_TICKET": "Scratch Ticket"
 }

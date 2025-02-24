@@ -78,7 +78,10 @@ export default function Header() {
       ],
       [translations.menu['MENU_QUEST']]: "/quest",
       [translations.menu['MENU_JOB']]: "/job",
-      [translations.menu['MENU_CASINO']]: "/casino/little_slot",
+      [translations.menu['MENU_CASINO']]: [
+        { name: translations.menu?.MENU_CASINO_MACHINE_777, link: "/casino/little_slot"},
+        { name: translations.menu?.MENU_CASINO_TICKET, link: "/casino/gratte"},
+      ],
       [translations.menu['MENU_MESSAGE']]: "/message",
       [translations.menu['MENU_HISTORY']]: "/story",
       [translations.menu['MENU_ACCOUNT']]: [
