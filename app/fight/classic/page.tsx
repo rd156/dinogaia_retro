@@ -71,11 +71,39 @@ const CombatListPage: React.FC = () => {
       });
       
       const data = await response.json();
-      setAccounts(data.accounts || []);
+      console.log(data)
+      if (data.accounts.length > 0)
+      {
+        setAccounts(data.accounts);
+      }
+      else
+      {
+        setAccounts([]);
+        getDinoList(searchAccount)
+      }
     } catch (error) {
     }
   };
   
+  const getDinoList = async (dinoName: string) => {
+    const token = localStorage.getItem("token");    
+    try {
+      const response = await fetch(`${API_URL}/dino/search_name/${dinoName}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      if (!response.ok) throw new Error(translations.fight?.ERROR_LOAD_DINO);
+      
+      const data = await response.json();
+      console.log(data)
+      setDinos(data);
+    } catch (error) {
+    }
+  };
+
   const handleAccountSelect = async (accountId: string) => {
     setSelectedAccount(parseInt(accountId));
     const token = localStorage.getItem("token");    
@@ -90,6 +118,7 @@ const CombatListPage: React.FC = () => {
       if (!response.ok) throw new Error(translations.fight?.ERROR_LOAD_DINO);
       
       const data = await response.json();
+      console.log(data)
       setDinos(data);
     } catch (error) {
     }
