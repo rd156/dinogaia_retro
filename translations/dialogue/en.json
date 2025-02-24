@@ -32,5 +32,11 @@
     "CHOICE_doctor_rubble_seve_palmier": "Palm Tree Sap",
     "TEXT_colis_devant": "There is a package in front of your cave",
     "CHOICE_prendre_le_colis": "Take the package",
-    "CHOICE_laisser_colis": "Leave the package and go back"    
+    "CHOICE_laisser_colis": "Leave the package and go back",
+    "TEXT_choix_starter": "Oh, look at that! A new face around here... You seem freshly arrived, don't you? No worries, we've all been there at some point.",
+    "TEXT_choix_starter_1": "Listen carefully, I'm going to help you get off to a good start. Here, survival depends on the choices you make from the very beginning. And as it happens, I have something for you... A little boost to get you going!",
+    "TEXT_choix_starter_2": "You have the right to a starter pack, but choose wisely, as it will determine how you face this world. The Warrior will give you a weapon, the Merchant will provide money, and the Survivor will offer healing.",
+    "CHOICE_starter_guerrier": "Warrior",
+    "CHOICE_starter_marchand": "Merchant",
+    "CHOICE_starter_survivant": "Survivor"  
 }

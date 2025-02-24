@@ -1,13 +1,8 @@
 P1:
-    page fight
     Ajouter image espece par lvl
     Ajouter image HDV et BID dans /bouton/ pour la page shop
 
 P2:
-    page Histoire
-    Page jobs
-    page message
-    Page casino
     Page magasin HDV
     Cave:
         Ajouter vendre item depuis cave vers HDV
@@ -24,5 +19,3 @@ P3:
     page regle
     page wiki
     page forum
-
-    Page atelier

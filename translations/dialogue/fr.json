@@ -32,5 +32,11 @@
     "CHOICE_doctor_rubble_seve_palmier": "Sève de palmier",
     "TEXT_colis_devant": "Il y a un colis devant votre grotte",
     "CHOICE_prendre_le_colis" : "Prendre le colis",
-    "CHOICE_laisser_colis" : "Laisser le colis et rentrer"
+    "CHOICE_laisser_colis" : "Laisser le colis et rentrer",
+    "TEXT_choix_starter": "Oh, mais regardez-moi ça ! Une nouvelle tête par ici... Tu sembles fraîchement arrivé, pas vrai ? Pas d’inquiétude, on passe tous par là un jour ou l’autre.",
+    "TEXT_choix_starter_1": "Écoute bien, je vais t’aider à démarrer du bon pied. Ici, la survie dépend des choix que tu fais dès le début. Et justement, j’ai quelque chose pour toi... Un petit coup de pouce pour bien commencer !",
+    "TEXT_choix_starter_2": "Tu as droit à un pack de départ, mais attention, choisis bien, car il déterminera la manière dont tu vas affronter ce monde. Le Guerrier te donnera une arme, le Marchand de l'argent et le Survivant des soins.",
+    "CHOICE_starter_guerrier": "Guerrier",
+    "CHOICE_starter_marchand": "Marchand",
+    "CHOICE_starter_survivant": "Survivant"
 }
