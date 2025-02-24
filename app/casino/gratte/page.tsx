@@ -125,16 +125,15 @@ const MyScratchCard = () => {
                             onProgressChange={(newProgress) => setProgress(newProgress)}
                         >
                             <img
-                                src={getImageUrl(`item_original/${item}.webp`)}
+                                src={item ? getImageUrl(`item_original/${item}.webp`) : getImageUrl(`avatar/default.webp`)} 
                                 alt="Contenu révélé"
                                 width={300}
                                 height={300}
-                                onError={(e) => { e.target.onerror = null; e.target.src = "/avatar/default.webp"; }}
                             />
                         </ScratchCard>
                     </div>
                     <div style={{margin:"20px"}}>
-                        {lastPrice && translations.casino?.LAST_PRICE.replace("[Number]", translations.item?.['ITEM_' + lastPrice])}
+                        {lastPrice && translations.item?.['ITEM_' + lastPrice]}
                     </div>
                 </div>
                 
