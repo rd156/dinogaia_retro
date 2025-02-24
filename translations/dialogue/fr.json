@@ -17,5 +17,17 @@
     "TEXT_jogpline_combat_kidnapper": "Vous essayez d'attacher la créature, mais elle se défend. S'ensuit un combat assez rapide.",
     "TEXT_jogpline_combat_attaquer": "Vous frappez la créature avec la première chose à votre portée.",
     "CHOICE_jogpline_ismort": "Vérifier si la créature respire encore",
-    "TEXT_jogpline_mort": "La pauvre créature est morte."
+    "TEXT_jogpline_mort": "La pauvre créature est morte.",
+    "CHOICE_suivant": "Suivant",
+    "TEXT_doctor_rubble_proposition": "J'ai créé une potion et j'ai besoin d'un cobaye ! Euh... d'un être intelligent pour vérifier mon hypothèse.",
+    "CHOICE_doctor_rubble_fuir": "Fuir",
+    "CHOICE_doctor_rubble_accepter": "Accepter de servir de cobaye",
+    "TEXT_doctor_rubble_barricader": "Pris de panique, tu te précipites dans ta grotte et te barricades, le souffle court, jetant des regards inquiets autour de toi.",
+    "TEXT_doctor_rubble_dilution_possible": "C'est forcément dans ma sacoche ! Il faut la diluer avec de l'eau… oui, c'est ça ! Ou alors avec du plutonium liquide… à moins que ce ne soit de la bave d'escargot ? Ou un autre truc que j'ai là-dedans… hihihi !",
+    "CHOICE_doctor_rubble_dilution_eau": "Eau douce",
+    "CHOICE_doctor_rubble_dilution_eau_mer": "Eau salé",
+    "CHOICE_doctor_rubble_dilution_miel": "Miel",
+    "CHOICE_doctor_rubble_plutonium_liquide": "Plutonium Liquide",
+    "CHOICE_doctor_rubble_bave_escargot": "Bave d'escargot",
+    "CHOICE_doctor_rubble_seve_palmier": "Sève de palmier"
 }

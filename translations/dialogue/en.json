@@ -17,5 +17,17 @@
     "TEXT_jogpline_combat_kidnapper": "You try to tie up the creature, but it resists. A short fight ensues.",
     "TEXT_jogpline_combat_attaquer": "You hit the creature with the first thing within reach.",
     "CHOICE_jogpline_ismort": "Check if the creature is still breathing",
-    "TEXT_jogpline_mort": "The poor creature is dead."
+    "TEXT_jogpline_mort": "The poor creature is dead.",
+    "CHOICE_suivant": "Next",
+    "TEXT_doctor_rubble_proposition": "I've created a potion and I need a guinea pig! Uh... an intelligent being to test my hypothesis.",
+    "CHOICE_doctor_rubble_fuir": "Run away",
+    "CHOICE_doctor_rubble_accepter": "Agree to be the guinea pig",
+    "TEXT_doctor_rubble_barricader": "In a panic, you rush into your cave and barricade yourself, breathless, casting worried glances around you.",
+    "TEXT_doctor_rubble_dilution_possible": "It must be in my bag! It needs to be diluted with water… yes, that's it! Or maybe with liquid plutonium… unless it’s snail slime? Or some other thing I have in here… hehehe!",
+    "CHOICE_doctor_rubble_dilution_eau": "Fresh water",
+    "CHOICE_doctor_rubble_dilution_eau_mer": "Sea water",
+    "CHOICE_doctor_rubble_dilution_miel": "Honey",
+    "CHOICE_doctor_rubble_plutonium_liquide": "Liquid Plutonium",
+    "CHOICE_doctor_rubble_bave_escargot": "Snail Slime",
+    "CHOICE_doctor_rubble_seve_palmier": "Palm Tree Sap"
 }
