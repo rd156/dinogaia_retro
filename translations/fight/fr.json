@@ -10,6 +10,7 @@
     "SELECT_ACCOUNT_FORM": "Sélectionnez un compte",
     "SELECT_DINO_FORM": "Sélectionnez un dino",
     "CREATE_FIGHT": "Défier le dino",
+    "CREATE_FIGHT_NAME": "Défier [Name]",
     "FIGHT_CLASSIC_LIST_TITLE": "⚔️ Liste des Combats Classic",
     "FIGHT_WAITING_TITLE": "⏳ Combats en attente",
     "NO_FIGHT_WAITING_TITLE": "Aucun combat en attente.",
@@ -67,5 +68,6 @@
     "MENU_FAST_FIGHT": "Combat rapide",
     "MENU_ULTRAFAST_FIGHT": "Combat ultra rapide",
     "ERROR_you_dino_has_not_health": "Votre dinosaure n'a plus de points de vie.",
-    "DISPLAY_DINO_FORM": "[Name] (Niv [Number])"
+    "DISPLAY_DINO_FORM": "[Name] (Niv [Number])",
+    "RECENTLY_ONLINE": "En ligne récemment"
 }

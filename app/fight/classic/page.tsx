@@ -20,6 +20,7 @@ const CombatListPage: React.FC = () => {
   const [accounts, setAccounts] = useState<any[]>([]);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const [dinos, setDinos] = useState<any[]>([]);
+  const [dinoOnline, setDinoOnline] = useState<any[]>([]);
   const [selectedDino, setSelectedDino] = useState<number | null>(null);
 
   useEffect(() => {
@@ -52,6 +53,28 @@ const CombatListPage: React.FC = () => {
         console.log(data)
       } catch (error) {
         setMessage(translations.fight?.ERROR_LOAD_FIGHT);
+      }
+    };
+
+    fetchCombats();
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchCombats = async () => {
+      try {
+        const response = await fetch(`${API_URL}/dino/online`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        const data = await response.json();
+        setDinoOnline(data);
+        console.log(data)
+      } catch (error) {
       }
     };
 
@@ -127,9 +150,11 @@ const CombatListPage: React.FC = () => {
   const handleDinoSelect = (dinoId: string) => {
     setSelectedDino(parseInt(dinoId));
   };
+
   const getDinoId = () => {
     return (localStorage.getItem("dinoId"))
   };
+
   return (
     <main className="content">
       <div className="content_top">
@@ -179,8 +204,17 @@ const CombatListPage: React.FC = () => {
                 </Link>
               )}
             </div>
+            <h2>{translations.fight?.RECENTLY_ONLINE}</h2>
+            <div className="grid grid-cols-5 gap-4 p-4 justify-center">
+              {dinoOnline && dinoOnline.map((dino, index) => (
+                <Link key={index} href={`/fight/classic/create/${dino.id}`} passHref>
+                  <div className="text-black">
+                    <ButtonFancy label={translations.fight?.DISPLAY_DINO_FORM.replace("[Name]", dino.name).replace("[Number]", dino.level.lvl)} />
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-
           <div>
             <h1 className="title block_white">{translations.fight?.FIGHT_CLASSIC_LIST_TITLE}</h1>
           </div>

@@ -10,6 +10,7 @@
     "SELECT_ACCOUNT_FORM": "Select an account",
     "SELECT_DINO_FORM": "Select a dino",
     "CREATE_FIGHT": "Challenge the dino",
+    "CREATE_FIGHT_NAME": "Challenge [Name]",
     "FIGHT_CLASSIC_LIST_TITLE": "⚔️ Classic Fight List",
     "FIGHT_WAITING_TITLE": "⏳ Waiting Fights",
     "NO_FIGHT_WAITING_TITLE": "No fights waiting.",
@@ -67,5 +68,6 @@
     "MENU_FAST_FIGHT": "Fast Fight",
     "MENU_ULTRAFAST_FIGHT": "UltraFast Fight",
     "ERROR_you_dino_has_not_health": "Your dinosaur has run out of health.",
-    "DISPLAY_DINO_FORM": "[Name] (Level [Number])"
+    "DISPLAY_DINO_FORM": "[Name] (Level [Number])",
+    "RECENTLY_ONLINE": "Recently online"
 }
