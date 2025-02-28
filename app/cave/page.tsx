@@ -354,7 +354,7 @@ const CavePage: React.FC = () => {
           .map(([name, item]) => (
             <div
               key={name}
-              className="relative block_white"
+              className="relative block_white center_item"
               onClick={() => handleItemClick(item)}
             >
               <ImageItemWithText 

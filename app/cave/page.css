@@ -72,3 +72,9 @@
     z-index: 1;
     line-height: 15px;
   }
+
+  .center_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
