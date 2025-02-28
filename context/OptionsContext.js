@@ -55,23 +55,23 @@ export const OptionProvider = ({ children }) => {
   const updateImageTemplate = (newImageTemplate) => {
     setOption((prevOption) => {
       const updatedOption = { ...prevOption, image_template: newImageTemplate };
-      localStorage.setItem("option", JSON.stringify(updatedOption)); // Met à jour localStorage
-      return updatedOption; // Retourne l'option mise à jour
+      localStorage.setItem("option", JSON.stringify(updatedOption));
+      return updatedOption;
     });
   };
   const updateLanguage = (newLanguage) => {
     setOption((prevOption) => {
       const updatedOption = { ...prevOption, language: newLanguage };
-      localStorage.setItem("option", JSON.stringify(updatedOption)); // Met à jour localStorage
-      return updatedOption; // Retourne l'option mise à jour
+      localStorage.setItem("option", JSON.stringify(updatedOption));
+      return updatedOption;
     });
   };
   
   const updateDisplayTemplate = (newDisplayTemplate) => {
     setOption((prevOption) => {
       const updatedOption = { ...prevOption, display_template: newDisplayTemplate };
-      localStorage.setItem("option", JSON.stringify(updatedOption)); // Met à jour localStorage
-      return updatedOption; // Retourne l'option mise à jour
+      localStorage.setItem("option", JSON.stringify(updatedOption));
+      return updatedOption;
     });
   };
   
