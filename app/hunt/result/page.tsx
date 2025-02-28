@@ -24,11 +24,10 @@ const HuntResultPage: React.FC = () => {
   const [translations, setTranslations] = useState({});
   const [isCollectedButton, setIsCollectedButton] = useState(true);
 
-  // Récupérer les paramètres terrain et weapon
   const terrain = searchParams.get("terrain");
   const weapon = searchParams.get("weapon");
 
-    // Charger les traductions
+  // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "error", "global"]);
@@ -40,18 +39,19 @@ const HuntResultPage: React.FC = () => {
   useEffect(() => {
     const fetchHuntResult = async () => {
       setLoading(true);
-
+  
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
-
+  
       if (!terrain || !weapon || !dinoId) {
-        setErrorMessage(translations.hunt?.NEED_CHOSE);
+        if (translations && translations.hunt) {
+          setErrorMessage(translations.hunt?.NEED_CHOSE);
+        }
         setLoading(false);
         return;
       }
-
+  
       try {
-        // Appeler l'API pour effectuer la chasse
         const response = await fetch(`${API_URL}/hunt/add`, {
           method: "POST",
           headers: {
@@ -64,31 +64,35 @@ const HuntResultPage: React.FC = () => {
             weapon,
           }),
         });
-
+  
         if (!response.ok) {
-          setErrorMessage(translations.hunt?.ERR_HUNT);
+          if (translations && translations.hunt) {
+            setErrorMessage(translations.hunt?.ERR_HUNT);
+          }
         }
-
+  
         const result = await response.json();
         console.log(result);
-        if (typeof result === "object"){
+        if (typeof result === "object") {
           setResultData(result);
-          setErrorMessage("")
-        }
-        else
-        {
-          setErrorMessage(translations.error?.["ERROR_" + result])
+          setErrorMessage("");
+        } else {
+          if (translations && translations.error) {
+            setErrorMessage(translations.error["ERROR_" + result] || result);
+          }
         }
       } catch (error) {
-        setErrorMessage(translations.hunt?.ERR_LOAD_HUNT);
+        console.error(error);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchHuntResult();
-  }, [terrain, weapon]);
-
+  
+    if (translations && Object.keys(translations).length > 0) {
+      fetchHuntResult();
+    }
+  }, [terrain, weapon, translations]);
+  
   const handleCollectItems = async () => {
     setIsCollectedButton(false)
     setLoading(true);

@@ -7,5 +7,6 @@
     "ERROR_invalid_parameter": "Paramètre invalide",
     "ERROR_permission_denied": "Permission refusée",
     "ERROR_hunt_already_done": "Vous avez déjà chassé aujourd'hui",
+    "ERROR_dino_life_error": "Votre dinosaure n'a pas assez de vie",
     "ERROR_offline": "Hors ligne"
 }
