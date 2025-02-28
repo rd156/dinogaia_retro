@@ -5,6 +5,8 @@
     "ERROR_storage_full": "Storage full",
     "ERROR_not_enought_emeraude": "Not enough emeralds",
     "ERROR_invalid_parameter": "Invalid parameter",
+    "ERROR_incorrect_parameter": "Incorrect parameter",
+    "ERROR_hunt_failed": "The hunt failed",
     "ERROR_permission_denied": "Permission denied",
     "ERROR_hunt_already_done": "You have already hunted today",
     "ERROR_dino_life_error": "Your dinosaur doesn't have enough life",
