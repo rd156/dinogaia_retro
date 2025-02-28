@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
 import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
@@ -11,16 +10,7 @@ import "./page.css";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-
-  useEffect(() => {
-    const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["cave", "item", "global"]);
-    setTranslations(loadedTranslations);
-    };
-    fetchTranslations();
-  }, [language]);
 
   return (
     <main className="content">

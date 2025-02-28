@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import Link from "next/link";
 import "./page.css";
@@ -9,7 +9,7 @@ import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const CombatListPage: React.FC = () => {
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [combatsTermines, setCombatsTermines] = useState<any[]>([]);
   const [combatsStart, setCombatsStart] = useState<any[]>([]);
@@ -25,11 +25,14 @@ const CombatListPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["fight", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["fight", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

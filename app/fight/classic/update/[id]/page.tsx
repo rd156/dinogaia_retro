@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import "./page.css";
 import { API_URL } from "@/config/config";
@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation';
 const attackZones = ["haut", "milieu", "bas"];
 
 const CombatPage: React.FC = () => {
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const { id: fightId } = useParams();
   const [round, setRound] = useState(1);
@@ -26,11 +26,14 @@ const CombatPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["fight", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["fight", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     setMessage(translations.fight?.TOUR_DISPLAY_DEFAULT)

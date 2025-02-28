@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import "./page.css";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
@@ -10,7 +10,7 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
 
 const CombatPage: React.FC = () => {
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const { id: player2 } = useParams();
   const [items, setItems] = useState<any[]>([]);
@@ -21,11 +21,14 @@ const CombatPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["fight", "item", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["fight", "item", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const createCombat = async () => {
