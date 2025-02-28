@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
@@ -10,25 +10,21 @@ import "./page.css";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [rencontreInfo, setRencontreInfo] = useState<any[]>([]);
 
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, [
-        "cave",
-        "pnj",
-        "global",
-      ]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["cave", "pnj", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {

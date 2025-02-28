@@ -1,6 +1,6 @@
 "use client"
 
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
@@ -16,19 +16,21 @@ const DinoPage: React.FC = () => {
   const [isLevelUp, setIsLevelUp] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [message, setMessage] = useState("");
   const [waitingSalary, setWaitingSalary] = useState(null)
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["dino", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,27 +1,30 @@
 "use client";
 
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { API_URL } from '@/config/config';
-import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 export default function Home() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["dino", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
+
 
   // Fonction pour basculer l'état favori
   const handleFavoriteToggle = async (dinoId: number) => {

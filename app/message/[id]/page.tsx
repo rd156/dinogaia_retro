@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ const MessageDetailPage: React.FC = () => {
   const [message, setMessage] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState<any>({});
   const [messageAnswer, setMessageAnswer] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
@@ -34,11 +34,14 @@ const MessageDetailPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["message", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["message", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchMessageDetail = async () => {

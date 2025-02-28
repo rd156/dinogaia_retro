@@ -1,14 +1,9 @@
 "use client"
 
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
-import Image from "next/image";
-import type { Metadata } from "next";
-import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import {API_URL} from '@/config/config';
-import Link from 'next/link';
 import "./page.css";
 
 
@@ -17,7 +12,7 @@ export default function Home() {
   const [dinoName, setDinoName] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
 
   const imageNames = {
@@ -29,15 +24,17 @@ export default function Home() {
     "MG/1/1.webp": "Megalodon"
   } as const;
 
-  console.log("language:" + language)
-
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["dino", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
+
 
   // Gestion de la sélection d'une image
   const handleImageSelect = (imageValue: string) => {

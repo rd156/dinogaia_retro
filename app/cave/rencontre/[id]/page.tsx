@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { useParams, useRouter } from "next/navigation";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
@@ -17,22 +17,20 @@ const RencontrePage: React.FC = () => {
   const [endRencontre, setEndrencontre] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
 
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, [
-        "pnj",
-        "dialogue",
-        "cave",
-        "global",
-      ]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["cave", "dialogue", "pnj", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {

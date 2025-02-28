@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import "./page.css";
@@ -12,11 +11,10 @@ import ButtonGlow from "@/components/pattern/ButtonGlow";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const CavePage: React.FC = () => {
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [info, setInfo] = useState<any[]>([]);
   const [rencontre, setRencontre] = useState<any>(null);
@@ -26,11 +24,14 @@ const CavePage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["cave", "item", "global"]);
-    setTranslations(loadedTranslations);
+      const loadedTranslations = await Loadtranslate(option?.language, ["cave", "item", "global"]);
+      setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {

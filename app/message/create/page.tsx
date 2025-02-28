@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/config";
@@ -20,7 +20,7 @@ const formatDate = (dateString: string) => {
 };
 
 const MessageCreatePage: React.FC = () => {
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState<any>({});
   const [messageAnswer, setMessageAnswer] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
@@ -41,11 +41,11 @@ const MessageCreatePage: React.FC = () => {
       window.location.href = "/dino"
     }
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["message", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["message", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
-  }, [language]);
+  }, [option?.language]);
 
   const handleSubmitCreateMessage = async (e: React.FormEvent) => {
     e.preventDefault();

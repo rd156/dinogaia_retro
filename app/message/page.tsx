@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,12 +23,11 @@ const formatDate = (dateString: string) => {
 
 const MessagesPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter();
   const [messagesList, setMessagesList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'date' | 'sender'>('date');
@@ -37,11 +36,14 @@ const MessagesPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["message", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["message", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const dinoId = localStorage.getItem("dinoId");
