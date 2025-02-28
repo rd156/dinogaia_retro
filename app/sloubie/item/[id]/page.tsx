@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/config";
 import { useParams } from 'next/navigation';
-import { useRouter } from "next/router";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 
 const ItemEditPage: React.FC = () => {
@@ -13,7 +12,7 @@ const ItemEditPage: React.FC = () => {
   const [item, setItem] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -24,11 +23,14 @@ const ItemEditPage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["item", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["item", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   // Charger les détails de l'item à partir du serveur
   useEffect(() => {

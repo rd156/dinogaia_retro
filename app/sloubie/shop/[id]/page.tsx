@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState<any>({});
   const [store, setStore] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,11 +31,14 @@ const StoreDetailPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["item", "shop", "pnj", "error", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["item", "shop", "pnj", "error", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     setLoading(false);

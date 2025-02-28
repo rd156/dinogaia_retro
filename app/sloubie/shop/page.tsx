@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,14 +8,13 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const MessagesPage: React.FC = () => {
   const params = useParams();
   const [shopList, setShopList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'name' | 'pnj_name' | 'category_name'>('name');
@@ -25,12 +24,14 @@ const MessagesPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["pnj", "shop", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["pnj", "shop", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
 
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const sortShops = (field: 'name' | 'pnj_name' | 'category_name') => {
     const sortedShops = [...shopList];

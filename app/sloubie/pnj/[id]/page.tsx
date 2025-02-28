@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -16,7 +16,7 @@ const PnjPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState<any>({});
 
   const SPECIES_OPTIONS = [
@@ -36,11 +36,14 @@ const PnjPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['pnj', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["pnj", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const fetchPnjData = async () => {
     if (!pnjId || !password) return;

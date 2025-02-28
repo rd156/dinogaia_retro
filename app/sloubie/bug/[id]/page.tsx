@@ -1,6 +1,6 @@
 "use client"
 
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
@@ -11,33 +11,34 @@ import "./page.css";
 
 const DinoPage: React.FC = () => {
   const params = useParams();
-  const [data, setData] = useState<any[]>([]);
   const [bugId, setBugId] = useState(params?.id);
   const [accountId, setAccountId] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [bug, setBug] = useState({});
   const [recompense, setRecompense] = useState({});
-  const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
   const [errorMessageGift, setErrorMessageGift] = useState("");
   
   const [messageAnswer, setMessageAnswer] = useState("");
   const [messageGift, setMessageGift] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [response, setResponse] = useState("");
-  const [giftType, setGiftType] = useState("items"); // Valeur par défaut
+  const [giftType, setGiftType] = useState("items");
   const [giftName, setGiftName] = useState("");
-  const [giftQuantity, setGiftQuantity] = useState(1);  // Track the gift quantity
+  const [giftQuantity, setGiftQuantity] = useState(1);
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['dino', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["dino", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const reloadClick = async () => {
     const token = localStorage.getItem("token");

@@ -1,20 +1,18 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { API_URL } from "@/config/config";
 import "./page.css";
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 import React, {Fragment} from "react";
 
 const ItemsPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [inputValue, setInputValue] = useState("");
   const [inputName, setInputName] = useState("");
@@ -24,11 +22,14 @@ const ItemsPage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["item", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["item", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const loadItems = async () => {
     const token = localStorage.getItem("token");

@@ -1,17 +1,14 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { API_URL } from "@/config/config";
 import "./page.css";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const HomePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [isConnect, setIsConnect] = useState(false);
   const [formData, setFormData] = useState({
