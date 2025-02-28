@@ -42,5 +42,18 @@
     "TERRAIN_forest_caribou":"La forêt des Cariboux",
     "TERRAIN_garnet_tray":"Le plateau des grenats",
     "TERRAIN_garnet_garden":"Jardin des grenats",
-    "TERRAIN_cemetery":"Cimetière"
+    "TERRAIN_cemetery":"Cimetière",
+    "TERRAIN_DESC_beach":"Plage",
+    "TERRAIN_DESC_jungle":"Pleine Jungle",
+    "TERRAIN_DESC_canyon":"Canyon",
+    "TERRAIN_DESC_sky_islands":"Les îles du ciel",
+    "TERRAIN_DESC_dragon_cave":"Caverne du dragon",
+    "TERRAIN_DESC_savannah":"La Savane",
+    "TERRAIN_DESC_mountain":"La Montagne",
+    "TERRAIN_DESC_grand_canyon":"Le grand Canyon",
+    "TERRAIN_DESC_midworld":"MidWorld",
+    "TERRAIN_DESC_forest_caribou":"La forêt des Cariboux",
+    "TERRAIN_DESC_garnet_tray":"Le plateau des grenats",
+    "TERRAIN_DESC_garnet_garden":"Jardin des grenats",
+    "TERRAIN_DESC_cemetery":"Cimetière"
 }

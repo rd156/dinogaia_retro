@@ -42,5 +42,19 @@
     "TERRAIN_forest_caribou": "Caribou Forest",
     "TERRAIN_garnet_tray": "Garnet Plateau",
     "TERRAIN_garnet_garden": "Garnet Garden",
-    "TERRAIN_cemetery": "Cemetery"
+    "TERRAIN_cemetery": "Cemetery",
+    "TERRAIN_DESC_beach": "Beach",
+    "TERRAIN_DESC_jungle": "Deep Jungle",
+    "TERRAIN_DESC_canyon": "Canyon",
+    "TERRAIN_DESC_sky_islands": "Sky Islands",
+    "TERRAIN_DESC_dragon_cave": "Dragon Cave",
+    "TERRAIN_DESC_savannah": "Savannah",
+    "TERRAIN_DESC_mountain": "Mountain",
+    "TERRAIN_DESC_grand_canyon": "Grand Canyon",
+    "TERRAIN_DESC_midworld": "MidWorld",
+    "TERRAIN_DESC_forest_caribou": "Caribou Forest",
+    "TERRAIN_DESC_garnet_tray": "Garnet Plateau",
+    "TERRAIN_DESC_garnet_garden": "Garnet Garden",
+    "TERRAIN_DESC_cemetery": "Cemetery"
+    
 }
