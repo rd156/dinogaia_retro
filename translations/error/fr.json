@@ -6,5 +6,6 @@
     "ERROR_not_enought_emeraude": "Pas assez d'émeraudes",
     "ERROR_invalid_parameter": "Paramètre invalide",
     "ERROR_permission_denied": "Permission refusée",
+    "ERROR_hunt_already_done": "Vous avez déjà chassé aujourd'hui",
     "ERROR_offline": "Hors ligne"
 }

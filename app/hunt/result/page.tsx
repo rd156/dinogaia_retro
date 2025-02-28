@@ -31,7 +31,7 @@ const HuntResultPage: React.FC = () => {
     // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
+      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "error", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
@@ -71,7 +71,14 @@ const HuntResultPage: React.FC = () => {
 
         const result = await response.json();
         console.log(result);
-        setResultData(result);
+        if (typeof result === "object"){
+          setResultData(result);
+          setErrorMessage("")
+        }
+        else
+        {
+          setErrorMessage(translations.error?.["ERROR_" + result])
+        }
       } catch (error) {
         setErrorMessage(translations.hunt?.ERR_LOAD_HUNT);
       } finally {
@@ -158,7 +165,7 @@ const HuntResultPage: React.FC = () => {
                 <br/>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px" }}>
                   <ImageTerrainWithText
-                    itemName={resultData && resultData.terrain}
+                    itemName={terrain}
                     translations={translations.hunt}
                     width = {100}
                     height = {100}
@@ -196,7 +203,7 @@ const HuntResultPage: React.FC = () => {
               Object.entries(resultData.items).map(([name, count]) => (
                 <div
                   key={name}
-                  className="block_white"
+                  className="block_white center_item"
                 >
                   <ImageItemWithText 
                     itemName={name}
