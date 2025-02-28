@@ -9,6 +9,7 @@
     box-sizing: border-box;
     width: 100%;
     text-align: left;
+    z-index: 100;
 }
 @media (min-width: 768px) {
     .header{
