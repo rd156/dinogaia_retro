@@ -3,20 +3,16 @@
 import { useEffect, useState, Fragment } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "../page.css";
-import Link from 'next/link';
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
+import { useOption } from "@/context/OptionsContext";
 
-const QuestPage: React.FC = () => {
+const OptionPage: React.FC = () => {
   const { language, toggleLanguage } = useLanguage();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [translations, setTranslations] = useState({});
-  const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const {option, updateImageTemplate} = useOption();
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -27,8 +23,10 @@ const QuestPage: React.FC = () => {
   }, [language]);
 
   useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
+    if (option) {
+      console.log("Parameter", option);
+    }
+  }, [option]);
 
   const images_template = [
     { name: 'reborn', label: translations.setting?.TEMPLATE_IMAGE_REBORN },
@@ -56,8 +54,7 @@ const QuestPage: React.FC = () => {
       const result = await response.json();
       if (result.image_template)
       {
-        localStorage.setItem('image_template', result.image_template);
-        setImageFolder(result.image_template)
+        updateImageTemplate(result.image_template);
       }
     } catch (error) {
       setErrorMessage(translations.setting?.ERR_CHANGE_IMAGE);
@@ -81,15 +78,15 @@ const QuestPage: React.FC = () => {
                 key={name}
                 style={{
                   padding: '10px 20px',
-                  cursor: imageFolder === name ? 'default' : 'pointer',
-                  backgroundColor: imageFolder === name ? '#0070f3' : '#2f2f2f',
+                  cursor: option?.image_template === name ? 'default' : 'pointer', // Comparaison avec option.image_template
+                  backgroundColor: option?.image_template === name ? '#0070f3' : '#2f2f2f', // Comparaison avec option.image_template
                   color: 'white',
                   border: 'none',
                   borderRadius: '5px',
-                  opacity: imageFolder === name ? 1 : 0.6,
+                  opacity: option?.image_template === name ? 1 : 0.6, // Comparaison avec option.image_template
                 }}
                 aria-label={`Change language to ${label}`}
-                disabled={imageFolder === name}
+                disabled={option?.image_template === name} // Désactive le bouton si option.image_template === name
               >
                 {label}
               </button>
@@ -101,4 +98,4 @@ const QuestPage: React.FC = () => {
   );
 };
 
-export default QuestPage;
+export default OptionPage;

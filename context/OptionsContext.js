@@ -51,9 +51,17 @@ export const OptionProvider = ({ children }) => {
     console.log("Image other");
     return `/template_image/${option.image_template}/${itemName}`;
   };
-  
+
+  const updateImageTemplate = (newImageTemplate) => {
+    setOption((prevOption) => {
+      const updatedOption = { ...prevOption, image_template: newImageTemplate };
+      localStorage.setItem("option", JSON.stringify(updatedOption)); // Met à jour localStorage
+      return updatedOption; // Retourne l'option mise à jour
+    });
+  };
+
   return (
-    <OptionContext.Provider value={{option, getImageUrl}}>
+    <OptionContext.Provider value={{option, getImageUrl, updateImageTemplate}}>
       {children}
     </OptionContext.Provider>
   );
