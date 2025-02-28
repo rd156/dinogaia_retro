@@ -1,17 +1,9 @@
 import { useState } from "react";
+import { useOption } from "@/context/OptionsContext";
 
-const ItemWithTooltip = ({ itemName, translations }) => {
+const ItemWithTooltip = ({ itemName, translations, width = 100, height = 100 }) => {
     const [hovered, setHovered] = useState(false);
-    const [imageFolder, setImageFolder] = useState<string>('reborn');
-
-    const getImageUrl = (itemName: string) => {
-      if (imageFolder == "reborn"){
-        return `/${itemName}`;
-      }
-      else{
-        return `/template_image/${imageFolder}/${itemName}`;
-      }
-    };
+    const { option, getImageUrl } = useOption();
   
   return (
     <div 
@@ -23,10 +15,11 @@ const ItemWithTooltip = ({ itemName, translations }) => {
         <img
           src={getImageUrl(`item/${itemName}.webp`)}
           alt={translations?.IMAGE_ITEM?.replace("[Item]", itemName)}
+          width = "300px"
+          height = "300px"
           className="w-12 h-12"
         />
 
-        {/* Tooltip affiché au survol */}
         {hovered && (
           <div 
             className="absolute bg-gray-800 text-white text-sm p-4 rounded shadow-lg z-50"
@@ -46,7 +39,6 @@ const ItemWithTooltip = ({ itemName, translations }) => {
           </div>
         )}
       </div>
-
       <span>{translations?.["ITEM_" + itemName] ?? itemName}</span>
     </div>
   );

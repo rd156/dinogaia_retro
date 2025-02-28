@@ -161,7 +161,6 @@ const CombatListPage: React.FC = () => {
         <div className="combat-container">
             <div className="select-dino-container block_white">
             <h2>{translations.fight?.SELECT_DINO}</h2>
-
             <div className="select-row">
               <input
                 type="text"

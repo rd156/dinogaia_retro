@@ -56,10 +56,6 @@ const CombatPreviewPage: React.FC = () => {
     fetchCombatDetails();
   }, [combatId]);
 
-  const getDinoId = () => {
-    return (localStorage.getItem("dinoId"))
-  };
-
   const extractParenthesesContent = (text: string): string | null => {
     const match = text.match(/\(([^)]+)\)/);
     return match ? match[1] : null;

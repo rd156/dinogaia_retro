@@ -11,8 +11,6 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const CavePage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [bid, setBid] = useState<any[]>([]);
   const [mybid, setMybid] = useState<any[]>([]);
   const { language, toggleLanguage } = useLanguage();
@@ -25,7 +23,6 @@ const CavePage: React.FC = () => {
   const [message, setMessage] = useState("");
   const [dinoid, setDinoid] = useState();
   const [bidAmounts, setBidAmounts] = useState({});
-  const [hoveredItem, setHoveredItem] = useState(null); 
 
   // Charger les traductions
   useEffect(() => {
@@ -35,20 +32,6 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  // Charger la gestion des images
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {

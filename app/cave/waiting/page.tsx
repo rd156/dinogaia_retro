@@ -12,7 +12,6 @@ import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorResult, setErrorResult] = useState("");
@@ -31,20 +30,6 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-    // Charger la gestion des images
-    useEffect(() => {
-      setImageFolder(localStorage.getItem("image_template") || "reborn");
-    }, []);
-  
-    const getImageUrl = (itemName: string) => {
-      if (imageFolder == "reborn"){
-        return `/${itemName}`;
-      }
-      else{
-        return `/template_image/${imageFolder}/${itemName}`;
-      }
-    };
 
   // Récupérer les données du serveur
 

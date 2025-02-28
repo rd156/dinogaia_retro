@@ -15,7 +15,6 @@ const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const { language } = useLanguage();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [translations, setTranslations] = useState<any>({});
   const [store, setStore] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +22,6 @@ const StoreDetailPage: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [quantity, setQuantity] = useState<number>(1);
-  const [hoveredItem, setHoveredItem] = useState(null); 
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -33,14 +31,6 @@ const StoreDetailPage: React.FC = () => {
     fetchTranslations();
   }, [language]);
 
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchStoreDetail = async () => {

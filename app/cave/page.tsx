@@ -5,22 +5,14 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
-import ImageWithText from "@/components/pattern/ImageWithText";
+import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import "./page.css";
-import { motion } from "framer-motion";
-import ButtonBordered from "@/components/pattern/ButtonBordered";
-import ButtonCircular from "@/components/pattern/ButtonCircular";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonGlow from "@/components/pattern/ButtonGlow";
-import ButtonIcon from "@/components/pattern/ButtonIcon";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
-import ButtonRipple from "@/components/pattern/ButtonRipple";
-import ButtonThreeD from "@/components/pattern/ButtonThreeD";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
-  const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -30,7 +22,6 @@ const CavePage: React.FC = () => {
   const [rencontre, setRencontre] = useState<any>(null);
   const [items, setItems] = useState<any[]>([]);
   const [count, setCount] = useState(null);
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -40,20 +31,6 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  // Charger la gestion des images
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -379,30 +356,13 @@ const CavePage: React.FC = () => {
               key={name}
               className="relative block_white"
               onClick={() => handleItemClick(item)}
-              onMouseEnter={() => setHoveredItem(name)}
-              onMouseLeave={() => setHoveredItem(null)}
             >
-              <ImageWithText 
-                src={getImageUrl(`item/${item.item_name}.webp`)}
-                alt={`${item.item_name} image`}
-                quantity={item.quantite} 
+              <ImageItemWithText 
+                itemName={item.item_name}
+                quantity={item.quantite}
+                translations={translations.item}
               />
               <p>{translations.item?.['ITEM_' + item.item_name] ?? item.item_name}</p>
-
-              {hoveredItem === name && (
-                <div 
-                  className="absolute bg-gray-800 text-white text-sm p-4 rounded shadow-lg z-50"
-                  style={{
-                    maxWidth: '200%',
-                    whiteSpace: 'normal',
-                    overflowWrap: 'break-word',
-                    wordBreak: 'break-word',
-                    minHeight: '60px',
-                  }}
-                >
-                  {translations.item?.['ITEM_DESC_' + item.item_name] ?? translations.item?.NO_DESC.replace("[Item]", translations.item?.['ITEM_' + item.item_name])}
-                </div>
-              )}
             </div>
           ))}
         </div>

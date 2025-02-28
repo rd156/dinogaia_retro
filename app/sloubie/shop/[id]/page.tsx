@@ -8,12 +8,12 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const { language } = useLanguage();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [translations, setTranslations] = useState<any>({});
   const [store, setStore] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,14 +36,6 @@ const StoreDetailPage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn") {
-      return `/${itemName}`;
-    } else {
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     setLoading(false);
@@ -256,7 +248,9 @@ const StoreDetailPage: React.FC = () => {
               </div>
             </div>
           )}
-        <div className="mt-6 max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
+        <br />
+        <br />
+        <div className="block_white">
           {errorMessage && (
             <p className="alert-red">{errorMessage}</p>
           )}
@@ -278,10 +272,9 @@ const StoreDetailPage: React.FC = () => {
                 <tr key={product.item_name} className="border-b">
                   <td className="p-2">
                     <div className="flex items-center space-x-3">
-                      <img
-                        src={getImageUrl(`item/${product.item_name}.webp`)}
-                        alt={translations.item?.IMAGE_ITEM?.replace("[Item]", product.item_name)}
-                        className="w-12 h-12"
+                      <ItemWithTooltip 
+                        itemName={product.item_name}
+                        translations={translations.item}
                       />
                       <span>{translations.item?.["ITEM_" + product.item_name]}</span>
                     </div>

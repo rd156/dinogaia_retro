@@ -7,13 +7,12 @@ import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
-import ImageWithText from "@/components/pattern/ImageWithText";
+import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import ButtonGlow from "@/components/pattern/ButtonGlow";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const RecipePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [recipes, setRecipes] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
   const { language } = useLanguage();
@@ -32,19 +31,6 @@ const RecipePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -306,10 +292,10 @@ const RecipePage: React.FC = () => {
                                   borderBlockColor: isAvailable ? "green" : "red",
                                 }}
                               >
-                                <ImageWithText 
-                                  src={getImageUrl(`item/${requirement.item}.webp`)}
-                                  alt={`${requirement.item} image`}
+                                <ImageItemWithText 
+                                  itemName={requirement.item}
                                   quantity={availableQuantity} 
+                                  translations={translations.item}
                                 />
                                 <p>{translations.item?.['ITEM_' + requirement.item] ?? requirement.item} {availableQuantity} / {requirement.quantity}</p>
                               </span>

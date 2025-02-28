@@ -12,7 +12,6 @@ import "./page.css";
 const RencontrePage: React.FC = () => {
   const params = useParams();
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>("reborn");
   const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
   const [loading, setLoading] = useState<boolean>(true);
   const [endRencontre, setEndrencontre] = useState<boolean>(false);
@@ -20,9 +19,6 @@ const RencontrePage: React.FC = () => {
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
-  const [items, setItems] = useState<any[]>([]);
-  const [count, setCount] = useState(null);
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -37,18 +33,6 @@ const RencontrePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn") {
-      return `/${itemName}`;
-    } else {
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {

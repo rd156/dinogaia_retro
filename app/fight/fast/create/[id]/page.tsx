@@ -4,13 +4,12 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Loadtranslate } from "@/utils/translate";
 import "./page.css";
-import ImageWithText from "@/components/pattern/ImageWithText";
+import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
 
 const CombatPage: React.FC = () => {
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const { language } = useLanguage();
   const [translations, setTranslations] = useState({});
   const { id: player2 } = useParams();
@@ -22,7 +21,7 @@ const CombatPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["fight", "global"]);
+      const loadedTranslations = await Loadtranslate(language, ["fight", "item", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
@@ -89,16 +88,6 @@ const CombatPage: React.FC = () => {
 
     fetchData();
   }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
-
 
 const handleValidate = async () => {
   const dinoId = localStorage.getItem("dinoId");
@@ -198,15 +187,11 @@ const handleValidate = async () => {
                     cursor: "pointer",
                   }}
                 >
-                  <img
-                    src={getImageUrl(`item/none.webp`)}
-                    alt={translations.hunt?.IMAGE_WEAPON}
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      marginBottom: "10px",
-                    }}
-                  />
+                  <ImageItemWithText 
+                      itemName="none"
+                      quantity=""
+                      translations={translations.item}
+                    />
                 <h3>{translations.fight?.IMAGE_NO_ATTACK}</h3>
               </div>
                 {Array.isArray(items) && items.map((item) => (
@@ -226,10 +211,10 @@ const handleValidate = async () => {
                       cursor: "pointer",
                     }}
                   >
-                    <ImageWithText 
-                        src={getImageUrl(`item/${item.item_name}.webp`)}
-                        alt={`${item.item_name} image`}
-                        quantity={item.quantite} 
+                    <ImageItemWithText 
+                      itemName={item.item_name}
+                      quantity={item.quantite}
+                      translations={translations.item}
                     />
                     <h3>{item.item_name}</h3>
                   </div>

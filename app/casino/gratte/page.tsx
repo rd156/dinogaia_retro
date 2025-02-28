@@ -9,6 +9,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 import { ScratchCard } from 'next-scratchcard';
 
@@ -30,15 +31,6 @@ const MyScratchCard = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,13 +116,16 @@ const MyScratchCard = () => {
                             progress={progress}
                             onProgressChange={(newProgress) => setProgress(newProgress)}
                         >
-                            <img
-                                src={item ? getImageUrl(`item_original/${item}.webp`) : getImageUrl(`avatar/default.webp`)} 
-                                alt="Contenu révélé"
-                                width={300}
-                                height={300}
-                            />
+                          <ImageGeneriqueWithText 
+                            imageType="item_original"
+                            imageName={item}
+                            defaultType="avatar"
+                            defaultName="default"
+                            width={300}
+                            height={300}
+                          />
                         </ScratchCard>
+                        
                     </div>
                     <div style={{margin:"20px"}}>
                         {lastPrice && translations.item?.['ITEM_' + lastPrice]}

@@ -10,17 +10,12 @@ import "./page.css";
 
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>("reborn");
-  const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
   const [rencontreInfo, setRencontreInfo] = useState<any[]>([]);
-  const [items, setItems] = useState<any[]>([]);
-  const [count, setCount] = useState(null);
-  const [hoveredItem, setHoveredItem] = useState(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -34,19 +29,6 @@ const CavePage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  // Charger la gestion des images
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn") {
-      return `/${itemName}`;
-    } else {
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {

@@ -5,9 +5,10 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/config";
 import "./page.css";
+import ImageItemWithText from "@/components/pattern/ImageItemWithText";
+import ImageTerrainWithText from "@/components/pattern/ImageTerrainWithText";
 
 const DinoPage: React.FC = () => {
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [dinoId, setDinoId] = useState<string | null>(null);
   const [terrains, setTerrains] = useState<any[]>([]);
   const [weapons, setWeapons] = useState<any[]>([]);
@@ -16,7 +17,6 @@ const DinoPage: React.FC = () => {
   const [selectedWeapon, setSelectedWeapon] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [timeRemaining, setTimeRemaining] = useState<string>("");
-  const [huntResult, setHuntResult] = useState<any[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
@@ -30,20 +30,6 @@ const DinoPage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  // Charger la gestion des images
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   // Récupérer l'ID du dino depuis localStorage
   const updateDinoId = () => {
@@ -201,14 +187,10 @@ const DinoPage: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                <img
-                  src={getImageUrl(`item/none.webp`)}
-                  alt={translations.hunt?.IMAGE_WEAPON}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginBottom: "10px",
-                  }}
+                <ImageItemWithText 
+                  itemName="none"
+                  quantity=""
+                  translations={translations.item}
                 />
               <h3>{translations.hunt?.NO_WEAPON}</h3>
             </div>
@@ -229,15 +211,12 @@ const DinoPage: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                <img
-                  src={getImageUrl(`item/${weapon.item_name}.webp`)}
-                  alt={translations.hunt?.IMAGE_WEAPON}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginBottom: "10px",
-                  }}
+                <ImageItemWithText 
+                  itemName={weapon.item_name}
+                  quantity=""
+                  translations={translations.item}
                 />
+                
                 <h3>{weapon.item_name}</h3>
               </div>
             ))}
@@ -274,14 +253,9 @@ const DinoPage: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                <img
-                  src={getImageUrl(`terrain/${terrain.name}.webp`)}
-                  alt={translations.hunt?.IMAGE_LAND}
-                  style={{
-                    width: "200px",
-                    height: "200px",
-                    marginBottom: "10px",
-                  }}
+                <ImageTerrainWithText 
+                  itemName={terrain.name}
+                  translations={translations.hunt}
                 />
                 <h3>{translations.hunt?.['TERRAIN_'+ terrain.name] ?? terrain.name}</h3>
                 <h3>{translations.hunt?.DANGEROUS_SCORE?.replace("[Number]", terrain.danger)}</h3>

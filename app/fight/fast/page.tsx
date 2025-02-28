@@ -21,6 +21,7 @@ const CombatListPage: React.FC = () => {
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
   const [dinos, setDinos] = useState<any[]>([]);
   const [selectedDino, setSelectedDino] = useState<number | null>(null);
+  const [dinoOnline, setDinoOnline] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -29,6 +30,28 @@ const CombatListPage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchCombats = async () => {
+      try {
+        const response = await fetch(`${API_URL}/dino/online`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        const data = await response.json();
+        setDinoOnline(data);
+        console.log(data)
+      } catch (error) {
+      }
+    };
+
+    fetchCombats();
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -148,6 +171,16 @@ const CombatListPage: React.FC = () => {
                   </div>
                 </Link>
               )}
+            </div>
+            <h2>{translations.fight?.RECENTLY_ONLINE}</h2>
+            <div className="grid grid-cols-5 gap-4 p-4 justify-center">
+              {dinoOnline && dinoOnline.map((dino, index) => (
+                <Link key={index} href={`/fight/classic/create/${dino.id}`} passHref>
+                  <div className="text-black">
+                    <ButtonFancy label={translations.fight?.DISPLAY_DINO_FORM.replace("[Name]", dino.name).replace("[Number]", dino.level.lvl)} />
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
 

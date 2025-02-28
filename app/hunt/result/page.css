@@ -22,3 +22,25 @@
     text-align: center;
     cursor: pointer;
 }
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.hunt-result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: "Arial", sans-serif;
+  }
+
+  .block
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

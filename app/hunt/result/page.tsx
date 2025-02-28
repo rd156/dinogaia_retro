@@ -5,17 +5,24 @@ import { useLanguage } from "@/context/LanguageContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
+import ImageItemWithText from "@/components/pattern/ImageItemWithText";
+import ImageTerrainWithText from "@/components/pattern/ImageTerrainWithText";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
+import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
+import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ButtonNeon from "@/components/pattern/ButtonNeon";
+import Link from "next/link";
 import "./page.css";
 
 const HuntResultPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [imageFolder, setImageFolder] = useState<string>('reborn');
   const [resultData, setResultData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const { language, toggleLanguage } = useLanguage();
   const [translations, setTranslations] = useState({});
+  const [isCollectedButton, setIsCollectedButton] = useState(true);
 
   // Récupérer les paramètres terrain et weapon
   const terrain = searchParams.get("terrain");
@@ -29,20 +36,6 @@ const HuntResultPage: React.FC = () => {
     };
     fetchTranslations();
   }, [language]);
-
-  // Charger la gestion des images
-  useEffect(() => {
-    setImageFolder(localStorage.getItem("image_template") || "reborn");
-  }, []);
-
-  const getImageUrl = (itemName: string) => {
-    if (imageFolder == "reborn"){
-      return `/${itemName}`;
-    }
-    else{
-      return `/template_image/${imageFolder}/${itemName}`;
-    }
-  };
 
   useEffect(() => {
     const fetchHuntResult = async () => {
@@ -90,6 +83,7 @@ const HuntResultPage: React.FC = () => {
   }, [terrain, weapon]);
 
   const handleCollectItems = async () => {
+    setIsCollectedButton(false)
     setLoading(true);
 
     const token = localStorage.getItem("token");
@@ -117,6 +111,7 @@ const HuntResultPage: React.FC = () => {
 
   const handleSellItems = async () => {
     setLoading(true);
+    setIsCollectedButton(false)
 
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
@@ -145,43 +140,78 @@ const HuntResultPage: React.FC = () => {
     <main className="content">
       <div className="content_top">
         {errorMessage && (
-          <p className="alert-red">{errorMessage}</p>
+          <div>
+            <p className="alert-red">{errorMessage}</p>
+            <br />
+          </div>
         )}
         {message && (
-          <p className="alert-green">{message}</p>
+          <div>
+            <p className="alert-green">{message}</p>
+            <br />
+          </div>
         )}
         {resultData && (
-          <div className="block_white">
-            <h2><strong>{translations.hunt?.HUNT_RESULT}</strong></h2>
-            <br/>
-            <ul>
-              <li><strong>{translations.hunt?.LAND}</strong> {resultData.terrain}</li>
-              {weapon !== "None" && (
-                <li><strong>{translations.hunt?.USE_WEAPON}</strong> {weapon}</li>
-              )}
-              <li><strong>{translations.hunt?.HUNT_SUCCESS}</strong> {resultData.type ? "Oui" : "Non"}</li>
-            </ul>
-            <br/>
-            <h3><strong>{translations.hunt?.DETAIL}</strong></h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
+          <div className='hunt-result-container'>
+            <div className="block_white">
+                  <h1><strong>{translations.hunt?.HUNT_RESULT}</strong></h1>
+                <br/>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px" }}>
+                  <ImageTerrainWithText
+                    itemName={resultData && resultData.terrain}
+                    translations={translations.hunt}
+                    width = {100}
+                    height = {100}
+                    />
+                  <span style={{ fontSize: "32px", fontWeight: "bold" }}>X</span>
+                  <ImageItemWithText 
+                    itemName={weapon}
+                    translations={translations.item}
+                    width = {100}
+                    height = {100}
+                  />
+                </div>
+            </div>
+          </div>
+        )}
+        <h2 style={{
+            marginTop: "20px",
+                  marginBottom: "20px",
+                  padding: "10px",
+                  backgroundColor: "rgba(255, 255, 255, 0.7)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  cursor: "pointer",
+            
+          }}>
+          {translations.hunt?.HUNT_RESULT_ITEM}
+        </h2>
+        {resultData && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "10px" }}>
             {resultData.items && 
               Object.entries(resultData.items).map(([name, count]) => (
-                <div key={name}>
-                  <img
-                    src={getImageUrl(`item/${name}.webp`)}
-                    alt={translations.hunt?.IMAGE_OF?.replace("[ItemName]", name)}
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      marginBottom: "10px",
-                    }}
+                <div
+                  key={name}
+                  className="block_white"
+                >
+                  <ImageItemWithText 
+                    itemName={name}
+                    quantity={count}
+                    translations={translations.item}
                   />
-                  <p>{translations.hunt?.QUANTITY}{count}</p>
+                  <p>{translations.item?.['ITEM_' + name] ?? name}</p>
                 </div>
               ))
             }
-            </div>
-            <br/>
+        </div>
+        )}
+        <br/>
+        {resultData && (resultData.pv || resultData.pm) && (
+          <div className="block_white hunt-result-container">
             {resultData.pv && (
               <div className={resultData.pv < 0 ? "block-red" : "block-green"}>
                 <p>
@@ -200,42 +230,36 @@ const HuntResultPage: React.FC = () => {
                 </p>
               </div>
             )}
-            {resultData.items && (
-              <div>
-                <button
-                onClick={handleCollectItems}
-                  disabled={loading}
-                  style={{
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    borderRadius: "5px",
-                    border: "none",
-                    backgroundColor: loading ? "#ccc" : "#32ca39",
-                    color: "#fff",
-                    cursor: loading ? "not-allowed" : "pointer",
-                  }}
-                >
-                  {translations.hunt?.COLLECT_ITEM}
-                </button>
-                <br />
-                <button
-                onClick={handleSellItems}
-                  disabled={loading}
-                  style={{
-                    padding: "10px 20px",
-                    fontSize: "16px",
-                    borderRadius: "5px",
-                    border: "none",
-                    backgroundColor: loading ? "#ccc" : "#ff0000",
-                    color: "#fff",
-                    cursor: loading ? "not-allowed" : "pointer",
-                  }}
-                >
-                  {translations.hunt?.SELL_ITEM}
-                </button>
-            </div>
-            )}
           </div>
+        )}
+        {resultData && resultData.items && (
+          <div style={{ marginBottom: "10px", padding: "5px", border: "1px solid #ccc", borderRadius: "5px" }}>
+            <div className="block block_white">
+              {isCollectedButton ? (          
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <ButtonFancy onClick={handleCollectItems} label={translations.hunt?.COLLECT_ITEM} />
+                  <ButtonNeon onClick={handleSellItems} label={translations.hunt?.SELL_ITEM} />
+                </div>
+              ) : (
+                <Link href="/cave">
+                  <button
+                    style={{
+                      margin: "10px",
+                      padding: "10px 20px",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {translations.hunt?.CAVE_BUTTON}
+                  </button>
+                </Link>
+              )}
+            </div>
+         </div>
         )}
       </div>
     </main>
