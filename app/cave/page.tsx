@@ -341,7 +341,7 @@ const CavePage: React.FC = () => {
                 {selectedItem.action && selectedItem.action.open && (
                   <ButtonFancy onClick={() => handleButtonClick("open")} label={translations.cave?.USE} />
                 )}
-                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP} />
+                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP_PRICE.replace("[Number]", selectedItem.item_price_min)} />
               </div>
             </div>
           </div>

@@ -15,6 +15,7 @@
     "EAT": "Consommé",
     "USE": "Utilisé",
     "SELL_SHOP": "Vendre au magasin",
+    "SELL_SHOP_PRICE": "Vendre au magasin pour [Number] émeraude(s)",
     "SELL_HDV": "Vendre à l'HDV",
     "SELL_ALL": "Tout vendre",
     "SELL_ALL_VALUE": "Tout vendre pour [Number] émeraude(s)",

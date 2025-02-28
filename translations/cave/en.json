@@ -15,6 +15,7 @@
     "EAT": "Consumed",
     "USE": "Used",
     "SELL_SHOP": "Sell to the shop",
+    "SELL_SHOP_PRICE": "Sell to the shop for [Number] emerald(s)",
     "SELL_HDV": "Sell to the auction house",
     "SELL_ALL": "Sell all",
     "SELL_ALL_VALUE": "Sell all for [Number] emerald(s)",
