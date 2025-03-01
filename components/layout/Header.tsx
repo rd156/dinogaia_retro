@@ -1,6 +1,6 @@
 "use client"
 import styles from './Header.module.css';
-import { useLanguage } from '@/context/LanguageContext';
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate} from '@/utils/translate';
 import React from "react";
 import { useState, useEffect } from 'react';
@@ -11,17 +11,21 @@ import LoginForm from '@/components/login/LoginForm';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isConnect, setIsConnect] = React.useState(false);
-  const {language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [selectedDino, setSelectedDino] = useState(null);
 
   useEffect(() => {
+    localStorage.removeItem("option");
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ['menu', 'global']);
+      const loadedTranslations = await Loadtranslate(option?.language, ["menu", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const getDino= () => {
     const storedDino = localStorage.getItem('selectedDino');
