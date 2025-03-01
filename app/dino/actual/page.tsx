@@ -24,6 +24,7 @@ const DinoPage: React.FC = () => {
 
 
   useEffect(() => {
+    localStorage.removeItem("option");
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(option?.language, ["dino", "global"]);
       setTranslations(loadedTranslations);

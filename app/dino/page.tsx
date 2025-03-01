@@ -55,6 +55,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    localStorage.removeItem("option");
     const fetchData = async () => {
       setLoading(true);
       setError(null);
