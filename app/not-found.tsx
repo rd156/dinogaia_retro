@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -9,18 +9,21 @@ import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const Custom404: React.FC = () => {
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
 
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["error", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["error", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
-  
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
+
   return (
     <main className="content">
       <div className="content_top">

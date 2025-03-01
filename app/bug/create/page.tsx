@@ -1,18 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
-import Link from 'next/link';
-import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const CavePage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -22,11 +18,14 @@ const CavePage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["bug", "global"]);
-    setTranslations(loadedTranslations);
+      const loadedTranslations = await Loadtranslate(option?.language, ["bug", "global"]);
+      setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

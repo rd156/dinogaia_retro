@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/config";
@@ -19,17 +19,21 @@ const DinoPage: React.FC = () => {
   const [timeRemaining, setTimeRemaining] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
 
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["hunt", "item", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
+
 
   // Récupérer l'ID du dino depuis localStorage
   const updateDinoId = () => {

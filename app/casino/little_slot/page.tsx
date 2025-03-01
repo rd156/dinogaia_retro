@@ -2,16 +2,13 @@
 
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const CasinoMachine = () => {
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [result, setResult] = useState(["❓", "❓", "❓"]);
   const [spinning, setSpinning] = useState(false);
@@ -23,12 +20,15 @@ const CasinoMachine = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["casino", "item", "error", "global"]);
-    setTranslations(loadedTranslations);
+      const loadedTranslations = await Loadtranslate(option?.language, ["casino", "item", "error", "global"]);
+      setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
-  
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
+
   useEffect(() => {
     const fetchData = async () => {
       

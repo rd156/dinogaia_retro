@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import ImageTerrainWithText from "@/components/pattern/ImageTerrainWithText";
-import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
-import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import Link from "next/link";
@@ -20,7 +18,7 @@ const HuntResultPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [isCollectedButton, setIsCollectedButton] = useState(true);
 
@@ -30,11 +28,14 @@ const HuntResultPage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["hunt", "item", "error", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["hunt", "item", "error", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchHuntResult = async () => {

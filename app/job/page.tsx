@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState, Fragment } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
-import Link from 'next/link';
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
@@ -15,7 +14,7 @@ const JobPage: React.FC = () => {
   const [jobList, setJobList] = useState<any[]>([]);
   const [actualJob, setActualJob] = useState({})
   const [waitingSalary, setWaitingSalary] = useState(null)
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,12 +23,14 @@ const JobPage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["job", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["job", "global"]);
       setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
 
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {
