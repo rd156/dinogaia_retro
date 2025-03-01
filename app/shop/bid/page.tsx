@@ -1,23 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import "./page.css";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
 const CavePage: React.FC = () => {
   const [bid, setBid] = useState<any[]>([]);
   const [mybid, setMybid] = useState<any[]>([]);
-  const { language, toggleLanguage } = useLanguage();
+  const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [countWin, setCountWin] = useState(null);
   const [countBid, setCountBid] = useState(null);
-  
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -27,11 +23,14 @@ const CavePage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-    const loadedTranslations = await Loadtranslate(language, ["shop", "item", "global"]);
-    setTranslations(loadedTranslations);
+      const loadedTranslations = await Loadtranslate(option?.language, ["shop", "item", "global"]);
+      setTranslations(loadedTranslations);
     };
-    fetchTranslations();
-  }, [language]);
+
+    if (option?.language) {
+      fetchTranslations();
+    }
+  }, [option?.language]);
 
   useEffect(() => {
     const fetchData = async () => {
