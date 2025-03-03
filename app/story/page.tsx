@@ -35,29 +35,31 @@ const QuestPage: React.FC = () => {
       setLoading(true);
       setErrorMessage("");
       const token = localStorage.getItem('token');
-      try {
-        const response = await fetch(`${API_URL}/account/chapter_story`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des bid');
+      if (token){
+        try {
+          const response = await fetch(`${API_URL}/account/chapter_story`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          
+          if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des bid');
+          }
+  
+          const chapterData = await response.json();
+          console.log(chapterData)
+          if (chapterData.chapter)
+          {        
+            setChapter(chapterData.chapter);
+          }
+        } catch (error) {
+          
+        } finally {
+          setLoading(false);
         }
-
-        const chapterData = await response.json();
-        console.log(chapterData)
-        if (chapterData.chapter)
-        {        
-          setChapter(chapterData.chapter);
-        }
-      } catch (error) {
-        
-      } finally {
-        setLoading(false);
       }
     };
 
