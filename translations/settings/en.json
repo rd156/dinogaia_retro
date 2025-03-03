@@ -4,5 +4,8 @@
     "TEMPLATE_IMAGE_RETRO": "Retro",
     "ERR_CHANGE_LANGUAGE": "Error in changing language",
     "LANGUAGE_FRENCH": "French",
-    "LANGUAGE_ENGLISH": "English"
+    "LANGUAGE_ENGLISH": "English",
+    "GAME_RETURN": "Return to game",
+    "CONFIRMATION_MAIL_success": "Your email has been successfully changed.",
+    "CONFIRMATION_MAIL_invalid": "An error occurred during the email change."
 }

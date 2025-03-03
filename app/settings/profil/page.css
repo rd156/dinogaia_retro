@@ -1,0 +1,15 @@
+.block_white {
+    text-align: center;
+  }
+  
+  .profile_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile_form div {
+    width: 100%;
+    max-width: 400px; /* Ajuste selon tes besoins */
+  }
+  
