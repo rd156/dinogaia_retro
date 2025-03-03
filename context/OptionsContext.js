@@ -24,7 +24,7 @@ export const OptionProvider = ({ children }) => {
             },
           });
           const data = await res.json();
-          if (data && Object.keys(data).length > 0)
+          if (data && typeof data === "object" && Object.keys(data).length > 0)
           {
             console.log("Get Config:", data);
             setOption(data);
