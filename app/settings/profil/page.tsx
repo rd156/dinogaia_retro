@@ -14,12 +14,17 @@ const ProfilePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [messageEmail, setMessageEmail] = useState("");
   const [messagePseudo, setMessagePseudo] = useState("");
+  const [messagePassword, setMessagePassword] = useState("");
+  const [messageErrorPassword, setErrorMessagePassword] = useState("");
   const { option } = useOption();
   const [translations, setTranslations] = useState({});
   const [advantages, setAdvantages] = useState({});
   const [username, setUsername] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -113,6 +118,57 @@ const ProfilePage: React.FC = () => {
       setErrorMessage(error.message);
     }
   };
+  const handleChangeNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPassword(e.target.value);
+  };
+  const handleChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
+  const handleChangeOldPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOldPassword(e.target.value);
+  };
+  const handleSavePassword = async () => {
+    if (newPassword != confirmPassword)
+    {
+      setErrorMessagePassword("different_password")
+      setMessagePassword("")
+    }
+    else if (newPassword == oldPassword)
+    {
+      setErrorMessagePassword("same_password")
+      setMessagePassword("")
+    }
+    else{
+      try {
+        const token = localStorage.getItem("token");
+  
+        const response = await fetch(`${API_URL}/account/change-password`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            "old_password": oldPassword,
+            "new_password": newPassword,
+          }),
+        });
+  
+        const change_password = await response.json()
+        if (change_password == "success")
+        {
+          setMessagePassword(change_password)
+          setErrorMessagePassword("")
+        }
+        else
+        {
+          setErrorMessagePassword(change_password)
+          setMessagePassword("")
+        }
+      } catch (error) {
+      }
+    }
+  };
 
   return (
     <main className="content">
@@ -143,6 +199,39 @@ const ProfilePage: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <input type="text" name="email" value={email} onChange={handleChangeEmail}/>
               <ButtonFancy label="SAVE" onClick={handleSaveEmail}/>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <br/>
+        <div className="block_white">
+          {messagePassword && <p className="alert-green">{translations.settings?.["CONFIRMATION_PASSWORD_" + messagePassword]}</p>}
+          {messageErrorPassword && <p className="alert-red">{translations.settings?.["CONFIRMATION_PASSWORD_" + messageErrorPassword]}</p>}
+          <h2>Modifier le mot de passe</h2>
+          <div className="profile_form">
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <input 
+                type="password" 
+                name="oldPassword" 
+                value={oldPassword} 
+                onChange={handleChangeOldPassword} 
+                placeholder="Ancien mot de passe"
+              />
+              <input 
+                type="password" 
+                name="newPassword" 
+                value={newPassword} 
+                onChange={handleChangeNewPassword} 
+                placeholder="Nouveau mot de passe"
+              />
+              <input 
+                type="password" 
+                name="confirmPassword" 
+                value={confirmPassword} 
+                onChange={handleChangeConfirmPassword} 
+                placeholder="Confirmer le mot de passe"
+              />
+              <ButtonFancy label="SAVE" onClick={handleSavePassword}/>
             </div>
           </div>
         </div>

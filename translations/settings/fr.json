@@ -7,5 +7,9 @@
     "LANGUAGE_ENGLISH": "Anglais",
     "GAME_RETURN": "Retour au jeu",
     "CONFIRMATION_MAIL_success": "Votre email a bien été modifié.",
-    "CONFIRMATION_MAIL_invalid": "Une erreur a eu lieu lors du changement de l'email."
+    "CONFIRMATION_MAIL_invalid": "Une erreur a eu lieu lors du changement de l'email.",
+    "CONFIRMATION_PASSWORD_success": "Votre mot de passe a été changé.",
+    "CONFIRMATION_PASSWORD_same_password": "Votre ancien mot de passe ne peut pas être identique au nouveau.",
+    "CONFIRMATION_PASSWORD_incorrect_password": "Mot de passe incorrect.",
+    "CONFIRMATION_PASSWORD_different_password": "Les nouveaux mots de passe ne sont pas identiques."
 }
