@@ -90,6 +90,7 @@ export default function Header() {
       [translations.menu['MENU_HISTORY']]: "/story",
       [translations.menu['MENU_ACCOUNT']]: [
         { name: translations.menu?.MENU_BUG, link: "/bug"},
+        { name: translations.menu?.MENU_PROFIL, link: "/settings/profil"},
         { name: translations.menu?.MENU_PARAMETER, link: "/settings"},
         { name: translations.menu?.MENU_DECONNECT, onClick: handleLogout }
       ]

@@ -19,6 +19,7 @@
     "MENU_ACCOUNT": "Mon compte",
     "MENU_LANGUAGE": "Langue",
     "MENU_PARAMETER": "Paramètre",
+    "MENU_PROFIL": "Profil",
     "MENU_DECONNECT": "Déconnexion",
     "MENU_BUG":"Signaler un Bug",
     "MENU_DINO_ACTUAL_DISPLAY": "Votre dinosaure actuel est \"[Name]\", [Specie] de niveau [Level].",
