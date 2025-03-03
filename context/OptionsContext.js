@@ -10,7 +10,6 @@ export const OptionProvider = ({ children }) => {
     const fetchOption = async () => {
       try {
         const cachedOption = localStorage.getItem("option");
-
         if (cachedOption) {
           const parsedOption = JSON.parse(cachedOption);
           setOption(parsedOption);
@@ -25,9 +24,23 @@ export const OptionProvider = ({ children }) => {
             },
           });
           const data = await res.json();
-          console.log("Get Config:", data);
-          setOption(data);
-          localStorage.setItem("option", JSON.stringify(data));
+          if (data && Object.keys(data).length > 0)
+          {
+            console.log("Get Config:", data);
+            setOption(data);
+            localStorage.setItem("option", JSON.stringify(data));
+          }
+          else
+          {
+            const defaultSettings = {
+              "language": "fr",
+              "image_template": "reborn",
+              "display_template": ""
+            };
+            setOption(defaultSettings);
+            console.log("Error Config:", defaultSettings);
+          }
+
         }
       } catch (error) {
         console.error("Erreur lors de la récupération de l'option:", error);
