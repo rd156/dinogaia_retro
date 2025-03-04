@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { API_URL } from "@/config/config";
 import "./page.css";
+import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
 const HomePage: React.FC = () => {
@@ -163,6 +164,13 @@ const HomePage: React.FC = () => {
               </div>
               <ButtonFancy label={translations.account?.REGISTER_BUTTON}/>
             </form>
+            <br />
+            <Link
+              href={'/account/forgot-password'}
+              passHref
+            >
+              {translations.account?.FORGOT_PASSWORD}
+            </Link>          
           </div>
         </div>
       </div>

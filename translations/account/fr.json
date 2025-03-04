@@ -8,5 +8,18 @@
     "USERNAME": "Nom d'utilisateur",
     "EMAIL": "Email",
     "PASSWORD": "Mot de passe",
-    "PASSWORD_CONFIRM": "Confirmer le mot de passe"
+    "PASSWORD_CONFIRM": "Confirmer le mot de passe",
+    "FORGOT_PASSWORD": "Mot de passe oublié",
+    "FORGOT_NAME_VALUE": "Entrez votre nom d'utilisateur ou votre e-mail.",
+    "SEND_EMAIL_RECOVERY": "Envoyer l'e-mail de récupération",
+    "GO_HOME": "Retour a l'accueil",
+    "CONFIRMATION_MAIL_success": "Votre email a bien été modifié.",
+    "CONFIRMATION_MAIL_invalid": "Une erreur a eu lieu lors du changement de l'email.",
+    "CONFIRMATION_PASSWORD_success": "Votre mot de passe a été changé.",
+    "CONFIRMATION_PASSWORD_same_password": "Votre ancien mot de passe ne peut pas être identique au nouveau.",
+    "CONFIRMATION_PASSWORD_incorrect_password": "Mot de passe incorrect.",
+    "CONFIRMATION_PASSWORD_different_password": "Les nouveaux mots de passe ne sont pas identiques.",
+    "SAVE": "Enregistrer",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "CONFIRM_NEW_PASSWORD": "Confirmer le nouveau mot de passe"
 }
