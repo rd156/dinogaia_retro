@@ -85,7 +85,10 @@ const ProfilePage: React.FC = () => {
       });
 
       const change_pseudo = await response.json()
-      setMessagePseudo("Pseudo modifier")
+      if (typeof change_pseudo === "object"){
+        setMessagePseudo(translations.settings?.PSEUDO_MODIFY)
+      }
+      
       console.log(change_pseudo)
     } catch (error) {
       setErrorMessage(error.message);
@@ -112,7 +115,7 @@ const ProfilePage: React.FC = () => {
       });
 
       const change_pseudo = await response.json()
-      setMessageEmail("Mail de confirmation envoyé")
+      setMessageEmail(translations.settings?.EMAIL_MODIFY)
       console.log(change_pseudo)
     } catch (error) {
       setErrorMessage(error.message);
@@ -176,17 +179,17 @@ const ProfilePage: React.FC = () => {
         {errorMessage && <p className="alert-red">{errorMessage}</p>}
         {message && <p className="alert-green">{message}</p>}
         <div className="block_white">
-          <h2>Mon Profil: {username}</h2>
+          <h2>{translations.settings?.MY_PROFILE.replace("[Name]", username)}</h2>
         </div>
         <br/>
         <br/>
         <div className="block_white">
           {messagePseudo && <p className="alert-green">{messagePseudo}</p>}
-          <h2>Pseudo (Public name) - Changement restant {advantages?.change_pseudo}</h2>
+          <h2>{translations.settings?.MY_PSEUDO.replace("[Number]", advantages?.change_pseudo)}</h2>
           <div className="profile_form">
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <input type="text" name="pseudo" value={pseudo} onChange={handleChangePseudo}/>
-              <ButtonFancy label="SAVE" onClick={handleSavePseudo} />
+              <ButtonFancy label={translations.settings?.SAVE} onClick={handleSavePseudo} />
             </div>
           </div>
         </div>
@@ -194,11 +197,11 @@ const ProfilePage: React.FC = () => {
         <br/>
         <div className="block_white">
           {messageEmail && <p className="alert-green">{messageEmail}</p>}
-          <h2>Email</h2>
+          <h2>{translations.settings?.MY_EMAIL}</h2>
           <div className="profile_form">
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <input type="text" name="email" value={email} onChange={handleChangeEmail}/>
-              <ButtonFancy label="SAVE" onClick={handleSaveEmail}/>
+              <ButtonFancy label={translations.settings?.SAVE} onClick={handleSaveEmail}/>
             </div>
           </div>
         </div>
@@ -207,7 +210,7 @@ const ProfilePage: React.FC = () => {
         <div className="block_white">
           {messagePassword && <p className="alert-green">{translations.settings?.["CONFIRMATION_PASSWORD_" + messagePassword]}</p>}
           {messageErrorPassword && <p className="alert-red">{translations.settings?.["CONFIRMATION_PASSWORD_" + messageErrorPassword]}</p>}
-          <h2>Modifier le mot de passe</h2>
+          <h2>{translations.settings?.MY_PASSWORD}</h2>
           <div className="profile_form">
             <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <input 
@@ -215,23 +218,23 @@ const ProfilePage: React.FC = () => {
                 name="oldPassword" 
                 value={oldPassword} 
                 onChange={handleChangeOldPassword} 
-                placeholder="Ancien mot de passe"
+                placeholder={translations.settings?.OLD_PASSWORD}
               />
               <input 
                 type="password" 
                 name="newPassword" 
                 value={newPassword} 
                 onChange={handleChangeNewPassword} 
-                placeholder="Nouveau mot de passe"
+                placeholder={translations.settings?.NEW_PASSWORD}
               />
               <input 
                 type="password" 
                 name="confirmPassword" 
                 value={confirmPassword} 
                 onChange={handleChangeConfirmPassword} 
-                placeholder="Confirmer le mot de passe"
+                placeholder={translations.settings?.CONFIRM_NEW_PASSWORD}
               />
-              <ButtonFancy label="SAVE" onClick={handleSavePassword}/>
+              <ButtonFancy label={translations.settings?.SAVE} onClick={handleSavePassword}/>
             </div>
           </div>
         </div>

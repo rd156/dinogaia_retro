@@ -11,5 +11,16 @@
     "CONFIRMATION_PASSWORD_success": "Votre mot de passe a été changé.",
     "CONFIRMATION_PASSWORD_same_password": "Votre ancien mot de passe ne peut pas être identique au nouveau.",
     "CONFIRMATION_PASSWORD_incorrect_password": "Mot de passe incorrect.",
-    "CONFIRMATION_PASSWORD_different_password": "Les nouveaux mots de passe ne sont pas identiques."
+    "CONFIRMATION_PASSWORD_different_password": "Les nouveaux mots de passe ne sont pas identiques.",
+    "PSEUDO_MODIFY": "Pseudo modifié",
+    "EMAIL_MODIFY": "E-mail de confirmation envoyé",
+    "MY_PROFILE": "Mon profil : [Name]",
+    "MY_PSEUDO": "Pseudo (Nom public) - Changements restants : [Number]",
+    "SAVE": "Enregistrer",
+    "MY_EMAIL": "E-mail",
+    "MY_PASSWORD": "Modifier le mot de passe",
+    "OLD_PASSWORD": "Ancien mot de passe",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "CONFIRM_NEW_PASSWORD": "Confirmer le nouveau mot de passe"
 }
+    

@@ -11,5 +11,15 @@
     "CONFIRMATION_PASSWORD_success": "Your password has been changed.",
     "CONFIRMATION_PASSWORD_same_password": "Your old password cannot be the same as the new one.",
     "CONFIRMATION_PASSWORD_incorrect_password": "Incorrect password.",
-    "CONFIRMATION_PASSWORD_different_password": "The new passwords do not match."
+    "CONFIRMATION_PASSWORD_different_password": "The new passwords do not match.",
+    "PSEUDO_MODIFY": "Pseudo updated",
+    "EMAIL_MODIFY": "Confirmation email sent",
+    "MY_PROFILE": "My profile: [Name]",
+    "MY_PSEUDO": "Pseudo (Public name) - Remaining changes: [Number]",
+    "SAVE": "Save",
+    "MY_EMAIL": "Email",
+    "MY_PASSWORD": "Change password",
+    "OLD_PASSWORD": "Old password",
+    "NEW_PASSWORD": "New password",
+    "CONFIRM_NEW_PASSWORD": "Confirm new password"
 }
