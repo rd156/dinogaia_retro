@@ -14,7 +14,7 @@ const OptionPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(option?.language, ["setting", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["settings", "global"]);
       setTranslations(loadedTranslations);
     };
 
@@ -24,12 +24,12 @@ const OptionPage: React.FC = () => {
   }, [option?.language]);
 
   const images_template = [
-    { name: 'reborn', label: translations.setting?.TEMPLATE_IMAGE_REBORN },
-    { name: 'retro', label: translations.setting?.TEMPLATE_IMAGE_RETRO },
+    { name: 'reborn', label: translations.settings?.TEMPLATE_IMAGE_REBORN },
+    { name: 'retro', label: translations.settings?.TEMPLATE_IMAGE_RETRO },
   ];
   const languages = [
-    { lang: 'en', label: translations.setting?.LANGUAGE_ENGLISH },
-    { lang: 'fr', label: translations.setting?.LANGUAGE_FRENCH },
+    { lang: 'en', label: translations.settings?.LANGUAGE_ENGLISH },
+    { lang: 'fr', label: translations.settings?.LANGUAGE_FRENCH },
   ];
   const updateSetting = async (field: string, value: string) => {
     const token = localStorage.getItem("token");
@@ -99,7 +99,7 @@ const OptionPage: React.FC = () => {
             ))}
           </div>
         </div>
-
+        <br />
         <div className="block_white">
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
             {images_template.map(({ name, label }) => (
