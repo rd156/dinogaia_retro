@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import Link from "next/link";
 import "./page.css";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const RencontrePage: React.FC = () => {
   const params = useParams();
@@ -109,8 +110,17 @@ const RencontrePage: React.FC = () => {
             <div className="rencontre-header">
              {rencontreInfo && (
                 <div>
-                    <img src={"/pnj/"+ rencontreInfo.pnj.name + ".webp"} alt={"Image de " + translations.pnj?.["pnj_" + rencontreInfo.pnj.name]} className="dino-profile-image" />
-                    <p className="text">{translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}</p>
+                  <ImageGeneriqueWithText 
+                    imageType="pnj"
+                    imageName={rencontreInfo.pnj.name}
+                    defaultType="pnj"
+                    defaultName="aucun"
+                    width={300}
+                    height={300}
+                    alt={"Image de " + translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}
+                    className="dino-profile-image"
+                  />
+                  <p className="text">{translations.pnj?.["pnj_" + rencontreInfo.pnj.name]}</p>
                 </div>
               )}
             </div>
