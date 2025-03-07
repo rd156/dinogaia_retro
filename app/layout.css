@@ -9,7 +9,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: url('/image-background.png') center/cover fixed no-repeat;
+    background: url('/image-background.webp') center/cover fixed no-repeat;
 }
 
 /* Main content container */
@@ -32,7 +32,7 @@ html, body {
     padding-top: 15vh;
     height: auto;
     padding-left: 10vh;
-    background: url('/image-medium.png') center/cover no-repeat;
+    background: url('/image-medium.webp') center/cover no-repeat;
 }
 
 /* Block styling */
