@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-const ButtonThreeD = ({ onClick, label = "" }) => {
+interface ButtonThreeDProps {
+  onClick?: () => void;
+  label?: string;
+}
+
+const ButtonThreeD = ({ onClick, label = "" }: ButtonThreeDProps) => {
   return (
     <motion.div whileHover={{ y: -5 }} whileTap={{ y: 2 }}>
       <button

@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-const ButtonRipple = ({ onClick, label = "" }) => {
+interface ButtonRippleProps {
+  onClick?: () => void;
+  label?: string;
+}
+
+const ButtonRipple = ({ onClick, label = "" }: ButtonRippleProps) => {
   return (
     <motion.button
       whileHover={{

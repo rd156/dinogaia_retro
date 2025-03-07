@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-const ButtonCircular = ({ onClick, icon }) => {
+interface ButtonCircularProps {
+  onClick?: () => void;
+  icon?: string;
+}
+
+const ButtonCircular = ({onClick, icon} : ButtonCircularProps) => {
   return (
     <motion.button
       whileHover={{ scale: 1.2 }}

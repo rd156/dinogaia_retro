@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-const ButtonGlow = ({ onClick, label = "" }) => {
+interface ButtonGlowProps {
+  onClick?: () => void;
+  label?: string;
+}
+
+const ButtonGlow = ({ onClick, label = ""}: ButtonGlowProps) => {
   return (
     <motion.button
       whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px 5px rgba(72, 167, 255, 0.7)" }}

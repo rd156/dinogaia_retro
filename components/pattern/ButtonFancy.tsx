@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-const ButtonFancy = ({ onClick, label = "" }) => {
+interface ButtonFancyProps {
+  onClick?: () => void;
+  label?: string;
+}
+
+const ButtonFancy = ({onClick, label = ""}: ButtonFancyProps) => {
   return (
     <motion.button
       whileHover={{ scale: 1.1 }}
