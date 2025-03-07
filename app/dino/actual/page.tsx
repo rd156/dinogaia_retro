@@ -9,6 +9,7 @@ import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 import "./page.css";
+import ButtonNeon from "@/components/pattern/ButtonNeon";
 
 const DinoPage: React.FC = () => {
   const params = useParams();
@@ -22,6 +23,8 @@ const DinoPage: React.FC = () => {
   const {option} = useOption();
   const [translations, setTranslations] = useState({});
   const [isHovered, setIsHovered] = useState(false);
+  const [removeDino, setRemoveDino] = useState<any>(null);
+  const [confirmationText, setConfirmationText] = useState<string>("");
 
 
   useEffect(() => {
@@ -40,7 +43,7 @@ const DinoPage: React.FC = () => {
     const value = localStorage.getItem("dinoId");
     setDinoId(value);
   };
-
+  
   const handleFavoriteToggle = async (dinoId: number) => {
     try {
       const token = localStorage.getItem('token');
@@ -245,8 +248,29 @@ const DinoPage: React.FC = () => {
     return Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
   };
 
+  const handleDeleteDino = async (selectedDino) => {
+    setRemoveDino(false)
+    if (!selectedDino) return;
+    if (confirmationText != translations.dino?.DELETE_TEXT_CONFIRM) return;
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${API_URL}/dino/remove/${selectedDino.id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + token,
+        }
+      });
+      const result = await response.json();
+      if (result){
+        window.location.href = "/dino"
+      }
+    } catch (error) {
+    }
+  };
+
   return (
-    <div className="content">
+    <main className="content">
       <div className='content_top'>
         <div className='dino-container'>
           <div className="block_white dino-card">
@@ -495,15 +519,51 @@ const DinoPage: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center gap-10">
               <Link href="/dino">
-                <button className="btn btn-back">{translations.dino?.RETURN_LIST}</button>
+                <ButtonFancy label={translations.dino?.RETURN_LIST} />
               </Link>
+              <ButtonNeon label={translations.dino?.DELETE_DINO} onClick={() => setRemoveDino(data)} />
             </div>
           </div>
         </div>
+        {removeDino && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+              <h3 className="text-lg font-semibold text-red-600">
+                {translations.dino?.DELETE_WARNING}
+              </h3>
+              <label className="block mt-4">
+                <span>{translations.dino?.CONFIRMATION_TEXT.replace("[Value]", translations.dino?.DELETE_TEXT_CONFIRM || "DELETE")}</span>
+                <input
+                  type="text"
+                  value={confirmationText}
+                  onChange={(e) => setConfirmationText(e.target.value)}
+                  className="w-full p-2 border rounded-md mt-2"
+                  placeholder="SUPPRIMER"
+                />
+              </label>
+        
+              <div className="flex justify-end mt-4">
+                <button
+                  onClick={() => setRemoveDino(false)}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-md mr-2"
+                >
+                  {translations.dino?.CANCEL || "Annuler"}
+                </button>
+                <button
+                  onClick={() => handleDeleteDino(data)}
+                  disabled={confirmationText !== (translations.dino?.DELETE_TEXT_CONFIRM || "DELETE")}
+                  className={`px-4 py-2 rounded-md ${confirmationText === (translations.dino?.DELETE_TEXT_CONFIRM || "DELETE") ? "bg-red-600 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`}
+                >
+                  {translations.dino?.DELETE}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </main>
   );
 
 };

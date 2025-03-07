@@ -42,5 +42,10 @@
     "DINO_DESC_DEAD": "You should find a way to bring it back to life.",
     "INJURY_SAIN": "Unharmed",
     "DISEASE_SAIN": "Healthy",
-    "DISEASE_OVEREATING": "Overeating"
+    "DISEASE_OVEREATING": "Overeating",
+    "DELETE_WARNING": "Are you sure you want to delete this dinosaur?",
+    "CONFIRMATION_TEXT": "Write '[Value]' to confirm:",
+    "DELETE": "Delete",
+    "DELETE_TEXT_CONFIRM": "DELETE",
+    "DELETE_DINO": "Delete the dino"
 }
