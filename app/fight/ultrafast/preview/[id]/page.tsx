@@ -7,6 +7,7 @@ import "./page.css";
 import { API_URL } from "@/config/config";
 import Link from "next/link";
 import { useParams } from 'next/navigation';
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const CombatPreviewPage: React.FC = () => {
   const {option} = useOption();
@@ -98,13 +99,16 @@ const CombatPreviewPage: React.FC = () => {
         {message && <p className="message">{message}</p>}
           <div className="battlefield">
             <div className="character">
-              {
-                combat && combat.dino1 ? (
-                  <img style={{border: combat.winner_type === "player" ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.dino1_avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du joueur" className="character-img" />
-                )
-              }
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={combat?.dino1_avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className={`character-img ${combat?.winner_type === "player" ? "border-winner" : "border-loser"}`}
+              />
               {
                 combat && combat.dino1 ? (
                   <p>{combat.dino1_name}</p>
@@ -115,15 +119,21 @@ const CombatPreviewPage: React.FC = () => {
             </div>
             <div className="vs">{translations.fight?.TITLE_VS}</div>
             <div className="character">
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={combat?.opponent_avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className={`character-img ${combat?.winner_type != "player" ? "border-winner" : "border-loser"}`}
+              />
               {
-                combat && (
-                <img style={{border: combat.winner_type != "player" ? "5px solid green" : "5px solid red"}} src={`/avatar/default.webp`} alt="Image du opposant" className="character-img" />
-              )}
-              {
-                combat && combat.dino1 ? (
-                  <p>{combat.dino1_name}</p>
+                combat ? (
+                  <p>{getOpponentName(combat)}</p>
                 ):(
-                  <p>{translations.fight?.PLAYER}</p>
+                  <p>{translations.fight?.ENNEMY}</p>
                 )
               }
             </div>

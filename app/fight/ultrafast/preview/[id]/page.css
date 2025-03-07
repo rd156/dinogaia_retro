@@ -29,6 +29,18 @@ h1 {
   border: 5px solid white;
 }
 
+.border-winner
+{
+  border-radius: 10px;
+  border: 5px solid green;
+}
+
+.border-loser
+{
+  border-radius: 10px;
+  border: 5px solid red;
+}
+
 .vs {
   font-size: 24px;
   font-weight: bold;
