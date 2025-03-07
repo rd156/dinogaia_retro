@@ -53,12 +53,7 @@ export const OptionProvider = ({ children }) => {
   const getImageUrl = (itemName) => {
     if (!option || !option.image_template || option.image_template === "") {
       console.log("Image default");
-      return `/${itemName}`;
-    }
-  
-    if (option.image_template === "reborn") {
-      console.log("Image reborn");
-      return `/${itemName}`;
+      return `/template_image/reborn/${itemName}`;
     }
   
     console.log("Image other");
