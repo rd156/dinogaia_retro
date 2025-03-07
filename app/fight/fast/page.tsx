@@ -178,7 +178,7 @@ const CombatListPage: React.FC = () => {
             <h2>{translations.fight?.RECENTLY_ONLINE}</h2>
             <div className="grid grid-cols-5 gap-4 p-4 justify-center">
               {dinoOnline && dinoOnline.map((dino, index) => (
-                <Link key={index} href={`/fight/classic/create/${dino.id}`} passHref>
+                <Link key={index} href={`/fight/fast/create/${dino.id}`} passHref>
                   <div className="text-black">
                     <ButtonFancy label={translations.fight?.DISPLAY_DINO_FORM.replace("[Name]", dino.name).replace("[Number]", dino.level.lvl)} />
                   </div>
