@@ -1,0 +1,10 @@
+.selectable-avatar {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .selected-avatar {
+    border: 3px solid blue;
+  }
+  

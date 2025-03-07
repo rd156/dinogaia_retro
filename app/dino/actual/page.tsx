@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import {API_URL} from '@/config/config';
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 import "./page.css";
 
 const DinoPage: React.FC = () => {
@@ -271,7 +272,16 @@ const DinoPage: React.FC = () => {
               {data && (
               <div className="dino-header">
                 <div className="dino-info-right">
-                  <img src={`/avatar/${data.avatar}.webp`} alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)} className="dino-profile-image" />
+                  <ImageGeneriqueWithText 
+                    imageType="avatar"
+                    imageName={data.avatar}
+                    defaultType="avatar"
+                    defaultName="default"
+                    width={200}
+                    height={200}
+                    alt={translations.quest?.IMAGE_PROFILE_ALT.replace("[Name]", data.name)}
+                    className="dino-profile-image"
+                  />
                 </div>
                 <div className="dino-info-right">
                   <div className="stat-right-block">

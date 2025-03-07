@@ -8,6 +8,7 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const FightPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -68,14 +69,14 @@ const FightPage: React.FC = () => {
                   cursor: "pointer", 
                   transition: "background-color 0.3s"
                 }}>
-                  <img 
-                    src="/bouton/fight_classic.webp"
+                  <ImageGeneriqueWithText 
+                    imageType="bouton"
+                    imageName="fight_classic"
+                    defaultType="bouton"
+                    defaultName="default"
+                    width={250}
+                    height={250}
                     alt={translations.fight?.MENU_CLASSIC_FIGHT}
-                    style={{
-                      width: "250px",        
-                      height: "250px",       
-                      objectFit: "contain"  
-                    }} 
                   />
                 </button>
               </a>
@@ -103,14 +104,14 @@ const FightPage: React.FC = () => {
                   cursor: "pointer", 
                   transition: "background-color 0.3s"
                 }}>
-                  <img 
-                    src="/bouton/fight_fast.webp"
+                  <ImageGeneriqueWithText 
+                    imageType="bouton"
+                    imageName="fight_fast"
+                    defaultType="bouton"
+                    defaultName="default"
+                    width={250}
+                    height={250}
                     alt={translations.fight?.MENU_FAST_FIGHT}
-                    style={{
-                      width: "250px",        
-                      height: "250px",       
-                      objectFit: "contain"  
-                    }} 
                   />
                 </button>
               </a>
@@ -138,14 +139,14 @@ const FightPage: React.FC = () => {
                   cursor: "pointer", 
                   transition: "background-color 0.3s"
                 }}>
-                  <img 
-                    src="/bouton/fight_ultrafast.webp"
+                  <ImageGeneriqueWithText 
+                    imageType="bouton"
+                    imageName="fight_ultrafast"
+                    defaultType="bouton"
+                    defaultName="default"
+                    width={250}
+                    height={250}
                     alt={translations.fight?.MENU_ULTRAFAST_FIGHT}
-                    style={{
-                      width: "250px",        
-                      height: "250px",       
-                      objectFit: "contain"  
-                    }} 
                   />
                 </button>
               </a>

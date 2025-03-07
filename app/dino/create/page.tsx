@@ -5,6 +5,7 @@ import { translate, Loadtranslate} from '@/utils/translate';
 import { useEffect, useState } from 'react';
 import {API_URL} from '@/config/config';
 import "./page.css";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 
 export default function Home() {
@@ -16,12 +17,12 @@ export default function Home() {
   const [translations, setTranslations] = useState({});
 
   const imageNames = {
-    "TR/1/1.webp": "Tyrannosaure",
-    "VE/1/1.webp": "Vélociraptor",
-    "PT/1/1.webp": "Ptéranodon",
-    "DP/1/1.webp": "Dilophosaure",
-    "SM/1/1.webp": "Smilodon",
-    "MG/1/1.webp": "Megalodon"
+    "TR/1/1": "Tyrannosaure",
+    "VE/1/1": "Vélociraptor",
+    "PT/1/1": "Ptéranodon",
+    "DP/1/1": "Dilophosaure",
+    "SM/1/1": "Smilodon",
+    "MG/1/1": "Megalodon"
   } as const;
 
   useEffect(() => {
@@ -80,8 +81,7 @@ export default function Home() {
       if (typeof result === 'string') {
         setErrorMessage(result);
       } else {
-        const str = translations.dino?.CREATED
-        setMessage(str.replace("[Name]", dinoName).replace("[Specie]", selectedImage))
+        window.location.href = "/dino"
       }
     } catch (error) {
       setErrorMessage(translations.dino?.ERR_CREATION_FAILED);
@@ -114,17 +114,16 @@ export default function Home() {
             <div style={{ display: 'flex', gap: '20px', marginBottom: '50px' }}>
               {Object.keys(imageNames).map((imagePath, index) => (
                 <div key={index} style={{ textAlign: 'center' }}>
-                  <img
-                    src={`/avatar/${imagePath}`}
+                  <ImageGeneriqueWithText 
+                    imageType="avatar"
+                    imageName={imagePath}
+                    defaultType="avatar"
+                    defaultName="default"
+                    width={100}
+                    height={100}
                     alt={`Avatar ${imagePath}`}
                     onClick={() => handleImageSelect(imagePath.split("/")[0])}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      border: selectedImage === imagePath.split("/")[0] ? '3px solid blue' : '1px solid #ccc',
-                      cursor: 'pointer',
-                      borderRadius: '4px'
-                    }}
+                    className={`selectable-avatar ${selectedImage === imagePath.split("/")[0] ? "selected-avatar" : ""}`}
                   />
                   <p style={{ marginTop: '5px', fontSize: '14px', backgroundColor: 'rgba(255, 255, 255, 0.5)', color: '#333' }}>{imageNames[imagePath]}</p>
                 </div>
