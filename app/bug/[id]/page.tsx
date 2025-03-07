@@ -8,13 +8,17 @@ import {API_URL} from '@/config/config';
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const DinoPage: React.FC = () => {
   const params = useParams();
   const [bugId, setBugId] = useState(params?.id);
   const [bug, setBug] = useState({});
   const [recompense, setRecompense] = useState({});
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [response, setResponse] = useState("");
 
   useEffect(() => {

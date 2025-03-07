@@ -8,22 +8,17 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const ProfilePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [messageEmail, setMessageEmail] = useState("");
   const [messagePseudo, setMessagePseudo] = useState("");
-  const [messagePassword, setMessagePassword] = useState("");
-  const [messageErrorPassword, setErrorMessagePassword] = useState("");
   const { option } = useOption();
-  const [translations, setTranslations] = useState({});
-  const [advantages, setAdvantages] = useState({});
-  const [username, setUsername] = useState("");
-  const [pseudo, setPseudo] = useState("");
-  const [email, setEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [translations, setTranslations] = useState<Translations>({});
   const [forgotPassword, setForgotPassword] = useState("");
 
   useEffect(() => {
@@ -37,7 +32,7 @@ const ProfilePage: React.FC = () => {
     }
   }, [option?.language]);
 
-  const handleChangeForgotPassword = (e) => {
+  const handleChangeForgotPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForgotPassword(e.target.value);
   };
 
@@ -62,8 +57,10 @@ const ProfilePage: React.FC = () => {
       }
       
       console.log(change_pseudo)
-    } catch (error) {
-      setErrorMessage(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
     }
   };
 

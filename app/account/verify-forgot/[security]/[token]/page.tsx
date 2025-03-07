@@ -10,20 +10,17 @@ import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const RencontrePage: React.FC = () => {
   const params = useParams();
-  const searchParams = useSearchParams();
-  const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
   const [change, setChange] = useState<boolean>(true);
-  const [endRencontre, setEndrencontre] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [messageEmail, setMessageEmail] = useState("");
-  const [messagePseudo, setMessagePseudo] = useState("");
   const [messagePassword, setMessagePassword] = useState("");
   const [messageErrorPassword, setErrorMessagePassword] = useState("");
 

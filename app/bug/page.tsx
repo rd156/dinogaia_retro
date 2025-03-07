@@ -8,10 +8,14 @@ import "./page.css";
 import Link from 'next/link';
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const CavePage: React.FC = () => {
   const [bug, setBug] = useState<any[]>([]);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");

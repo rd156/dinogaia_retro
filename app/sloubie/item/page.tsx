@@ -161,9 +161,9 @@ const ItemsPage: React.FC = () => {
               >
                 <thead>
                   <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
-                    <th style={{ padding: "10px" }}>Id de l'item</th>
+                    <th style={{ padding: "10px" }}>Id de l&apos;item</th>
                     <th style={{ padding: "10px" }}>Nom format Id</th>
-                    <th style={{ padding: "10px" }}>Nom de l'item</th>
+                    <th style={{ padding: "10px" }}>Nom de l&apos;item</th>
                     <th style={{ padding: "10px" }}>Catégorie</th>
                     <th style={{ padding: "10px" }}>Prix</th>
                     <th style={{ padding: "10px" }}>Action</th>

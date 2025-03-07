@@ -7,9 +7,13 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const CavePage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState("");

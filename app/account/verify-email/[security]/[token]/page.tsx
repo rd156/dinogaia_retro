@@ -9,18 +9,17 @@ import { API_URL } from "@/config/config";
 import Link from "next/link";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const RencontrePage: React.FC = () => {
   const params = useParams();
-  const searchParams = useSearchParams();
-  const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
   const [loading, setLoading] = useState<boolean>(true);
-  const [endRencontre, setEndrencontre] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
-  // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
       const loadedTranslations = await Loadtranslate(option?.language, ["settings", "global"]);

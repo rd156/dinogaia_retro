@@ -135,7 +135,7 @@ const ItemEditPage: React.FC = () => {
         {errorMessage && <p className="alert-red">{errorMessage}</p>}
         {successMessage && <p className="alert-green">{successMessage}</p>}
         <div className="block_white center">
-          <h1>Éditer l'Item</h1>
+          <h1>Éditer l&apos;Item</h1>
           <input
               type="text"
               value={inputValue}
@@ -148,7 +148,7 @@ const ItemEditPage: React.FC = () => {
           <form onSubmit={handleSubmit} style={{ maxWidth: "600px", margin: "0 auto" }}>
             <div className="flex flex-col gap-4">
               <div>
-                <label>Nom de l'item</label>
+                <label>Nom de l&apos;item</label>
                 <input
                   type="text"
                   name="name"
