@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import "./page.css";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const CavePage: React.FC = () => {
   const [translations, setTranslations] = useState({});
@@ -63,14 +64,14 @@ const CavePage: React.FC = () => {
                   cursor: "pointer", 
                   transition: "background-color 0.3s"
                 }}>
-                  <img 
-                    src="/bouton/bid.webp"
-                    alt="Bid" 
-                    style={{
-                      width: "250px",        
-                      height: "250px",       
-                      objectFit: "contain"  
-                    }} 
+                  <ImageGeneriqueWithText 
+                    imageType="bouton"
+                    imageName="bid"
+                    defaultType="bouton"
+                    defaultName="default"
+                    width={250}
+                    height={250}
+                    alt="Bid"
                   />
                 </button>
               </a>
@@ -98,14 +99,14 @@ const CavePage: React.FC = () => {
                   cursor: "pointer", 
                   transition: "background-color 0.3s"
                 }}>
-                  <img 
-                    src="/bouton/hdv.webp"
-                    alt="Bid" 
-                    style={{
-                      width: "250px",        
-                      height: "250px",       
-                      objectFit: "contain"  
-                    }} 
+                  <ImageGeneriqueWithText 
+                    imageType="bouton"
+                    imageName="hdv"
+                    defaultType="bouton"
+                    defaultName="default"
+                    width={250}
+                    height={250}
+                    alt="HDV"
                   />
                 </button>
               </a>
