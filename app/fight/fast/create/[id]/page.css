@@ -85,3 +85,15 @@
     transform: scale(1.1);
   }
   
+  .border-winner
+  {
+    border-radius: 10px;
+    border: 5px solid green;
+  }
+  
+  .border-loser
+  {
+    border-radius: 10px;
+    border: 5px solid red;
+  }
+  

@@ -8,6 +8,7 @@ import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const attackZones = ["haut", "milieu", "bas"];
 
@@ -130,13 +131,16 @@ const CombatPage: React.FC = () => {
           <h1>{translations.fight?.ACTUAL_FIGHT_DISPLAY}</h1>
           <div className="battlefield">
             <div className="character">
-              {
-                fighterOne ? (
-                  <img src={`/avatar/${fighterOne.avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du joueur" className="character-img" />
-                )
-              }
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={fighterOne?.avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className="character-img"
+              />
               {
                 fighterOne ? (
                   <p>{fighterOne.name}</p>
@@ -147,13 +151,16 @@ const CombatPage: React.FC = () => {
             </div>
             <div className="vs">{translations.fight?.TITLE_VS}</div>
             <div className="character">
-              {
-                fighterTwo ? (
-                  <img src={`/avatar/${fighterTwo.avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du l'opposant" className="character-img" />
-                )
-              }
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={fighterTwo?.avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className="character-img"
+              />
               {
                 fighterTwo ? (
                   <p>{fighterTwo.name}</p>

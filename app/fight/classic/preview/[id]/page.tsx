@@ -7,6 +7,7 @@ import "./page.css";
 import { API_URL } from "@/config/config";
 import Link from "next/link";
 import { useParams } from 'next/navigation';
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const CombatPreviewPage: React.FC = () => {
   const {option} = useOption();
@@ -65,13 +66,16 @@ const CombatPreviewPage: React.FC = () => {
         {message && <p className="message">{message}</p>}
           <div className="battlefield">
             <div className="character">
-              {
-                combat && combat.ennemi ? (
-                  <img style={{border: combat.gagnant === combat.ennemi ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.ennemi_avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du joueur" className="character-img" />
-                )
-              }
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={combat?.ennemi_avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className={`character-img ${combat?.gagnant === combat?.ennemi ? "border-winner" : "border-loser"}`}
+              />
               {
                 combat && combat.ennemi ? (
                   <p>{combat.ennemi_name}</p>
@@ -82,13 +86,16 @@ const CombatPreviewPage: React.FC = () => {
             </div>
             <div className="vs">{translations.fight?.TITLE_VS}</div>
             <div className="character">
-              {
-                combat && combat.joueur ? (
-                  <img style={{border: combat.gagnant === combat.joueur ? "5px solid green" : "5px solid red"}} src={`/avatar/${combat.joueur_avatar}.webp`} alt="Image du joueur" className="character-img" />
-                ):(
-                  <img src={`/avatar/default.webp`} alt="Image du l'opposant" className="character-img" />
-                )
-              }
+              <ImageGeneriqueWithText 
+                imageType="avatar"
+                imageName={combat?.joueur_avatar}
+                defaultType="avatar"
+                defaultName="default"
+                width={120}
+                height={120}
+                alt="Image du joueur"
+                className={`character-img ${combat?.gagnant === combat?.joueur ? "border-winner" : "border-loser"}`}
+              />
               {
                 combat && combat.joueur ? (
                   <p>{combat.joueur_name}</p>
