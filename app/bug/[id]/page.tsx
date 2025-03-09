@@ -11,15 +11,31 @@ import "./page.css";
 interface Translations {
   [key: string]: any;
 }
+interface Bug {
+  id: number;
+  reference: string;
+  username: string;
+  account: string;
+  status: string;
+  title: string;
+  answer: string;
+  content: string;
+}
+interface Recompense {
+  emeraud: number;
+  luck: number;
+  items: [];
+}
 
 const DinoPage: React.FC = () => {
   const params = useParams();
   const [bugId, setBugId] = useState(params?.id);
-  const [bug, setBug] = useState({});
-  const [recompense, setRecompense] = useState({});
+  const [bug, setBug] = useState<Bug | null>(null);
+  const [recompense, setRecompense] = useState<Recompense | null>(null);
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
   const [response, setResponse] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -53,24 +69,21 @@ const DinoPage: React.FC = () => {
         {
           setBug(result)
           setResponse(result.answer)
-          setRecompense({});
+          setRecompense(null);
           const tmp = JSON.parse(result.recompense)
           if (tmp)
           {
             setRecompense(tmp);
           }
         }
-      } catch (error) {
-        
-      } finally {
-        setLoading(false);
+      } catch (error) {   
       }
     };
 
     fetchData();
   }, []);
 
-  const collectClick = async (id_bug) => {
+  const collectClick = async (id_bug: number) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     if (dinoId)
@@ -98,7 +111,7 @@ const DinoPage: React.FC = () => {
         {
           setBug(result)
           setResponse(result.answer)
-          setRecompense({});
+          setRecompense(null);
           const tmp = JSON.parse(result.recompense)
           if (tmp)
           {
@@ -135,40 +148,40 @@ const DinoPage: React.FC = () => {
     <div className="content">
       <div className='content_top'>
         <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
-          <h2 className="text-2xl font-bold mb-4">{translations.bug?.USER_BUG_ID.replace("[Number]", bug.id)}</h2>
-          <p className="text-gray-600"><strong>{translations.bug?.USER_BUG_REFERENCE}</strong> {bug.reference}</p>
-          {bug.username && (
+          <h2 className="text-2xl font-bold mb-4">{bug && translations.bug?.USER_BUG_ID.replace("[Number]", bug.id)}</h2>
+          <p className="text-gray-600"><strong>{translations.bug?.USER_BUG_REFERENCE}</strong> {bug && bug.reference}</p>
+          {bug && (
             <p className="text-gray-600"><strong>Username :</strong> {bug.username} ({bug.account})</p>
           )}
           <p className="text-gray-600"><strong>{translations.bug?.USER_BUG_STATUS}</strong> 
             <span className={`ml-2 px-2 py-1 rounded ${
-              bug.status === "OPEN" ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"
+              bug && bug.status === "OPEN" ? "bg-green-200 text-green-800" : "bg-red-200 text-red-800"
             }`}>
-              {bug.status}
+              {bug && bug.status}
             </span>
           </p>
 
           <div className="mt-4 p-4 border rounded-lg bg-gray-100">
             <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_TITLE}</h3>
-            <p className="text-gray-700">{bug.title}</p>
+            <p className="text-gray-700">{bug && bug.title}</p>
           </div>
 
           <div className="mt-4 p-4 border rounded-lg bg-gray-100">
             <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_CONTENT}</h3>
-            <p className="text-gray-700 whitespace-pre-line">{bug.content || translations.bug?.USER_BUG_NONE_CONTENT}</p>
+            <p className="text-gray-700 whitespace-pre-line">{bug && bug.content || translations.bug?.USER_BUG_NONE_CONTENT}</p>
           </div>
 
-          {bug.answer && (
+          {bug && bug.answer && (
             <div className="mt-4 p-4 border rounded-lg bg-blue-100">
               <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_ANSWER}</h3>
-              <p className="text-gray-700 whitespace-pre-line">{bug.answer}</p>
+              <p className="text-gray-700 whitespace-pre-line">{bug && bug.answer}</p>
             </div>
           )}
 
           <div className="mt-4 p-4 border rounded-lg bg-yellow-100">
             <h3 className="text-lg font-semibold">{translations.bug?.USER_BUG_REWARD}</h3>
-            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_EMERAUD}</strong>{recompense.emeraud || translations.bug?.USER_BUG_NONE}</p>
-            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_LUCK}</strong>{recompense.luck || translations.bug?.USER_BUG_NONE}</p>
+            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_EMERAUD}</strong>{recompense && recompense.emeraud || translations.bug?.USER_BUG_NONE}</p>
+            <p className="text-gray-700"><strong>{translations.bug?.USER_BUG_LUCK}</strong>{recompense && recompense.luck || translations.bug?.USER_BUG_NONE}</p>
             
             {recompense && recompense.items && Object.keys(recompense.items).length > 0 ? (
               <table className="w-full mt-2 border-collapse">
@@ -191,7 +204,7 @@ const DinoPage: React.FC = () => {
               <p className="text-gray-600">{translations.bug?.USER_BUG_NO_ITEM}</p>
             )}
             <br />
-            {hasReward(recompense) && bug.status === "CLOSE" && (
+            {hasReward(recompense) && bug && bug.status === "CLOSE" && (
               <ButtonFancy onClick={() => collectClick(bug.id)} label={translations.bug?.COLLECT} />
             )}
           </div>

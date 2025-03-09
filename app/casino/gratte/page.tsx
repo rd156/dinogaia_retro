@@ -55,7 +55,7 @@ const MyScratchCard = () => {
     fetchData();
   }, []);
 
-  const startGame = async (bet) => {
+  const startGame = async (bet: number) => {
     try {
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
@@ -108,11 +108,9 @@ const MyScratchCard = () => {
                             key={resetKey}
                             width={300}
                             height={300}
-                            image="/avatar/default.webp"
+                            image="/template_image/reborn/avatar/default.webp"
                             finishPercent={60}
                             onComplete={handleComplete}
-                            progress={progress}
-                            onProgressChange={(newProgress) => setProgress(newProgress)}
                         >
                           <ImageGeneriqueWithText 
                             imageType="item_original"

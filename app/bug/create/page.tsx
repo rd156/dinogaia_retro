@@ -101,7 +101,7 @@ const CavePage: React.FC = () => {
                 id="content"
                 onChange={(e) => setContent(e.target.value)}
                 placeholder={translations.bug?.ENTER_CONTENT}
-                rows="10"
+                rows={10}
                 required
               />
             </div>
