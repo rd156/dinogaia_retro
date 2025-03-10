@@ -60,7 +60,7 @@ const CombatListPage: React.FC = () => {
       }
     };
     fetchCombats();
-  }, []);
+  }, [translations]);
 
   const handleAccountSelect = async () => {
     const token = localStorage.getItem("token");

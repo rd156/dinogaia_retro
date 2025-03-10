@@ -36,6 +36,7 @@ const RecipePage: React.FC = () => {
       fetchTranslations();
     }
   }, [option?.language]);
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -93,7 +94,7 @@ const RecipePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   const toggleRecipe = (recipeId: number) => {
     setOpenRecipeId(openRecipeId === recipeId ? null : recipeId);

@@ -126,7 +126,7 @@ const CombatListPage: React.FC = () => {
     };
 
     fetchCombats();
-  }, []);
+  }, [translations]);
 
   const handleAccountSearch = async () => {
     if (!searchAccount.trim()) return;

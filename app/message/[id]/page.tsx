@@ -84,7 +84,7 @@ const MessageDetailPage: React.FC = () => {
     if (params.id) {
       fetchMessageDetail();
     }
-  }, [params.id]);
+  }, [params.id, translations]);
 
   if (errorMessage) {
     return <p className="alert-red">{errorMessage}</p>;

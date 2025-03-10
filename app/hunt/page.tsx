@@ -113,7 +113,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   // Calcul du temps restant
   useEffect(() => {

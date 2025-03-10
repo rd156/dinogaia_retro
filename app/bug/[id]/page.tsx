@@ -81,7 +81,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [bugId, translations]);
 
   const collectClick = async (id_bug: number) => {
     const token = localStorage.getItem("token");

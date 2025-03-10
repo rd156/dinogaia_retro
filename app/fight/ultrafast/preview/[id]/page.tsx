@@ -66,7 +66,7 @@ const CombatPreviewPage: React.FC = () => {
     };
 
     fetchCombatDetails();
-  }, [combatId]);
+  }, [combatId, translations]);
 
   const extractParenthesesContent = (text: string): string | null => {
     const match = text.match(/\(([^)]+)\)/);

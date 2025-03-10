@@ -16,7 +16,6 @@ interface Translations {
 
 const RencontrePage: React.FC = () => {
   const params = useParams();
-  const searchParams = useSearchParams();
   const [rencontreInfo, setRencontreInfo] = useState<any>(null);  // Pour stocker la rencontre
   const [loading, setLoading] = useState<boolean>(true);
   const [endRencontre, setEndrencontre] = useState<boolean>(false);
@@ -66,7 +65,7 @@ const RencontrePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations, params]);
 
   const handleChoiceClick = async (choiceId: number) => {
     const token = localStorage.getItem("token");

@@ -108,7 +108,7 @@ const ItemsPage: React.FC = () => {
   
   useEffect(() => {
     loadItems();
-  }, []);
+  }, [translations, inputName]);
 
   const handleItemClick = (id: number) => {
     // Si l'item est déjà sélectionné, on le dé-sélectionne

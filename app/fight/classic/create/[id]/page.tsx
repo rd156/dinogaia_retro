@@ -75,7 +75,7 @@ const CombatPage: React.FC = () => {
     };
   
     createCombat();
-  }, []);
+  }, [translations, player2]);
   
   const handleSelect = (type: "attack" | "defense", zone: string) => {
     if (type === "attack") setSelectedAttack(zone);

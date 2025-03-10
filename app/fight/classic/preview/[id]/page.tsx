@@ -59,7 +59,7 @@ const CombatPreviewPage: React.FC = () => {
     };
 
     fetchCombatDetails();
-  }, [combatId]);
+  }, [combatId, translations]);
 
   const getDinoId = () => {
     return (localStorage.getItem("dinoId"))

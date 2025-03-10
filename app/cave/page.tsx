@@ -87,7 +87,7 @@ const CavePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,7 +118,7 @@ const CavePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -155,7 +155,7 @@ const CavePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   const [activeCategory, setActiveCategory] = useState("ALL");
   const categories = ["ALL", "FOOD", "MEDOC", "RES", "ATK", "SKILL", "WEAPON", "ARTE", "TALIS", "HABI", "QUEST", "GOLD", "PACK", "OTHER"];

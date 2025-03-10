@@ -75,7 +75,7 @@ const MessagesPage: React.FC = () => {
     };
 
     fetchShops();
-  }, [activeCategory]);
+  }, [activeCategory, translations]);
 
   const sortShops = (field: 'name' | 'pnj_name' | 'category_name') => {
     const sortedShops = [...shopList];

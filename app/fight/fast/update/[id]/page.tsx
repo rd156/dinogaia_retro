@@ -26,8 +26,8 @@ const CombatPage: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [messageError, setMessageError] = useState<string>("");
-  const [fighterOne, setFighterOne] = useState<Fighter | null>(null);
-  const [fighterTwo, setFighterTwo] = useState<Fighter | null>(null);
+  const [fighterOne, setFighterOne] = useState<number | null>(null);
+  const [fighterTwo, setFighterTwo] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -65,7 +65,7 @@ const CombatPage: React.FC = () => {
     };
   
     createCombat();
-  }, []);
+  }, [fightId, translations]);
 
   useEffect(() => {
     const fetchData = async () => {

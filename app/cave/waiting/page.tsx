@@ -96,7 +96,7 @@ const CavePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   // Fonction pour trier les items
   const [sortBy, setSortBy] = useState("");

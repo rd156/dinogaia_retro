@@ -110,7 +110,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations, dinoId]);
 
   const handleFavoriteToggle = async (dinoId: number) => {
     try {
@@ -167,7 +167,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations, dinoId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -200,7 +200,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations, dinoId]);
 
   const handleLevelUpClick = async (dino_id: number) => {
     const token = localStorage.getItem("token");

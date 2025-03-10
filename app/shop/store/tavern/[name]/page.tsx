@@ -74,7 +74,7 @@ const StoreDetailPage: React.FC = () => {
     if (params.name) {
       fetchStoreDetail();
     }
-  }, [params.name]);
+  }, [params.name, translations]);
 
   const handleBuyProduct = async (selectedProduct: Product) => {
     if (!selectedProduct) return;

@@ -23,7 +23,6 @@ interface Objectif {
 }
 
 const QuestPage: React.FC = () => {
-  const searchParams = useSearchParams();
   const [questActive, setQuestActive] = useState<Quest[]>([]);
   const [questPossibility, setQuestPossibility] = useState<Quest[]>([]);
   const [questFinish, setQuestFinish] = useState<Quest[]>([]);

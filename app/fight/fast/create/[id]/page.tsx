@@ -69,7 +69,7 @@ const CombatPage: React.FC = () => {
     };
   
     createCombat();
-  }, []);
+  }, [translations, player2]);
   
   useEffect(() => {
     const fetchData = async () => {

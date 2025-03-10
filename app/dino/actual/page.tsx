@@ -148,7 +148,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -181,7 +181,7 @@ const DinoPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [translations]);
 
   const handleLevelUpClick = async () => {
     const token = localStorage.getItem("token");

@@ -105,7 +105,7 @@ const CombatListPage: React.FC = () => {
     };
 
     fetchCombats();
-  }, []);
+  }, [translations]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

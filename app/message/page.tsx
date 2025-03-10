@@ -87,7 +87,7 @@ const MessagesPage: React.FC = () => {
     };
 
     fetchMessages();
-  }, [params.id]);
+  }, [params.id, translations]);
 
   const sortMessages = (field: 'date' | 'sender') => {
     const sortedMessages = [...messagesList];
