@@ -11,10 +11,18 @@ import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText"
 
 const attackZones = ["haut", "milieu", "bas"];
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Fighter {
+  [key: string]: any;
+}
+
 const CombatPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const { id: player2 } = useParams();
+  const [translations, setTranslations] = useState<Translations>({});
+  const { id: player2 } = useParams<{ id: string }>();
   const [round, setRound] = useState(1);
   const [attacks, setAttacks] = useState<string[]>([]);
   const [defenses, setDefenses] = useState<string[]>([]);
@@ -22,8 +30,8 @@ const CombatPage: React.FC = () => {
   const [selectedDefense, setSelectedDefense] = useState<string | null>(null);
   const [message, setMessage] = useState<string>();
   const [messageError, setMessageError] = useState<string>("");
-  const [fighterOne, setFighterOne] = useState<number | null>(null);
-  const [fighterTwo, setFighterTwo] = useState<number | null>(null);
+  const [fighterOne, setFighterOne] = useState<Fighter | null>(null);
+  const [fighterTwo, setFighterTwo] = useState<Fighter | null>(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -100,7 +108,7 @@ const sendCombatData = async (updatedAttacks: string[], updatedDefenses: string[
   try {
     const dataFight = {
       "dino1": dinoId,
-      "dino2": fighterTwo.id,
+      "dino2": fighterTwo?.id,
       "attacks": updatedAttacks,
       "defenses": updatedDefenses,
     };

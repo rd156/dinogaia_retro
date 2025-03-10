@@ -11,16 +11,23 @@ import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 const attackZones = ["haut", "milieu", "bas"];
+interface Translations {
+  [key: string]: any;
+}
+
+interface Fighter {
+  [key: string]: any;
+}
 
 const CombatPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const { id: fightId } = useParams();
+  const [translations, setTranslations] = useState<Translations>({});
+  const { id: fightId } = useParams<{ id: string }>();
   const [items, setItems] = useState<any[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [messageError, setMessageError] = useState<string>("");
-  const [fighterOne, setFighterOne] = useState<number | null>(null);
-  const [fighterTwo, setFighterTwo] = useState<number | null>(null);
+  const [fighterOne, setFighterOne] = useState<Fighter | null>(null);
+  const [fighterTwo, setFighterTwo] = useState<Fighter | null>(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {

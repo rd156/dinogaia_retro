@@ -8,9 +8,54 @@ import "./page.css";
 import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface NextLevel {
+  xp: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+}
+
+interface Level {
+  lvl: number;
+}
+
+interface Dino {
+  id: number;
+  name: string;
+  avatar: string;
+  favory: boolean;
+  level: Level;
+  next_level: NextLevel;
+  xp: number;
+  emeraude: number;
+  luck: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+  taille: number;
+  poids: number;
+  date_naissance: string;
+  injury: string;
+  disease: string;
+  is_dead: boolean;
+  faim: number;
+  soif: number;
+  fatigue: number;
+  pv: number;
+  pv_max: number;
+  pm: number;
+  pm_max: number;
+}
+
 const CombatListPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [combatsTermines, setCombatsTermines] = useState<any[]>([]);
   const [combatsStart, setCombatsStart] = useState<any[]>([]);
   const [combatsWaiting, setCombatsWaiting] = useState<any[]>([]);
@@ -19,8 +64,8 @@ const CombatListPage: React.FC = () => {
   const [searchAccount, setSearchAccount] = useState<string>("");
   const [accounts, setAccounts] = useState<any[]>([]);
   const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-  const [dinos, setDinos] = useState<any[]>([]);
-  const [dinoOnline, setDinoOnline] = useState<any[]>([]);
+  const [dinos, setDinos] = useState<Dino[]>([]);
+  const [dinoOnline, setDinoOnline] = useState<Dino[]>([]);
   const [selectedDino, setSelectedDino] = useState<number | null>(null);
 
   useEffect(() => {
@@ -195,7 +240,7 @@ const CombatListPage: React.FC = () => {
                   ))}
                 </select>
               )}
-              {selectedDino > 0 && (
+              {selectedDino && selectedDino > 0 && (
                 <Link
                   href={'/fight/classic/create/'+selectedDino}
                   passHref

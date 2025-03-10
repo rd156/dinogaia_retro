@@ -3,17 +3,16 @@
 import { useEffect, useState } from "react";
 import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
-import { API_URL } from "@/config/config";
 import "./page.css";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const FightPage: React.FC = () => {
-  const searchParams = useSearchParams();
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
 

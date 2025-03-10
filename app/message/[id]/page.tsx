@@ -21,13 +21,21 @@ const formatDate = (dateString: string) => {
   return `${day}-${month}-${year} ${hours}:${minutes}`;
 };
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Message {
+  [key: string]: any;
+}
+
 const MessageDetailPage: React.FC = () => {
   const params = useParams();
-  const [message, setMessage] = useState<any>(null);
+  const [message, setMessage] = useState<Message | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState<any>({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [messageAnswer, setMessageAnswer] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
   const [response, setResponse] = useState("");
@@ -124,6 +132,7 @@ const MessageDetailPage: React.FC = () => {
       const tmp = JSON.parse(content);
       return tmp?.content || content;
     } catch (error) {
+      return content;
     }
   };
   
@@ -165,7 +174,7 @@ const MessageDetailPage: React.FC = () => {
                   placeholder={"Écrivez votre réponse ici..."}
                 />
                 <div className="mt-2">
-                  <ButtonFancy type="submit" label={translations.message?.FORM_BUTTON_ANSWER} />
+                  <ButtonFancy label={translations.message?.FORM_BUTTON_ANSWER} />
                 </div>
               </form>
             </div>

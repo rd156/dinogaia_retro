@@ -19,18 +19,30 @@ const formatDate = (dateString: string) => {
   return `${day}-${month}-${year} ${hours}:${minutes}`;
 };
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface User {
+  [key: string]: any;
+}
+
+interface Dino {
+  [key: string]: any;
+}
+
 const MessageCreatePage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState<any>({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [messageAnswer, setMessageAnswer] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
   const [dinoRecept, setDinoRecept] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [searchUser, setSearchUser] = useState("");
-  const [userList, setUserList] = useState<any[]>([]);
+  const [userList, setUserList] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<string>("");
-  const [dinoList, setDinoList] = useState<any[]>([]);
+  const [dinoList, setDinoList] = useState<Dino[]>([]);
   
 
   useEffect(() => {
@@ -207,7 +219,7 @@ const MessageCreatePage: React.FC = () => {
                 />
               </div>
               <div className="mt-6">
-                <ButtonFancy type="submit" label={translations.message?.FORM_BUTTON_CREATE_MESSAGE} />
+                <ButtonFancy label={translations.message?.FORM_BUTTON_CREATE_MESSAGE} />
               </div>
               <br />
               <div className="buttons">

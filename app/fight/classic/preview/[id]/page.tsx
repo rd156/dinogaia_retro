@@ -9,11 +9,19 @@ import Link from "next/link";
 import { useParams } from 'next/navigation';
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Fighter {
+  [key: string]: any;
+}
+
 const CombatPreviewPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const { id: combatId } = useParams();
-  const [combat, setCombat] = useState<any>(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const { id: combatId } = useParams<{ id: string }>();
+  const [combat, setCombat] = useState<Fighter | null>(null);
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
@@ -126,7 +134,7 @@ const CombatPreviewPage: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {combat.joueur_attack.map((_, index) => (
+                      {combat.joueur_attack.map((_: string, index: number) => (
                         <tr key={index} style={{backgroundColor: combat.gagnant == getDinoId() ? "rgb(0, 255, 0, 0.3)" : "rgb(255, 0, 0, 0.3)"}}>
                           <td>{index + 1}</td>
                           <td>{Array.isArray(combat.joueur_attack[index]) ? combat.joueur_attack[index].join(", ") : combat.joueur_attack[index] || "—"}</td>
@@ -156,7 +164,7 @@ const CombatPreviewPage: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {combat.joueur_attack.map((_, index) => (
+                      {combat.joueur_attack.map((_: string, index: number) => (
                         <tr key={index} style={{backgroundColor: combat.gagnant == getDinoId() ? "rgb(0, 255, 0, 0.3)" : "rgb(255, 0, 0, 0.3)",}}>
                           <td>{index + 1}</td>
                           <td>{Array.isArray(combat.points_joueur[index]) ? combat.points_joueur[index].join(", ") : combat.points_joueur[index] || "—"}</td>

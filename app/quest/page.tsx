@@ -10,16 +10,29 @@ import Link from 'next/link';
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Quest {
+  [key: string]: any;
+}
+
+interface Objectif {
+  [key: string]: any;
+}
+
 const QuestPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [questActive, setQuestActive] = useState<any[]>([]);
-  const [questPossibility, setQuestPossibility] = useState<any[]>([]);
-  const [questFinish, setQuestFinish] = useState<any[]>([]);
+  const [questActive, setQuestActive] = useState<Quest[]>([]);
+  const [questPossibility, setQuestPossibility] = useState<Quest[]>([]);
+  const [questFinish, setQuestFinish] = useState<Quest[]>([]);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [expandedRowActiveQuest, setExpandedRowActiveQuest] = useState<number | null>(null);
 
   // Charger les traductions
   useEffect(() => {
@@ -143,14 +156,11 @@ const QuestPage: React.FC = () => {
     fetchData();
   }, []);
 
-
-  const [expandedRowActiveQuest, setExpandedRowActiveQuest] = useState(null);
-
-  const toggleRow = (id) => {
+  const toggleRow = (id: number) => {
     setExpandedRowActiveQuest(expandedRowActiveQuest === id ? null : id);
   };
 
-  const handleButtonClick = async (action) => {
+  const handleButtonClick = async (action: string) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     console.log(action)
@@ -183,7 +193,7 @@ const QuestPage: React.FC = () => {
     }
   };
   
-  const validateStepClick = async (action) => {
+  const validateStepClick = async (action: string) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     console.log(action)
@@ -296,12 +306,12 @@ const QuestPage: React.FC = () => {
                   </tr>
                   {expandedRowActiveQuest === entry.id && (
                     <tr>
-                      <td colSpan="4" style={{ padding: "10px" }}>
+                      <td colSpan={4} style={{ padding: "10px" }}>
                         <strong>{translations.quest?.DESCRIPTION}</strong>
                         <br/>
                         <strong>{translations.quest?.OBJECTIF}</strong>
                         <ul>
-                          {entry.objectifs.map((objectif, index) => ( 
+                          {entry.objectifs.map((objectif: Objectif, index: number) => ( 
                             <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
                               {
                                 objectif.type === "give" && 

@@ -10,15 +10,23 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import { useParams } from 'next/navigation';
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Fighter {
+  [key: string]: any;
+}
+
 const CombatPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const { id: player2 } = useParams();
+  const [translations, setTranslations] = useState<Translations>({});
+  const { id: player2 } = useParams<{ id: string }>();
   const [items, setItems] = useState<any[]>([]);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [messageError, setMessageError] = useState<string>("");
-  const [fighterOne, setFighterOne] = useState<number | null>(null);
-  const [fighterTwo, setFighterTwo] = useState<number | null>(null);
+  const [fighterOne, setFighterOne] = useState<Fighter | null>(null);
+  const [fighterTwo, setFighterTwo] = useState<Fighter | null>(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {

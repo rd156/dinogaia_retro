@@ -12,6 +12,10 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 import Link from "next/link";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const HuntResultPage: React.FC = () => {
   const searchParams = useSearchParams();
   const [resultData, setResultData] = useState<any>(null);
@@ -19,7 +23,7 @@ const HuntResultPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [isCollectedButton, setIsCollectedButton] = useState(true);
 
   const terrain = searchParams.get("terrain");
@@ -178,6 +182,7 @@ const HuntResultPage: React.FC = () => {
                   <span style={{ fontSize: "32px", fontWeight: "bold" }}>X</span>
                   <ImageItemWithText 
                     itemName={weapon}
+                    quantity=""
                     translations={translations.item}
                     width = {100}
                     height = {100}

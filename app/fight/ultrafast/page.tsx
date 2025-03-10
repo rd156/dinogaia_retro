@@ -6,14 +6,24 @@ import { Loadtranslate } from "@/utils/translate";
 import Link from "next/link";
 import "./page.css";
 import { API_URL } from "@/config/config";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+
+interface Translations {
+  [key: string]: any;
+}
+
+interface CombatType {
+  id: number;
+  opponent_type: string;
+  opponent_name: string;
+  dino1_account_name: string;
+  winner_type: string;
+}
 
 const CombatListPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [combatsTermines, setCombatsTermines] = useState<any[]>([]);
-  const [message, setMessage] = useState<string>("");
+  const [translations, setTranslations] = useState<Translations>({});
+  const [combatsTermines, setCombatsTermines] = useState<CombatType[]>([]);
   const [messageError, setMessageError] = useState<string>("");
 
   useEffect(() => {
@@ -46,7 +56,7 @@ const CombatListPage: React.FC = () => {
         setCombatsTermines(data);
         console.log(data)
       } catch (error) {
-        setMessage(translations.fight?.ERROR_LOAD_FIGHT);
+        setMessageError(translations.fight?.ERROR_LOAD_FIGHT);
       }
     };
     fetchCombats();
@@ -82,10 +92,6 @@ const CombatListPage: React.FC = () => {
     }
     catch (error) {
     }
-  };
-
-  const getDinoId = () => {
-    return (localStorage.getItem("dinoId"))
   };
   
   const extractParenthesesContent = (text: string): string | null => {

@@ -7,18 +7,25 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Bid {
+  [key: string]: any;
+}
 const CavePage: React.FC = () => {
-  const [bid, setBid] = useState<any[]>([]);
-  const [mybid, setMybid] = useState<any[]>([]);
+  const [bid, setBid] = useState<Bid[]>([]);
+  const [mybid, setMybid] = useState<Bid[]>([]);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [countWin, setCountWin] = useState(null);
-  const [countBid, setCountBid] = useState(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [countWin, setCountWin] = useState(0);
+  const [countBid, setCountBid] = useState(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [dinoid, setDinoid] = useState();
-  const [bidAmounts, setBidAmounts] = useState({});
+  const [dinoid, setDinoid] = useState<number | null>(null);
+  const [bidAmounts, setBidAmounts] = useState<{ [key: string]: string }>({});
 
   // Charger les traductions
   useEffect(() => {
@@ -41,7 +48,7 @@ const CavePage: React.FC = () => {
       {
         window.location.href = "/dino"
       }
-      setDinoid(dinoId)
+      setDinoid(parseInt(dinoId ?? "0"));
       const token = localStorage.getItem('token');
       try {
         const response = await fetch(`${API_URL}/bid/list`, {
@@ -100,7 +107,7 @@ const CavePage: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleBid = async (bidId, bidAmount) => {
+  const handleBid = async (bidId: number, bidAmount: number) => {
     setErrorMessage("");
     setMessage("");
     console.log(`Enchérir sur le bid avec l'ID : ${bidId} au prix de ${bidAmount}`);
@@ -176,8 +183,8 @@ const CavePage: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           const today = new Date().toISOString().split('T')[0];
-          const nbenchere = data.filter(item => item.bid.day < today);
-          const nbwinData = data.filter(item => item.bid.day < today && item.bid.last_dino === item.dino);
+          const nbenchere = data.filter((item: Bid) => item.bid.day < today);
+          const nbwinData = data.filter((item: Bid) => item.bid.day < today && item.bid.last_dino === item.dino);
           setCountWin(nbwinData.length);
           setCountBid(nbenchere.length);
         }
@@ -189,8 +196,8 @@ const CavePage: React.FC = () => {
     fetchCount();
   }, []);
 
-  const getValueById = (id) => {
-    const item = mybid.find((data) => data.bid?.id === id);
+  const getValueById = (id: number) => {
+    const item = mybid.find((data: Bid) => data.bid?.id === id);
     return item ? item.price + " E": translations.shop?.TABLE_NO_BID;
   };
 
@@ -280,7 +287,7 @@ const CavePage: React.FC = () => {
                         borderRadius: "5px",
                         cursor: "pointer",
                       }}
-                      onClick={() => handleBid(entry.id, bidAmounts[entry.id])}
+                      onClick={() => handleBid(entry.id, parseInt(bidAmounts[entry.id] ?? "0"))}
                     >
                       {translations.shop?.BID_OR_REBID}
                     </button>

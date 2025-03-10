@@ -9,13 +9,20 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Bid {
+  [key: string]: any;
+}
 const CavePage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [winBig, setWinBig] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [data, setData] = useState(winBig);
+  const [data, setData] = useState<Bid[]>([]);
 
   // Charger les traductions
   useEffect(() => {
@@ -53,7 +60,7 @@ const CavePage: React.FC = () => {
     fetchCount();
   }, []);
 
-  const handleButtonClick = async (id_bid) => {
+  const handleButtonClick = async (id_bid: number) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     try {
@@ -71,7 +78,7 @@ const CavePage: React.FC = () => {
   
       const result = await response.json();
       if (result.bid.id === id_bid){
-        setData((prevData) => prevData.filter((entry) => entry.bid.id !== id_bid));
+        setData(prevData => prevData.filter((entry: Bid) => entry.bid.id !== id_bid));
       }
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
@@ -101,7 +108,7 @@ const CavePage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {data && data.map((entry) => (
+              {data && data.map((entry: Bid) => (
                 <tr key={entry.bid.id} style={{ borderBottom: "1px solid #ddd", textAlign: "left" }}>
                   <td style={{ padding: "10px" }}>
                     <ItemWithTooltip 

@@ -21,14 +21,23 @@ const formatDate = (dateString: string) => {
     return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
 
+  interface Translations {
+    [key: string]: any;
+  }
+  
+  interface Message {
+    [key: string]: any;
+  }
+  
+
 const MessagesPage: React.FC = () => {
   const params = useParams();
-  const [messagesList, setMessagesList] = useState<any[]>([]);
+  const [messagesList, setMessagesList] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'date' | 'sender'>('date');
   const [activeCategory, setActiveCategory] = useState("ALL");
@@ -124,7 +133,7 @@ const MessagesPage: React.FC = () => {
   };
   
 
-  const handleCategoryToggle = (category) => {
+  const handleCategoryToggle = (category: string) => {
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem("token");

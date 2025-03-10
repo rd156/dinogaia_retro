@@ -6,8 +6,12 @@ import { API_URL } from "@/config/config";
 import "../page.css";
 import { useOption } from "@/context/OptionsContext";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const OptionPage: React.FC = () => {
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option, updateImageTemplate, updateLanguage} = useOption();

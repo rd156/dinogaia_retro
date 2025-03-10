@@ -8,6 +8,10 @@ import "./page.css";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import ImageTerrainWithText from "@/components/pattern/ImageTerrainWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const DinoPage: React.FC = () => {
   const [dinoId, setDinoId] = useState<string | null>(null);
   const [terrains, setTerrains] = useState<any[]>([]);
@@ -20,7 +24,7 @@ const DinoPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
   // Charger les traductions
   useEffect(() => {

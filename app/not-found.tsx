@@ -8,9 +8,13 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const Custom404: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
   // Charger les traductions
   useEffect(() => {

@@ -9,13 +9,20 @@ import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Job {
+  [key: string]: any;
+}
+
 const JobPage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const [jobList, setJobList] = useState<any[]>([]);
-  const [actualJob, setActualJob] = useState({})
-  const [waitingSalary, setWaitingSalary] = useState(null)
+  const [jobList, setJobList] = useState<Job[]>([]);
+  const [actualJob, setActualJob] = useState<Job>({})
+  const [waitingSalary, setWaitingSalary] = useState<any>(null)
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -158,7 +165,7 @@ const JobPage: React.FC = () => {
     }
   };
 
-  const joinButtonClick = async (action) => {
+  const joinButtonClick = async (action: string) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     try {  

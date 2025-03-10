@@ -9,11 +9,19 @@ import Link from "next/link";
 import { useParams } from 'next/navigation';
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Combat {
+  [key: string]: any;
+}
+
 const CombatPreviewPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const { id: combatId } = useParams();
-  const [combat, setCombat] = useState<any>(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const { id: combatId } = useParams<{ id: string }>();
+  const [combat, setCombat] = useState<Combat | null>(null);
   const [resultat, setResultat] = useState<any>(null);
   const [message, setMessage] = useState<string>("");
 
@@ -142,7 +150,7 @@ const CombatPreviewPage: React.FC = () => {
                       resultat[combat.dino1.toString()].hit && resultat[combat.dino2.toString()].hit &&
                       resultat[combat.dino1.toString()].hit.length > 0 ? (
                       <>
-                        {resultat[combat.dino1.toString()].hit.map((_, index) => (
+                        {resultat[combat.dino1.toString()].hit.map((_: string, index: number) => (
                           <tr key={"round" + index}>
                             <td>{translations.fight?.ROUND_NORMAL.replace("[Number]", index + 1)}</td>
                             <td>{resultat[combat.dino1.toString()].hit[index]}</td>

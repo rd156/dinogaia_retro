@@ -8,20 +8,64 @@ import "./page.css";
 import { API_URL } from "@/config/config";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface NextLevel {
+  xp: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+}
+
+interface Level {
+  lvl: number;
+}
+
+interface Dino {
+  id: number;
+  name: string;
+  avatar: string;
+  favory: boolean;
+  level: Level;
+  next_level: NextLevel;
+  xp: number;
+  emeraude: number;
+  luck: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+  taille: number;
+  poids: number;
+  date_naissance: string;
+  injury: string;
+  disease: string;
+  is_dead: boolean;
+  faim: number;
+  soif: number;
+  fatigue: number;
+  pv: number;
+  pv_max: number;
+  pm: number;
+  pm_max: number;
+}
+
 const CombatListPage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [combatsTermines, setCombatsTermines] = useState<any[]>([]);
   const [combatsStart, setCombatsStart] = useState<any[]>([]);
   const [combatsWaiting, setCombatsWaiting] = useState<any[]>([]);
-  const [message, setMessage] = useState<string>("");
+  const [messageError, setMessageError] = useState<string>("");
 
   const [searchAccount, setSearchAccount] = useState<string>("");
   const [accounts, setAccounts] = useState<any[]>([]);
-  const [selectedAccount, setSelectedAccount] = useState<number | null>(null);
-  const [dinos, setDinos] = useState<any[]>([]);
+  const [dinos, setDinos] = useState<Dino[]>([]);
   const [selectedDino, setSelectedDino] = useState<number | null>(null);
-  const [dinoOnline, setDinoOnline] = useState<any[]>([]);
+  const [dinoOnline, setDinoOnline] = useState<Dino[]>([]);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -77,7 +121,7 @@ const CombatListPage: React.FC = () => {
         setCombatsTermines(data.combats_termines || []);
         console.log(data)
       } catch (error) {
-        setMessage(translations.fight?.ERROR_LOAD_FIGHT);
+        setMessageError(translations.fight?.ERROR_LOAD_FIGHT);
       }
     };
 
@@ -102,8 +146,7 @@ const CombatListPage: React.FC = () => {
     }
   };
   
-  const handleAccountSelect = async (accountId: string) => {
-    setSelectedAccount(parseInt(accountId));
+  const handleAccountSelect = async (accountId: number) => {
     const token = localStorage.getItem("token");    
     try {
       const response = await fetch(`${API_URL}/dino/user/${accountId}`, {
@@ -144,7 +187,7 @@ const CombatListPage: React.FC = () => {
               <button className="btn btn-search" onClick={handleAccountSearch}>🔍</button>
 
               {accounts.length > 0 && (
-                <select className="dropdown" onChange={(e) => handleAccountSelect(e.target.value)}>
+                <select className="dropdown" onChange={(e) => handleAccountSelect(parseInt(e.target.value))}>
                   <option value="">{translations.fight?.SELECT_ACCOUNT_FORM}</option>
                   {accounts.map((account) => (
                     <option key={"account" + account.user} value={account.user}>
@@ -164,7 +207,7 @@ const CombatListPage: React.FC = () => {
                   ))}
                 </select>
               )}
-              {selectedDino > 0 && (
+              {selectedDino && selectedDino > 0 && (
                 <Link
                   href={'/fight/fast/create/'+selectedDino}
                   passHref
