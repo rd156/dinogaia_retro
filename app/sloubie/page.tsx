@@ -5,11 +5,15 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const HomePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [isConnect, setIsConnect] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -22,11 +26,11 @@ const HomePage: React.FC = () => {
   // Charger les traductions
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(language, ["account", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["account", "global"]);
       setTranslations(loadedTranslations);
     };
     fetchTranslations();
-  }, [language]);
+  }, [option?.language]);
 
 
   return (

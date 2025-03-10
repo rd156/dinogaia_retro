@@ -3,18 +3,22 @@
 import { useEffect, useState, Fragment } from "react";
 import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { useParams } from 'next/navigation';
 import { API_URL } from "@/config/config";
 import "./page.css";
-import Link from 'next/link';
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
+
+interface Translations {
+  [key: string]: any;
+}
+
+interface Chapter {
+  [key: string]: any;
+}
 
 const QuestPage: React.FC = () => {
   const params = useParams();
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -97,7 +101,7 @@ const QuestPage: React.FC = () => {
           ))}
         </div>
         <br />
-        {storyId <= chapter && (
+        {storyId && parseInt(storyId as string) <= chapter && (
           <div className="block_white">
             <p className="title-tab">{translations.story?.["TITLE_"+storyId]}</p>
             <br />

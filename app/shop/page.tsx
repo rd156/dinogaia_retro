@@ -6,8 +6,12 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import "./page.css";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const CavePage: React.FC = () => {
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const {option} = useOption();
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");

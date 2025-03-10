@@ -9,13 +9,17 @@ import "./page.css";
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const MessagesPage: React.FC = () => {
   const params = useParams();
   const [shopList, setShopList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'name' | 'pnj_name' | 'category_name'>('name');
   const [activeCategory, setActiveCategory] = useState("ALL");
@@ -71,10 +75,10 @@ const MessagesPage: React.FC = () => {
       const result = await response.json();
       console.log(result);
   
-      const uniqueCategories = ["ALL", ...new Set(result.map((shop) => shop.category_name))];
-      setCategories(uniqueCategories);
+      const uniqueCategories = ["ALL", ...Array.from(new Set(result.map((shop: any) => shop.category_name)))];
+      setCategories(uniqueCategories as string[]);
   
-      const filteredShops = category === "ALL" ? result : result.filter(shop => shop.category_name === category);
+      const filteredShops = category === "ALL" ? result : result.filter((shop: any) => shop.category_name === category);
 
       setShopList(filteredShops);
     } catch (error) {
@@ -84,7 +88,7 @@ const MessagesPage: React.FC = () => {
     }
   };
   
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
     reloadClick(category);
   };

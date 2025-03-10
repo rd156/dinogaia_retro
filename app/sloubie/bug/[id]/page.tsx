@@ -9,13 +9,25 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Bug {
+  [key: string]: any;
+}
+
+interface Recompense {
+  [key: string]: any;
+}
+
 const DinoPage: React.FC = () => {
   const params = useParams();
   const [bugId, setBugId] = useState(params?.id);
   const [accountId, setAccountId] = useState(0);
   const [inputValue, setInputValue] = useState("");
-  const [bug, setBug] = useState({});
-  const [recompense, setRecompense] = useState({});
+  const [bug, setBug] = useState<Bug>({});
+  const [recompense, setRecompense] = useState<Recompense>({});
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessageAnswer, setErrorMessageAnswer] = useState("");
   const [errorMessageGift, setErrorMessageGift] = useState("");
@@ -23,7 +35,7 @@ const DinoPage: React.FC = () => {
   const [messageAnswer, setMessageAnswer] = useState("");
   const [messageGift, setMessageGift] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [response, setResponse] = useState("");
   const [giftType, setGiftType] = useState("items");
   const [giftName, setGiftName] = useState("");
@@ -152,7 +164,7 @@ const DinoPage: React.FC = () => {
     }
   };
 
-  const changeStatusClick = async (id, status) => {
+  const changeStatusClick = async (id: number, status: string) => {
     const token = localStorage.getItem("token");
     try {  
       const response = await fetch(`${API_URL}/sloubie/bug/${id}/change_status`, {
@@ -290,7 +302,7 @@ const DinoPage: React.FC = () => {
                   {Object.entries(recompense.items).map(([item, quantity]) => (
                     <tr key={item}>
                       <td className="border px-4 py-2">{item}</td>
-                      <td className="border px-4 py-2">{quantity}</td>
+                      <td className="border px-4 py-2">{quantity as number}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -356,7 +368,7 @@ const DinoPage: React.FC = () => {
             <input
               type="text"
               value={accountId}
-              onChange={(e) => setAccountId(e.target.value)}
+              onChange={(e) => setAccountId(parseInt(e.target.value))}
               className="flex-1 p-2 border rounded-md"
               placeholder="id"
             />

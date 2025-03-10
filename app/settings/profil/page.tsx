@@ -8,8 +8,15 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Advantages {
+  [key: string]: any;
+}
+
 const ProfilePage: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [message, setMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [messageEmail, setMessageEmail] = useState("");
@@ -17,8 +24,8 @@ const ProfilePage: React.FC = () => {
   const [messagePassword, setMessagePassword] = useState("");
   const [messageErrorPassword, setErrorMessagePassword] = useState("");
   const { option } = useOption();
-  const [translations, setTranslations] = useState({});
-  const [advantages, setAdvantages] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
+  const [advantages, setAdvantages] = useState<Advantages>({});
   const [username, setUsername] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +47,6 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       const token = localStorage.getItem("token");
       try {
         const profilResponse = await fetch(`${API_URL}/account/get_profile`, {
@@ -67,7 +73,7 @@ const ProfilePage: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleChangePseudo = (e) => {
+  const handleChangePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPseudo(e.target.value);
   };
 
@@ -90,7 +96,7 @@ const ProfilePage: React.FC = () => {
       }
       
       console.log(change_pseudo)
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.message);
     }
   };
@@ -117,7 +123,7 @@ const ProfilePage: React.FC = () => {
       const change_pseudo = await response.json()
       setMessageEmail(translations.settings?.EMAIL_MODIFY)
       console.log(change_pseudo)
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.message);
     }
   };

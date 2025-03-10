@@ -9,12 +9,20 @@ import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Bug {
+  [key: string]: any;
+}
+
 const HomePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [bugs, setBugs] = useState([]);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [bugs, setBugs] = useState<Bug[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("ALL");
 
@@ -63,7 +71,7 @@ const HomePage: React.FC = () => {
     setSelectedOption(e.target.value);
   };
 
-  const changeStatusClick = async (id, status) => {
+  const changeStatusClick = async (id: number, status: string) => {
     const token = localStorage.getItem("token");
     try {  
       const response = await fetch(`${API_URL}/sloubie/bug/${id}/change_status`, {

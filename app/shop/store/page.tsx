@@ -7,12 +7,19 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import Link from "next/link";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Shop {
+  [key: string]: any;
+}
+
 const MessagesPage: React.FC = () => {
-  const [shopList, setShopList] = useState<any[]>([]);
+  const [shopList, setShopList] = useState<Shop[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortBy, setSortBy] = useState<'name' | 'pnj_name' | 'category_name'>('name');
   const [activeCategory, setActiveCategory] = useState("ALL");

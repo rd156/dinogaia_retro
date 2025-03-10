@@ -10,12 +10,20 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Store {
+  [key: string]: any;
+}
+
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const {option} = useOption();
-  const [translations, setTranslations] = useState<any>({});
-  const [store, setStore] = useState<any>(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -70,7 +78,7 @@ const StoreDetailPage: React.FC = () => {
     }
   }
 
-  const handleRemoveProduct = async (selectedProduct) => {
+  const handleRemoveProduct = async (selectedProduct: any) => {
     if (!selectedProduct) return;
     const token = localStorage.getItem("token");
   
@@ -91,7 +99,7 @@ const StoreDetailPage: React.FC = () => {
   
       const result = await response.json();
       if (typeof result === "object"){
-        const updatedProducts = store.products.filter((product) => product.item_name !== result.item_name);
+        const updatedProducts = store?.products.filter((product: any) => product.item_name !== result.item_name);
         setStore({ ...store, products: updatedProducts });
         setErrorMessage("");
         setMessage("Modification faite");
@@ -105,7 +113,7 @@ const StoreDetailPage: React.FC = () => {
     }
   };
 
-  const handleModifyProduct = async (selectedProduct) => {
+  const handleModifyProduct = async (selectedProduct: any) => {
     if (!selectedProduct) return;
     const token = localStorage.getItem("token");
   
@@ -129,7 +137,7 @@ const StoreDetailPage: React.FC = () => {
   
       const result = await response.json();
       if (typeof result === "object"){
-        const updatedProducts = store.products.map((product) =>
+        const updatedProducts = store?.products.map((product: any) =>
           product.item_name === selectedProduct.item_name
             ? { ...product, ...result } // Mettre à jour le produit avec les nouvelles données
             : product
@@ -148,21 +156,21 @@ const StoreDetailPage: React.FC = () => {
   };
   
   const handlePriceChange = (productId: string, newPrice: string) => {
-    const updatedProducts = store.products.map((product: any) =>
+    const updatedProducts = store?.products.map((product: any) =>
       product.item_name === productId ? { ...product, price: newPrice } : product
     );
     setStore({ ...store, products: updatedProducts });
   };
 
   const handleQuantityChange = (productId: string, newQuantity: string) => {
-    const updatedProducts = store.products.map((product: any) =>
+    const updatedProducts = store?.products.map((product: any) =>
       product.item_name === productId ? { ...product, limit: newQuantity } : product
     );
     setStore({ ...store, products: updatedProducts });
   };
 
   const handleLimitToggle = (productId: string, isChecked: boolean) => {
-    const updatedProducts = store.products.map((product: any) =>
+    const updatedProducts = store?.products.map((product: any) =>
       product.item_name === productId ? { ...product, have_limit: isChecked } : product
     );
     setStore({ ...store, products: updatedProducts });
@@ -198,7 +206,7 @@ const StoreDetailPage: React.FC = () => {
   
       const result = await response.json();
       if (typeof result === "object") {
-        const updatedProducts = [...store.products, newProduct];
+        const updatedProducts = [...store?.products, newProduct];
         setStore({ ...store, products: updatedProducts });
         setErrorMessage("");
         setMessage("Produit ajouté avec succès");

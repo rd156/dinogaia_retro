@@ -10,17 +10,28 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Store {
+  [key: string]: any;
+}
+
+interface Product {
+  [key: string]: any;
+}
 
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const {option} = useOption();
-  const [translations, setTranslations] = useState<any>({});
-  const [store, setStore] = useState<any>(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
@@ -65,7 +76,7 @@ const StoreDetailPage: React.FC = () => {
     }
   }, [params.name]);
 
-  const handleBuyProduct = async (selectedProduct) => {
+  const handleBuyProduct = async (selectedProduct: Product) => {
     if (!selectedProduct) return;
 
     try {
@@ -87,7 +98,7 @@ const StoreDetailPage: React.FC = () => {
       const result = await response.json();
       console.log(result)
       if (typeof result === "object"){
-        const updatedProducts = store.products.map((product) => {
+        const updatedProducts = store?.products.map((product: Product) => {
           if (product.item_name === selectedProduct.item_name) {
             const newQuantity = product.limit - quantity;
             return {
@@ -124,11 +135,11 @@ const StoreDetailPage: React.FC = () => {
       <div className="content_top">
         <div className="max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
           <h1 className="text-4xl text-center font-bold">
-            <strong>Taverne {translations.pnj?.["shop_" + store.category_name + "_" + store.name]}</strong>
+            <strong>Taverne {translations.pnj?.["shop_" + store?.category_name + "_" + store?.name]}</strong>
           </h1>
           <br />
-          <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_OWNER}</strong> {translations.pnj?.["pnj_" + store.pnj_name]}</p>
-          <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store.category_name]}</p>
+          <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_OWNER}</strong> {translations.pnj?.["pnj_" + store?.pnj_name]}</p>
+          <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store?.category_name]}</p>
           <br />
           <div style={{textAlign:"center"}} className="buttons">
             <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/shop/store")} />
