@@ -2,7 +2,7 @@
 
 import { useOption } from "@/context/OptionsContext";
 import { Loadtranslate } from "@/utils/translate";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { API_URL } from "@/config/config";
 import "./page.css";
 import Link from "next/link";
@@ -38,7 +38,7 @@ const ItemsPage: React.FC = () => {
     }
   }, [option?.language]);
 
-  const loadItems = async () => {
+  const loadItems = useCallback(async () => {
     const token = localStorage.getItem("token");
     console.log("inputName:", inputName);
 
@@ -79,7 +79,7 @@ const ItemsPage: React.FC = () => {
       console.error("Erreur réseau:", error);
       setErrorMessage("Erreur réseau lors du chargement des items");
     }
-  };
+  }, [inputName, inputValue, translations.items]);
 
   const exportItems = async () => {
     const token = localStorage.getItem("token");
@@ -108,7 +108,7 @@ const ItemsPage: React.FC = () => {
   
   useEffect(() => {
     loadItems();
-  }, [translations, inputName]);
+  }, [loadItems]);
 
   const handleItemClick = (id: number) => {
     // Si l'item est déjà sélectionné, on le dé-sélectionne

@@ -5,6 +5,7 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { API_URL } from "@/config/config";
+import Image from 'next/image';
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
@@ -37,7 +38,7 @@ const Custom404: React.FC = () => {
           alignItems: 'center',
           width: '100%'
           }}>
-            <img src={`/not-found.png`} alt="Error 404" 
+            <Image src={`/not-found.png`} alt="Error 404" 
               style={{
                 maxWidth: '90%',
                 height: 'auto',
