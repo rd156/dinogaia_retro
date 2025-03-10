@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from './ImageWithText.module.css';
 import { useOption } from "@/context/OptionsContext";
 
-const ImageTerrainWithText = ({itemName, translations, width = 100, height = 100 }) => {
+const ImageTerrainWithText = ({itemName, translations, width = 100, height = 100 }: {itemName: string, translations: any, width?: number, height?: number}) => {
   const [hovered, setHovered] = useState(false);
   const { option, getImageUrl } = useOption();
   return (

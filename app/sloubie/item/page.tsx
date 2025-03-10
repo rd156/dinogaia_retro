@@ -9,11 +9,18 @@ import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import React, {Fragment} from "react";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Item {
+  [key: string]: any;
+}
 const ItemsPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [inputValue, setInputValue] = useState("");
   const [inputName, setInputName] = useState("");
   const [items, setItems] = useState([]);
@@ -45,6 +52,7 @@ const ItemsPage: React.FC = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
+        body: ""
       };
 
       // Si inputName est fourni et non vide, ajuster l'URL et la méthode de requête
@@ -170,7 +178,7 @@ const ItemsPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((item) => (
+                  {items.map((item: Item) => (
                     <React.Fragment key={item.id}>
                       <tr
                         style={{
@@ -193,7 +201,7 @@ const ItemsPage: React.FC = () => {
                            textAlign: "left",
                            backgroundColor: "rgb(255,255,255,0.5)"
                          }}>
-                            <td colSpan="5">
+                            <td colSpan={5}>
                               <div style={{ 
                                 display: "flex",
                                 flexWrap: "wrap",

@@ -207,7 +207,7 @@ const handleValidate = async () => {
                 >
                   <ImageItemWithText 
                       itemName="none"
-                      quantity=""
+                      quantity={0}
                       translations={translations.item}
                     />
                 <h3>{translations.fight?.IMAGE_NO_ATTACK}</h3>

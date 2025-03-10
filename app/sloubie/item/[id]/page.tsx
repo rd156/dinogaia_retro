@@ -102,14 +102,14 @@ const ItemEditPage: React.FC = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
     if (type === 'checkbox') {
       setItem({
         ...item,
         action: {
           ...item.action,
-          [name]: checked,
+          [name]: (e.target as HTMLInputElement).checked,
         },
       });
     } else {
@@ -313,7 +313,7 @@ const ItemEditPage: React.FC = () => {
                 </div>
               </div>
               <div className="flex gap-4">
-                <ButtonFancy type="submit" label="Mettre à jour" />
+                <ButtonFancy onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} label="Mettre à jour" />
               </div>
             </div>
           </form>

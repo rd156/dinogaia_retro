@@ -26,8 +26,8 @@ const HuntResultPage: React.FC = () => {
   const [translations, setTranslations] = useState<Translations>({});
   const [isCollectedButton, setIsCollectedButton] = useState(true);
 
-  const terrain = searchParams.get("terrain");
-  const weapon = searchParams.get("weapon");
+  const terrain = searchParams.get("terrain") ?? "";
+  const weapon = searchParams.get("weapon") ?? "";
 
   // Charger les traductions
   useEffect(() => {
@@ -217,7 +217,7 @@ const HuntResultPage: React.FC = () => {
                 >
                   <ImageItemWithText 
                     itemName={name}
-                    quantity={count}
+                    quantity={count as string | number}
                     translations={translations.item}
                   />
                   <p>{translations.item?.['ITEM_' + name] ?? name}</p>

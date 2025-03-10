@@ -8,12 +8,20 @@ import "./page.css";
 import Link from "next/link";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Pnj {
+  [key: string]: any;
+}
+
 const HomePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [pnjs, setPnjs] = useState([]);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [pnjs, setPnjs] = useState<Pnj[]>([]);
   const [inputValue, setInputValue] = useState("");
 
   // Charger les traductions

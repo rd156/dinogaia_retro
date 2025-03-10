@@ -24,7 +24,6 @@ interface Item {
 }
 
 const CavePage: React.FC = () => {
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorResult, setErrorResult] = useState("");

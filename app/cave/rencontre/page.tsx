@@ -13,7 +13,6 @@ interface Translations {
 }
 
 const CavePage: React.FC = () => {
-  const searchParams = useSearchParams();
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
   const [rencontreInfo, setRencontreInfo] = useState<any[]>([]);

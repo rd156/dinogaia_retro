@@ -7,13 +7,20 @@ import { useState, useEffect } from 'react';
 import { NextUIProvider, Navbar, NavbarBrand, NavbarContent, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Input, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu } from "@nextui-org/react";
 import LoginForm from '@/components/login/LoginForm';
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Dino {
+  [key: string]: any;
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isConnect, setIsConnect] = React.useState(false);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [selectedDino, setSelectedDino] = useState(null);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [selectedDino, setSelectedDino] = useState<Dino | null>(null);
 
   useEffect(() => {
     localStorage.removeItem("option");
@@ -58,7 +65,7 @@ export default function Header() {
     localStorage.removeItem('dinoId');
     localStorage.removeItem('selectedDino');
   }
-  const handleLogout = (event) => {
+  const handleLogout = (event: React.FormEvent) => {
     event.preventDefault();
     removeStorageAccountData()
     window.location.href = "/";
@@ -108,7 +115,7 @@ export default function Header() {
   
 
   useEffect(() => {
-    const isTokenValid = (token) => {
+    const isTokenValid = (token: string) => {
       if (!token) {
         return false;
       }
@@ -147,7 +154,7 @@ export default function Header() {
     };
   }, []);
 
-  const displayMenuElement = (key, value, index) => {
+  const displayMenuElement = (key: string, value: any, index: number) => {
     if (Array.isArray(value)) {
       return (
         <Dropdown key={index}>

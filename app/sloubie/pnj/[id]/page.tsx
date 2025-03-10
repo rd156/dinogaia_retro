@@ -109,7 +109,7 @@ const PnjPage: React.FC = () => {
     }
   };
 
-  const handlePnjDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePnjDataChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setPnjData((prevData: any) => ({ ...prevData, [name]: value }));
   };
@@ -191,7 +191,7 @@ const PnjPage: React.FC = () => {
                 ))}
 
                 <div className="mt-4 p-4">
-                  <ButtonFancy type="submit" label="Sauvegarder le PNJ" />
+                  <ButtonFancy onClick={() => handleSubmit(new Event('submit') as unknown as React.FormEvent)} label="Sauvegarder le PNJ" />
                 </div>
               </form>
             </>

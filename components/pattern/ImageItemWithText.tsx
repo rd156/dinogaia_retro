@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from './ImageWithText.module.css';
 import { useOption } from "@/context/OptionsContext";
 
-const ImageItemWithText = ({itemName, quantity, translations, width = 100, height = 100 }) => {
+const ImageItemWithText = ({itemName, quantity, translations, width = 100, height = 100 }: {itemName: string, quantity: string | number, translations: any, width?: number, height?: number}) => {
   const [hovered, setHovered] = useState(false);
   const { option, getImageUrl } = useOption();
   return (
