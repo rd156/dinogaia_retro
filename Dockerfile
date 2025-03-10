@@ -12,4 +12,4 @@ RUN npm install
 EXPOSE 3000
 
 # Lancer le serveur Next.js
-CMD ["npm", "run", "dev"]
+CMD ["/bin/sh", "-c", "npm run build && npm run start"]
