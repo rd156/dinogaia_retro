@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useOption } from "@/context/OptionsContext";
+import Image from 'next/image';
 
-const ItemWithTooltip = ({ itemName, translations, width = 100, height = 100 }) => {
+interface Translations {
+  [key: string]: any;
+}
+
+const ItemWithTooltip = ({ itemName, translations, width = 100, height = 100 }: { itemName: string, translations: Translations, width?: number, height?: number }) => {
     const [hovered, setHovered] = useState(false);
     const { option, getImageUrl } = useOption();
   
@@ -12,11 +17,11 @@ const ItemWithTooltip = ({ itemName, translations, width = 100, height = 100 }) 
       onMouseLeave={() => setHovered(false)}
     >
       <div className="relative">
-        <img
+        <Image
           src={getImageUrl(`item/${itemName}.webp`)}
           alt={translations?.IMAGE_ITEM?.replace("[Item]", itemName)}
-          width = "300px"
-          height = "300px"
+          width = {300}
+          height = {300}
           className="w-12 h-12"
         />
 
