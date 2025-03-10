@@ -7,13 +7,21 @@ import { API_URL } from "@/config/config";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Dino {
+  [key: string]: any;
+}
+
 const HomePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [inputValue, setInputValue] = useState("");
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<Dino[]>([]);
 
   const NOM_ESPECES = [
     ['TR', 'T-Rex'],

@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
     }
   }, [option?.language]);
 
-  const importClick = async (value) => {
+  const importClick = async (value: string) => {
     const token = localStorage.getItem("token");
     try {  
       const response = await fetch(`${API_URL}/data/import/${value}`, {
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const exportClick = async (value) => {
+  const exportClick = async (value: string) => {
     const token = localStorage.getItem("token");
     try {  
       const response = await fetch(`${API_URL}/data/export/${value}`, {

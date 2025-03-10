@@ -18,6 +18,7 @@ interface Shop {
 const MessagesPage: React.FC = () => {
   const [shopList, setShopList] = useState<Shop[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -56,14 +57,14 @@ const MessagesPage: React.FC = () => {
         console.log(result)
 
         // Récupération des catégories uniques
-        const uniqueCategories = ["ALL", ...new Set(result.map((shop) => shop.category_name))];
+        const uniqueCategories = ["ALL", ...Array.from(new Set(result.map((shop: Shop) => shop.category_name))) as string[]];
 
         setCategories(uniqueCategories);
 
         // Filtrer selon la catégorie active
         const filteredShops = activeCategory === "ALL"
           ? result
-          : result.filter(shop => shop.category_name === activeCategory);
+          : result.filter((shop: Shop) => shop.category_name === activeCategory);
 
         setShopList(filteredShops);
       } catch (error) {

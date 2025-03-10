@@ -25,7 +25,7 @@ const MessagesPage: React.FC = () => {
     }
   }, [option?.language]);
 
-  const actionClick = async (action) => {
+  const actionClick = async (action: string) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(`${API_URL}/sloubie/${action}`, {
