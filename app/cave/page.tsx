@@ -10,16 +10,43 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonGlow from "@/components/pattern/ButtonGlow";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Item {
+  item_name: string;
+  item_categorie: string;
+  quantite: number;
+  item_price_min: number;
+  action?: {
+    use?: boolean;
+    eat?: boolean;
+    open?: boolean;
+  };
+}
+
+interface Info {
+  name: string;
+  description: string;
+  lvl: number;
+  security: number;
+  hygiene: number;
+  confort: number;
+  storage: number;
+  storage_max: number;
+}
+
 const CavePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [info, setInfo] = useState<any[]>([]);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [info, setInfo] = useState<Info>({} as Info);
   const [rencontre, setRencontre] = useState<any>(null);
-  const [items, setItems] = useState<any[]>([]);
-  const [count, setCount] = useState(null);
+  const [items, setItems] = useState<Item[]>([]);
+  const [count, setCount] = useState<number>(0);
 
   // Charger les traductions
   useEffect(() => {
@@ -132,18 +159,18 @@ const CavePage: React.FC = () => {
 
   const [activeCategory, setActiveCategory] = useState("ALL");
   const categories = ["ALL", "FOOD", "MEDOC", "RES", "ATK", "SKILL", "WEAPON", "ARTE", "TALIS", "HABI", "QUEST", "GOLD", "PACK", "OTHER"];
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
-  const handleCategoryToggle = (category) => {
+  const handleCategoryToggle = (category: string) => {
     setActiveCategory((prevCategory) => (prevCategory === category ? "ALL" : category));
   };
 
-  const handleItemClick = (item) => {
+  const handleItemClick = (item: Item) => {
     console.log(item)
     setSelectedItem((prev) => (prev === item ? null : item));
   };
 
-  const removeItem = (itemToRemove) => {
+  const removeItem = (itemToRemove: Item) => {
     const updatedItems = items.map(item => 
       item.item_name === itemToRemove.item_name 
         ? { ...item, quantite: item.quantite - 1 }
@@ -153,7 +180,9 @@ const CavePage: React.FC = () => {
     setItems(updatedItems);
   };  
   
-  const handleButtonClick = async (action) => {
+  const handleButtonClick = async (action: string) => {
+    if (!selectedItem) return;
+    
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
 
@@ -225,7 +254,7 @@ const CavePage: React.FC = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          setCount(data.count);
+          setCount(parseInt(data.count));
         }
       }
       catch (error) {
@@ -292,7 +321,7 @@ const CavePage: React.FC = () => {
                   <h3 className="cave-name" onClick={() => {
                       window.location.href = "/cave/waiting";
                     }}>
-                    {translations.cave?.WAINTING_NUMBER.replace("[Number]", count)}
+                    {translations.cave?.WAINTING_NUMBER.replace("[Number]", count.toString())}
                   </h3>
                 </div>
               )}

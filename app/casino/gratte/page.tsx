@@ -9,10 +9,16 @@ import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText"
 
 import { ScratchCard } from 'next-scratchcard';
 
+interface Translations {
+  [key: string]: any;
+}
+interface CasinoDino {
+  [key: string]: any;
+}
 const MyScratchCard = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [casinoDino, setCasinoDino] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
+  const [casinoDino, setCasinoDino] = useState<CasinoDino>({});
   const [item, setItem] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
   const [lastPrice, setLastPrice] = useState(null);
@@ -131,20 +137,20 @@ const MyScratchCard = () => {
                 <div className="flex justify-center space-x-4">
                     {casinoDino && casinoDino.ticket > 0 && (
                         <button className="button-common" onClick={() => { startGame(0) }} >
-                            {translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket)}
+                            {translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket.toString())}
                         </button>
                     )}
                     <button className="button-common" onClick={() => { startGame(10) }} >
-                        {translations.casino?.CASINO_PLAY.replace("[Number]", 10)}
+                        {translations.casino?.CASINO_PLAY.replace("[Number]", "10")}
                     </button>
                     <button className="button-common" onClick={() => { startGame(20) }} >
-                        {translations.casino?.CASINO_PLAY.replace("[Number]", 20)}
+                        {translations.casino?.CASINO_PLAY.replace("[Number]", "20")}
                     </button>
                     <button className="button-common" onClick={() => { startGame(50) }} >
-                        {translations.casino?.CASINO_PLAY.replace("[Number]", 50)}
+                        {translations.casino?.CASINO_PLAY.replace("[Number]", "50")}
                     </button>
                     <button className="button-common" onClick={() => { startGame(100) }} >
-                        {translations.casino?.CASINO_PLAY.replace("[Number]", 100)}
+                        {translations.casino?.CASINO_PLAY.replace("[Number]", "100")}
                     </button>
                 </div>
             </div>

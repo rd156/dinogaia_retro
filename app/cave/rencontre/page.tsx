@@ -8,10 +8,14 @@ import { API_URL } from "@/config/config";
 import Link from "next/link";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [rencontreInfo, setRencontreInfo] = useState<any[]>([]);
 
   // Charger les traductions
@@ -28,7 +32,6 @@ const CavePage: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
       try {
@@ -43,9 +46,6 @@ const CavePage: React.FC = () => {
         console.log(result);
         setRencontreInfo(result);
       } catch (error) {
-        setErrorMessage("Erreur de chargement");
-      } finally {
-        setLoading(false);
       }
     };
 

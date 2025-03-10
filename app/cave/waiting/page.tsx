@@ -10,6 +10,19 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface Item {
+  id: number;
+  item_name: string;
+  origine: string;
+  quantite: number;
+  expire_date: string;
+  item_price_min: string;
+}
+
 const CavePage: React.FC = () => {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,8 +32,8 @@ const CavePage: React.FC = () => {
   const [cost, setCost] = useState(0);
   const [totalSell, setTotalSell] = useState(0);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
-  const [items, setItems] = useState([]);
+  const [translations, setTranslations] = useState<Translations>({});
+  const [items, setItems] = useState<Item[]>([]);
 
   // Charger les traductions
   useEffect(() => {
@@ -67,11 +80,11 @@ const CavePage: React.FC = () => {
         const item_list = await caveResponse.json()
         console.log(item_list)
         setItems(item_list);
-        if (item_list.some(item => item.origine === "hunt")) {
+        if (item_list.some((item: Item) => item.origine === "hunt")) {
           setCost(prevCost => prevCost + 2);
         }
         const totalCost = item_list.reduce(
-          (sum, item) => sum + (parseInt(item.item_price_min) * item.quantite),
+          (sum: number, item: Item) => sum + (parseInt(item.item_price_min) * item.quantite),
           0
         )
         setTotalSell(totalCost / 2);
@@ -91,7 +104,7 @@ const CavePage: React.FC = () => {
   const [isAscending, setIsAscending] = useState(true);
 
   // Fonction pour trier les items
-  const handleSort = (key) => {
+  const handleSort = (key: keyof Item) => {
     const sortedItems = [...items].sort((a, b) => {
       if (a[key] < b[key]) return isAscending ? -1 : 1;
       if (a[key] > b[key]) return isAscending ? 1 : -1;
@@ -103,7 +116,7 @@ const CavePage: React.FC = () => {
     setIsAscending((prevState) => (key === sortBy ? !prevState : true));
   };
 
-  const handleButtonClick = async (action, item) => {
+  const handleButtonClick = async (action: "get" | "sell", item: Item) => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     console.log(item)
@@ -135,14 +148,14 @@ const CavePage: React.FC = () => {
   
       const result = await response.json();
       setItems((prevItems) =>
-        prevItems.filter(item => !result.some(removeItem => removeItem.id === item.id))
+        prevItems.filter(item => !result.some((removeItem: Item) => removeItem.id === item.id))
       );
     } catch (error) {
       setErrorMessage(translations.cave?.ERR_ACTION);
     }
   };
 
-  const handleButtonClickAll = async (action) => {
+  const handleButtonClickAll = async (action: "get" | "sell" | "get_free") => {
     const token = localStorage.getItem("token");
     const dinoId = localStorage.getItem("dinoId");
     try {
@@ -188,8 +201,8 @@ const CavePage: React.FC = () => {
     }
   };
 
-  const getSellValue = (item) => {
-    return item.item_price_min * item.quantite / 2
+  const getSellValue = (item: Item) => {
+    return (parseInt(item.item_price_min) * item.quantite) / 2
   };
   
   return (

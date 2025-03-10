@@ -10,6 +10,10 @@ import Link from "next/link";
 import "./page.css";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const RencontrePage: React.FC = () => {
   const params = useParams();
   const searchParams = useSearchParams();
@@ -19,7 +23,7 @@ const RencontrePage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
   // Charger les traductions
   useEffect(() => {

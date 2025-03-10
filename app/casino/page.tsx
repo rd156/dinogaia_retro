@@ -5,9 +5,13 @@ import { useOption } from "@/context/OptionsContext";
 import { translate, Loadtranslate } from "@/utils/translate";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+
 const CavePage: React.FC = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
   // Charger les traductions
   useEffect(() => {

@@ -7,14 +7,23 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { API_URL } from "@/config/config";
 import "./page.css";
 
+interface Translations {
+  [key: string]: any;
+}
+interface CasinoDino {
+  [key: string]: any;
+}
+interface LastPrice {
+  [key: string]: any;
+}
 const CasinoMachine = () => {
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [result, setResult] = useState(["❓", "❓", "❓"]);
   const [spinning, setSpinning] = useState(false);
   const [reelsCount, setReelsCount] = useState([]);
-  const [casinoDino, setCasinoDino] = useState({});
-  const [lastPrice, setLastPrice] = useState(null);
+  const [casinoDino, setCasinoDino] = useState<CasinoDino>({});
+  const [lastPrice, setLastPrice] = useState<LastPrice | null>(null);
   
   
   // Charger les traductions
@@ -54,7 +63,7 @@ const CasinoMachine = () => {
     fetchData();
   }, []);
 
-  const startGame = async (bet) => {
+  const startGame = async (bet: number) => {
     try {
       const token = localStorage.getItem("token");
       const dinoId = localStorage.getItem("dinoId");
@@ -89,7 +98,7 @@ const CasinoMachine = () => {
     "7️⃣", "💎", "🍀", "💰", "🎰", "🍒", "🍋", "🍊", "🍉", "🍍", "🍓", "🍇", "🍏", "🔔", "🏆", "⭐", "🍑", "🍊", "💥", "🎉"
   ];  
   
-  function getRandomSymbol(reelsCount, index) {
+  function getRandomSymbol(reelsCount: number[], index: number) {
     if (symbols.length >= reelsCount[index]){
       return symbols[reelsCount[index]]
     }
@@ -98,7 +107,7 @@ const CasinoMachine = () => {
     }
   }
   
-  const spin = (result) => {
+  const spin = (result: number[]) => {
     if (spinning) return;
     setSpinning(true);
   
