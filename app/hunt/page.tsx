@@ -181,9 +181,9 @@ const DinoPage: React.FC = () => {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(9, 1fr)", gap: "10px" }}>
             <div
                 key="None"
-                onClick={() => setSelectedWeapon("None")}
+                onClick={() => setSelectedWeapon("none")}
                 style={{
-                  border: selectedWeapon === "None" ? "2px solid green" : "1px solid #ccc",
+                  border: selectedWeapon === "none" ? "2px solid green" : "1px solid #ccc",
                   padding: "10px",
                   backgroundColor: "rgba(255, 255, 255, 0.7)",
                   borderRadius: "8px",

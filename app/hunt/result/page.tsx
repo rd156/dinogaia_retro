@@ -181,7 +181,7 @@ const HuntResultPage: React.FC = () => {
                     />
                   <span style={{ fontSize: "32px", fontWeight: "bold" }}>X</span>
                   <ImageItemWithText 
-                    itemName={weapon}
+                    itemName={weapon || "none"}
                     quantity=""
                     translations={translations.item}
                     width = {100}
