@@ -7,6 +7,9 @@ import {API_URL} from '@/config/config';
 import "./page.css";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
 
 export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -14,7 +17,7 @@ export default function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
 
   const imageNames = {
     "TR/1/1": "Tyrannosaure",
@@ -125,7 +128,7 @@ export default function Home() {
                     onClick={() => handleImageSelect(imagePath.split("/")[0])}
                     className={`selectable-avatar ${selectedImage === imagePath.split("/")[0] ? "selected-avatar" : ""}`}
                   />
-                  <p style={{ marginTop: '5px', fontSize: '14px', backgroundColor: 'rgba(255, 255, 255, 0.5)', color: '#333' }}>{imageNames[imagePath]}</p>
+                  <p style={{ marginTop: '5px', fontSize: '14px', backgroundColor: 'rgba(255, 255, 255, 0.5)', color: '#333' }}>{imageNames[imagePath as keyof typeof imageNames]}</p>
                 </div>
               ))}
             </div>

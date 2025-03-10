@@ -11,18 +11,63 @@ import ButtonNeon from "@/components/pattern/ButtonNeon";
 import "./page.css";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface NextLevel {
+  xp: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+}
+
+interface Level {
+  lvl: number;
+}
+
+interface Dino {
+  id: number;
+  name: string;
+  avatar: string;
+  favory: boolean;
+  level: Level;
+  next_level: NextLevel;
+  xp: number;
+  emeraude: number;
+  luck: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+  taille: number;
+  poids: number;
+  date_naissance: string;
+  injury: string;
+  disease: string;
+  is_dead: boolean;
+  faim: number;
+  soif: number;
+  fatigue: number;
+  pv: number;
+  pv_max: number;
+  pm: number;
+  pm_max: number;
+}
+
 const DinoPage: React.FC = () => {
   const params = useParams();
   const dinoId = params?.id;
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Dino>({} as Dino);
   const [isLevelUp, setIsLevelUp] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [waitingSalary, setWaitingSalary] = useState(null)
+  const [waitingSalary, setWaitingSalary] = useState<{ jours: number } | null>(null);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
   const [isHovered, setIsHovered] = useState(false);
-  const [removeDino, setRemoveDino] = useState<any>(null);
+  const [removeDino, setRemoveDino] = useState<Dino | null>(null);
   const [confirmationText, setConfirmationText] = useState<string>("");
 
   useEffect(() => {
@@ -157,7 +202,7 @@ const DinoPage: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleLevelUpClick = async (dino_id) => {
+  const handleLevelUpClick = async (dino_id: number) => {
     const token = localStorage.getItem("token");
     console.log(dino_id)
     try {  
@@ -232,8 +277,8 @@ const DinoPage: React.FC = () => {
     return Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
   };
 
-  const handleDeleteDino = async (selectedDino) => {
-    setRemoveDino(false)
+  const handleDeleteDino = async (selectedDino: Dino) => {
+    setRemoveDino(null);
     if (!selectedDino) return;
     if (confirmationText != translations.dino?.DELETE_TEXT_CONFIRM) return;
     try {
@@ -527,7 +572,7 @@ const DinoPage: React.FC = () => {
         
               <div className="flex justify-end mt-4">
                 <button
-                  onClick={() => setRemoveDino(false)}
+                  onClick={() => setRemoveDino(null)}
                   className="px-4 py-2 bg-gray-500 text-white rounded-md mr-2"
                 >
                   {translations.dino?.CANCEL || "Annuler"}

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useOption } from "@/context/OptionsContext";
 import { useParams, useRouter } from "next/navigation";
 import { translate, Loadtranslate } from "@/utils/translate";
-import { useSearchParams } from "next/navigation";
 import { API_URL } from "@/config/config";
 import Link from "next/link";
 import "./page.css";
@@ -52,7 +51,7 @@ const RencontrePage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [params.security, params.token]);
 
   return (
     <main className="content">

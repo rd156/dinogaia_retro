@@ -8,12 +8,68 @@ import { API_URL } from '@/config/config';
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
+interface Translations {
+  [key: string]: any;
+}
+
+interface NextLevel {
+  xp: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+}
+
+interface Level {
+  lvl: number;
+}
+
+interface Dino {
+  id: number;
+  name: string;
+  avatar: string;
+  favory: boolean;
+  level: Level;
+  next_level: NextLevel;
+  xp: number;
+  emeraude: number;
+  luck: number;
+  agilite: number;
+  intelligence: number;
+  force: number;
+  endurance: number;
+  taille: number;
+  poids: number;
+  date_naissance: string;
+  injury: string;
+  disease: string;
+  is_dead: boolean;
+  faim: number;
+  soif: number;
+  fatigue: number;
+  pv: number;
+  pv_max: number;
+  pm: number;
+  pm_max: number;
+  species: string;
+}
+
+
+
 export default function Home() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Dino[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const {option} = useOption();
-  const [translations, setTranslations] = useState({});
+  const [translations, setTranslations] = useState<Translations>({});
+  const speciesNames = {
+    "TR": "Tyrannosaure",
+    "VE": "Vélociraptor",
+    "PT": "Ptéranodon",
+    "DP": "Dilophosaure",
+    "SM": "Smilodon",
+    "MG": "Megalodon"
+  } as const;
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -100,7 +156,7 @@ export default function Home() {
             href={'/dino/'+dino.id}
             passHref
             onClick={(e) => {
-              localStorage.setItem('dinoId', dino.id);
+              localStorage.setItem('dinoId', dino.id.toString());
               localStorage.setItem('selectedDino', JSON.stringify(dino));
               window.dispatchEvent(new Event("storage"));
             }}
@@ -130,7 +186,7 @@ export default function Home() {
                   </span>
                   {dino.name}
                 </h3>
-                <p>{translations.dino?.SPECIE} : {dino.species}</p>
+                <p>{translations.dino?.SPECIE} : {speciesNames[dino.species as keyof typeof speciesNames] || dino.species}</p>
                 <p>{translations.dino?.LEVEL} : {dino.level.lvl}</p>
                 <p>{translations.dino?.XP} : {dino.xp}</p>
                 <p>{translations.dino?.STATES} : {dino.disease}, {dino.injury}</p>
@@ -159,7 +215,7 @@ export default function Home() {
             href={'/dino/'+dino.id}
             passHref
             onClick={(e) => {
-              localStorage.setItem('dinoId', dino.id);
+              localStorage.setItem('dinoId', dino.id.toString());
               localStorage.setItem('selectedDino', JSON.stringify(dino));
             }}
           >
