@@ -204,7 +204,7 @@ const CavePage: React.FC = () => {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
+          'Authorization': "Bearer " + token,
         },
         body: JSON.stringify({
           "item": selectedItem.item_name,
@@ -223,9 +223,9 @@ const CavePage: React.FC = () => {
         setErrorMessage("")
         removeItem(selectedItem)
       }
-      else if (result.sell)
+      else if (result.nb_sell && result.price)
       {
-        setMessage(translations.cave?.SELL_RESULT_VALUE.replace("[Number]", result.sell))
+        setMessage(translations.cave?.SELL_RESULT_VALUE.replace("[Number]", result.nb_sell).replace("[Number2]", result.price))
         setErrorMessage("")
         removeItem(selectedItem)
       }
@@ -249,7 +249,7 @@ const CavePage: React.FC = () => {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer " + token, // Ajoute le token JWT dans l'en-tête Authorization
+            'Authorization': "Bearer " + token,
           },
         });
         if (response.ok) {
@@ -371,7 +371,7 @@ const CavePage: React.FC = () => {
                 {selectedItem.action && selectedItem.action.open && (
                   <ButtonFancy onClick={() => handleButtonClick("open")} label={translations.cave?.USE} />
                 )}
-                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP_PRICE.replace("[Number]", Math.floor(selectedItem.item_price_min / 2))} />
+                <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP_PRICE.replace("[Number]", Math.floor(selectedItem.item_price_min))} />
               </div>
             </div>
           </div>

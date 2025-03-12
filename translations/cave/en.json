@@ -19,7 +19,7 @@
     "SELL_HDV": "Sell to the auction house",
     "SELL_ALL": "Sell all",
     "SELL_ALL_VALUE": "Sell all for [Number] emerald(s)",
-    "SELL_RESULT_VALUE": "You sold for [Number] emerald(s)",
+    "SELL_RESULT_VALUE": "You sold [Number] item(s) for [Number2] emerald(s)",
     "GET_ALL": "Get all for [Number] emerald(s)",
     "GET_ALL_WHEN_FREE": "Get all",
     "GET_ALL_FREE": "Get all free item",
