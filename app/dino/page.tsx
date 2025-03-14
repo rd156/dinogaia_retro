@@ -62,14 +62,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
-  const speciesNames = {
-    "TR": "Tyrannosaure",
-    "VE": "Vélociraptor",
-    "PT": "Ptéranodon",
-    "DP": "Dilophosaure",
-    "SM": "Smilodon",
-    "MG": "Megalodon"
-  } as const;
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -186,7 +178,7 @@ export default function Home() {
                   </span>
                   {dino.name}
                 </h3>
-                <p>{translations.dino?.SPECIE} : {speciesNames[dino.species as keyof typeof speciesNames] || dino.species}</p>
+                <p>{translations.dino?.SPECIE} : {translations.dino?.[`SPECIE_${dino.species}`]}</p>
                 <p>{translations.dino?.LEVEL} : {dino.level.lvl}</p>
                 <p>{translations.dino?.XP} : {dino.xp}</p>
                 <p>{translations.dino?.STATES} : {dino.disease}, {dino.injury}</p>

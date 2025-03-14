@@ -47,5 +47,11 @@
     "CONFIRMATION_TEXT": "Write '[Value]' to confirm:",
     "DELETE": "Delete",
     "DELETE_TEXT_CONFIRM": "DELETE",
-    "DELETE_DINO": "Delete the dino"
+    "DELETE_DINO": "Delete the dino",
+    "SPECIE_TR": "Tyrannosaure",
+    "SPECIE_VE": "Vélociraptor",
+    "SPECIE_PT": "Ptéranodon",
+    "SPECIE_DP": "Dilophosaure",
+    "SPECIE_SM": "Smilodon",
+    "SPECIE_MG": "Megalodon"
 }
