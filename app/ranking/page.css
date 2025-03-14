@@ -1,0 +1,48 @@
+.title {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: #333;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+
+.ranking-table th,
+.ranking-table td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.ranking-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.ranking-table tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.category-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.medal-1 { color: #FFD700; }
+.medal-2 { color: #C0C0C0; }
+.medal-3 { color: #CD7F32; }
+
+@media (max-width: 768px) {
+  .ranking-table {
+    font-size: 0.9em;
+  }
+  
+  .category-buttons {
+    flex-wrap: wrap;
+  }
+} 

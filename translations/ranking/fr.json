@@ -1,0 +1,11 @@
+{
+    "CATEGORY_FIGHT": "Combat",
+    "CATEGORY_HUNT": "Chasse",
+    "CATEGORY_QUEST": "Quête",
+    "RANK": "Rang",
+    "DINO_NAME": "Nom du Dino",
+    "PSEUDO": "Pseudo",
+    "SPECIE": "Espece",
+    "LEVEL": "Niveau",
+    "SCORE": "Score"
+}
