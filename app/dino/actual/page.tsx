@@ -358,7 +358,7 @@ const DinoPage: React.FC = () => {
                       <p>{translations.dino?.LEVEL}: <strong>{data.level?.lvl || "N/A"}</strong></p>
                     </div>
                     <div className="stat-item">
-                      <p>{translations.dino?.XP}: <strong>{data.xp} / {data.next_level?.xp}</strong></p>
+                      <p>{translations.dino?.XP}: <strong>{data.xp > (data.next_level?.xp ?? 0) ? data.next_level?.xp : data.xp} / {data.next_level?.xp}</strong></p>
                     </div>
                     <div className="stat-item">
                       <p>{translations.dino?.EMERALD}: <strong>{data.emeraude}</strong></p>

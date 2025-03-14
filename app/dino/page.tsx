@@ -180,7 +180,7 @@ export default function Home() {
                 </h3>
                 <p>{translations.dino?.SPECIE} : {translations.dino?.[`SPECIE_${dino.species}`]}</p>
                 <p>{translations.dino?.LEVEL} : {dino.level.lvl}</p>
-                <p>{translations.dino?.XP} : {dino.xp}</p>
+                <p>{translations.dino?.XP} : {dino.xp > (dino.next_level?.xp ?? 0) ? dino.next_level?.xp : dino.xp} / {dino.next_level?.xp}</p>
                 <p>{translations.dino?.STATES} : {dino.disease}, {dino.injury}</p>
                 <p>{translations.dino?.EMERALD} : {dino.emeraude}</p>
               </div>
