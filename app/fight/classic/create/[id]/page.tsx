@@ -146,7 +146,7 @@ const sendCombatData = async (updatedAttacks: string[], updatedDefenses: string[
       <div className="content_top">
         <div className="combat-container block_white">
           {messageError && (
-            <p className="alert-red">{messageError}</p>
+            <p className="alert-red">{translations.fight?.["ERROR_" + messageError]}</p>
           )}
           <h1>{translations.fight?.ACTUAL_ROUND_DISPLAY.replace("[Number]", round)}</h1>
           <p className="round-message">{message}</p>

@@ -68,6 +68,7 @@
     "MENU_FAST_FIGHT": "Combat rapide",
     "MENU_ULTRAFAST_FIGHT": "Combat ultra rapide",
     "ERROR_you_dino_has_not_health": "Votre dinosaure n'a plus de points de vie.",
+    "ERROR_fight_limit_reached": "Vous avez atteint la limite de combats.",
     "DISPLAY_DINO_FORM": "[Name] (Niv [Number])",
     "RECENTLY_ONLINE": "En ligne récemment"
 }
