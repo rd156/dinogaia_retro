@@ -38,8 +38,8 @@ const RankingPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
-  const [activeCategory, setActiveCategory] = useState<string>("LEVEL");
-  const categories = ["FIGHT", "HUNT", "QUEST"];
+  const [activeCategory, setActiveCategory] = useState<string>("fight");
+  const categories = ["FIGHT", "HUNT"];
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -82,7 +82,7 @@ const RankingPage: React.FC = () => {
     fetchRankings();
   }, [activeCategory, translations.ranking]);
 
-  const isUserInTop = rankings?.top.some((entry) => entry.id === rankings?.user.id);
+  const isUserInTop = rankings?.top.some((entry) => entry.id === rankings?.user?.id);
   
   return (
     <main className="content">
@@ -165,7 +165,6 @@ const RankingPage: React.FC = () => {
                       <td className="px-4 py-2 text-center">{rankings.user.dino.name}</td>
                       <td className="px-4 py-2">{rankings.user.dino.dino_name_account}</td>
                       <td className="px-4 py-2">{translations.dino?.["SPECIE_" + rankings.user.dino.level.species]}</td>
-
                       <td className="px-4 py-2">{rankings.user.dino.level.lvl}</td>
                       <td className="px-4 py-2">{rankings.user.score}</td>
                     </tr>
