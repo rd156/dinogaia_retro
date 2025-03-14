@@ -70,6 +70,10 @@ const CombatPage: React.FC = () => {
           setFighterOne(data.player1)
           setFighterTwo(data.player2)
         }
+        else
+        {
+          setMessageError(data.error)
+        }
       } catch (error) {
       }
     };
@@ -141,6 +145,9 @@ const sendCombatData = async (updatedAttacks: string[], updatedDefenses: string[
     <main className="content">
       <div className="content_top">
         <div className="combat-container block_white">
+          {messageError && (
+            <p className="alert-red">{messageError}</p>
+          )}
           <h1>{translations.fight?.ACTUAL_ROUND_DISPLAY.replace("[Number]", round)}</h1>
           <p className="round-message">{message}</p>
           <div className="battlefield">
