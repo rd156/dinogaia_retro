@@ -94,6 +94,7 @@ export default function Header() {
         { name: translations.menu?.MENU_CASINO_TICKET, link: "/casino/gratte"},
       ],
       [translations.menu['MENU_MESSAGE']]: "/message",
+      [translations.menu['MENU_RANKING']]: "/ranking",
       [translations.menu['MENU_HISTORY']]: "/story",
       [translations.menu['MENU_ACCOUNT']]: [
         { name: translations.menu?.MENU_BUG, link: "/bug"},
