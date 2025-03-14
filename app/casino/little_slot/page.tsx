@@ -81,7 +81,7 @@ const CasinoMachine = () => {
       const result = await response.json();
       if (typeof result === "object" && result !== null) {
         setReelsCount(result.result)
-        setCasinoDino(result.ticket);
+        setCasinoDino(result.ticket_casino);
         setLastPrice({"price": result.price});
         spin(result.result)
       }
@@ -143,13 +143,13 @@ const CasinoMachine = () => {
             </div>
 
             <div className="flex space-x-4">
-              {casinoDino && casinoDino.ticket > 0 && (
+              {casinoDino && casinoDino.ticket_casino > 0 && (
                 <button
                   className="button-common"
                   onClick={() => { startGame(0) }}
                   disabled={spinning}
                   >
-                  {spinning ? translations.casino?.SPINNING : translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket)}
+                  {spinning ? translations.casino?.SPINNING : translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket_casino)}
                 </button>
               )}
               <button

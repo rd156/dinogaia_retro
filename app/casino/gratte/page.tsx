@@ -80,7 +80,7 @@ const MyScratchCard = () => {
       if (typeof result === "object" && result !== null) {
         console.log(result)
         resetCard()
-        setCasinoDino(result.ticket);
+        setCasinoDino(result.ticket_casino);
         setItem(result.price)
       }
       else
@@ -135,9 +135,9 @@ const MyScratchCard = () => {
                 </div>
                 
                 <div className="flex justify-center space-x-4">
-                    {casinoDino && casinoDino.ticket > 0 && (
+                    {casinoDino && casinoDino.ticket_casino > 0 && (
                         <button className="button-common" onClick={() => { startGame(0) }} >
-                            {translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket.toString())}
+                            {translations.casino?.CASINO_FREE_PARTY_AGAIN.replace("[Number]", casinoDino.ticket_casino.toString())}
                         </button>
                     )}
                     <button className="button-common" onClick={() => { startGame(10) }} >
