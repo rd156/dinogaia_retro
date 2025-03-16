@@ -10,5 +10,6 @@
     "ERROR_hunt_already_done": "Vous avez déjà chassé aujourd'hui",
     "ERROR_hunt_failed": "La chasse a échoué",
     "ERROR_dino_life_error": "Votre dinosaure n'a pas assez de vie",
-    "ERROR_offline": "Hors ligne"
+    "ERROR_offline": "Hors ligne",
+    "ERROR_shop_closed": "Le magasin est fermé"
 }

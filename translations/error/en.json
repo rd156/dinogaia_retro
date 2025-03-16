@@ -10,5 +10,6 @@
     "ERROR_permission_denied": "Permission denied",
     "ERROR_hunt_already_done": "You have already hunted today",
     "ERROR_dino_life_error": "Your dinosaur doesn't have enough life",
-    "ERROR_offline": "Offline"
+    "ERROR_offline": "Offline",
+    "ERROR_shop_closed": "The shop is closed"
 }

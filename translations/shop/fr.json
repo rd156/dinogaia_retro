@@ -50,7 +50,7 @@
     "RUPTURE_OF_STOCK": "Rupture",
     "TITLE_SHOP_TYPE": "Type du magasin: ",
     "TITLE_SHOP_OWNER": "Magasin de: ",
-    "TITLE_HORAIRE": "Horaire d'ouverture: ",
+    "TITLE_OPENNING_HOURS": "Horaire d'ouverture: ",   
     "TITLE_IS_OPEN": "Le magasin est ouvert: ",
     "MODAL_PRODUCT": "Produit: ",
     "MODAL_PRICE_UNIT": "Prix unitaire: ",

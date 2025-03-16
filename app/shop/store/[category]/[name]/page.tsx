@@ -139,6 +139,7 @@ const StoreDetailPage: React.FC = () => {
           <br />
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_OWNER}</strong> {translations.pnj?.["pnj_" + store?.pnj_name]}</p>
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store?.category_name]}</p>
+          <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_OPENNING_HOURS}</strong> {store?.opening_hours}</p>
           <br />
           <div style={{textAlign:"center"}} className="buttons">
             <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/shop/store")} />
