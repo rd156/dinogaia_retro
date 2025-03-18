@@ -95,12 +95,47 @@ const AchievementPage: React.FC = () => {
   }, [translations.achievement]);
 
   const processAchievements = (key: string, value: number): 'gold' | 'silver' | 'bronze' | 'platine' | null => {
-    if (value >= 1000) return 'gold';
-    else if (value >= 500) return 'silver';
-    else if (value >= 100) return 'bronze';
-    else if (value >= 10) return 'platine';
+    let bronze = 1, silver = 5, gold = 10, platine = 100;
+  
+    if (key.startsWith('a_')) {
+      bronze = 1;
+      silver = 5;
+      gold = 10;
+      platine = 100;
+    }
+    else if (key.startsWith('b_')) {
+      bronze = 10;
+      silver = 100;
+      gold = 1000;
+      platine = 5000;
+    }
+    else if (key.startsWith('c_')) {
+      bronze = 1000;
+      silver = 10000;
+      gold = 100000;
+      platine = 1000000;
+    }
+    else if (key.startsWith('d_')) {
+      bronze = 1;
+      silver = 10;
+      gold = 50;
+      platine = 100;
+    }
+    else if (key.startsWith('e_')) {
+      bronze = 1;
+      silver = 5;
+      gold = 10;
+      platine = 100;
+    }
+
+    if (value >= bronze) return 'bronze';
+    if (value >= silver) return 'silver';
+    if (value >= gold) return 'gold';
+    if (value >= platine) return 'platine';
+  
     return null;
   };
+  
 
   const renderAchievements = (stats: any, category: string) => {
     if (!stats || stats.length === 0) return null;
