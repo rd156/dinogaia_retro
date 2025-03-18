@@ -26,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        <meta name="viewport" content="width=1920, initial-scale=1.0"></meta>
       </head> 
       <body className={inter.className}>
         <Providers>
