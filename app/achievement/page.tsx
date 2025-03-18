@@ -38,7 +38,7 @@ interface Achievement {
 }
 
 const AchievementPage: React.FC = () => {
-  const [stats, setStats] = useState<Stat[]>([]);
+  const [stats, setStats] = useState<Stat>();
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -94,10 +94,11 @@ const AchievementPage: React.FC = () => {
     fetchAchievements();
   }, [translations.achievement]);
 
-  const processAchievements = (value: number): 'gold' | 'silver' | 'bronze' | null => {
+  const processAchievements = (key: string, value: number): 'gold' | 'silver' | 'bronze' | 'platine' | null => {
     if (value >= 1000) return 'gold';
     else if (value >= 500) return 'silver';
     else if (value >= 100) return 'bronze';
+    else if (value >= 10) return 'platine';
     return null;
   };
 
@@ -107,22 +108,22 @@ const AchievementPage: React.FC = () => {
     let categoryStats;
     switch(category) {
       case "GLOBAL":
-        categoryStats = stats[0]?.global_stats;
+        categoryStats = stats?.global_stats;
         break;
       case "COMBAT":
-        categoryStats = stats[0]?.combat_stats;
+        categoryStats = stats?.combat_stats;
         break;
       case "HUNT":
-        categoryStats = stats[0]?.hunting_stats;
+        categoryStats = stats?.hunting_stats;
         break;
       case "FINANCE":
-        categoryStats = stats[0]?.finance_stats;
+        categoryStats = stats?.finance_stats;
         break;
       case "SOCIAL":
-        categoryStats = stats[0]?.social_stats;
+        categoryStats = stats?.social_stats;
         break;
       case "SPECIAL":
-        categoryStats = stats[0]?.special_stats;
+        categoryStats = stats?.special_stats;
         break;
       default:
         categoryStats = null;
@@ -131,7 +132,7 @@ const AchievementPage: React.FC = () => {
     if (!categoryStats) return null;
 
     return Object.entries(categoryStats).map(([key, value]) => {
-      const medal = processAchievements(value as number);
+      const medal = processAchievements(key, value as number);
       return (
         <div key={key} className="achievement-item">
           <div className={`achievement-medal ${medal || ''}`}>

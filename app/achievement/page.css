@@ -85,6 +85,10 @@ h1 {
   background: #cd7f32;
 }
 
+.achievement-medal.platine {
+  background: #adfcff;
+}
+
 .medal-icon {
   font-size: 20px;
 }
