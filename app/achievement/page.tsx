@@ -5,6 +5,7 @@ import { Loadtranslate } from "@/utils/translate";
 import { useEffect, useState } from "react";
 import { API_URL } from "@/config/config";
 import "./page.css";
+import AchievementWithTooltip from "@/components/pattern/AchievementWithTooltip";
 
 interface Translations {
   [key: string]: any;
@@ -94,7 +95,10 @@ const AchievementPage: React.FC = () => {
     fetchAchievements();
   }, [translations.achievement]);
 
-  const processAchievements = (key: string, value: number): 'gold' | 'silver' | 'bronze' | 'platine' | null => {
+  const processAchievements = (
+    key: string,
+    value: number
+  ): { rank: 'gold' | 'silver' | 'bronze' | 'platine' | null; nextThreshold: number | null } => {
     let bronze = 1, silver = 5, gold = 10, platine = 100;
   
     if (key.startsWith('a_')) {
@@ -128,12 +132,12 @@ const AchievementPage: React.FC = () => {
       platine = 100;
     }
 
-    if (value >= bronze) return 'bronze';
-    if (value >= silver) return 'silver';
-    if (value >= gold) return 'gold';
-    if (value >= platine) return 'platine';
+    if (value >= platine) return { rank: 'platine', nextThreshold: null };
+    if (value >= gold) return { rank: 'gold', nextThreshold: platine };
+    if (value >= silver) return { rank: 'silver', nextThreshold: gold };
+    if (value >= bronze) return { rank: 'bronze', nextThreshold: silver };
   
-    return null;
+    return { rank: null, nextThreshold: bronze };
   };
   
 
@@ -168,17 +172,21 @@ const AchievementPage: React.FC = () => {
 
     return Object.entries(categoryStats).map(([key, value]) => {
       const medal = processAchievements(key, value as number);
-      return (
-        <div key={key} className="achievement-item">
-          <div className={`achievement-medal ${medal || ''}`}>
-            {medal && <span className="medal-icon">🏆</span>}
-          </div>
-          <div className="achievement-info">
-            <h3>{translations.achievement?.[key] || key}</h3>
-            <p>{value as number}</p>
-          </div>
-        </div>
-      );
+      if (translations.achievement?.["achievement_" + key] && translations.achievement?.["achievement_" + key] != "TODO")
+      {
+        return (
+          <AchievementWithTooltip
+              key={key}
+              achievementKey={key}
+              medal={medal}
+              value={value as number}
+              translations={translations}
+            />
+        );
+      }
+      else{
+        return;
+      }
     });
   };
 
@@ -301,4 +309,4 @@ const AchievementPage: React.FC = () => {
   );
 };
 
-export default AchievementPage; 
+export default AchievementPage;
