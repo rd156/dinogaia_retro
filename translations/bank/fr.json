@@ -1,0 +1,22 @@
+{
+    "TITLE": "Banque",
+    "ACCOUNT": "Compte",
+    "BALANCE": "Solde",
+    "INTEREST_RATE": "Taux d'intérêt",
+    "DEPOSIT": "Dépôt",
+    "DEPOSIT_AMOUNT": "Montant à déposer",
+    "DEPOSIT_BUTTON": "Déposer",
+    "WITHDRAW": "Retrait",
+    "WITHDRAW_AMOUNT": "Montant à retirer",
+    "WITHDRAW_BUTTON": "Retirer",
+    "INVESTMENTS": "Investissements",
+    "SELECT_INVESTMENT": "Sélectionner un investissement",
+    "INVESTMENT_AMOUNT": "Montant à investir",
+    "INVEST_BUTTON": "Investir",
+    "CURRENT_INVESTMENTS": "Investissements actuels",
+    "TOTAL_INVESTMENTS": "Total investi",
+    "ERROR_LOAD_DATA": "Erreur lors du chargement des données",
+    "ERROR_DEPOSIT": "Erreur lors du dépôt",
+    "ERROR_WITHDRAW": "Erreur lors du retrait",
+    "ERROR_INVEST": "Erreur lors de l'investissement"
+} 

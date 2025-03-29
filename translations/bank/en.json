@@ -1,0 +1,22 @@
+{
+    "TITLE": "Bank",
+    "ACCOUNT": "Account",
+    "BALANCE": "Balance",
+    "INTEREST_RATE": "Interest Rate",
+    "DEPOSIT": "Deposit",
+    "DEPOSIT_AMOUNT": "Amount to deposit",
+    "DEPOSIT_BUTTON": "Deposit",
+    "WITHDRAW": "Withdraw",
+    "WITHDRAW_AMOUNT": "Amount to withdraw",
+    "WITHDRAW_BUTTON": "Withdraw",
+    "INVESTMENTS": "Investments",
+    "SELECT_INVESTMENT": "Select an investment",
+    "INVESTMENT_AMOUNT": "Amount to invest",
+    "INVEST_BUTTON": "Invest",
+    "CURRENT_INVESTMENTS": "Current Investments",
+    "TOTAL_INVESTMENTS": "Total invested",
+    "ERROR_LOAD_DATA": "Error loading data",
+    "ERROR_DEPOSIT": "Error depositing",
+    "ERROR_WITHDRAW": "Error withdrawing",
+    "ERROR_INVEST": "Error investing"
+} 
