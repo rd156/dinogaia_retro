@@ -31,5 +31,6 @@
     "MENU_SHOP_BID": "Auction",
     "MENU_SHOP_STORE": "Shop",
     "MENU_CASINO_MACHINE_777": "Slot Machine",
-    "MENU_CASINO_TICKET": "Scratch Ticket"
+    "MENU_CASINO_TICKET": "Scratch Ticket",
+    "MENU_ACHIEVEMENT": "Achievements"
 }

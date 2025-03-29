@@ -31,5 +31,7 @@
     "MENU_SHOP_BID": "Enchere",
     "MENU_SHOP_STORE": "Boutique",
     "MENU_CASINO_MACHINE_777": "Machine à sous",
-    "MENU_CASINO_TICKET": "Ticket à gratter"
+    "MENU_CASINO_TICKET": "Ticket à gratter",
+    "MENU_ACHIEVEMENT": "Achievements"
+
 }
