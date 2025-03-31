@@ -60,5 +60,8 @@
     "MODAL_BUY": "Acheter",
     "MODAL_CANCEL": "Annuler",
     "LOADING": "Chargement...",
-    "ACHAT_RESUME": "Achat de [Number] [Name] au prix de [Price] E"
+    "ACHAT_RESUME": "Achat de [Number] [Name] au prix de [Price] E",
+    "NO_OFFERS": "Pas d'offres",
+    "OFFERS_COUNT": "Nombre d'offres",
+    "ERR_LOAD_ITEMS": "Erreur lors du chargement des items"
 }  
