@@ -6,37 +6,21 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { API_URL } from "@/config/config";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import "./page.css";
-import ButtonFancy from "@/components/pattern/ButtonFancy";
-import ButtonNeon from "@/components/pattern/ButtonNeon";
+import { useRouter } from 'next/navigation';
 
 interface Translations {
   [key: string]: any;
 }
 
 interface Item {
-  name: string;
-  categorie: string;
+  item_name: string;
+  item_categorie: string;
   quantite: number;
-  price_min: number;
-  action?: {
-    use?: boolean;
-    eat?: boolean;
-    open?: boolean;
-  };
-}
-
-interface Info {
-  name: string;
-  description: string;
-  lvl: number;
-  security: number;
-  hygiene: number;
-  confort: number;
-  storage: number;
-  storage_max: number;
+  price: number;
 }
 
 const CavePage: React.FC = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
@@ -127,8 +111,7 @@ const CavePage: React.FC = () => {
   };
 
   const handleItemClick = (item: Item) => {
-    console.log(item)
-    setSelectedItem((prev) => (prev === item ? null : item));
+    router.push(`/shop/hdv/${item.item_name}`);
   };
 
   return (
@@ -149,8 +132,7 @@ const CavePage: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                {category === "LAST" ? translations.shop?.DISPLAY_CATEGORY_LAST : 
-                 translations.item?.['CATEGORY_'+ category] ?? category}
+                {category === "LAST" ? translations.shop?.DISPLAY_CATEGORY_LAST : translations.item?.['CATEGORY_'+ category] ?? category}
               </button>
             ))}
         </div>
@@ -174,12 +156,12 @@ const CavePage: React.FC = () => {
               acc.push({...item});
             }
             return acc;
-          }, [] as typeof items[string][])
+          }, [] as Item[])
           .filter(item => activeCategory === "LAST" || item.item_categorie === activeCategory)
           .map((item) => (
             <div
               key={item.item_name}
-              className="relative block_white center_item"
+              className="relative block_white center_item cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleItemClick(item)}
             >
               <ImageItemWithText 
