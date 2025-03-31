@@ -149,8 +149,7 @@ const CavePage: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                {category === "ALL" ? translations.shop?.DISPLAY_ALL : 
-                 category === "LAST" ? translations.shop?.LAST_ITEMS : 
+                {category === "LAST" ? translations.shop?.DISPLAY_CATEGORY_LAST : 
                  translations.item?.['CATEGORY_'+ category] ?? category}
               </button>
             ))}
@@ -170,6 +169,7 @@ const CavePage: React.FC = () => {
             const existingItem = acc.find(i => i.item_name === item.item_name);
             if (existingItem) {
               existingItem.quantite += item.quantite;
+              existingItem.price = Math.min(existingItem.price, item.price);
             } else {
               acc.push({...item});
             }
@@ -188,6 +188,9 @@ const CavePage: React.FC = () => {
                 translations={translations.item}
               />
               <p>{translations.item?.['ITEM_' + item.item_name] ?? item.item_name}</p>
+              <p style={{ color: '#4CAF50', fontWeight: 'bold' }}>
+                {item.price} 💰
+              </p>
             </div>
           ))}
         </div>
