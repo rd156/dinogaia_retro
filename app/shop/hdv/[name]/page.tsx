@@ -15,14 +15,21 @@ interface Translations {
   }
 
 interface Order {
+  id: number;
+  id_dino: number;
+  dino_name: string;
+  item: number;
+  quantite: number;
   price: number;
-  quantity: number;
-  type: 'buy' | 'sell';
+  price_total: number;
+  item_name: string;
+  item_categorie: string;
 }
 
 interface GroupedOrder {
   price: number;
   totalQuantity: number;
+  orders: Order[];
 }
 
 export default function ItemOrdersPage() {
@@ -44,24 +51,48 @@ export default function ItemOrdersPage() {
     }
   }, [option?.language]);
 
+  const groupOrdersByPrice = (orders: Order[] | undefined): GroupedOrder[] => {
+    if (!orders || !Array.isArray(orders)) return [];
+    
+    // Grouper les ordres par prix
+    const groupedByPrice = orders.reduce((acc: { [key: number]: Order[] }, order) => {
+      if (!acc[order.price]) {
+        acc[order.price] = [];
+      }
+      acc[order.price].push(order);
+      return acc;
+    }, {});
+
+    // Convertir en tableau et calculer les totaux
+    return Object.entries(groupedByPrice)
+      .map(([price, orders]) => ({
+        price: Number(price),
+        totalQuantity: orders.reduce((sum, order) => sum + order.quantite, 0),
+        orders: orders
+      }))
+      .sort((a, b) => a.price - b.price);
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/market/purchase_offer/sell`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+        const response = await fetch(`${API_URL}/market/list/item`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            item: name
+          })
+        });
         
         if (!response.ok) throw new Error('Failed to fetch orders');
         
         const data = await response.json();
-        
-        const groupedSells = groupOrdersByPrice(data.sells);
-        
+        console.log(data)
+        const groupedSells = groupOrdersByPrice(data);
         setSellOrders(groupedSells);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -69,50 +100,37 @@ export default function ItemOrdersPage() {
     };
 
     fetchOrders();
-  }, [name, translations]);
+  }, [name]);
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const fetchBuyOrders = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/market/purchase_offer/buy`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
+        const response = await fetch(`${API_URL}/market/purchase_offer/list/item`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            item: name
+          })
+        });
         
         if (!response.ok) throw new Error('Failed to fetch orders');
         
         const data = await response.json();
-        const groupedBuys = groupOrdersByPrice(data.buys);
+        // Les données sont directement un tableau, pas besoin d'accéder à .buys
+        const groupedBuys = groupOrdersByPrice(data);
         setBuyOrders(groupedBuys);
       } catch (error) {
-        console.error('Error fetching orders:', error);
+        console.error('Error fetching buy orders:', error);
+        setBuyOrders([]);
       }
     };
 
-    fetchOrders();
-  }, [name, translations]);
-  
-  const groupOrdersByPrice = (orders: Order[]): GroupedOrder[] => {
-    const grouped = orders.reduce((acc: { [key: number]: number }, order) => {
-      if (acc[order.price]) {
-        acc[order.price] += order.quantity;
-      } else {
-        acc[order.price] = order.quantity;
-      }
-      return acc;
-    }, {});
-
-    return Object.entries(grouped)
-      .map(([price, totalQuantity]) => ({
-        price: Number(price),
-        totalQuantity
-      }))
-      .sort((a, b) => a.price - b.price);
-  };
+    fetchBuyOrders();
+  }, [name]);
 
   return (
     <main className="content">
@@ -131,17 +149,27 @@ export default function ItemOrdersPage() {
                 {translations?.shop?.SELL_ORDERS ?? 'Ordres de vente'}
             </h2>
             <div className="space-y-2">
-                {sellOrders.map((order, index) => (
+                {sellOrders.map((groupedOrder) => (
                 <div 
-                    key={index}
-                    className="flex justify-between items-center p-2 hover:bg-gray-50 transition-colors"
+                    key={groupedOrder.price}
+                    className="p-2 hover:bg-gray-50 transition-colors border-b"
                 >
+                    <div className="flex justify-between items-center">
                     <span className="text-red-600 font-medium flex items-center gap-2">
-                    {order.price} <span className="text-lg">💰</span>
+                        {groupedOrder.price} <span className="text-lg">💰</span>
                     </span>
                     <span className="text-gray-600">
-                    {order.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
+                        {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
                     </span>
+                    </div>
+                    <div className="mt-1 text-sm text-gray-500">
+                    {groupedOrder.orders.map(order => (
+                        <div key={order.id} className="flex justify-between items-center text-xs">
+                        <span>{order.dino_name}</span>
+                        <span>{order.quantite} unités</span>
+                        </div>
+                    ))}
+                    </div>
                 </div>
                 ))}
                 {sellOrders.length === 0 && (
@@ -158,17 +186,27 @@ export default function ItemOrdersPage() {
                 {translations?.shop?.BUY_ORDERS ?? 'Ordres d\'achat'}
             </h2>
             <div className="space-y-2">
-                {buyOrders.map((order, index) => (
+                {buyOrders.map((groupedOrder) => (
                 <div 
-                    key={index}
-                    className="flex justify-between items-center p-2 hover:bg-gray-50 transition-colors"
+                    key={groupedOrder.price}
+                    className="p-2 hover:bg-gray-50 transition-colors border-b"
                 >
+                    <div className="flex justify-between items-center">
                     <span className="text-green-600 font-medium flex items-center gap-2">
-                    {order.price} <span className="text-lg">💰</span>
+                    {groupedOrder.price} <span className="text-lg">💰</span>
                     </span>
                     <span className="text-gray-600">
-                    {order.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
+                    {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
                     </span>
+                    </div>
+                    <div className="mt-1 text-sm text-gray-500">
+                    {groupedOrder.orders.map(order => (
+                        <div key={order.id} className="flex justify-between items-center text-xs">
+                        <span>{order.dino_name}</span>
+                        <span>{order.quantite} unités</span>
+                        </div>
+                    ))}
+                    </div>
                 </div>
                 ))}
                 {buyOrders.length === 0 && (
