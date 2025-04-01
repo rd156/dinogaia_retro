@@ -171,6 +171,7 @@ export default function ItemOrdersPage() {
       let endpoint = '';
       let body = {};
 
+      console.log(modalType);
       switch (modalType) {
         case 'buy':
           endpoint = `${API_URL}/market/purchase_offer/create`;
@@ -201,7 +202,9 @@ export default function ItemOrdersPage() {
 
       if (!response.ok) throw new Error('Failed to submit order');
 
-      // Rafraîchir les données
+      const data = await response.json();
+      console.log(data);
+      
       await Promise.all([fetchOrders(), fetchBuyOrders()]);
       setIsModalOpen(false);
       setQuantity(1);
