@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 interface ButtonNeonProps {
   onClick?: () => void;
   label?: string;
+  className?: string;
 }
 
-const ButtonNeon = ({ onClick, label = "" }: ButtonNeonProps) => {
+const ButtonNeon = ({ onClick, label = "", className = "" }: ButtonNeonProps) => {
   return (
     <motion.button
       whileHover={{
@@ -15,7 +16,7 @@ const ButtonNeon = ({ onClick, label = "" }: ButtonNeonProps) => {
       }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="px-6 py-3 text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-pink-300"
+      className={`px-6 py-3 text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-pink-300 ${className}`}
     >
       {label}
     </motion.button>

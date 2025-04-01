@@ -9,6 +9,7 @@ import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import { useParams } from "next/navigation";
+import { Dialog } from '@headlessui/react';
 
 interface Translations {
     [key: string]: any;
@@ -32,13 +33,38 @@ interface GroupedOrder {
   orders: Order[];
 }
 
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+  return (
+    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white p-4">
+          <Dialog.Title className="text-xl font-bold mb-4">{title}</Dialog.Title>
+          {children}
+        </Dialog.Panel>
+      </div>
+    </Dialog>
+  );
+};
+
 export default function ItemOrdersPage() {
   const { name } = useParams();
   const [sellOrders, setSellOrders] = useState<GroupedOrder[]>([]);
   const [buyOrders, setBuyOrders] = useState<GroupedOrder[]>([]);
   const {option} = useOption();
   const [translations, setTranslations] = useState<Translations>({});
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<'buy' | 'sell' | 'directBuy' | 'directSell' | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<GroupedOrder | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [price, setPrice] = useState<number>(0);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -73,152 +99,272 @@ export default function ItemOrdersPage() {
       .sort((a, b) => a.price - b.price);
   };
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/market/list/item`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            item: name
-          })
-        });
-        
-        if (!response.ok) throw new Error('Failed to fetch orders');
-        
-        const data = await response.json();
-        console.log(data)
-        const groupedSells = groupOrdersByPrice(data);
-        setSellOrders(groupedSells);
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-    };
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/market/list/item`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          item: name
+        })
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch orders');
+      
+      const data = await response.json();
+      const groupedSells = groupOrdersByPrice(data);
+      setSellOrders(groupedSells);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  };
 
+  const fetchBuyOrders = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/market/purchase_offer/list/item`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          item: name
+        })
+      });
+      
+      if (!response.ok) throw new Error('Failed to fetch orders');
+      
+      const data = await response.json();
+      const groupedBuys = groupOrdersByPrice(data);
+      setBuyOrders(groupedBuys);
+    } catch (error) {
+      console.error('Error fetching buy orders:', error);
+      setBuyOrders([]);
+    }
+  };
+
+  useEffect(() => {
     fetchOrders();
   }, [name]);
 
   useEffect(() => {
-    const fetchBuyOrders = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/market/purchase_offer/list/item`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            item: name
-          })
-        });
-        
-        if (!response.ok) throw new Error('Failed to fetch orders');
-        
-        const data = await response.json();
-        // Les données sont directement un tableau, pas besoin d'accéder à .buys
-        const groupedBuys = groupOrdersByPrice(data);
-        setBuyOrders(groupedBuys);
-      } catch (error) {
-        console.error('Error fetching buy orders:', error);
-        setBuyOrders([]);
-      }
-    };
-
     fetchBuyOrders();
   }, [name]);
+
+  const handleOpenModal = (type: 'buy' | 'sell' | 'directBuy' | 'directSell', order?: GroupedOrder) => {
+    setModalType(type);
+    setSelectedOrder(order || null);
+    if (order) {
+      setPrice(order.price);
+    }
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      let endpoint = '';
+      let body = {};
+
+      switch (modalType) {
+        case 'buy':
+          endpoint = `${API_URL}/market/purchase_offer/create`;
+          body = { item: name, quantity, price };
+          break;
+        case 'sell':
+          endpoint = `${API_URL}/market/create`;
+          body = { item: name, quantity, price };
+          break;
+        case 'directBuy':
+          endpoint = `${API_URL}/market/buy`;
+          body = { order_id: selectedOrder?.orders[0].id, quantity };
+          break;
+        case 'directSell':
+          endpoint = `${API_URL}/market/purchase_offer/sell`;
+          body = { order_id: selectedOrder?.orders[0].id, quantity };
+          break;
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) throw new Error('Failed to submit order');
+
+      // Rafraîchir les données
+      await Promise.all([fetchOrders(), fetchBuyOrders()]);
+      setIsModalOpen(false);
+      setQuantity(1);
+      setPrice(0);
+    } catch (error) {
+      console.error('Error submitting order:', error);
+    }
+  };
 
   return (
     <main className="content">
       <div className="content_top">
         <div className="container_page">
-        <div className="block_white mb-4">
+          <div className="block_white mb-4">
             <h1 className="text-2xl font-bold text-center mb-4">
-            {translations?.item?.['ITEM_' + name] ?? name}
+              {translations?.item?.['ITEM_' + name] ?? name}
             </h1>
-        </div>
+            <div className="flex justify-center gap-4 mt-4">
+              <ButtonFancy
+                label={translations?.shop?.CREATE_SELL_ORDER ?? 'Créer une offre de vente'}
+                onClick={() => handleOpenModal('sell')}
+              />
+              <ButtonFancy
+                label={translations?.shop?.CREATE_BUY_ORDER ?? 'Créer une offre d\'achat'}
+                onClick={() => handleOpenModal('buy')}
+              />
+            </div>
+          </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Ordres de vente */}
             <div className="block_white">
-            <h2 className="text-xl font-semibold mb-4 text-red-600 border-b pb-2">
+              <h2 className="text-xl font-semibold mb-4 text-red-600 border-b pb-2">
                 {translations?.shop?.SELL_ORDERS ?? 'Ordres de vente'}
-            </h2>
-            <div className="space-y-2">
+              </h2>
+              <div className="space-y-2">
                 {sellOrders.map((groupedOrder) => (
-                <div 
+                  <div 
                     key={groupedOrder.price}
                     className="p-2 hover:bg-gray-50 transition-colors border-b"
-                >
-                    <div className="flex justify-between items-center">
-                    <span className="text-red-600 font-medium flex items-center gap-2">
-                        {groupedOrder.price} <span className="text-lg">💰</span>
-                    </span>
-                    <span className="text-gray-600">
-                        {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
-                    </span>
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-8">
+                        <span className="text-red-600 font-medium flex items-center gap-2 min-w-[100px]">
+                          {groupedOrder.price} <span className="text-lg">💰</span>
+                        </span>
+                        <span className="text-gray-600">
+                          {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
+                        </span>
+                      </div>
+                      <ButtonNeon
+                        label={translations?.shop?.BUY ?? 'Acheter'}
+                        onClick={() => handleOpenModal('directBuy', groupedOrder)}
+                      />
                     </div>
                     <div className="mt-1 text-sm text-gray-500">
-                    {groupedOrder.orders.map(order => (
+                      {groupedOrder.orders.map(order => (
                         <div key={order.id} className="flex justify-between items-center text-xs">
-                        <span>{order.dino_name}</span>
-                        <span>{order.quantite} unités</span>
+                          <span>{order.dino_name}</span>
+                          <span>{order.quantite} unités</span>
                         </div>
-                    ))}
+                      ))}
                     </div>
-                </div>
+                  </div>
                 ))}
-                {sellOrders.length === 0 && (
-                <p className="text-center text-gray-500 py-4">
-                    {translations?.shop?.NO_SELL_ORDERS ?? 'Aucun ordre de vente'}
-                </p>
-                )}
-            </div>
+              </div>
             </div>
 
             {/* Ordres d'achat */}
             <div className="block_white">
-            <h2 className="text-xl font-semibold mb-4 text-green-600 border-b pb-2">
+              <h2 className="text-xl font-semibold mb-4 text-green-600 border-b pb-2">
                 {translations?.shop?.BUY_ORDERS ?? 'Ordres d\'achat'}
-            </h2>
-            <div className="space-y-2">
+              </h2>
+              <div className="space-y-2">
                 {buyOrders.map((groupedOrder) => (
-                <div 
+                  <div 
                     key={groupedOrder.price}
                     className="p-2 hover:bg-gray-50 transition-colors border-b"
-                >
-                    <div className="flex justify-between items-center">
-                    <span className="text-green-600 font-medium flex items-center gap-2">
-                    {groupedOrder.price} <span className="text-lg">💰</span>
-                    </span>
-                    <span className="text-gray-600">
-                    {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
-                    </span>
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-8">
+                        <span className="text-green-600 font-medium flex items-center gap-2 min-w-[100px]">
+                          {groupedOrder.price} <span className="text-lg">💰</span>
+                        </span>
+                        <span className="text-gray-600">
+                          {groupedOrder.totalQuantity} {translations?.shop?.UNITS ?? 'unités'}
+                        </span>
+                      </div>
+                      <ButtonNeon
+                        label={translations?.shop?.SELL ?? 'Vendre'}
+                        onClick={() => handleOpenModal('directSell', groupedOrder)}
+                      />
                     </div>
                     <div className="mt-1 text-sm text-gray-500">
-                    {groupedOrder.orders.map(order => (
+                      {groupedOrder.orders.map(order => (
                         <div key={order.id} className="flex justify-between items-center text-xs">
-                        <span>{order.dino_name}</span>
-                        <span>{order.quantite} unités</span>
+                          <span>{order.dino_name}</span>
+                          <span>{order.quantite} unités</span>
                         </div>
-                    ))}
+                      ))}
                     </div>
-                </div>
+                  </div>
                 ))}
-                {buyOrders.length === 0 && (
-                <p className="text-center text-gray-500 py-4">
-                    {translations?.shop?.NO_BUY_ORDERS ?? 'Aucun ordre d\'achat'}
-                </p>
-                )}
+              </div>
             </div>
-            </div>
-        </div>
+          </div>
         </div>
       </div>
+
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title={
+            modalType === 'buy' ? (translations?.shop?.CREATE_BUY_ORDER ?? 'Créer une offre d\'achat') :
+            modalType === 'sell' ? (translations?.shop?.CREATE_SELL_ORDER ?? 'Créer une offre de vente') :
+            modalType === 'directBuy' ? (translations?.shop?.DIRECT_BUY ?? 'Acheter directement') :
+            (translations?.shop?.DIRECT_SELL ?? 'Vendre directement')
+          }
+        >
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {translations?.shop?.QUANTITY ?? 'Quantité'}
+              </label>
+              <input
+                type="number"
+                min="1"
+                max={selectedOrder?.totalQuantity || 999999}
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              />
+            </div>
+            
+            {(modalType === 'buy' || modalType === 'sell') && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  {translations?.shop?.PRICE ?? 'Prix unitaire'}
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+            )}
+
+            <div className="flex justify-end gap-4 mt-4">
+              <ButtonFancy
+                label={translations?.global?.CANCEL ?? 'Annuler'}
+                onClick={() => setIsModalOpen(false)}
+              />
+              <ButtonFancy
+                label={translations?.global?.CONFIRM ?? 'Confirmer'}
+                onClick={handleSubmit}
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
     </main>
   );
 }
