@@ -167,6 +167,7 @@ export default function ItemOrdersPage() {
 
   const handleSubmit = async () => {
     const token = localStorage.getItem('token');
+    const dinoId = localStorage.getItem("dinoId");
     try {
       let endpoint = '';
       let body = {};
@@ -175,22 +176,19 @@ export default function ItemOrdersPage() {
       switch (modalType) {
         case 'buy':
           endpoint = `${API_URL}/market/purchase_offer/create`;
-          body = { item: name, quantity, price };
           break;
         case 'sell':
           endpoint = `${API_URL}/market/create`;
-          body = { item: name, quantity, price };
           break;
         case 'directBuy':
           endpoint = `${API_URL}/market/buy`;
-          body = { order_id: selectedOrder?.orders[0].id, quantity };
           break;
         case 'directSell':
           endpoint = `${API_URL}/market/purchase_offer/sell`;
-          body = { order_id: selectedOrder?.orders[0].id, quantity };
           break;
       }
-
+      body = { dinoId: dinoId, item: name, price: price, quantity: quantity};
+      console.log(body);
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -204,7 +202,7 @@ export default function ItemOrdersPage() {
 
       const data = await response.json();
       console.log(data);
-      
+
       await Promise.all([fetchOrders(), fetchBuyOrders()]);
       setIsModalOpen(false);
       setQuantity(1);
@@ -224,7 +222,7 @@ export default function ItemOrdersPage() {
             </h1>
             <div className="flex justify-center gap-4 mt-4">
               <ButtonFancy
-                label={translations?.shop?.CREATE_SELL_ORDER ?? 'Créer une offre de vente'}
+                label={translations?.shop?.SELL ?? 'Mettre en vente '}
                 onClick={() => handleOpenModal('sell')}
               />
               <ButtonFancy
