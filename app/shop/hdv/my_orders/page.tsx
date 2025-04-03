@@ -6,6 +6,7 @@ import { translate, Loadtranslate } from "@/utils/translate";
 import { API_URL } from "@/config/config";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import "./page.css";
+import ButtonFancyGreen from "@/components/pattern/ButtonFancyGreen";
 
 interface Translations {
   [key: string]: any;
@@ -43,18 +44,21 @@ export default function MyOrdersPage() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
+      const dinoId = localStorage.getItem("dinoId");
+      if (!token || !dinoId) {
+        console.error('No token or dinoId found');
         return;
       }
 
-      console.log('Fetching sell orders...');
       const response = await fetch(`${API_URL}/market/my`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-        }
+        },
+        body: JSON.stringify({
+          dinoId: dinoId
+        })
       });
       
       if (!response.ok) {
@@ -67,7 +71,6 @@ export default function MyOrdersPage() {
       console.log('Sell orders data:', data);
       setSellOrders(data);
     } catch (error) {
-      console.error('Error fetching orders:', error);
       setSellOrders([]);
     }
   };
@@ -75,23 +78,25 @@ export default function MyOrdersPage() {
   const fetchBuyOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
+      const dinoId = localStorage.getItem("dinoId");
+      if (!token || !dinoId) {
+        console.error('No token or dinoId found');
         return;
       }
 
-      console.log('Fetching buy orders...');
       const response = await fetch(`${API_URL}/market/purchase_offer/my`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-        }
+        },
+        body: JSON.stringify({
+          dinoId: dinoId
+        })
       });
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Error response:', errorData);
         throw new Error(`Failed to fetch buy orders: ${response.status} ${response.statusText}`);
       }
       
@@ -112,6 +117,12 @@ export default function MyOrdersPage() {
   const handleCancelOrder = async (orderId: number, isBuyOrder: boolean = false) => {
     try {
       const token = localStorage.getItem('token');
+      const dinoId = localStorage.getItem("dinoId");
+      if (!token || !dinoId) {
+        console.error('No token or dinoId found');
+        return;
+      }
+
       const endpoint = isBuyOrder 
         ? `${API_URL}/market/purchase_offer/cancel`
         : `${API_URL}/market/cancel`;
@@ -123,11 +134,15 @@ export default function MyOrdersPage() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          order_id: orderId
+          order_id: orderId,
+          dinoId: dinoId
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to cancel order');
+      if (!response.ok) throw new Error('Failed to submit order');
+
+      const data = await response.json();
+      console.log(data);
 
       // Rafraîchir les données
       await Promise.all([fetchOrders(), fetchBuyOrders()]);
@@ -144,6 +159,12 @@ export default function MyOrdersPage() {
             <h1 className="text-2xl font-bold text-center mb-4">
               {translations?.shop?.MY_ORDERS ?? 'Mes ventes et ordres achats'}
             </h1>
+            <div className="flex justify-center gap-4 mt-4">
+              <ButtonFancyGreen
+                label={translations?.shop?.HDV ?? 'Revenir a la liste des ventes'}
+                onClick={() => window.location.href = '/shop/hdv'}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
