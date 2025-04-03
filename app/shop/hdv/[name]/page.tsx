@@ -159,9 +159,27 @@ export default function ItemOrdersPage() {
   const handleOpenModal = (type: 'buy' | 'sell' | 'directBuy' | 'directSell', order?: GroupedOrder) => {
     setModalType(type);
     setSelectedOrder(order || null);
-    if (order) {
+    
+    if (type === 'sell') {
+      // Trouver le prix minimum parmi les ordres de vente
+      const minPrice = sellOrders.length > 0 
+        ? Math.min(...sellOrders.map(order => order.price))
+        : 0;
+      // Si un prix minimum existe, on le définit légèrement en dessous
+      setPrice(minPrice > 0 ? minPrice : 100);
+    } else if (type === 'buy') {
+      // Trouver le prix minimum parmi les offres d'achat
+      const minBuyPrice = buyOrders.length > 0 
+        ? Math.min(...buyOrders.map(order => order.price))
+        : 0;
+      // Si un prix minimum existe, on le définit légèrement en dessous
+      setPrice(minBuyPrice > 0 ? minBuyPrice : 10);
+    } else if (order) {
+      // Pour les achats/ventes directs, on utilise le prix de l'ordre sélectionné
       setPrice(order.price);
     }
+
+    setQuantity(1);
     setIsModalOpen(true);
   };
 
@@ -175,10 +193,10 @@ export default function ItemOrdersPage() {
       console.log(modalType);
       switch (modalType) {
         case 'buy':
-          endpoint = `${API_URL}/market/purchase_offer/create`;
+          endpoint = `${API_URL}/market/purchase_offer/buy`;
           break;
         case 'sell':
-          endpoint = `${API_URL}/market/create`;
+          endpoint = `${API_URL}/market/sell`;
           break;
         case 'directBuy':
           endpoint = `${API_URL}/market/buy`;
