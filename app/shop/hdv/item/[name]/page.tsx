@@ -7,6 +7,7 @@ import { API_URL } from "@/config/config";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
+import ButtonFancyGreen from "@/components/pattern/ButtonFancyGreen";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import { useParams } from "next/navigation";
 import { Dialog } from '@headlessui/react';
@@ -246,6 +247,10 @@ export default function ItemOrdersPage() {
               <ButtonFancy
                 label={translations?.shop?.CREATE_BUY_ORDER ?? 'Créer une offre d\'achat'}
                 onClick={() => handleOpenModal('buy')}
+              />
+              <ButtonFancyGreen
+                label={translations?.shop?.MY_ORDERS ?? 'Mes commandes'}
+                onClick={() => window.location.href = '/shop/hdv/my_orders'}
               />
             </div>
           </div>

@@ -111,7 +111,7 @@ const CavePage: React.FC = () => {
   };
 
   const handleItemClick = (item: Item) => {
-    router.push(`/shop/hdv/${item.item_name}`);
+    router.push(`/shop/hdv/item/${item.item_name}`);
   };
 
   return (

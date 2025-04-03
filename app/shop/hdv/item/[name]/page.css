@@ -1,0 +1,92 @@
+.container_page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.orders-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.orders-column {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.column-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #eee;
+}
+
+.sell-title {
+  color: #dc2626;
+}
+
+.buy-title {
+  color: #16a34a;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.order-row:hover {
+  background-color: #f8f8f8;
+}
+
+.price {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-sell {
+  color: #dc2626;
+}
+
+.price-buy {
+  color: #16a34a;
+}
+
+.quantity {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.coin-icon {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .orders-container {
+    flex-direction: column;
+  }
+  
+  .container_page {
+    padding: 0.5rem;
+  }
+}
