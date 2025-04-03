@@ -7,6 +7,7 @@ import { API_URL } from "@/config/config";
 import ImageItemWithText from "@/components/pattern/ImageItemWithText";
 import "./page.css";
 import { useRouter } from 'next/navigation';
+import ButtonFancyGreen from "@/components/pattern/ButtonFancyGreen";
 
 interface Translations {
   [key: string]: any;
@@ -117,6 +118,14 @@ const CavePage: React.FC = () => {
   return (
     <main className="content">
       <div className="content_top">
+        <div className="block_white mb-4">
+          <div className="flex justify-center gap-4 mt-4">
+            <ButtonFancyGreen
+              label={translations?.shop?.MY_ORDERS ?? 'Voir mes ventes'}
+              onClick={() => window.location.href = '/shop/hdv'}
+            />
+          </div>
+        </div>
         <div>
           {categories.map((category) => (
               <button
