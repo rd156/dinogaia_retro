@@ -48,7 +48,7 @@ const CavePage: React.FC = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const caveResponse = await fetch(`${API_URL}/market/list/last`, {
+        const caveResponse = await fetch(`${API_URL}/market/purchase_offer/list/last`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const CavePage: React.FC = () => {
       let response;
       const token = localStorage.getItem("token");
       if (category === "LAST") {
-        response = await fetch(`${API_URL}/market/list/last`, {
+        response = await fetch(`${API_URL}/market/purchase_offer/list/last`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const CavePage: React.FC = () => {
           },
         });
       } else {
-        response = await fetch(`${API_URL}/market/list/category`, {
+        response = await fetch(`${API_URL}/market/purchase_offer/list/category`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -121,12 +121,12 @@ const CavePage: React.FC = () => {
       <div className="content_top">
         <div className="block_white mb-4">
           <h1 className="text-2xl font-bold text-center mb-4">
-            {translations?.shop?.HDV_TITLE ?? 'Objets en vente'}
+            {translations?.shop?.HDV_PURCHASE_TITLE ?? 'Offres d\'achat'}
           </h1>
           <div className="flex justify-center gap-4 mt-4">
             <ButtonFancy
-              label={translations?.shop?.HDV_PURCHASE_BUTTON ?? 'Offres d\'achat'}
-              onClick={() => window.location.href = '/shop/hdv/purchase_offer'}
+              label={translations?.shop?.HDV_SELL_BUTTON ?? 'Items en vente'}
+              onClick={() => window.location.href = '/shop/hdv'}
             />
             <ButtonFancyGreen
               label={translations?.shop?.MY_ORDERS ?? 'Voir mes ventes'}
