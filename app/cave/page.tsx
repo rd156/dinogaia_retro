@@ -372,6 +372,10 @@ const CavePage: React.FC = () => {
                   <ButtonFancy onClick={() => handleButtonClick("open")} label={translations.cave?.USE} />
                 )}
                 <ButtonNeon onClick={() => handleButtonClick("sell_shop")} label={translations.cave?.SELL_SHOP_PRICE.replace("[Number]", Math.floor(selectedItem.item_price_min))} />
+                <ButtonFancy
+                  label={translations?.cave?.SELL_HDV ?? 'Vendre sur HDV'}
+                  onClick={() => window.location.href = '/shop/hdv/item/' + selectedItem.item_name}
+                />
               </div>
             </div>
           </div>

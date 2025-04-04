@@ -70,10 +70,7 @@ export default function Header() {
     removeStorageAccountData()
     window.location.href = "/";
   };
-    /*
-      [translations.menu['MENU_BANK']]: "#",
-      [translations.menu['MENU_OTHER']]: "#",
-    */
+  
     const menuConnectItems = translations && translations.menu ? {
       [translations.menu['MENU_MY_DINO']]: "/dino/actual",
       [translations.menu['MENU_MY_CAVE']]: "/cave",
@@ -85,7 +82,8 @@ export default function Header() {
       ],
       [translations.menu['MENU_SHOP']]: [
         { name: translations.menu['MENU_SHOP_BID'], link: "/shop/bid" },
-        { name: translations.menu['MENU_SHOP_STORE'], link: "/shop/store" }
+        { name: translations.menu['MENU_SHOP_STORE'], link: "/shop/store" },
+        { name: translations.menu['MENU_SHOP_HDV'], link: "/shop/hdv" }
       ],
       [translations.menu['MENU_QUEST']]: "/quest",
       [translations.menu['MENU_JOB']]: "/job",
