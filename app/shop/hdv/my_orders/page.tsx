@@ -157,7 +157,7 @@ export default function MyOrdersPage() {
         <div className="container_page">
           <div className="block_white mb-4">
             <h1 className="text-2xl font-bold text-center mb-4">
-              {translations?.shop?.MY_ORDERS ?? 'Mes ventes et ordres achats'}
+              {translations?.shop?.MY_SELL_AND_BUY_ORDERS ?? 'Mes ventes et ordres achats'}
             </h1>
             <div className="flex justify-center gap-4 mt-4">
               <ButtonFancyGreen

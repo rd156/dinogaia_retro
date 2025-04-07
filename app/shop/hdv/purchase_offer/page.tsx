@@ -129,7 +129,7 @@ const CavePage: React.FC = () => {
               onClick={() => window.location.href = '/shop/hdv'}
             />
             <ButtonFancyGreen
-              label={translations?.shop?.MY_ORDERS ?? 'Voir mes ventes'}
+              label={translations?.shop?.SEE_MY_ORDERS ?? 'Voir mes ventes'}
               onClick={() => window.location.href = '/shop/hdv/my_orders'}
             />
           </div>
