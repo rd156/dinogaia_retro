@@ -1,0 +1,22 @@
+{
+  "COMPANIONS_TITLE": "Mes compagnons",
+  "COMPANIONS_DESCRIPTION": "Vos compagnons sont vos fidèles alliés dans l'aventure.",
+  "NO_COMPANIONS": "Vous n'avez pas encore de compagnons",
+  "GET_COMPANION": "Obtenir un compagnon",
+  "SPECIE": "Espèce",
+  "DINO": "Dinosaure",
+  "PV": "Points de vie",
+  "FORCE": "Force",
+  "ENDURANCE": "Endurance",
+  "AGILITE": "Agilité",
+  "INTELLIGENCE": "Intelligence",
+  "LOYALTE": "Loyauté",
+  "BONHEUR": "Bonheur",
+  "LEVEL": "Niveau",
+  "EXPERIENCE": "Expérience",
+  "CREATED_AT": "Créé le",
+  "NOT_AVAILABLE": "Non disponible",
+  "CAN_HAVE_MORE_COMPANIONS": "Vous pouvez avoir jusqu'à 3 compagnons",
+  "GET_MORE_COMPANIONS": "Obtenir plus de compagnons",
+  "ERR_LOAD_COMPANIONS": "Erreur lors du chargement des compagnons"
+} 
