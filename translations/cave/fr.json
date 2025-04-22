@@ -45,5 +45,6 @@
     "CAVE_BUTTON": "Retourner dans ma grotte",
     "RENCONTRE_BUTTON": "Allez voir la rencontre",
     "RENCONTRE_TITLE": "Rencontre du jour",
-    "RENCONTRE_CAVE_SOMEONE": "Il y a quelqu'un devant votre grotte."
+    "RENCONTRE_CAVE_SOMEONE": "Il y a quelqu'un devant votre grotte.",
+    "SEE_COMPAGNON": "Voir mes compagnon(s)"
 }

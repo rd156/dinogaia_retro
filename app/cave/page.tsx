@@ -9,6 +9,7 @@ import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonGlow from "@/components/pattern/ButtonGlow";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
+import ButtonFancyGreen from "@/components/pattern/ButtonFancyGreen";
 
 interface Translations {
   [key: string]: any;
@@ -325,7 +326,11 @@ const CavePage: React.FC = () => {
                   </h3>
                 </div>
               )}
-              <ButtonGlow onClick={() => { window.location.href = "/cave/craft"; }} label={translations.cave?.CRAFT_BUTTON} />
+
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center'}}>
+                <ButtonGlow onClick={() => { window.location.href = "/cave/craft"; }} label={translations.cave?.CRAFT_BUTTON} />
+                <ButtonFancyGreen onClick={() => { window.location.href = "/compagnon"; }} label={translations.cave?.SEE_COMPAGNON} />
+              </div>
             </div>
         </div>
         <div>
