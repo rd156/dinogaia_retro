@@ -405,7 +405,7 @@ export default function CompanionsPage() {
                             <option value="">{translations?.companion?.SELECT_EVENT ?? "Sélectionner un événement"}</option>
                             {companion.possible_events.map((event, index) => (
                               <option key={index} value={event.name}>
-                                {event.name} ({event.duration_minutes} min)
+                                {translations?.companion?.["action_" + event.name] ?? event.name} ({event.duration_minutes} min)
                               </option>
                             ))}
                           </select>

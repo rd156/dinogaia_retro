@@ -18,5 +18,12 @@
   "NOT_AVAILABLE": "Not available",
   "CAN_HAVE_MORE_COMPANIONS": "You can have up to 3 companions",
   "GET_MORE_COMPANIONS": "You can get more companions",
-  "ERR_LOAD_COMPANIONS": "Error loading companions"
+  "ERR_LOAD_COMPANIONS": "Error loading companions",
+  "SEE_COMPANION": "See my companion(s)",
+  "action_fouille_riviere": "River excavation",
+  "action_attaque_crocodile": "Crocodile attack",
+  "action_peche_novice": "Novice fishing",
+  "action_peche": "Fishing",
+  "action_peche_expert": "Expert fishing",
+  "action_couper_bois": "Cutting wood"
 } 

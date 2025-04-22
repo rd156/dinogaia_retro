@@ -18,5 +18,12 @@
   "NOT_AVAILABLE": "Non disponible",
   "CAN_HAVE_MORE_COMPANIONS": "Vous pouvez avoir jusqu'à 3 compagnons",
   "GET_MORE_COMPANIONS": "Vous pouvez obtenir plus de compagnons",
-  "ERR_LOAD_COMPANIONS": "Erreur lors du chargement des compagnons"
+  "ERR_LOAD_COMPANIONS": "Erreur lors du chargement des compagnons",
+  "SEE_COMPANION": "Voir mes compagnon(s)",
+  "action_fouille_riviere": "Fouille de rivière",
+  "action_attaque_crocodile": "Attaque crocodile",
+  "action_peche_novice": "Pêche novice",
+  "action_peche": "Pêche",
+  "action_peche_expert": "Pêche expert",
+  "action_couper_bois": "Couper bois"
 } 
