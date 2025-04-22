@@ -9,6 +9,7 @@ import "./page.css";
 import ButtonFancy from "@/components/pattern/ButtonFancy";
 import ButtonNeon from "@/components/pattern/ButtonNeon";
 import ItemWithTooltip from "@/components/pattern/ItemWithTooltip";
+import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 
 interface Translations {
   [key: string]: any;
@@ -22,6 +23,38 @@ interface Product {
   [key: string]: any;
 }
 
+interface Companion {
+  id: number;
+  name: string;
+  specie_name: string;
+  dino: number;
+  dino_name: string;
+  pv: number;
+  force: number;
+  endurance: number;
+  agilite: number;
+  intelligence: number;
+  taille: number;
+  poids: number;
+  degat: number;
+  defense: number;
+  vitesse: number;
+  perception: number;
+  entretien: number;
+  niveau: number;
+  xp: number;
+  xp_max: number;
+  loyauté: number;
+  bonheur: number;
+  created_at: string | null;
+  is_busy: boolean;
+  busy_until: string | null;
+  current_event: string | null;
+  current_event_name: string | null;
+  time_remaining: number;
+  possible_events: any[];
+}
+
 const StoreDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
@@ -33,10 +66,14 @@ const StoreDetailPage: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const [showCompanions, setShowCompanions] = useState<boolean>(false);
+  const [companions, setCompanions] = useState<Companion[]>([]);
+  const [companionsLoading, setCompanionsLoading] = useState<boolean>(false);
+  const [selectedCompanion, setSelectedCompanion] = useState<Companion | null>(null);
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const loadedTranslations = await Loadtranslate(option?.language, ["item", "shop", "pnj", "error", "global"]);
+      const loadedTranslations = await Loadtranslate(option?.language, ["item", "shop", "pnj", "error", "global", "companion"]);
       setTranslations(loadedTranslations);
     };
 
@@ -75,6 +112,42 @@ const StoreDetailPage: React.FC = () => {
       fetchStoreDetail();
     }
   }, [params.name, translations]);
+
+  const fetchCompanions = async () => {
+    try {
+      setCompanionsLoading(true);
+      const token = localStorage.getItem('token');
+      const dinoId = localStorage.getItem("dinoId");
+      
+      if (!token || !dinoId) {
+        setErrorMessage(translations?.global?.NOT_LOGGED_IN ?? "Vous devez être connecté");
+        return;
+      }
+      
+      const response = await fetch(`${API_URL}/compagnon/shop/${params.name}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch companions');
+      }
+      
+      const data = await response.json();
+      console.log(data);
+      setCompanions(data);
+      setErrorMessage("");
+    } catch (error) {
+      console.error('Error fetching companions:', error);
+      setErrorMessage(translations?.companion?.ERR_LOAD_COMPANIONS ?? "Erreur lors du chargement des compagnons");
+    } finally {
+      setCompanionsLoading(false);
+    }
+  };
 
   const handleBuyProduct = async (selectedProduct: Product) => {
     if (!selectedProduct) return;
@@ -128,6 +201,51 @@ const StoreDetailPage: React.FC = () => {
     }
   };
 
+  const toggleCompanionsView = () => {
+    setShowCompanions(!showCompanions);
+    if (!showCompanions && companions.length === 0) {
+      fetchCompanions();
+    }
+  };
+
+  const handleRecruitCompanion = async (companion: Companion) => {
+    try {
+      const token = localStorage.getItem('token');
+      const dinoId = localStorage.getItem("dinoId");
+      
+      if (!token || !dinoId) {
+        setErrorMessage(translations?.global?.NOT_LOGGED_IN ?? "Vous devez être connecté");
+        return;
+      }
+      
+      const response = await fetch(`${API_URL}/compagnon/${dinoId}/recruit/${companion.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          dinoId: dinoId
+        })
+      });
+      
+      const result = await response.json();
+      console.log(result)
+      if (result === 'max_companions_reached') {
+        setErrorMessage(translations?.companion?.MAX_COMPANIONS_REACHED ?? "Vous avez atteint la limite maximale de compagnons");
+      }
+      else
+      {
+        setMessage(translations?.companion?.RECRUIT_SUCCESS ?? "Compagnon recruté avec succès");
+        setSelectedCompanion(null);
+        fetchCompanions();
+      }
+    } catch (error) {
+      console.error('Error recruiting companion:', error);
+      setErrorMessage(error instanceof Error ? error.message : (translations?.companion?.ERR_RECRUIT_COMPANION ?? "Erreur lors du recrutement du compagnon"));
+    }
+  };
+
   if (loading) return <p className="text-center">{translations.shop?.LOADING}</p>;
 
   return (
@@ -141,57 +259,134 @@ const StoreDetailPage: React.FC = () => {
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_OWNER}</strong> {translations.pnj?.["pnj_" + store?.pnj_name]}</p>
           <p style={{textAlign:"center"}}><strong>{translations.shop?.TITLE_SHOP_TYPE}</strong> {translations.shop?.['DISPLAY_CATEGORY_' + store?.category_name]}</p>
           <br />
-          <div style={{textAlign:"center"}} className="buttons">
+          <div style={{textAlign:"center"}} className="buttons flex justify-center gap-4">
             <ButtonNeon label={translations.shop?.BACK_STORE_LIST} onClick={() => router.push("/shop/store")} />
+            <ButtonNeon 
+              label={showCompanions ? translations.shop?.SHOW_PRODUCTS ?? "Voir les produits" : translations.shop?.SHOW_CLIENTS ?? "Voir les clients"} 
+              onClick={toggleCompanionsView} 
+            />
           </div>
         </div>
-        <div className="mt-6 max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
 
         {errorMessage && (
-          <p className="alert-red">{errorMessage}</p>
+          <div className="mt-6 max-w-2xl mx-auto">
+            <p className="alert-red">{errorMessage}</p>
+          </div>
         )}
+        
         {message && (
-          <p className="alert-green">{message}</p>
+          <div className="mt-6 max-w-2xl mx-auto">
+            <p className="alert-green">{message}</p>
+          </div>
         )}
-          <h3 className="text-lg font-semibold">{translations.shop?.PRODUCTS_LIST}</h3>
-          <table className="w-full mt-4 border-collapse text-center">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="p-2">{translations.shop?.PRODUCT_NAME}</th>
-                <th className="p-2">{translations.shop?.PRICE}</th>
-                <th className="p-2">{translations.shop?.LIMIT}</th>
-                <th className="p-2">{translations.shop?.BUY}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {store?.products?.map((product: any) => (
-                <tr key={product.item_name} className="border-b">
-                  <td className="p-2 relative">
-                    <ItemWithTooltip 
-                      itemName={product.item_name}
-                      translations={translations.item}
-                    />
-                  </td>
-                  <td className="p-2">{translations.shop?.DISPLAY_PRICE.replace("[Number]", product.price)}</td>
-                  <td className="p-2">
-                    {product.have_limit 
-                      ? product.limit === 0 
-                        ? <span className="text-red-500">{translations.shop?.RUPTURE_OF_STOCK}</span>
-                        : <span className="text-green-800">{translations.shop?.QUANTITY_LIMIT.replace("[Number]", product.limit)}</span>
-                      : <span className="text-green-800">{translations.shop?.QUANTITY_NO_LIMIT}</span>
-                    }
-                  </td>
-                  <td className="p-2">
-                    {product.have_limit && product.limit === 0 
-                      ? null
-                      : <ButtonFancy label="Acheter" onClick={() => setSelectedProduct(product)} />
-                    }
-                  </td>
+
+        {!showCompanions ? (
+          <div className="mt-6 max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
+            <h3 className="text-lg font-semibold">{translations.shop?.PRODUCTS_LIST}</h3>
+            <table className="w-full mt-4 border-collapse text-center">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="p-2">{translations.shop?.PRODUCT_NAME}</th>
+                  <th className="p-2">{translations.shop?.PRICE}</th>
+                  <th className="p-2">{translations.shop?.LIMIT}</th>
+                  <th className="p-2">{translations.shop?.BUY}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {store?.products?.map((product: any) => (
+                  <tr key={product.item_name} className="border-b">
+                    <td className="p-2 relative">
+                      <ItemWithTooltip 
+                        itemName={product.item_name}
+                        translations={translations.item}
+                      />
+                    </td>
+                    <td className="p-2">{translations.shop?.DISPLAY_PRICE.replace("[Number]", product.price)}</td>
+                    <td className="p-2">
+                      {product.have_limit 
+                        ? product.limit === 0 
+                          ? <span className="text-red-500">{translations.shop?.RUPTURE_OF_STOCK}</span>
+                          : <span className="text-green-800">{translations.shop?.QUANTITY_LIMIT.replace("[Number]", product.limit)}</span>
+                        : <span className="text-green-800">{translations.shop?.QUANTITY_NO_LIMIT}</span>
+                      }
+                    </td>
+                    <td className="p-2">
+                      {product.have_limit && product.limit === 0 
+                        ? null
+                        : <ButtonFancy label="Acheter" onClick={() => setSelectedProduct(product)} />
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="mt-6 max-w-2xl mx-auto p-6 border rounded-lg shadow-md block_white">
+            <h3 className="text-lg font-semibold">{translations.shop?.COMPANIONS_LIST ?? "Compagnons disponibles"}</h3>
+            
+            {companionsLoading ? (
+              <p className="text-center mt-4">{translations.shop?.LOADING}</p>
+            ) : companions.length === 0 ? (
+              <p className="text-center mt-4">{translations.shop?.NO_COMPANIONS ?? "Aucun compagnon disponible"}</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                {companions.map((companion) => (
+                  <div key={companion.id} className="border rounded-lg p-4 cursor-pointer hover:bg-gray-50" onClick={() => setSelectedCompanion(companion)}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-300">
+                          <ImageGeneriqueWithText 
+                            imageType="compagnon"
+                            imageName={companion.specie_name}
+                            defaultType="compagnon"
+                            defaultName={companion.name}
+                            width={64}
+                            height={64}
+                            alt={`Image de ${companion.name}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p className="text-sm">{translations.companion?.["TYPE_" + companion.specie_name] ?? companion.specie_name}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm"><strong>{translations.companion?.ENTRETIEN ?? "Entretien"}:</strong> {companion.entretien} E</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.FORCE ?? "Force"}:</strong></span>
+                        <span className="text-sm">{companion.force}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.ENDURANCE ?? "Endurance"}:</strong></span>
+                        <span className="text-sm">{companion.endurance}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.AGILITE ?? "Agilité"}:</strong></span>
+                        <span className="text-sm">{companion.agilite}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.INTELLIGENCE ?? "Intelligence"}:</strong></span>
+                        <span className="text-sm">{companion.intelligence}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.TAILLE ?? "Taille"}:</strong></span>
+                        <span className="text-sm">{companion.taille} cm</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm"><strong>{translations.companion?.POIDS ?? "Poids"}:</strong></span>
+                        <span className="text-sm">{companion.poids} kg</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {selectedProduct && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -222,6 +417,43 @@ const StoreDetailPage: React.FC = () => {
               <div className="flex justify-between mt-4">
                 <ButtonNeon label={translations.shop?.MODAL_CANCEL} onClick={() => setSelectedProduct(null)} />
                 <ButtonFancy label={translations.shop?.MODAL_BUY} onClick={() => handleBuyProduct(selectedProduct)} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {selectedCompanion && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+              <h3 className="text-lg font-semibold mb-4">{translations.companion?.RECRUIT_CONFIRM ?? "Confirmer le recrutement"}</h3>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-20 h-20 rounded-full overflow-hidden border border-gray-300">
+                  <ImageGeneriqueWithText 
+                    imageType="compagnon"
+                    imageName={selectedCompanion.specie_name}
+                    defaultType="compagnon"
+                    defaultName={selectedCompanion.name}
+                    width={80}
+                    height={80}
+                    alt={`Image de ${selectedCompanion.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-semibold">{selectedCompanion.name}</h4>
+                  <p className="text-sm text-gray-600">{translations.companion?.["TYPE_" + selectedCompanion.specie_name] ?? selectedCompanion.specie_name}</p>
+                </div>
+              </div>
+              <p className="mb-4">{translations.companion?.RECRUIT_CONFIRM_MESSAGE ?? "Êtes-vous sûr de vouloir recruter ce compagnon ?"}</p>
+              <div className="flex justify-end gap-4">
+                <ButtonNeon 
+                  label={translations.companion?.CANCEL ?? "Annuler"} 
+                  onClick={() => setSelectedCompanion(null)} 
+                />
+                <ButtonFancy 
+                  label={translations.companion?.RECRUIT ?? "Recruter"} 
+                  onClick={() => handleRecruitCompanion(selectedCompanion)} 
+                />
               </div>
             </div>
           </div>

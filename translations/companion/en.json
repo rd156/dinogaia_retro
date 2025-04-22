@@ -20,6 +20,8 @@
   "GET_MORE_COMPANIONS": "You can get more companions",
   "ERR_LOAD_COMPANIONS": "Error loading companions",
   "SEE_COMPANION": "See my companion(s)",
+  "TYPE_loutre_geante": "Giant otter",
+  "TYPE_castor": "Beaver",
   "action_fouille_riviere": "River excavation",
   "action_attaque_crocodile": "Crocodile attack",
   "action_peche_novice": "Novice fishing",
