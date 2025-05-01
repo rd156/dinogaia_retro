@@ -9,6 +9,7 @@ import ButtonFancy from "@/components/pattern/ButtonFancy";
 import "./page.css";
 import ImageGeneriqueWithText from "@/components/pattern/ImageGeneriqueWithText";
 import ButtonFancyGreen from "@/components/pattern/ButtonFancyGreen";
+import Link from "next/link";
 
 interface Translations {
   [key: string]: any;
@@ -72,6 +73,24 @@ export default function CompanionsPage() {
       fetchTranslations();
     }
   }, [option?.language]);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const fetchCompanions = async () => {
     try {
@@ -264,6 +283,9 @@ export default function CompanionsPage() {
         })
       });
       
+      const data = await response.json();
+      console.log(data);
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to start event');
@@ -274,7 +296,11 @@ export default function CompanionsPage() {
       
       setShowEventSelector(null);
       setSelectedEvent("");
-      setMessage(translations?.companion?.EVENT_STARTED ?? "Événement démarré avec succès");
+      if (data == "loyaute_insuffisante") {
+        setError(translations?.companion?.DEMISSION_LOYAUTE_INSUFFISANTE ?? "Demission pour cause de loyaute insuffisante");
+      } else {
+        setMessage(translations?.companion?.EVENT_STARTED ?? "Événement démarré avec succès");
+      }
       
       // Effacer le message après 3 secondes
       setTimeout(() => {
@@ -316,16 +342,18 @@ export default function CompanionsPage() {
               <div key={companion.id} className="block_white p-4">
                 <div className="flex flex-col items-center">
                   <div style={{ border: '1px solid #ccc', padding: '10px', margin: '5px', display: 'flex', alignItems: 'center'}} className='block_white'>
-                    <ImageGeneriqueWithText 
-                      imageType="compagnon"
-                      imageName={companion.specie_name}
-                      defaultType="compagnon"
-                      defaultName={companion.name}
-                      width={200}
-                      height={200}
-                      alt="Image du compagnon"
-                      className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 object-cover rounded"
-                    />
+                    <Link href={`/compagnon/${companion.id}`}>
+                      <ImageGeneriqueWithText 
+                        imageType="compagnon"
+                        imageName={companion.specie_name}
+                        defaultType="compagnon"
+                        defaultName={companion.name}
+                        width={200}
+                        height={200}
+                        alt="Image du compagnon"
+                        className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 object-cover rounded"
+                      />
+                    </Link>
                   </div>
                   
                   {editingId === companion.id ? (
